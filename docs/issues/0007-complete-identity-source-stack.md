@@ -46,6 +46,10 @@ replayable parsers, explicit coverage tests, and no downstream market decisions.
   separate semantic fields with their original page/x/y/font/size/text fragments.
   All current identity and delegated endpoints are validated; none enters the
   canonical-market queue by parser side effect.
+- Independent exact-head review found that derived semantic text inserted spaces
+  after single hyphens at physical line wraps. Reconstruction now rejoins those
+  compounds and reads illustrative-example columns independently; regression cases
+  cover `air-conditioning`, `one-half`, `residential-type`, and `peer-to-peer`.
 
 ## Open source gaps
 

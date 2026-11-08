@@ -151,11 +151,65 @@ def _flatten_lines(lines: list[dict[str, object]]) -> tuple[dict[str, object], .
     )
 
 
-def _derived_line_text(lines: list[dict[str, object]]) -> str:
+def _join_derived_lines(lines: list[dict[str, object]]) -> str:
+    result = ""
+    for line in lines:
+        text = _join_pdf_spans(line["spans"])  # type: ignore[arg-type]
+        if not text:
+            continue
+        if result and result.endswith("-") and not result.endswith("--"):
+            result += text.lstrip()
+        elif result:
+            result += f" {text}"
+        else:
+            result = text
+    return _clean(result)
+
+
+def _derived_line_text(
+    lines: list[dict[str, object]],
+    *,
+    two_column: bool = False,
+) -> str:
+    if not two_column or not lines:
+        return _join_derived_lines(lines)
+
+    marker_lines: list[dict[str, object]] = []
+    content_lines = lines
+    first_text = _join_pdf_spans(lines[0]["spans"])  # type: ignore[arg-type]
+    if re.sub(r"[\s-]", "", first_text.lower()).startswith(
+        "illustrativeexamples:"
+    ):
+        marker_lines = lines[:1]
+        content_lines = lines[1:]
+
+    left_lines: list[dict[str, object]] = []
+    right_lines: list[dict[str, object]] = []
+    for line in content_lines:
+        left_spans = [
+            span
+            for span in line["spans"]  # type: ignore[union-attr]
+            if float(span["x"]) < 300.0
+        ]
+        right_spans = [
+            span
+            for span in line["spans"]  # type: ignore[union-attr]
+            if float(span["x"]) >= 300.0
+        ]
+        if left_spans:
+            left_lines.append({**line, "spans": left_spans})
+        if right_spans:
+            right_lines.append({**line, "spans": right_spans})
+
     return _clean(
         " ".join(
-            _join_pdf_spans(line["spans"])  # type: ignore[arg-type]
-            for line in lines
+            value
+            for value in (
+                _join_derived_lines(marker_lines),
+                _join_derived_lines(left_lines),
+                _join_derived_lines(right_lines),
+            )
+            if value
         )
     )
 
@@ -309,7 +363,10 @@ def parse_naics_manual_definitions() -> tuple[NaicsManualDefinition, ...]:
                 end_page=int(end_line["page"]),
                 end_y=round(float(end_line["y"]), 2),
                 narrative_text=narrative_text,
-                illustrative_examples_text=_derived_line_text(illustration_lines),
+                illustrative_examples_text=_derived_line_text(
+                    illustration_lines,
+                    two_column=True,
+                ),
                 cross_references_text=_derived_line_text(cross_lines),
                 delegated_to_code=delegated_to,
                 heading_fragments=_flatten_lines(heading),

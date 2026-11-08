@@ -135,6 +135,22 @@ class NaicsIdentitySourcesTest(unittest.TestCase):
         )
         self.assertEqual(split_target.delegated_to_code, "541120")
 
+    def test_manual_semantic_text_preserves_line_wrapped_compounds(self) -> None:
+        definitions = {
+            item.naics_2022_code: item for item in parse_naics_manual_definitions()
+        }
+        self.assertIn("air-conditioning", definitions["238220"].narrative_text)
+        self.assertNotIn("air- conditioning", definitions["238220"].narrative_text)
+        self.assertIn(
+            "residential-type, installation",
+            definitions["238350"].illustrative_examples_text,
+        )
+        self.assertIn(
+            "peer-to-peer payment services",
+            definitions["522320"].illustrative_examples_text,
+        )
+        self.assertIn("one-half", definitions["111140"].cross_references_text)
+
     def test_full_concordance_directions_are_exact_reverses(self) -> None:
         counts = self.summary["full_concordance"]
         self.assertEqual(counts["forward_rows"], 1_150)

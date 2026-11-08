@@ -24,7 +24,7 @@
     "products_by_industry_unique_national_six_digit_pairs": 28521,
     "trilateral_to_collection_rows": 3520
   },
-  "immutable_run_path": "data/runs/run-878a8a857baae3893d78",
+  "immutable_run_path": "data/runs/run-fa62acff549546942699",
   "multisource_counts": {
     "naics_nodes": 2125,
     "naics_six_digit": 1012,
@@ -46,9 +46,9 @@
     "identity-relationships.json.gz": "e3753b2902723245369fa01aae42b23b95ac641b3f8194d43b36f3421e9f06b7",
     "identity-source-summary.json.gz": "b7b4fa9685b98f292b9c1365df1577a3bf221e21dfe2591992284c5955e4f6ee",
     "multisource-reconciliation.json.gz": "12e2c9387788a7d08730e8c22ede2b4caed1717c689c59f0930a7f71511ef237",
-    "naics-identity-evidence.json.gz": "57b7ba518e9fe6966a1de8dbb8ccf499b0270d45cde66eaf22a38b586118b6e6",
+    "naics-identity-evidence.json.gz": "1653445bbe42f56d5d8076857fe9b9a9d1ea8d3eb31685bd03295975c8863952",
     "naics-identity-source-summary.json.gz": "d943d1dfa1a9ac8974f1d28219241e1d38091ad1e34541a8367ab31a0d7efefe",
-    "raw-source-hierarchy.json.gz": "29607d9bfc32f592dcb49bc99793a975871e4aadd8e7d97e7ab977e0894ac2f6"
+    "raw-source-hierarchy.json.gz": "2e765772fde401ca4e817ce5a1691e5016bf293c8bf81783ae960931cdb1eec2"
   },
   "reconciliation_mapping_counts": {
     "ambiguous_or_semantically_conflicted_review": 36,
@@ -58,7 +58,7 @@
   },
   "research_scores": 0,
   "run_config": {
-    "code_fingerprint": "d3507040aa50d910dbd3e86f5879c720716bad376baa7d6701a2bcdcdecc4c26",
+    "code_fingerprint": "b1fb4f32091b70d9c9f076be307491bc13cf5e94e42a0b131f2f852adf6523c2",
     "dependency_versions": {
       "pypdf": "6.21.4"
     },
@@ -75,7 +75,7 @@
     "source_sha256": "217c9e0d4d74e7517bc288f5f308b73aa0de5ee787976a6dd222412be28ada22",
     "strategy_config_sha256": "482f49180ff58d7957ec8c220f1c7dfa0e2aa1140f6f9ecc5afd21be0d98d431"
   },
-  "run_id": "run-878a8a857baae3893d78",
+  "run_id": "run-fa62acff549546942699",
   "schema_version": 1,
   "six_digit_source_categories": 1012,
   "source_nodes": 2125,
