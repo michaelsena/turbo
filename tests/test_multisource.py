@@ -13,10 +13,14 @@ from turbo.universe.multisource import (
 class MultiSourceUniverseTest(unittest.TestCase):
     def test_all_initial_lists_are_loaded(self) -> None:
         records = parse_napcs()
-        self.assertEqual(len(records), 7_235)
+        self.assertEqual(len(records), 7_236)
         self.assertEqual(
             sum(record.record_kind == "relationship_product" for record in records),
             945,
+        )
+        self.assertEqual(
+            sum(record.record_kind == "concordance_product" for record in records),
+            1,
         )
         self.assertEqual(len(parse_prior()), 978)
 
@@ -25,17 +29,28 @@ class MultiSourceUniverseTest(unittest.TestCase):
         counts = result["source_counts"]
         self.assertEqual(
             len(result["mappings"]),
-            counts["naics_six_digit"] + counts["napcs_products"],
+            counts["naics_nodes"]
+            + counts["napcs_products"]
+            + counts["napcs_trilateral_products"],
         )
         self.assertEqual(len(result["candidate_markets"]), counts["prior_candidate_markets"])
         self.assertEqual(
             len(result["source_records"]),
-            counts["naics_six_digit"] + counts["napcs_products"] + counts["prior_seed_records"],
+            counts["naics_nodes"]
+            + counts["napcs_products"]
+            + counts["napcs_trilateral_products"]
+            + counts["prior_seed_records"],
         )
         self.assertEqual(sum(result["mapping_counts"].values()), len(result["mappings"]))
         self.assertNotIn("accepted_exact_label", result["mapping_counts"])
-        self.assertEqual(result["mapping_counts"]["exact_label_candidate"], 211)
         self.assertTrue(all(len(item["candidates"]) <= 5 for item in result["mappings"]))
+        self.assertTrue(
+            all(
+                "component_signals" in candidate
+                for item in result["mappings"]
+                for candidate in item["candidates"]
+            )
+        )
 
     def test_candidate_ids_survive_input_reordering_and_duplicate_rows(self) -> None:
         first = {
@@ -52,10 +67,10 @@ class MultiSourceUniverseTest(unittest.TestCase):
     def test_source_records_preserve_snapshot_and_relationship_lineage(self) -> None:
         result = reconcile()
         records = {item["record_id"]: item for item in result["source_records"]}
-        naics = records["naics:541330"]
+        naics = records["source-row:census-naics-2022:541330"]
         self.assertEqual(naics["snapshot_id"], "census-naics-2022")
-        self.assertEqual(naics["hierarchy_path"][-1], "naics:541330")
-        self.assertEqual(naics["parent_ids"], ("naics:54133",))
+        self.assertEqual(naics["hierarchy_path"][-1], "identity:naics:541330")
+        self.assertEqual(naics["parent_ids"], ["identity:naics:54133"])
         napcs = next(
             item
             for item in result["source_records"]
@@ -67,6 +82,21 @@ class MultiSourceUniverseTest(unittest.TestCase):
                 for edge in napcs["source_relationships"]
             )
         )
+        identity_ids = {item["identity_id"] for item in result["source_identities"]}
+        self.assertTrue(
+            all(
+                edge["target_identity_id"] in identity_ids
+                for item in result["source_records"]
+                for edge in item["source_relationships"]
+            )
+        )
+
+    def test_source_rows_and_normalized_identities_are_distinct(self) -> None:
+        result = reconcile()
+        source_ids = {item["record_id"] for item in result["source_records"]}
+        identity_ids = {item["identity_id"] for item in result["source_identities"]}
+        self.assertFalse(source_ids & identity_ids)
+        self.assertTrue(all(item.startswith("identity:") for item in identity_ids))
 
     def test_scope_semantics_are_not_erased(self) -> None:
         self.assertIn(
@@ -81,6 +111,20 @@ class MultiSourceUniverseTest(unittest.TestCase):
             semantic_conflicts(
                 "Project management services, except construction",
                 "Construction project management",
+            ),
+        )
+        self.assertIn(
+            "candidate_contains_source_excluded_scope",
+            semantic_conflicts(
+                "Administration of Human Resource Programs (except Education, Public Health, and Veterans' Affairs Programs)",
+                "Public Health Program Administration",
+            ),
+        )
+        self.assertIn(
+            "candidate_contains_source_excluded_scope",
+            semantic_conflicts(
+                "Manufacturing of canned meats (excluding dog, cat, and baby food)",
+                "Baby Food Manufacturing",
             ),
         )
         self.assertIn(

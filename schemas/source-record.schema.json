@@ -12,6 +12,7 @@
     "record_kind",
     "locator",
     "snapshot_id",
+    "normalized_identity_ids",
     "raw_definition",
     "hierarchy_path",
     "parent_ids",
@@ -27,10 +28,13 @@
     "record_kind": {
       "enum": [
         "industry",
+        "industry_aggregate",
         "napcs_broad_line",
         "napcs_detail_line",
         "survey_control",
         "relationship_product",
+        "concordance_product",
+        "trilateral_product",
         "market_hypothesis",
         "aggregate",
         "residual",
@@ -40,6 +44,11 @@
     },
     "locator": {"type": "string", "minLength": 1},
     "snapshot_id": {"type": "string", "minLength": 1},
+    "normalized_identity_ids": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^identity:"},
+      "uniqueItems": true
+    },
     "raw_definition": {"type": "string"},
     "hierarchy_path": {
       "type": "array",
@@ -55,10 +64,10 @@
       "items": {
         "type": "object",
         "additionalProperties": {"type": "string"},
-        "required": ["relationship_type", "target_source_record_id"],
+        "required": ["relationship_type", "target_identity_id"],
         "properties": {
           "relationship_type": {"type": "string", "minLength": 1},
-          "target_source_record_id": {"type": "string", "minLength": 1}
+          "target_identity_id": {"type": "string", "pattern": "^identity:"}
         }
       }
     },

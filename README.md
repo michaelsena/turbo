@@ -129,6 +129,8 @@ The repository now preserves all three initial lists:
 - 6,290 rows from the 2022 Economic Census NAPCS code/description workbook
 - 945 additional NAPCS product identities observed in the official
   product-by-industry archive but absent from that collection-code workbook
+- 1 collection identity found only in the official concordance and 1,072
+  distinct trilateral product identities recovered from both concordance directions
 - all 978 markets from the prior normalized model
 
 It also preserves five official identity-supporting snapshots: the 2022 NAICS Manual,
@@ -136,25 +138,34 @@ both 2022 NAPCS collection/trilateral concordances, and both Economic Census
 industry-by-product/product-by-industry relationship datasets. The run receipt is
 bound to the complete eight-snapshot registry. The two concordances and two
 relationship archives are parsed into both a summary and a complete relationship
-artifact containing 3,523 distinct collection/trilateral relationships and 37,232
-distinct national six-digit NAICS–NAPCS relationships. The NAICS Manual is preserved,
-but definition extraction remains open. Parsing is not represented as a canonical
-market decision.
+artifact containing 3,516 distinct collection/trilateral relationships, 7 explicit
+official no-mapping dispositions, and 37,232 distinct national six-digit
+NAICS–NAPCS relationships. Every relationship endpoint resolves to a preserved
+normalized identity, and every observation retains a governed snapshot and exact
+locator. The NAICS Manual is preserved, but definition extraction remains open.
+Parsing is not represented as a canonical market decision.
 
-The reconciliation artifact preserves all 9,225 source records with snapshot IDs,
-raw labels, definitions where available, exact locators, hierarchy paths, parent
-IDs, source relationships, row roles, and semantic flags. The 6,290 collection-code
+The reconciliation artifact preserves 11,411 source rows or source observations
+with snapshot IDs, raw labels, definitions where available, exact locators, hierarchy paths, parent
+IDs, source relationships, row roles, and semantic flags. It separately publishes
+10,433 normalized NAICS/NAPCS identity nodes; source-row IDs, normalized identities,
+candidate-market hypotheses, and future canonical-market IDs use different typed
+namespaces. The 6,290 collection-code
 rows are typed as 2,574 broad lines, 3,710 detail lines, and 6 survey controls; the
-945 relationship-only products retain their own neutral row role. Prior source rows
+945 relationship-only and 1 concordance-only collection products retain neutral row
+roles, while 1,072 trilateral products remain distinct. Prior source rows
 remain distinct from content-derived candidate-market hypotheses, so duplicate or
 reordered rows cannot change candidate identity.
 
 Exact and fuzzy matches remain review proposals. Retrieval retains up to five
 candidates, the top-two margin, ambiguity, and semantic conflicts such as residual
 scope, excluded scope, or hazardous/nonhazardous mismatch. The current worklist has
-211 exact-label candidates, 85 clean top-candidate proposals, 7 ambiguous or
-semantically conflicted proposals, and 7,944 unmatched rows. The safer method reduced
-the earlier fuzzy count because scope words are no longer discarded. A high unmatched
+233 exact-label candidates, 169 clean top-candidate proposals, 26 ambiguous or
+semantically conflicted proposals, and 10,005 unmatched rows. Each result exposes
+matched, source-only, and candidate-only tokens, exact-label and semantic-scope
+signals, the top-two margin, and contradictions. The safer method reduced
+unsafe similarity because scope words are no longer discarded. The absolute worklist
+is larger because all hierarchy and trilateral identities are now included. A high unmatched
 count is expected because NAPCS contains products, controls, and aggregates—not one
 row per investable operating market.
 
@@ -243,7 +254,11 @@ starting lists.
 | Six-digit NAICS source categories | 1,012 |
 | NAPCS collection-code rows | 6,290 |
 | Additional relationship-only NAPCS products | 945 |
-| Total NAPCS product identities in reconciliation | 7,235 |
+| Concordance-only collection products | 1 |
+| NAPCS collection identities in reconciliation | 7,236 |
+| NAPCS trilateral identities recovered from concordances | 1,072 |
+| Normalized NAICS/NAPCS identities | 10,433 |
+| Preserved source rows/observations including prior seeds | 11,411 |
 | Prior-model market seeds | 978 |
 | Governed source snapshots | 8 |
 | Collection-to-trilateral concordance rows | 3,520 |
@@ -251,18 +266,21 @@ starting lists.
 | Industry-by-products observations | 569,027 |
 | Products-by-industry observations | 32,024 |
 | Unique national six-digit NAICS-NAPCS pairs in products-by-industry | 28,521 |
-| Preserved collection/trilateral relationships | 3,523 |
+| Preserved collection/trilateral relationships | 3,516 |
+| Explicit official no-trilateral-mapping dispositions | 7 |
 | Preserved national six-digit NAICS-NAPCS relationships | 37,232 |
-| Exact-label review candidates | 211 |
-| Clean top-candidate proposals | 85 |
-| Ambiguous/conflicted proposals | 7 |
-| Unmatched reconciliation items | 7,944 |
+| Exact-label review candidates | 233 |
+| Clean top-candidate proposals | 169 |
+| Ambiguous/conflicted proposals | 26 |
+| Unmatched reconciliation items | 10,005 |
 | Canonical markets accepted | 0 |
 | Target markets filtered | 0 |
 | Research scores produced | 0 |
 
-These counts and every reconciliation proposal are in
-`multisource-reconciliation.json` inside the immutable run directory. Zero canonical
+These counts and every reconciliation proposal are in the deterministic
+`multisource-reconciliation.json.gz` artifact inside the immutable run directory.
+Large derived views are compressed with a fixed timestamp so replay produces
+byte-identical files and repository growth remains bounded. Zero canonical
 and target markets is the honest current state: source ingestion is working, while
 reviewed normalization is the active critical path.
 
@@ -292,7 +310,8 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 
 ## Running locally
 
-Turbo V1 has no runtime dependencies beyond Python 3.11+.
+Turbo V1 requires Python 3.11+ and uses `jsonschema` to execute the same formal
+contracts documented in `schemas/` during local verification.
 
 ```bash
 python3 -m venv .venv

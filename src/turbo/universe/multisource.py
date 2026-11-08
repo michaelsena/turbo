@@ -36,6 +36,7 @@ class NamedRecord:
     record_kind: str
     locator: str
     snapshot_id: str
+    normalized_identity_ids: tuple[str, ...]
     raw_definition: str = ""
     hierarchy_path: tuple[str, ...] = ()
     parent_ids: tuple[str, ...] = ()
@@ -72,7 +73,7 @@ def semantic_flags(value: str) -> dict[str, object]:
     words = frozenset(normalized.split())
     semantic_text = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii").lower()
     excluded_terms: set[str] = set()
-    for match in re.finditer(r"\b(?:except|excluding)\b\s+([^)]+?)(?=\)|,|;|$)", semantic_text):
+    for match in re.finditer(r"\b(?:except|excluding)\b\s+([^)]+?)(?=\)|;|$)", semantic_text):
         excluded_terms.update(
             part
             for part in normalize_name(match.group(1)).split()
@@ -116,18 +117,36 @@ def semantic_conflicts(left: str, right: str) -> list[str]:
 
 
 def parse_napcs() -> list[NamedRecord]:
+    forward_rows = parse_collection_to_trilateral()
+    reverse_rows = parse_trilateral_to_collection()
     concordance: dict[str, dict[tuple[str, str], set[str]]] = defaultdict(
         lambda: defaultdict(set)
     )
+    collection_labels: dict[str, str] = {}
     for direction, rows in (
-        ("collection_to_trilateral", parse_collection_to_trilateral()),
-        ("trilateral_to_collection", parse_trilateral_to_collection()),
+        ("collection_to_trilateral", forward_rows),
+        ("trilateral_to_collection", reverse_rows),
     ):
         for row in rows:
+            if row.collection_code and row.collection_description:
+                collection_labels.setdefault(row.collection_code, row.collection_description)
             if row.collection_code and row.trilateral_code not in {"", "NA"}:
                 concordance[row.collection_code][
                     (row.trilateral_code, row.part_indicator)
                 ].add(direction)
+    def relationships(code: str) -> tuple[dict[str, str], ...]:
+        return tuple(
+            {
+                "relationship_type": "collection_to_trilateral",
+                "target_identity_id": f"identity:napcs-trilateral:{trilateral_code}",
+                "part_indicator": part_indicator,
+                "observed_in": ",".join(sorted(directions)),
+            }
+            for (trilateral_code, part_indicator), directions in sorted(
+                concordance.get(code, {}).items()
+            )
+        )
+
     result: list[NamedRecord] = []
     for row_number, row in enumerate(read_first_sheet(NAPCS), 1):
         if len(row) < 2 or not row[0].strip().isdigit():
@@ -142,24 +161,18 @@ def parse_napcs() -> list[NamedRecord]:
             record_kind = "napcs_detail_line"
         result.append(
             NamedRecord(
-                record_id=f"napcs:{code}",
+                record_id=(
+                    "source-row:census-napcs-2022-economic-census-codes:"
+                    f"{code}"
+                ),
                 source="napcs_collection_codes_2022",
                 source_code=code,
                 raw_label=label,
                 record_kind=record_kind,
                 locator=f"first_sheet:row:{row_number}",
-                snapshot_id="census-napcs-2022",
-                source_relationships=tuple(
-                    {
-                        "relationship_type": "collection_to_trilateral",
-                        "target_source_record_id": f"napcs-trilateral:{trilateral_code}",
-                        "part_indicator": part_indicator,
-                        "observed_in": ",".join(sorted(directions)),
-                    }
-                    for (trilateral_code, part_indicator), directions in sorted(
-                        concordance.get(code, {}).items()
-                    )
-                ),
+                snapshot_id="census-napcs-2022-economic-census-codes",
+                normalized_identity_ids=(f"identity:napcs-collection:{code}",),
+                source_relationships=relationships(code),
             )
         )
     known_codes = {record.source_code for record in result}
@@ -168,7 +181,10 @@ def parse_napcs() -> list[NamedRecord]:
             continue
         result.append(
             NamedRecord(
-                record_id=f"napcs:{code}",
+                record_id=(
+                    "source-observation:census-economic-census-2022-products-by-industry:"
+                    f"napcs:{code}"
+                ),
                 source="economic_census_products_by_industry_2022",
                 source_code=code,
                 raw_label=label,
@@ -178,9 +194,79 @@ def parse_napcs() -> list[NamedRecord]:
                     f"NAPCS2022={code}"
                 ),
                 snapshot_id="census-economic-census-2022-products-by-industry",
+                normalized_identity_ids=(f"identity:napcs-collection:{code}",),
+            )
+        )
+        known_codes.add(code)
+    for code, label in sorted(collection_labels.items()):
+        if code in known_codes:
+            continue
+        result.append(
+            NamedRecord(
+                record_id=(
+                    "source-observation:census-napcs-2022-collection-to-trilateral:"
+                    f"collection:{code}"
+                ),
+                source="napcs_collection_to_trilateral_2022",
+                source_code=code,
+                raw_label=label,
+                record_kind="concordance_product",
+                locator=f"data_sheet:collection_code={code}",
+                snapshot_id="census-napcs-2022-collection-to-trilateral",
+                normalized_identity_ids=(f"identity:napcs-collection:{code}",),
+                source_relationships=relationships(code),
             )
         )
     return result
+
+
+def parse_trilateral_products() -> list[NamedRecord]:
+    grouped: dict[str, dict[str, object]] = {}
+    for direction, rows in (
+        ("collection_to_trilateral", parse_collection_to_trilateral()),
+        ("trilateral_to_collection", parse_trilateral_to_collection()),
+    ):
+        for row in rows:
+            code = row.trilateral_code
+            if code in {"", "NA"}:
+                continue
+            value = grouped.setdefault(
+                code,
+                {"labels": set(), "collections": defaultdict(set)},
+            )
+            if row.trilateral_description:
+                value["labels"].add(row.trilateral_description)
+            value["collections"][(row.collection_code, row.part_indicator)].add(direction)
+    records: list[NamedRecord] = []
+    for code, value in sorted(grouped.items()):
+        labels = sorted(value["labels"])
+        records.append(
+            NamedRecord(
+                record_id=(
+                    "source-observation:census-napcs-2022-trilateral-to-collection:"
+                    f"trilateral:{code}"
+                ),
+                source="napcs_trilateral_concordance_2022",
+                source_code=code,
+                raw_label=labels[0],
+                record_kind="trilateral_product",
+                locator=f"data_sheet:trilateral_code={code}",
+                snapshot_id="census-napcs-2022-trilateral-to-collection",
+                normalized_identity_ids=(f"identity:napcs-trilateral:{code}",),
+                source_relationships=tuple(
+                    {
+                        "relationship_type": "trilateral_to_collection",
+                        "target_identity_id": f"identity:napcs-collection:{collection_code}",
+                        "part_indicator": part_indicator,
+                        "observed_in": ",".join(sorted(directions)),
+                    }
+                    for (collection_code, part_indicator), directions in sorted(
+                        value["collections"].items()
+                    )
+                ),
+            )
+        )
+    return records
 
 
 def prior_records(names: list[str]) -> list[NamedRecord]:
@@ -193,13 +279,14 @@ def prior_records(names: list[str]) -> list[NamedRecord]:
         duplicate_suffix = f":dup:{seen[name]}" if totals[name] > 1 else ""
         records.append(
             NamedRecord(
-                record_id=f"prior:{digest}{duplicate_suffix}",
+                record_id=f"source-row:prior-model-2026-11-05:{digest}{duplicate_suffix}",
                 source="prior_model_2026_11_05",
                 source_code="",
                 raw_label=name,
                 record_kind="market_hypothesis",
                 locator=f"markets[{index - 1}]",
                 snapshot_id="prior-model-normalized-markets-2026-11-05",
+                normalized_identity_ids=(),
             )
         )
     return records
@@ -217,8 +304,9 @@ def _similarity(left: frozenset[str], right: frozenset[str]) -> float:
 
 
 def _source_record(record: NamedRecord) -> dict[str, object]:
+    json_compatible = json.loads(json.dumps(asdict(record)))
     return {
-        **asdict(record),
+        **json_compatible,
         "normalized_label": normalize_name(record.raw_label),
         "semantic_flags": semantic_flags(record.raw_label),
     }
@@ -232,7 +320,7 @@ def reconcile() -> dict[str, object]:
         path: list[str] = []
         current = node_by_id[node_id]
         while True:
-            path.append(f"naics:{current.source_code}")
+            path.append(f"identity:naics:{current.source_code}")
             if current.parent_id is None:
                 break
             current = node_by_id[current.parent_id]
@@ -240,10 +328,8 @@ def reconcile() -> dict[str, object]:
 
     naics = []
     for node in naics_nodes:
-        if node.level != 6:
-            continue
         parent_ids = (
-            (f"naics:{node_by_id[node.parent_id].source_code}",)
+            (f"identity:naics:{node_by_id[node.parent_id].source_code}",)
             if node.parent_id is not None
             else ()
         )
@@ -251,7 +337,7 @@ def reconcile() -> dict[str, object]:
             (
                 {
                     "relationship_type": "source_parent",
-                    "target_source_record_id": parent_ids[0],
+                    "target_identity_id": f"identity:naics:{node_by_id[node.parent_id].source_code}",
                 },
             )
             if parent_ids
@@ -259,19 +345,21 @@ def reconcile() -> dict[str, object]:
         )
         naics.append(
             NamedRecord(
-                record_id=f"naics:{node.source_code}",
+                record_id=f"source-row:census-naics-2022:{node.source_code}",
                 source="naics_2022",
                 source_code=node.source_code,
                 raw_label=node.raw_title,
-                record_kind="industry",
+                record_kind="industry" if node.level == 6 else "industry_aggregate",
                 locator=f"2022_NAICS_Structure:{node.source_code}",
                 snapshot_id="census-naics-2022",
+                normalized_identity_ids=(f"identity:naics:{node.source_code}",),
                 hierarchy_path=hierarchy_path(node.node_id),
                 parent_ids=parent_ids,
                 source_relationships=relationships,
             )
         )
     napcs = parse_napcs()
+    trilateral = parse_trilateral_products()
     seeds = parse_prior()
     seed_by_id: dict[str, NamedRecord] = {}
     duplicate_seed_rows: dict[str, list[str]] = defaultdict(list)
@@ -293,10 +381,23 @@ def reconcile() -> dict[str, object]:
 
     def candidate(record: NamedRecord, candidate_id: str, score: float) -> dict[str, object]:
         proposed = seed_by_id[candidate_id]
+        source_tokens = retrieval_tokens(record.name)
+        candidate_tokens = seed_tokens[candidate_id]
         return {
             "candidate_market_id": candidate_id,
             "candidate_market_name": proposed.name,
             "similarity": round(score, 4),
+            "component_signals": {
+                "exact_normalized_label": normalize_name(record.name)
+                == normalize_name(proposed.name),
+                "matched_tokens": sorted(source_tokens & candidate_tokens),
+                "source_only_tokens": sorted(source_tokens - candidate_tokens),
+                "candidate_only_tokens": sorted(candidate_tokens - source_tokens),
+                "intersection_count": len(source_tokens & candidate_tokens),
+                "union_count": len(source_tokens | candidate_tokens),
+                "source_semantic_flags": semantic_flags(record.name),
+                "candidate_semantic_flags": semantic_flags(proposed.name),
+            },
             "relationship_type": "equivalent_label_candidate",
             "semantic_conflicts": semantic_conflicts(record.name, proposed.name),
         }
@@ -344,8 +445,23 @@ def reconcile() -> dict[str, object]:
             "candidates": candidates,
         }
 
-    source_records = [*naics, *napcs, *seeds]
-    mappings = [match(record) for record in [*naics, *napcs]]
+    source_records = [*naics, *napcs, *trilateral, *seeds]
+    mappings = [match(record) for record in [*naics, *napcs, *trilateral]]
+    identities: dict[str, dict[str, object]] = {}
+    for record in source_records:
+        for identity_id in record.normalized_identity_ids:
+            value = identities.setdefault(
+                identity_id,
+                {
+                    "identity_id": identity_id,
+                    "identity_type": identity_id.split(":", 2)[1],
+                    "source_code": record.source_code,
+                    "labels": set(),
+                    "source_record_ids": [],
+                },
+            )
+            value["labels"].add(record.raw_label)
+            value["source_record_ids"].append(record.record_id)
     exact_duplicate_groups = [
         source_ids
         for source_ids in duplicate_seed_rows.values()
@@ -359,7 +475,8 @@ def reconcile() -> dict[str, object]:
         "artifact_type": "multisource_universe_reconciliation_worklist",
         "warning": "All mappings are top-k review proposals until operating-identity review; label similarity never establishes a canonical market decision.",
         "source_counts": {
-            "naics_six_digit": len(naics),
+            "naics_nodes": len(naics),
+            "naics_six_digit": sum(item.record_kind == "industry" for item in naics),
             "napcs_products": len(napcs),
             "napcs_collection_records": sum(
                 item.source == "napcs_collection_codes_2022" for item in napcs
@@ -367,10 +484,23 @@ def reconcile() -> dict[str, object]:
             "napcs_relationship_only_products": sum(
                 item.record_kind == "relationship_product" for item in napcs
             ),
+            "napcs_concordance_only_products": sum(
+                item.record_kind == "concordance_product" for item in napcs
+            ),
+            "napcs_trilateral_products": len(trilateral),
             "prior_seed_records": len(seeds),
             "prior_candidate_markets": len(seed_by_id),
+            "normalized_source_identities": len(identities),
         },
         "source_records": [_source_record(item) for item in source_records],
+        "source_identities": [
+            {
+                **value,
+                "labels": sorted(value["labels"]),
+                "source_record_ids": sorted(set(value["source_record_ids"])),
+            }
+            for _, value in sorted(identities.items())
+        ],
         "candidate_markets": [
             {
                 "candidate_market_id": candidate_id,

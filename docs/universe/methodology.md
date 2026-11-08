@@ -70,7 +70,8 @@ alternatives, and directed lineage.
 
 ## Operating-family review
 
-The 9,225 starting records are partitioned into bounded operating families rather than
+The 10,433 normalized NAICS/NAPCS identities are partitioned into bounded operating
+families rather than
 reviewed as one flat list. For each family, one specialist proposes boundaries, a
 second independently tests them and searches for countercases, and adjudication
 resolves disagreements or keeps the mapping explicitly unresolved. Accepted events
@@ -94,12 +95,16 @@ universe and operating playbook, not whether their labels sound similar.
 
 The bootstrap ingests all 2,125 official NAICS hierarchy nodes, the 2022 Economic
 Census NAPCS collection-code list, 945 additional product identities observed only
-in the relationship archive, and the prior 978-market seed. Issue #2 upgrades that
-worklist with separate source-row and stable content-based candidate IDs, preserved
-lineage, row roles and semantic flags, and top-k candidates. Both
+in the relationship archive, one concordance-only collection identity, 1,072
+trilateral identities, and the prior 978-market seed. Issue #2 upgrades that
+worklist with separate source-row, normalized-source-identity, stable content-based
+candidate, and opaque canonical-market IDs; preserved lineage, row roles and semantic
+flags; and top-k candidates with component signals. Both
 collection/trilateral concordances and both Economic Census industry-product archives
 are preserved and parsed into a summary plus complete many-to-many relationship
-artifact. NAICS Manual definition extraction, the complete
+artifact with referentially closed identity endpoints. Seven official `NA`
+concordance rows remain explicit non-mapping dispositions. NAICS Manual definition
+extraction, the complete
 trilateral hierarchy capture, canonical operating-market decisions, SUSB size
 filtering, and enrichment remain incomplete and must precede claims of Target Market
 completeness.

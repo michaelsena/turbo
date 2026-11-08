@@ -31,6 +31,7 @@ def event(event_id: str, recorded_at: str, **overrides: object) -> dict[str, obj
         "recorded_at": recorded_at,
         "input_source_record_ids": ["naics:123456"],
         "input_market_ids": [],
+        "input_candidate_market_ids": [],
         "output_market_ids": ["market:01"],
         "relationship_type": "industry_containing_market",
         "operating_identity": identity(),
@@ -43,6 +44,7 @@ def event(event_id: str, recorded_at: str, **overrides: object) -> dict[str, obj
             "result": "accepted",
         },
         "supersedes": [],
+        "supersedes_market_version_ids": [],
     }
     value.update(overrides)
     return value
@@ -67,6 +69,7 @@ def market_version(event_id: str, market_id: str, name: str = "Test market") -> 
         "explicit_exclusions": [],
         "source_record_ids": [],
         "mapping_event_ids": [],
+        "candidate_market_ids": [],
         "evidence_by_dimension": {dimension: "assumption" for dimension in identity()},
         "confidence_by_dimension": {dimension: 0.8 for dimension in identity()},
     }
@@ -214,6 +217,176 @@ class GraphContractTest(unittest.TestCase):
         )
         self.assertEqual(projection["retired_market_ids"], [predecessor])
         self.assertEqual([item["event_id"] for item in projection["lineage"]], [split_id])
+
+    def test_replacement_split_does_not_apply_superseded_retirement(self) -> None:
+        create = creation("event-create", "2026-11-08T11:00:00Z")
+        predecessor = create["output_market_ids"][0]
+
+        def split(event_id: str, recorded_at: str, supersedes: list[str]) -> dict[str, object]:
+            successors = [market_id_from_creation(event_id, index) for index in range(2)]
+            return event(
+                event_id,
+                recorded_at,
+                event_type="split",
+                input_source_record_ids=[],
+                input_market_ids=[predecessor],
+                output_market_ids=successors,
+                relationship_type=None,
+                supersedes=supersedes,
+                market_versions=[
+                    market_version(event_id, market_id, f"{event_id} successor {index}")
+                    for index, market_id in enumerate(successors, 1)
+                ],
+            )
+
+        old = split("split-old", "2026-11-08T12:00:00Z", [])
+        replacement = split("split-new", "2026-11-08T13:00:00Z", ["split-old"])
+        projection = project_graph(
+            [old, replacement, create],
+            as_of="2026-11-08T14:00:00Z",
+            known_source_record_ids=set(),
+        )
+        expected = sorted(replacement["output_market_ids"])
+        self.assertEqual([item["market_id"] for item in projection["markets"]], expected)
+        self.assertEqual([item["event_id"] for item in projection["lineage"]], ["split-new"])
+
+    def test_supersede_decision_withdraws_creation(self) -> None:
+        create = creation("event-create", "2026-11-08T11:00:00Z")
+        withdrawal = event(
+            "withdraw-create",
+            "2026-11-08T12:00:00Z",
+            event_type="supersede_decision",
+            input_source_record_ids=[],
+            output_market_ids=[],
+            relationship_type=None,
+            supersedes=["event-create"],
+        )
+        projection = project_graph(
+            [create, withdrawal],
+            as_of="2026-11-08T14:00:00Z",
+            known_source_record_ids=set(),
+        )
+        self.assertEqual(projection["markets"], [])
+
+    def test_superseded_withdrawal_restores_original_event(self) -> None:
+        create = creation("event-create", "2026-11-08T11:00:00Z")
+        withdrawal = event(
+            "withdraw-create",
+            "2026-11-08T12:00:00Z",
+            event_type="supersede_decision",
+            input_source_record_ids=[],
+            output_market_ids=[],
+            relationship_type=None,
+            supersedes=["event-create"],
+        )
+        correction = event(
+            "correct-withdrawal",
+            "2026-11-08T13:00:00Z",
+            event_type="supersede_decision",
+            input_source_record_ids=[],
+            output_market_ids=[],
+            relationship_type=None,
+            supersedes=["withdraw-create"],
+        )
+        projection = project_graph(
+            [withdrawal, create, correction],
+            as_of="2026-11-08T14:00:00Z",
+            known_source_record_ids=set(),
+        )
+        self.assertEqual(len(projection["markets"]), 1)
+        self.assertIn("event-create", projection["active_event_ids"])
+        self.assertIn("withdraw-create", projection["superseded_event_ids"])
+
+    def test_rename_supersedes_market_version_not_creation_event(self) -> None:
+        create = creation("event-create", "2026-11-08T11:00:00Z")
+        market_id = create["output_market_ids"][0]
+        rename = event(
+            "rename-market",
+            "2026-11-08T12:00:00Z",
+            event_type="rename",
+            input_source_record_ids=[],
+            input_market_ids=[market_id],
+            output_market_ids=[market_id],
+            relationship_type=None,
+            supersedes_market_version_ids=[create["market_version"]["market_version_id"]],
+            market_version=market_version("rename-market", market_id, "Renamed market"),
+        )
+        projection = project_graph(
+            [rename, create],
+            as_of="2026-11-08T14:00:00Z",
+            known_source_record_ids=set(),
+        )
+        self.assertEqual(projection["markets"][0]["canonical_name"], "Renamed market")
+        self.assertIn("event-create", projection["active_event_ids"])
+
+    def test_mapping_to_retired_market_is_historical_not_effective(self) -> None:
+        create = creation("event-create", "2026-11-08T11:00:00Z")
+        predecessor = create["output_market_ids"][0]
+        mapping = event(
+            "event-map",
+            "2026-11-08T11:30:00Z",
+            output_market_ids=[predecessor],
+        )
+        split_id = "event-split"
+        successors = [market_id_from_creation(split_id, index) for index in range(2)]
+        split = event(
+            split_id,
+            "2026-11-08T12:00:00Z",
+            event_type="split",
+            input_source_record_ids=[],
+            input_market_ids=[predecessor],
+            output_market_ids=successors,
+            relationship_type=None,
+            market_versions=[
+                market_version(split_id, market_id, f"Successor {index}")
+                for index, market_id in enumerate(successors, 1)
+            ],
+        )
+        projection = project_graph(
+            [split, mapping, create],
+            as_of="2026-11-08T14:00:00Z",
+            known_source_record_ids={"naics:123456"},
+        )
+        self.assertEqual(projection["mappings"], [])
+        self.assertEqual([item["event_id"] for item in projection["retired_mappings"]], ["event-map"])
+
+    def test_market_version_mapping_lineage_must_match_active_earlier_map(self) -> None:
+        create = creation("event-create", "2026-11-08T11:00:00Z")
+        market_id = create["output_market_ids"][0]
+        mapping = event(
+            "event-map",
+            "2026-11-08T12:00:00Z",
+            output_market_ids=[market_id],
+        )
+        revised_version = market_version("rename-market", market_id, "Mapped market")
+        revised_version["source_record_ids"] = ["naics:123456"]
+        revised_version["mapping_event_ids"] = ["event-map"]
+        rename = event(
+            "rename-market",
+            "2026-11-08T13:00:00Z",
+            event_type="rename",
+            input_source_record_ids=[],
+            input_market_ids=[market_id],
+            output_market_ids=[market_id],
+            relationship_type=None,
+            supersedes_market_version_ids=[create["market_version"]["market_version_id"]],
+            market_version=revised_version,
+        )
+        projection = project_graph(
+            [rename, mapping, create],
+            as_of="2026-11-08T14:00:00Z",
+            known_source_record_ids={"naics:123456"},
+        )
+        self.assertEqual(projection["markets"][0]["mapping_event_ids"], ["event-map"])
+
+        wrong_target = creation("other-create", "2026-11-08T11:15:00Z")
+        mapping["output_market_ids"] = [wrong_target["output_market_ids"][0]]
+        with self.assertRaisesRegex(ValueError, "invalid mapping event"):
+            project_graph(
+                [rename, mapping, wrong_target, create],
+                as_of="2026-11-08T14:00:00Z",
+                known_source_record_ids={"naics:123456"},
+            )
 
 
 if __name__ == "__main__":

@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import hashlib
+import gzip
 import json
-from datetime import datetime
+import re
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from turbo.models import to_dict
@@ -20,7 +22,7 @@ STRATEGY_CONFIG = ROOT / "config/strategy.json"
 GENERATED = ROOT / "data/generated"
 RUNS = ROOT / "data/runs"
 SOURCE_URL = "https://www.census.gov/naics/2022NAICS/2022_NAICS_Structure.xlsx"
-METHOD_VERSION = "identity-source-semantic-reconciliation-v3"
+METHOD_VERSION = "identity-source-semantic-reconciliation-v5"
 
 
 def sha256(path: Path) -> str:
@@ -34,6 +36,106 @@ def sha256(path: Path) -> str:
 def _write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def validate_manifest_metadata(manifest: dict[str, object], name: str) -> list[str]:
+    errors: list[str] = []
+    required = {
+        "acquired_at",
+        "dataset_id",
+        "file",
+        "publisher",
+        "reuse",
+        "role",
+        "sha256",
+        "source_url",
+    }
+    missing = sorted(required - set(manifest))
+    if missing:
+        return [f"source manifest {name} missing: {', '.join(missing)}"]
+    for field in required:
+        if not isinstance(manifest[field], str) or not str(manifest[field]).strip():
+            errors.append(f"source manifest {name} has empty or non-string {field}")
+    try:
+        acquired_at = datetime.fromisoformat(
+            str(manifest["acquired_at"]).replace("Z", "+00:00")
+        )
+        if acquired_at.utcoffset() != timedelta(0):
+            errors.append(f"source manifest {name} acquired_at must be UTC")
+    except ValueError:
+        errors.append(f"source manifest {name} has invalid acquired_at")
+    if not str(manifest["source_url"]).startswith("https://"):
+        errors.append(f"source manifest {name} source_url must use https")
+    if not re.fullmatch(r"[0-9a-f]{64}", str(manifest["sha256"])):
+        errors.append(f"source manifest {name} has invalid sha256")
+    return errors
+
+
+def validate_identity_references(
+    reconciliation: dict[str, object],
+    relationships: dict[str, object],
+    governed_snapshot_ids: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    source_records = reconciliation["source_records"]
+    identities = reconciliation["source_identities"]
+    source_ids = [record["record_id"] for record in source_records]
+    identity_ids = [identity["identity_id"] for identity in identities]
+    known_sources = set(source_ids)
+    known_identities = set(identity_ids)
+    if len(source_ids) != len(known_sources):
+        errors.append("duplicate source record IDs")
+    if len(identity_ids) != len(known_identities):
+        errors.append("duplicate normalized source identity IDs")
+    for record in source_records:
+        if record["snapshot_id"] not in governed_snapshot_ids:
+            errors.append(
+                f"source record {record['record_id']} references unknown snapshot "
+                f"{record['snapshot_id']}"
+            )
+        for identity_id in record["normalized_identity_ids"]:
+            if identity_id not in known_identities:
+                errors.append(
+                    f"source record {record['record_id']} references unknown identity {identity_id}"
+                )
+        for edge in record["source_relationships"]:
+            if edge["target_identity_id"] not in known_identities:
+                errors.append(
+                    f"source relationship references unknown identity "
+                    f"{edge['target_identity_id']}"
+                )
+    for identity in identities:
+        missing = set(identity["source_record_ids"]) - known_sources
+        if missing:
+            errors.append(
+                f"identity {identity['identity_id']} references unknown source records: "
+                f"{sorted(missing)}"
+            )
+    endpoint_fields = {
+        "napcs_concordance_relationships": (
+            "collection_identity_id",
+            "trilateral_identity_id",
+        ),
+        "napcs_concordance_non_mappings": ("collection_identity_id",),
+        "industry_product_relationships": (
+            "industry_identity_id",
+            "product_identity_id",
+        ),
+    }
+    for collection, fields in endpoint_fields.items():
+        for edge in relationships[collection]:
+            for field in fields:
+                if edge[field] not in known_identities:
+                    errors.append(
+                        f"{collection} references unknown identity {edge[field]}"
+                    )
+            for observation in edge["source_observations"]:
+                if observation["snapshot_id"] not in governed_snapshot_ids:
+                    errors.append(
+                        f"{collection} references unknown snapshot "
+                        f"{observation['snapshot_id']}"
+                    )
+    return errors
 
 
 def source_registry() -> list[dict[str, object]]:
@@ -64,8 +166,36 @@ def _code_fingerprint() -> str:
     return digest.hexdigest()
 
 
+def _schema_fingerprint() -> str:
+    digest = hashlib.sha256()
+    for path in sorted((ROOT / "schemas").glob("*.json")):
+        digest.update(str(path.relative_to(ROOT)).encode("utf-8"))
+        digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
 def _write_immutable(path: Path, value: object) -> None:
     rendered = _canonical_bytes(value)
+    if path.exists():
+        if path.read_bytes() != rendered:
+            raise ValueError(f"immutable artifact mismatch: {path}")
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(rendered)
+
+
+def _canonical_gzip(value: object) -> bytes:
+    rendered = bytearray(
+        gzip.compress(_canonical_bytes(value), compresslevel=9, mtime=0)
+    )
+    # RFC 1952 byte 9 is the originating OS. Force the portable unknown value so
+    # identical content hashes across supported operating systems and Python builds.
+    rendered[9] = 255
+    return bytes(rendered)
+
+
+def _write_immutable_gzip(path: Path, value: object) -> None:
+    rendered = _canonical_gzip(value)
     if path.exists():
         if path.read_bytes() != rendered:
             raise ValueError(f"immutable artifact mismatch: {path}")
@@ -82,17 +212,25 @@ def run() -> dict[str, object]:
     nodes = parse_naics(SOURCE)
     reconciliation = reconcile()
     identity_summary, identity_relationships = identity_source_artifacts()
+    registry = source_registry()
+    identity_errors = validate_identity_references(
+        reconciliation,
+        identity_relationships,
+        {str(item["dataset_id"]) for item in registry},
+    )
+    if identity_errors:
+        raise ValueError("identity reference validation failed: " + "; ".join(identity_errors))
     leaf_nodes = [node for node in nodes if node.level == 6]
     source_hash = sha256(SOURCE)
     source_manifest = json.loads(SOURCE_MANIFEST.read_text(encoding="utf-8"))
     if source_hash != source_manifest["sha256"]:
         raise ValueError("source snapshot hash does not match pinned manifest")
     code_fingerprint = _code_fingerprint()
-    registry = source_registry()
     run_config = {
         "code_fingerprint": code_fingerprint,
         "method_version": METHOD_VERSION,
         "schema_version": 1,
+        "schema_fingerprint": _schema_fingerprint(),
         "source_sha256": source_hash,
         "napcs_sha256": sha256(NAPCS),
         "prior_seed_sha256": sha256(PRIOR),
@@ -127,6 +265,9 @@ def run() -> dict[str, object]:
             "industry_by_products_rows": identity_summary["industry_by_products"]["rows"],
             "products_by_industry_rows": identity_summary["products_by_industry"]["rows"],
             "products_by_industry_unique_national_six_digit_pairs": identity_summary["products_by_industry"]["unique_national_six_digit_naics_napcs_pairs"],
+            "napcs_concordance_relationships": identity_summary["relationship_artifact_counts"]["napcs_concordance_relationships"],
+            "napcs_concordance_non_mappings": identity_summary["relationship_artifact_counts"]["napcs_concordance_non_mappings"],
+            "industry_product_relationships": identity_summary["relationship_artifact_counts"]["industry_product_relationships"],
         },
         "six_digit_source_categories": len(leaf_nodes),
         "canonical_markets": 0,
@@ -135,18 +276,28 @@ def run() -> dict[str, object]:
         "current_stage": "source_reconciliation_before_canonical_market_decisions",
     }
     output_hashes = {
-        "raw-source-hierarchy.json": hashlib.sha256(_canonical_bytes(universe)).hexdigest(),
-        "multisource-reconciliation.json": hashlib.sha256(_canonical_bytes(reconciliation)).hexdigest(),
-        "identity-source-summary.json": hashlib.sha256(_canonical_bytes(identity_summary)).hexdigest(),
-        "identity-relationships.json": hashlib.sha256(
-            _canonical_bytes(identity_relationships)
+        "raw-source-hierarchy.json.gz": hashlib.sha256(_canonical_gzip(universe)).hexdigest(),
+        "multisource-reconciliation.json.gz": hashlib.sha256(
+            _canonical_gzip(reconciliation)
+        ).hexdigest(),
+        "identity-source-summary.json.gz": hashlib.sha256(
+            _canonical_gzip(identity_summary)
+        ).hexdigest(),
+        "identity-relationships.json.gz": hashlib.sha256(
+            _canonical_gzip(identity_relationships)
         ).hexdigest(),
     }
     receipt["output_hashes"] = output_hashes
-    _write_immutable(run_dir / "raw-source-hierarchy.json", universe)
-    _write_immutable(run_dir / "multisource-reconciliation.json", reconciliation)
-    _write_immutable(run_dir / "identity-source-summary.json", identity_summary)
-    _write_immutable(run_dir / "identity-relationships.json", identity_relationships)
+    _write_immutable_gzip(run_dir / "raw-source-hierarchy.json.gz", universe)
+    _write_immutable_gzip(
+        run_dir / "multisource-reconciliation.json.gz",
+        reconciliation,
+    )
+    _write_immutable_gzip(run_dir / "identity-source-summary.json.gz", identity_summary)
+    _write_immutable_gzip(
+        run_dir / "identity-relationships.json.gz",
+        identity_relationships,
+    )
     _write_immutable(run_dir / "run-receipt.json", receipt)
     latest = {
         **receipt,
@@ -169,26 +320,10 @@ def validate() -> list[str]:
         except (json.JSONDecodeError, OSError) as error:
             errors.append(f"invalid source manifest {manifest_path.name}: {error}")
             continue
-        required_manifest_fields = {
-            "acquired_at",
-            "dataset_id",
-            "file",
-            "publisher",
-            "reuse",
-            "role",
-            "sha256",
-            "source_url",
-        }
-        missing = sorted(required_manifest_fields - set(manifest))
-        if missing:
-            errors.append(f"source manifest {manifest_path.name} missing: {', '.join(missing)}")
+        metadata_errors = validate_manifest_metadata(manifest, manifest_path.name)
+        if metadata_errors:
+            errors.extend(metadata_errors)
             continue
-        try:
-            datetime.fromisoformat(str(manifest["acquired_at"]).replace("Z", "+00:00"))
-        except ValueError:
-            errors.append(f"source manifest {manifest_path.name} has invalid acquired_at")
-        if not str(manifest["source_url"]).startswith("https://"):
-            errors.append(f"source manifest {manifest_path.name} source_url must use https")
         dataset_id = str(manifest["dataset_id"])
         file_name = str(manifest["file"])
         if dataset_id in dataset_ids:

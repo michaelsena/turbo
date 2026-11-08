@@ -36,8 +36,9 @@ label with market truth.
 - [ ] No exact or fuzzy label match can create an accepted canonical mapping.
 - [ ] Top-k candidates retain component signals, margins, semantic contradictions,
       residual flags, and unresolved ambiguity.
-- [ ] Every one of 1,012 NAICS leaves, 6,290 NAPCS collection rows, and 945
-      relationship-only product identities has a typed mapping, split/merge input,
+- [ ] Every one of 2,125 NAICS nodes, 6,290 NAPCS collection rows, 946
+      relationship/concordance-only collection identities, and 1,072 trilateral
+      identities has a typed mapping, split/merge input,
       new-market proposal, non-market, residual, or exclusion outcome.
 - [ ] All 978 prior-model markets are accepted, changed, merged, split, or rejected
       with reasons; none is silently treated as truth.

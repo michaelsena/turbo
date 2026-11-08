@@ -5,6 +5,7 @@ from turbo.universe.identity_sources import (
     identity_source_summary,
     relationship_product_records,
 )
+from turbo.universe.multisource import reconcile
 
 
 class IdentitySourceTest(unittest.TestCase):
@@ -34,6 +35,26 @@ class IdentitySourceTest(unittest.TestCase):
         )
         self.assertGreater(len(relationships["industry_product_relationships"]), 37_000)
         self.assertGreater(len(relationship_product_records()), 3_000)
+
+    def test_every_relationship_endpoint_resolves_to_an_identity(self) -> None:
+        _, relationships = identity_source_artifacts()
+        identity_ids = {
+            item["identity_id"] for item in reconcile()["source_identities"]
+        }
+        endpoints: set[str] = set()
+        for edge in relationships["napcs_concordance_relationships"]:
+            endpoints.add(edge["collection_identity_id"])
+            endpoints.add(edge["trilateral_identity_id"])
+        for edge in relationships["napcs_concordance_non_mappings"]:
+            endpoints.add(edge["collection_identity_id"])
+        for edge in relationships["industry_product_relationships"]:
+            endpoints.add(edge["industry_identity_id"])
+            endpoints.add(edge["product_identity_id"])
+        self.assertEqual(endpoints - identity_ids, set())
+        self.assertEqual(
+            len(relationships["napcs_concordance_non_mappings"]),
+            7,
+        )
 
 
 if __name__ == "__main__":

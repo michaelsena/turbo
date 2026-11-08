@@ -5,46 +5,54 @@
   "identity_source_counts": {
     "collection_to_trilateral_rows": 3520,
     "industry_by_products_rows": 569027,
+    "industry_product_relationships": 37232,
+    "napcs_concordance_non_mappings": 7,
+    "napcs_concordance_relationships": 3516,
     "products_by_industry_rows": 32024,
     "products_by_industry_unique_national_six_digit_pairs": 28521,
     "trilateral_to_collection_rows": 3520
   },
-  "immutable_run_path": "data/runs/run-597077725e2b15dd9333",
+  "immutable_run_path": "data/runs/run-67a1e3d2bb6a6772cac1",
   "multisource_counts": {
+    "naics_nodes": 2125,
     "naics_six_digit": 1012,
     "napcs_collection_records": 6290,
-    "napcs_products": 7235,
+    "napcs_concordance_only_products": 1,
+    "napcs_products": 7236,
     "napcs_relationship_only_products": 945,
+    "napcs_trilateral_products": 1072,
+    "normalized_source_identities": 10433,
     "prior_candidate_markets": 978,
     "prior_seed_records": 978
   },
   "output_hashes": {
-    "identity-relationships.json": "d801e6c624fecf7aa5b8889e74b88945e90837b1c9184ce9a02f24adcf0aae0f",
-    "identity-source-summary.json": "d45b38a9a6093c40d3f4ca170cce572f7b6325786f9ab32fe2d8f14245e51a4e",
-    "multisource-reconciliation.json": "9e70fcfe4d3f834ba3f7d01f51c6d42e7bc01dea0533dc7209e68c105cb2dd6b",
-    "raw-source-hierarchy.json": "c9368a35dca50c236f663aea2a4f6bac025a7d2e5d2f035debde6516e27be2aa"
+    "identity-relationships.json.gz": "d9a9d818688c4a22f5d062bf5c4aa1a743062c18c075151263663d045168cd88",
+    "identity-source-summary.json.gz": "f3ff87cf62a50b203501a2bbc534c4bb593f7bb53e30a23d4a8ab8fc6483272a",
+    "multisource-reconciliation.json.gz": "0e9a7b786134d1b1cb2b5501728070006888d728b1f6770cac433eb0c77fd282",
+    "raw-source-hierarchy.json.gz": "c010a2767cf492b02d301408ccc6951f5aed99ac59ad218bbb16f8e0f7bf1446"
   },
   "reconciliation_mapping_counts": {
-    "ambiguous_or_semantically_conflicted_review": 7,
-    "exact_label_candidate": 211,
-    "proposed_mapping_review": 85,
-    "unmatched_requires_add_split_or_exclusion_review": 7944
+    "ambiguous_or_semantically_conflicted_review": 26,
+    "exact_label_candidate": 233,
+    "proposed_mapping_review": 169,
+    "unmatched_requires_add_split_or_exclusion_review": 10005
   },
   "research_scores": 0,
   "run_config": {
-    "code_fingerprint": "511042d5e9c1f2de211aeb92656e1186f631d2a169f21ccb886e7ab295e0f1cd",
-    "method_version": "identity-source-semantic-reconciliation-v3",
+    "code_fingerprint": "df593ceac1c80f6c01061a32d16fe0c0213f8e63543e95bb9ba0bd9a946adb28",
+    "method_version": "identity-source-semantic-reconciliation-v5",
     "napcs_manifest_sha256": "06da74961d4777e1848973b9675b7861fc626b3d4750627b03502716c7afd5a3",
     "napcs_sha256": "528e69e335342f9c356379f7074528efc5fcc89addd026cc13ab18b2072fd988",
     "prior_seed_manifest_sha256": "70d496a577ba26a1d1bfae73be24cfb1a6a5301d25a6142b451d111c6b2d5fb9",
     "prior_seed_sha256": "0e8fd754fe1abad8dfbd0d0a404ff0ede2c2260a23a9fdaa49858a36ed5661f3",
+    "schema_fingerprint": "59ed6ca5965500230f7b5af97fdc3e98205847956831ca95648adb6b58321d37",
     "schema_version": 1,
     "source_manifest_sha256": "3f29736ad9c044f332dfdf0d8c366219988212042e7f8e085cbd4d37486b9ae2",
     "source_registry_sha256": "6eb33b014251bddcd68fd5fa3c3343533b431fb1c83883005414379b19507d0c",
     "source_sha256": "217c9e0d4d74e7517bc288f5f308b73aa0de5ee787976a6dd222412be28ada22",
     "strategy_config_sha256": "482f49180ff58d7957ec8c220f1c7dfa0e2aa1140f6f9ecc5afd21be0d98d431"
   },
-  "run_id": "run-597077725e2b15dd9333",
+  "run_id": "run-67a1e3d2bb6a6772cac1",
   "schema_version": 1,
   "six_digit_source_categories": 1012,
   "source_nodes": 2125,

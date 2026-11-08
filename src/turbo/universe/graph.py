@@ -60,6 +60,7 @@ MARKET_VERSION_FIELDS = {
     "explicit_exclusions",
     "source_record_ids",
     "mapping_event_ids",
+    "candidate_market_ids",
     "evidence_by_dimension",
     "confidence_by_dimension",
 }
@@ -138,7 +139,13 @@ def _validate_market_version(
         version["parent_market_id"], str
     ):
         errors.append("parent_market_id must be a string or null")
-    for field in ("aliases", "explicit_exclusions", "source_record_ids", "mapping_event_ids"):
+    for field in (
+        "aliases",
+        "explicit_exclusions",
+        "source_record_ids",
+        "mapping_event_ids",
+        "candidate_market_ids",
+    ):
         if not isinstance(version[field], list) or any(
             not isinstance(item, str) for item in version[field]
         ):
@@ -155,6 +162,7 @@ def validate_event(event: dict[str, Any]) -> list[str]:
         "recorded_at",
         "input_source_record_ids",
         "input_market_ids",
+        "input_candidate_market_ids",
         "output_market_ids",
         "operating_identity",
         "supporting_record_ids",
@@ -162,6 +170,7 @@ def validate_event(event: dict[str, Any]) -> list[str]:
         "alternatives_considered",
         "review",
         "supersedes",
+        "supersedes_market_version_ids",
     }
     missing = sorted(required - set(event))
     if missing:
@@ -179,11 +188,13 @@ def validate_event(event: dict[str, Any]) -> list[str]:
     list_fields = (
         "input_source_record_ids",
         "input_market_ids",
+        "input_candidate_market_ids",
         "output_market_ids",
         "supporting_record_ids",
         "counterevidence_record_ids",
         "alternatives_considered",
         "supersedes",
+        "supersedes_market_version_ids",
     )
     for field in list_fields:
         if not isinstance(event[field], list):
@@ -195,14 +206,18 @@ def validate_event(event: dict[str, Any]) -> list[str]:
     for field in (
         "input_source_record_ids",
         "input_market_ids",
+        "input_candidate_market_ids",
         "output_market_ids",
         "supporting_record_ids",
         "counterevidence_record_ids",
         "supersedes",
+        "supersedes_market_version_ids",
     ):
         values = event[field]
         if len(values) != len(set(values)):
             errors.append(f"{field} contains duplicates")
+        if any(not isinstance(value, str) or not value for value in values):
+            errors.append(f"{field} must contain non-empty strings")
     relationship = event.get("relationship_type")
     if relationship is not None and relationship not in RELATIONSHIP_TYPES:
         errors.append(f"unknown relationship_type: {relationship}")
@@ -223,19 +238,30 @@ def validate_event(event: dict[str, Any]) -> list[str]:
     review = event["review"]
     if not isinstance(review, dict):
         errors.append("review must be an object")
-    elif event["decision"] == "accepted":
+    else:
         proposer = review.get("proposer")
         independent = review.get("independent_reviewer")
-        if not proposer or not independent:
-            errors.append("accepted events require proposer and independent_reviewer")
+        if not isinstance(proposer, str) or not proposer:
+            errors.append("review.proposer must be a non-empty string")
+        if not isinstance(independent, str) or not independent:
+            errors.append("review.independent_reviewer must be a non-empty string")
         elif proposer == independent:
             errors.append("proposer and independent_reviewer must differ")
-        if review.get("result") != "accepted":
+        if review.get("result") not in {"accepted", "rejected", "changes_requested"}:
+            errors.append("review.result is invalid")
+        if event["decision"] == "accepted" and review.get("result") != "accepted":
             errors.append("accepted event review.result must be accepted")
 
     source_ids = event["input_source_record_ids"]
     input_ids = event["input_market_ids"]
+    candidate_ids = event["input_candidate_market_ids"]
     output_ids = event["output_market_ids"]
+    if event_type not in {"rename", "reparent"} and event[
+        "supersedes_market_version_ids"
+    ]:
+        errors.append(
+            "only rename or reparent may supersede a market version"
+        )
     if event_type == "map":
         if not source_ids:
             errors.append("map requires at least one input source record")
@@ -246,6 +272,8 @@ def validate_event(event: dict[str, Any]) -> list[str]:
         if relationship is None:
             errors.append("map requires relationship_type")
     elif event_type == "create_market":
+        if event["supersedes"]:
+            errors.append("create_market cannot supersede another event")
         if input_ids or len(output_ids) != 1:
             errors.append("create_market requires no input markets and exactly one output market")
         elif output_ids[0] != market_id_from_creation(event_id):
@@ -288,8 +316,8 @@ def validate_event(event: dict[str, Any]) -> list[str]:
     elif event_type in {"rename", "reparent"}:
         if len(input_ids) != 1 or output_ids != input_ids:
             errors.append(f"{event_type} must preserve exactly one market ID")
-        elif not event["supersedes"]:
-            errors.append(f"{event_type} must supersede the active defining event")
+        elif len(event["supersedes_market_version_ids"]) != 1:
+            errors.append(f"{event_type} must supersede exactly one market version")
         else:
             errors.extend(
                 _validate_market_version(
@@ -304,8 +332,8 @@ def validate_event(event: dict[str, Any]) -> list[str]:
         if output_ids:
             errors.append("exclude_source_record cannot create market outputs")
     elif event_type == "reject_candidate":
-        if not source_ids and not input_ids:
-            errors.append("reject_candidate requires a source record or market input")
+        if not candidate_ids:
+            errors.append("reject_candidate requires at least one candidate-market input")
         if output_ids:
             errors.append("reject_candidate cannot create market outputs")
     elif event_type == "supersede_decision":
@@ -321,11 +349,13 @@ def project_graph(
     *,
     as_of: str,
     known_source_record_ids: set[str],
+    known_candidate_market_ids: set[str] | None = None,
     source_hashes: dict[str, str] | None = None,
     config_hash: str = "",
     code_hash: str = "",
 ) -> dict[str, Any]:
     cutoff = _parse_timestamp(as_of)
+    known_candidates = known_candidate_market_ids or set()
     timestamped: list[tuple[datetime, dict[str, Any]]] = []
     for event in events:
         try:
@@ -349,17 +379,39 @@ def project_graph(
                 raise ValueError(f"event {event['event_id']} supersedes missing or future event {superseded_id}")
             if event_times[superseded_id] >= event_times[event["event_id"]]:
                 raise ValueError(f"event {event['event_id']} must supersede an earlier event")
+            if (
+                event["event_type"] != "supersede_decision"
+                and by_id[superseded_id]["event_type"] != event["event_type"]
+            ):
+                raise ValueError(
+                    f"event {event['event_id']} may only supersede the same event type "
+                    "unless it is supersede_decision"
+                )
         missing_sources = set(event["input_source_record_ids"]) - known_source_record_ids
         if missing_sources:
             raise ValueError(
                 f"event {event['event_id']} references unknown source records: {sorted(missing_sources)}"
             )
+        missing_candidates = set(event["input_candidate_market_ids"]) - known_candidates
+        if missing_candidates:
+            raise ValueError(
+                f"event {event['event_id']} references unknown candidate markets: "
+                f"{sorted(missing_candidates)}"
+            )
     accepted = [event for event in ordered if event["decision"] == "accepted"]
-    superseded = {item for event in accepted for item in event["supersedes"]}
-    active_ids = {event["event_id"] for event in accepted if event["event_id"] not in superseded}
+    active_ids: set[str] = set()
+    suppressed_ids: set[str] = set()
+    for event in reversed(accepted):
+        if event["event_id"] in suppressed_ids:
+            continue
+        active_ids.add(event["event_id"])
+        suppressed_ids.update(event["supersedes"])
+    superseded = {event["event_id"] for event in accepted} - active_ids
+    active = [event for event in accepted if event["event_id"] in active_ids]
 
     markets: dict[str, dict[str, Any]] = {}
     definition_events: dict[str, str] = {}
+    current_version_ids: dict[str, str] = {}
     version_ids: set[str] = set()
     mappings: list[dict[str, Any]] = []
     exclusions: list[dict[str, Any]] = []
@@ -373,16 +425,19 @@ def project_graph(
             raise ValueError(f"duplicate market_version_id: {version_id}")
         if market_id in markets and not replace:
             raise ValueError(f"duplicate active market definition: {market_id}")
-        if replace and definition_events.get(market_id) not in event["supersedes"]:
+        if replace and current_version_ids.get(market_id) not in event[
+            "supersedes_market_version_ids"
+        ]:
             raise ValueError(
-                f"event {event['event_id']} must supersede active definition "
-                f"{definition_events.get(market_id)}"
+                f"event {event['event_id']} must supersede active market version "
+                f"{current_version_ids.get(market_id)}"
             )
         version_ids.add(version_id)
         markets[market_id] = version
         definition_events[market_id] = event["event_id"]
+        current_version_ids[market_id] = version_id
 
-    for event in accepted:
+    for event in active:
         event_type = event["event_type"]
         if event_type == "create_market":
             install(event["market_version"], event)
@@ -410,15 +465,25 @@ def project_graph(
             install(event["market_version"], event)
             retired_market_ids.update(event["input_market_ids"])
             lineage.append(event)
-        elif event_type == "map" and event["event_id"] in active_ids:
+        elif event_type == "map":
             market_id = event["output_market_ids"][0]
             if market_id not in markets or market_id in retired_market_ids:
                 raise ValueError(f"map references unknown market or retired market: {market_id}")
             mappings.append(event)
-        elif event_type == "exclude_source_record" and event["event_id"] in active_ids:
+        elif event_type == "exclude_source_record":
             exclusions.append(event)
 
     effective_market_ids = set(markets) - retired_market_ids
+    effective_mappings = [
+        mapping
+        for mapping in mappings
+        if mapping["output_market_ids"][0] in effective_market_ids
+    ]
+    retired_mappings = [
+        mapping
+        for mapping in mappings
+        if mapping["output_market_ids"][0] in retired_market_ids
+    ]
     for market_id in sorted(effective_market_ids):
         version = markets[market_id]
         missing_sources = set(version["source_record_ids"]) - known_source_record_ids
@@ -426,11 +491,28 @@ def project_graph(
             raise ValueError(
                 f"market {market_id} references unknown source records: {sorted(missing_sources)}"
             )
+        missing_candidates = set(version["candidate_market_ids"]) - known_candidates
+        if missing_candidates:
+            raise ValueError(
+                f"market {market_id} references unknown candidate markets: "
+                f"{sorted(missing_candidates)}"
+            )
         for mapping_id in version["mapping_event_ids"]:
             mapping = by_id.get(mapping_id)
-            if mapping is None or mapping["event_type"] != "map":
+            if (
+                mapping is None
+                or mapping["event_type"] != "map"
+                or mapping_id not in active_ids
+                or mapping["decision"] != "accepted"
+                or event_times[mapping_id]
+                >= event_times[definition_events[market_id]]
+                or mapping["output_market_ids"] != [market_id]
+                or not set(mapping["input_source_record_ids"]).issubset(
+                    set(version["source_record_ids"])
+                )
+            ):
                 raise ValueError(
-                    f"market {market_id} references unknown or non-map event: {mapping_id}"
+                    f"market {market_id} references an invalid mapping event: {mapping_id}"
                 )
         parent_id = version["parent_market_id"]
         if parent_id is not None and parent_id not in effective_market_ids:
@@ -466,7 +548,8 @@ def project_graph(
             for market_id in sorted(effective_market_ids)
         ],
         "retired_market_ids": sorted(retired_market_ids),
-        "mappings": mappings,
+        "mappings": effective_mappings,
+        "retired_mappings": retired_mappings,
         "exclusions": exclusions,
         "lineage": lineage,
     }

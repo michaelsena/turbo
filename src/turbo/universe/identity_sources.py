@@ -145,11 +145,15 @@ def identity_source_artifacts() -> tuple[dict[str, object], dict[str, object]]:
         "sample_forward_records": [asdict(row) for row in forward[:5]],
     }
     concordance: dict[tuple[str, str], dict[str, set[str]]] = {}
+    non_mappings: dict[str, set[str]] = {}
     for observed_in, rows in (
         ("collection_to_trilateral", forward),
         ("trilateral_to_collection", reverse),
     ):
         for row in rows:
+            if row.trilateral_code in {"", "NA"}:
+                non_mappings.setdefault(row.collection_code, set()).add(observed_in)
+                continue
             key = (row.collection_code, row.trilateral_code)
             value = concordance.setdefault(
                 key,
@@ -165,17 +169,50 @@ def identity_source_artifacts() -> tuple[dict[str, object], dict[str, object]]:
         "warning": "These are observed source relationships, not accepted canonical market mappings.",
         "napcs_concordance_relationships": [
             {
-                "collection_source_record_id": f"napcs:{collection_code}",
-                "trilateral_source_record_id": f"napcs-trilateral:{trilateral_code}",
+                "collection_identity_id": f"identity:napcs-collection:{collection_code}",
+                "trilateral_identity_id": f"identity:napcs-trilateral:{trilateral_code}",
                 "part_indicators": sorted(value["part_indicators"]),
                 "observed_in": sorted(value["observed_in"]),
+                "source_observations": [
+                    {
+                        "snapshot_id": (
+                            "census-napcs-2022-collection-to-trilateral"
+                            if direction == "collection_to_trilateral"
+                            else "census-napcs-2022-trilateral-to-collection"
+                        ),
+                        "locator": (
+                            f"data_sheet:collection={collection_code}:"
+                            f"trilateral={trilateral_code}"
+                        ),
+                    }
+                    for direction in sorted(value["observed_in"])
+                ],
             }
             for (collection_code, trilateral_code), value in sorted(concordance.items())
         ],
+        "napcs_concordance_non_mappings": [
+            {
+                "collection_identity_id": f"identity:napcs-collection:{collection_code}",
+                "disposition": "no_trilateral_mapping",
+                "observed_in": sorted(observed_in),
+                "source_observations": [
+                    {
+                        "snapshot_id": (
+                            "census-napcs-2022-collection-to-trilateral"
+                            if direction == "collection_to_trilateral"
+                            else "census-napcs-2022-trilateral-to-collection"
+                        ),
+                        "locator": f"data_sheet:collection={collection_code}:trilateral=NA",
+                    }
+                    for direction in sorted(observed_in)
+                ],
+            }
+            for collection_code, observed_in in sorted(non_mappings.items())
+        ],
         "industry_product_relationships": [
             {
-                "industry_source_record_id": f"naics:{naics}",
-                "product_source_record_id": f"napcs:{napcs}",
+                "industry_identity_id": f"identity:naics:{naics}",
+                "product_identity_id": f"identity:napcs-collection:{napcs}",
                 "observed_in": sorted(
                     source
                     for source, pairs in (
@@ -184,6 +221,24 @@ def identity_source_artifacts() -> tuple[dict[str, object], dict[str, object]]:
                     )
                     if (naics, napcs) in pairs
                 ),
+                "source_observations": [
+                    {
+                        "snapshot_id": (
+                            "census-economic-census-2022-industry-by-products"
+                            if source == "industry_by_products"
+                            else "census-economic-census-2022-products-by-industry"
+                        ),
+                        "locator": (
+                            "GEO_ID=0100000US:"
+                            f"NAICS2022={naics}:NAPCS2022={napcs}"
+                        ),
+                    }
+                    for source, pairs in (
+                        ("industry_by_products", industry_pairs),
+                        ("products_by_industry", product_pairs),
+                    )
+                    if (naics, napcs) in pairs
+                ],
             }
             for naics, napcs in sorted(all_pairs)
         ],
@@ -191,6 +246,9 @@ def identity_source_artifacts() -> tuple[dict[str, object], dict[str, object]]:
     summary["relationship_artifact_counts"] = {
         "napcs_concordance_relationships": len(
             relationships["napcs_concordance_relationships"]
+        ),
+        "napcs_concordance_non_mappings": len(
+            relationships["napcs_concordance_non_mappings"]
         ),
         "industry_product_relationships": len(
             relationships["industry_product_relationships"]

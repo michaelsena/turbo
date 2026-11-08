@@ -21,6 +21,15 @@ A stable row or object within one immutable snapshot:
 Retrieval normalization is never authoritative. Raw exclusions, negations, regulated
 distinctions, customer scope, geography, and residual wording remain preserved.
 
+## Normalized source identity
+
+A typed NAICS or NAPCS code identity is distinct from every immutable row or
+observation that mentions it. Identity nodes use their own namespace and link to one
+or more source-record IDs. Official hierarchy, concordance, and industry-product
+relationships connect identity nodes while retaining the snapshot ID and exact
+locator that observed each edge. Source-row IDs, normalized identities,
+candidate-market hypotheses, and canonical-market IDs are never interchangeable.
+
 ## Observation and claim
 
 An observation is a narrow, directly located source statement. A claim is an
@@ -45,7 +54,8 @@ while acquisition-universe equivalence remains uncertain.
 
 ## Mapping relationship
 
-Source records relate to markets through typed, many-to-many edges:
+Normalized source identities and their supporting source records relate to markets
+through typed, many-to-many edges:
 
 - equivalent-label candidate
 - broader-than-market / narrower-than-market
@@ -70,11 +80,18 @@ preserves inputs, outputs, typed relationship, seven operating-identity results,
 supporting and contrary records, alternatives, proposer, independent review,
 adjudication, cutoff, and supersession.
 
+Candidate-market hypotheses have a dedicated typed input field. Event supersession
+withdraws or replaces a decision; rename and reparent events instead supersede the
+current `market_version_id` without deactivating the event that originally created
+the stable market identity.
+
 A graph version is the deterministic projection of accepted events through a cutoff.
 Its identity includes the ordered-event hash plus governed source, configuration, and
 code hashes. Corrections add a superseding event; they never rewrite the prior event.
 Split and merge events retire their predecessor market IDs from the effective graph
-while preserving them and their successor lineage in history.
+while preserving them and their successor lineage in history. Mappings to retired
+markets move to an explicitly historical collection rather than dangling in the
+effective graph.
 
 
 ## Factor definition, evaluator result, and score event

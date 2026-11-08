@@ -6,9 +6,9 @@
   "additionalProperties": true,
   "required": [
     "event_id", "event_type", "decision", "recorded_at",
-    "input_source_record_ids", "input_market_ids", "output_market_ids",
+    "input_source_record_ids", "input_market_ids", "input_candidate_market_ids", "output_market_ids",
     "operating_identity", "supporting_record_ids", "counterevidence_record_ids",
-    "alternatives_considered", "review", "supersedes"
+    "alternatives_considered", "review", "supersedes", "supersedes_market_version_ids"
   ],
   "properties": {
     "event_id": {"type": "string", "minLength": 1},
@@ -17,8 +17,9 @@
     "recorded_at": {"type": "string", "format": "date-time"},
     "input_source_record_ids": {"$ref": "#/$defs/uniqueStringArray"},
     "input_market_ids": {"$ref": "#/$defs/uniqueStringArray"},
+    "input_candidate_market_ids": {"$ref": "#/$defs/uniqueStringArray"},
     "output_market_ids": {"$ref": "#/$defs/uniqueStringArray"},
-    "relationship_type": {"enum": ["equivalent_label_candidate", "broader_than_market", "narrower_than_market", "product_sold_by_market", "industry_containing_market", "task_performed_by_market", "partial_overlap", "residual_bucket", "duplicate_source_record", "non_market_product", "out_of_scope_for_canonicalization", "unresolved"]},
+    "relationship_type": {"enum": ["equivalent_label_candidate", "broader_than_market", "narrower_than_market", "product_sold_by_market", "industry_containing_market", "task_performed_by_market", "partial_overlap", "residual_bucket", "duplicate_source_record", "non_market_product", "out_of_scope_for_canonicalization", "unresolved", null]},
     "operating_identity": {"$ref": "#/$defs/operatingIdentity"},
     "supporting_record_ids": {"$ref": "#/$defs/uniqueStringArray"},
     "counterevidence_record_ids": {"$ref": "#/$defs/uniqueStringArray"},
@@ -34,6 +35,7 @@
       }
     },
     "supersedes": {"$ref": "#/$defs/uniqueStringArray"},
+    "supersedes_market_version_ids": {"$ref": "#/$defs/uniqueStringArray"},
     "market_version": {"$ref": "#/$defs/marketVersion"},
     "market_versions": {"type": "array", "items": {"$ref": "#/$defs/marketVersion"}}
   },
@@ -90,7 +92,7 @@
     "marketVersion": {
       "type": "object",
       "additionalProperties": true,
-      "required": ["market_version_id", "market_id", "canonical_name", "definition", "boundary", "buyer", "job_to_be_done", "delivery_model", "workforce_model", "economics_risk", "acquisition_universe", "ambient_ai_workflow", "parent_market_id", "aliases", "explicit_exclusions", "source_record_ids", "mapping_event_ids", "evidence_by_dimension", "confidence_by_dimension"],
+      "required": ["market_version_id", "market_id", "canonical_name", "definition", "boundary", "buyer", "job_to_be_done", "delivery_model", "workforce_model", "economics_risk", "acquisition_universe", "ambient_ai_workflow", "parent_market_id", "aliases", "explicit_exclusions", "source_record_ids", "mapping_event_ids", "candidate_market_ids", "evidence_by_dimension", "confidence_by_dimension"],
       "properties": {
         "market_version_id": {"type": "string", "pattern": "^market-version:[0-9a-f]{24}$"},
         "market_id": {"type": "string", "pattern": "^market:[0-9a-f]{24}$"},
@@ -109,15 +111,21 @@
         "explicit_exclusions": {"$ref": "#/$defs/uniqueStringArray"},
         "source_record_ids": {"$ref": "#/$defs/uniqueStringArray"},
         "mapping_event_ids": {"$ref": "#/$defs/uniqueStringArray"},
+        "candidate_market_ids": {"$ref": "#/$defs/uniqueStringArray"},
         "evidence_by_dimension": {"$ref": "#/$defs/dimensionEvidence"},
         "confidence_by_dimension": {"$ref": "#/$defs/dimensionConfidence"}
       }
     }
   },
   "allOf": [
-    {"if": {"properties": {"event_type": {"const": "map"}}}, "then": {"required": ["relationship_type"], "properties": {"input_source_record_ids": {"minItems": 1}, "output_market_ids": {"minItems": 1, "maxItems": 1}}}},
-    {"if": {"properties": {"event_type": {"const": "create_market"}}}, "then": {"required": ["market_version"], "properties": {"input_market_ids": {"maxItems": 0}, "output_market_ids": {"minItems": 1, "maxItems": 1}}}},
+    {"if": {"properties": {"event_type": {"const": "map"}}}, "then": {"required": ["relationship_type"], "properties": {"input_source_record_ids": {"minItems": 1}, "input_market_ids": {"maxItems": 0}, "output_market_ids": {"minItems": 1, "maxItems": 1}}}},
+    {"if": {"properties": {"event_type": {"const": "create_market"}}}, "then": {"required": ["market_version"], "properties": {"input_market_ids": {"maxItems": 0}, "output_market_ids": {"minItems": 1, "maxItems": 1}, "supersedes": {"maxItems": 0}}}},
     {"if": {"properties": {"event_type": {"const": "split"}}}, "then": {"required": ["market_versions"], "properties": {"input_market_ids": {"minItems": 1, "maxItems": 1}, "output_market_ids": {"minItems": 2}, "market_versions": {"minItems": 2}}}},
-    {"if": {"properties": {"event_type": {"const": "merge"}}}, "then": {"required": ["market_version"], "properties": {"input_market_ids": {"minItems": 2}, "output_market_ids": {"minItems": 1, "maxItems": 1}}}}
+    {"if": {"properties": {"event_type": {"const": "merge"}}}, "then": {"required": ["market_version"], "properties": {"input_market_ids": {"minItems": 2}, "output_market_ids": {"minItems": 1, "maxItems": 1}}}},
+    {"if": {"properties": {"event_type": {"enum": ["rename", "reparent"]}}}, "then": {"required": ["market_version"], "properties": {"input_market_ids": {"minItems": 1, "maxItems": 1}, "output_market_ids": {"minItems": 1, "maxItems": 1}, "supersedes_market_version_ids": {"minItems": 1, "maxItems": 1}}}},
+    {"if": {"properties": {"event_type": {"const": "exclude_source_record"}}}, "then": {"properties": {"input_source_record_ids": {"minItems": 1}, "output_market_ids": {"maxItems": 0}}}},
+    {"if": {"properties": {"event_type": {"const": "reject_candidate"}}}, "then": {"properties": {"input_candidate_market_ids": {"minItems": 1}, "output_market_ids": {"maxItems": 0}}}},
+    {"if": {"properties": {"event_type": {"const": "supersede_decision"}}}, "then": {"properties": {"supersedes": {"minItems": 1}, "output_market_ids": {"maxItems": 0}}}},
+    {"if": {"properties": {"event_type": {"not": {"enum": ["rename", "reparent"]}}}}, "then": {"properties": {"supersedes_market_version_ids": {"maxItems": 0}}}}
   ]
 }
