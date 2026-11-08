@@ -3,6 +3,7 @@ import unittest
 
 from turbo.universe.naics_identity_sources import (
     naics_identity_source_artifacts,
+    parse_naics_manual_definitions,
     parse_naics_manual_index,
     parse_naics_manual_index_cross_references,
 )
@@ -80,6 +81,84 @@ class NaicsIdentitySourcesTest(unittest.TestCase):
                 for entry in cross_references
             )
         )
+
+    def test_manual_definitions_close_against_every_structure_identity(self) -> None:
+        definitions = parse_naics_manual_definitions()
+        self.assertEqual(len(definitions), 2_125)
+        self.assertEqual(len({item.naics_2022_code for item in definitions}), 2_125)
+        self.assertEqual(
+            self.summary["manual_definitions"]["level_counts"],
+            {2: 20, 3: 96, 4: 308, 5: 689, 6: 1_012},
+        )
+        self.assertEqual(
+            self.summary["manual_definitions"]["disposition_counts"],
+            {
+                "delegated_definition": 522,
+                "substantive_inline_definition": 1_572,
+                "title_only_heading": 31,
+            },
+        )
+
+    def test_manual_semantic_blocks_and_delegated_links_are_typed(self) -> None:
+        definitions = parse_naics_manual_definitions()
+        illustrative = [
+            item for item in definitions if item.illustrative_examples_fragments
+        ]
+        cross_references = [
+            item for item in definitions if item.cross_references_fragments
+        ]
+        delegated = [item for item in definitions if item.delegated_to_code]
+        title_only = [
+            item for item in definitions if item.disposition == "title_only_heading"
+        ]
+        self.assertEqual(len(illustrative), 381)
+        self.assertEqual(len(cross_references), 1_095)
+        self.assertEqual(len(delegated), 522)
+        self.assertEqual(len(title_only), 31)
+        self.assertTrue(all(item.level == 5 for item in delegated))
+        self.assertEqual(
+            {item.naics_2022_code for item in title_only},
+            {
+                "2111", "3122", "4242", "4251", "4453", "4492", "4551",
+                "4552", "4561", "4572", "4581", "4582", "4592", "4593",
+                "4595", "5178", "5621", "5622", "6111", "8131", "8132",
+                "8133", "8134", "9211", "9221", "9231", "9241", "9251",
+                "9261", "9271", "9281",
+            },
+        )
+        split_heading = next(
+            item for item in definitions if item.naics_2022_code == "323113"
+        )
+        self.assertEqual(split_heading.start_page, 188)
+        split_target = next(
+            item for item in definitions if item.naics_2022_code == "54112"
+        )
+        self.assertEqual(split_target.delegated_to_code, "541120")
+
+    def test_manual_semantic_text_preserves_line_wrapped_compounds(self) -> None:
+        definitions = {
+            item.naics_2022_code: item for item in parse_naics_manual_definitions()
+        }
+        self.assertIn("air-conditioning", definitions["238220"].narrative_text)
+        self.assertNotIn("air- conditioning", definitions["238220"].narrative_text)
+        self.assertIn(
+            "residential-type, installation",
+            definitions["238350"].illustrative_examples_text,
+        )
+        self.assertIn(
+            "peer-to-peer payment services",
+            definitions["522320"].illustrative_examples_text,
+        )
+        self.assertIn("one-half", definitions["111140"].cross_references_text)
+        for definition in definitions.values():
+            semantic_text = " ".join(
+                (
+                    definition.narrative_text,
+                    definition.illustrative_examples_text,
+                    definition.cross_references_text,
+                )
+            )
+            self.assertNotIn("Canadian, Mexican", semantic_text)
 
     def test_full_concordance_directions_are_exact_reverses(self) -> None:
         counts = self.summary["full_concordance"]

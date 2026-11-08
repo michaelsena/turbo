@@ -38,11 +38,24 @@ replayable parsers, explicit coverage tests, and no downstream market decisions.
 - Exact-head re-review found and corrected dropped spaces between adjacent PDF text
   spans. Reconstruction now uses embedded font widths and coordinate gaps; regression
   fixtures include `Aftermarket parts, automotive` and `Aluminum billet`.
+- Extracted one coordinate-backed Manual definition record for every official NAICS
+  hierarchy identity on physical PDF pages 79–603: 1,572 substantive inline
+  definitions, 522 delegated level-five-to-level-six definition links, and 31
+  title-only level-four headings.
+- Preserved 381 illustrative-example blocks and 1,095 cross-reference blocks as
+  separate semantic fields with their original page/x/y/font/size/text fragments.
+  All current identity and delegated endpoints are validated; none enters the
+  canonical-market queue by parser side effect.
+- Independent exact-head review found that derived semantic text inserted spaces
+  after single hyphens at physical line wraps. Reconstruction now rejoins those
+  compounds and reads illustrative-example columns independently; regression cases
+  cover `air-conditioning`, `one-half`, `residential-type`, and `peer-to-peer`.
+- Re-review then found the recurring comparability footer inside 458 definition
+  records. The definition body gate now excludes that y-coordinate band, and a
+  full-record regression rejects the footer phrase from every semantic field.
 
 ## Open source gaps
 
-- Extract the NAICS Manual industry definitions, illustrative examples,
-  cross-references, and “see industry description” links with exact locators.
 - Capture original bytes for all 24 live Census NAPCS section pages (or an official
   downloadable equivalent). A read-only semantic audit found 2,182 published rows,
   but the public site blocks automated raw retrieval and the `www2` paths return 404.

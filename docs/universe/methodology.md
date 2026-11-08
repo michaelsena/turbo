@@ -70,6 +70,17 @@ and x-coordinate gaps to preserve real word spaces without splitting fragmented 
 The two uncovered codes remain explicit; absence
 from the index is not negative market evidence.
 
+The Manual definition section is parsed separately from its alphabetic index. Turbo
+uses coordinate-aware headings on physical PDF pages 79–603 to close exactly one
+semantic record against each of the 2,125 official hierarchy identities. The result
+contains 1,572 substantive inline definitions, 522 level-five headings that delegate
+to a six-digit definition, and 31 level-four title-only headings. Illustrative
+examples (381 blocks) and cross-references (1,095 blocks) remain distinct from the
+definition narrative. Every derived field retains its contributing page, x/y,
+font, size, and text fragments; delegated endpoints must resolve to current 2022
+identities. Definition content supports later operating-boundary judgment but does
+not itself create, merge, split, filter, or score a market.
+
 NAICS vintage lineage is separate from canonical identity. The two official full
 concordance directions must reverse to the same 1,150 pairs. Historical 2017 codes
 remain lineage values, and eight-digit Economic Census bridge components remain
@@ -151,9 +162,12 @@ are preserved and parsed into a summary plus complete many-to-many relationship
 artifact with referentially closed identity endpoints. Seven official `NA`
 concordance rows remain explicit non-mapping dispositions. The reconciliation layer
 retains 28,668 source rows/observations but produces one review mapping for each of
-10,433 normalized identities. NAICS Manual definition extraction remains open. Its
-20,373 coded alphabetic-index entries, 25 uncoded index cross-references, the 1,150
-full 2017/2022 lineage pairs, and 846 bridge
+10,433 normalized identities. The NAICS Manual identity layer now contains exactly
+one definition record for all 2,125 hierarchy identities, including 1,572 substantive
+definitions, 522 delegated definition links, 31 title-only headings, 381 illustrative
+example blocks, and 1,095 cross-reference blocks. Its 20,373 coded alphabetic-index
+entries, 25 uncoded index cross-references, the 1,150 full 2017/2022 lineage pairs,
+and 846 bridge
 observations are published separately as replayable identity evidence so they cannot
 silently alter market-candidate retrieval.
 

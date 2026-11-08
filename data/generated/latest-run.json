@@ -9,6 +9,10 @@
     "industry_product_relationships": 37232,
     "industry_product_source_observations": 80111,
     "naics_bridge_observations": 846,
+    "naics_manual_cross_reference_blocks": 1095,
+    "naics_manual_definitions": 2125,
+    "naics_manual_delegated_definition_links": 522,
+    "naics_manual_illustrative_example_blocks": 381,
     "naics_manual_index_coded_entries": 20373,
     "naics_manual_index_codes": 1010,
     "naics_manual_index_cross_references": 25,
@@ -20,7 +24,7 @@
     "products_by_industry_unique_national_six_digit_pairs": 28521,
     "trilateral_to_collection_rows": 3520
   },
-  "immutable_run_path": "data/runs/run-75a9161f5fc43a3d2c73",
+  "immutable_run_path": "data/runs/run-aa11b7d926d88a5d9d73",
   "multisource_counts": {
     "naics_nodes": 2125,
     "naics_six_digit": 1012,
@@ -42,9 +46,9 @@
     "identity-relationships.json.gz": "e3753b2902723245369fa01aae42b23b95ac641b3f8194d43b36f3421e9f06b7",
     "identity-source-summary.json.gz": "b7b4fa9685b98f292b9c1365df1577a3bf221e21dfe2591992284c5955e4f6ee",
     "multisource-reconciliation.json.gz": "12e2c9387788a7d08730e8c22ede2b4caed1717c689c59f0930a7f71511ef237",
-    "naics-identity-evidence.json.gz": "0c26e78dd25bfd768f505b13b6b097bad1fe79268d2804743e89a0cc7ea0fac5",
-    "naics-identity-source-summary.json.gz": "8a042bcd60d1cefeb2c2b98856db3b5758b3dfeddf59a9d8b6b05442d1f12bff",
-    "raw-source-hierarchy.json.gz": "84b55a76ae1f86b35888ab41bf58e5dcedc498800af5982875f9d85d6795d156"
+    "naics-identity-evidence.json.gz": "2c72d470eece0baf33d63fac2d6c7d6bd79cc956c24e960d105852201dd5d485",
+    "naics-identity-source-summary.json.gz": "d943d1dfa1a9ac8974f1d28219241e1d38091ad1e34541a8367ab31a0d7efefe",
+    "raw-source-hierarchy.json.gz": "62e102a3035480fab548dfb19edaa338da50eda39af81504ec1c16aecbd67daf"
   },
   "reconciliation_mapping_counts": {
     "ambiguous_or_semantically_conflicted_review": 36,
@@ -54,7 +58,7 @@
   },
   "research_scores": 0,
   "run_config": {
-    "code_fingerprint": "94469ed1c8554973a2baca12fdb08b4aa96121504dc81f9ec77090a994b34911",
+    "code_fingerprint": "16165950d6689bc766a520c6ff42a2c5559a384b87609678dfe0f7f7ba460af2",
     "dependency_versions": {
       "pypdf": "6.21.4"
     },
@@ -71,7 +75,7 @@
     "source_sha256": "217c9e0d4d74e7517bc288f5f308b73aa0de5ee787976a6dd222412be28ada22",
     "strategy_config_sha256": "482f49180ff58d7957ec8c220f1c7dfa0e2aa1140f6f9ecc5afd21be0d98d431"
   },
-  "run_id": "run-75a9161f5fc43a3d2c73",
+  "run_id": "run-aa11b7d926d88a5d9d73",
   "schema_version": 1,
   "six_digit_source_categories": 1012,
   "source_nodes": 2125,

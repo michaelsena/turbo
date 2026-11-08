@@ -217,6 +217,17 @@ def validate_naics_identity_evidence(
         observe_snapshot_and_locator(entry, "manual index entry")
     for entry in evidence["manual_index_cross_references"]:  # type: ignore[index]
         observe_snapshot_and_locator(entry, "manual index cross-reference")
+    for definition in evidence["manual_definitions"]:  # type: ignore[index]
+        if definition["identity_id"] not in known_identity_ids:
+            errors.append(
+                f"manual definition references unknown identity {definition['identity_id']}"
+            )
+        delegated_to = definition["delegated_to_identity_id"]
+        if delegated_to and delegated_to not in known_identity_ids:
+            errors.append(
+                f"manual definition delegates to unknown identity {delegated_to}"
+            )
+        observe_snapshot_and_locator(definition, "manual definition")
     for relationship in evidence["vintage_lineage_relationships"]:  # type: ignore[index]
         if relationship["naics_2022_identity_id"] not in known_identity_ids:
             errors.append(
@@ -384,6 +395,10 @@ def run() -> dict[str, object]:
             "naics_manual_index_coded_entries": naics_identity_summary["manual_index"]["coded_entries"],
             "naics_manual_index_cross_references": naics_identity_summary["manual_index"]["uncoded_cross_reference_rows"],
             "naics_manual_index_codes": naics_identity_summary["manual_index"]["represented_six_digit_codes"],
+            "naics_manual_definitions": naics_identity_summary["manual_definitions"]["definitions"],
+            "naics_manual_illustrative_example_blocks": naics_identity_summary["manual_definitions"]["illustrative_example_blocks"],
+            "naics_manual_cross_reference_blocks": naics_identity_summary["manual_definitions"]["cross_reference_blocks"],
+            "naics_manual_delegated_definition_links": naics_identity_summary["manual_definitions"]["delegated_definition_links"],
             "naics_vintage_lineage_pairs": naics_identity_summary["full_concordance"]["unique_pairs"],
             "naics_bridge_observations": (
                 naics_identity_summary["economic_census_bridges"]["2017_to_2022_observations"]
