@@ -48,8 +48,9 @@ For each source, commit the original bytes and a manifest containing dataset ID,
 publisher, URL, retrieval UTC, SHA-256, reuse status, and role. Parsers retain raw
 labels and source IDs. Every normalized decision points back to those immutable rows.
 
-The legacy Census NAPCS hierarchy pages reject unauthenticated non-browser downloads.
-Turbo therefore uses a pre-registered same-origin public-browser capture that stores
+During this acquisition, direct unauthenticated non-browser requests to the legacy
+Census NAPCS hierarchy pages returned Cloudflare errors. Turbo therefore uses a
+pre-registered same-origin public-browser capture that stores
 each HTTP response entity body as base64 inside one immutable envelope, with its
 canonical/final URL, retrieval UTC, visible response metadata, byte length, and
 SHA-256. The envelope contains no login credentials, cookies, or browser storage.
