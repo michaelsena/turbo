@@ -1,0 +1,67 @@
+# Local operating runbook
+
+## GitHub operating model
+
+GitHub is the durable work ledger.
+
+1. Open an issue with scope, acceptance criteria, boundaries, and dependencies.
+2. Create a branch named `codex/<issue>-<short-name>`.
+3. Post material discoveries and decisions as issue comments.
+4. Keep code, docs, generated results, and issue state synchronized.
+5. Open a pull request referencing the issue.
+6. Obtain independent review for material research or scoring changes.
+7. Run all validation and tests locally at the exact PR head.
+8. Post the commands, results, hashes, and commit in the PR.
+9. Merge only after acceptance; never bypass branch protection.
+
+For larger features, use a feature integration branch. Issue branches merge into
+that branch through reviewed PRs; the integrated collection receives a full local
+replay and independent review; then one feature PR merges the coherent result to
+`main`. `main` must always be the clearest usable product state.
+
+No GitHub Actions or hosted CI is configured. This is an explicit cost-control choice.
+
+## AI-first and publication-ready operation
+
+Agents operate from machine-readable schemas, explicit queues, bounded issue scope,
+and deterministic acceptance commands. They must write durable discoveries back to
+GitHub records rather than depend on chat memory. Failures create events and retryable
+work; they do not silently erase provisional results. Authority boundaries and
+Chairman gates remain explicit.
+
+Every important object has two views derived from the same truth:
+
+- a concise human explanation suitable for an investor, interviewer, or public reader
+- a machine-readable record with definitions, provenance, confidence, version, and hash
+
+Public explanations may simplify language but may not introduce a second source of
+truth. Private or unsupported evidence must never leak into publication artifacts.
+
+## Local verification
+
+```bash
+PYTHONPATH=src python3 -m turbo.cli validate
+PYTHONPATH=src python3 -m turbo.cli run
+PYTHONPATH=src python3 -m turbo.cli context --limit 10
+PYTHONPATH=src python3 -m unittest discover -s tests -v
+```
+
+Before accepting a material run, verify:
+
+- immutable input hashes match their manifests
+- source and canonical identities are unique
+- every parent and directed edge resolves
+- every in-scope market-factor cell is numeric
+- exclusions have explicit reasons
+- low-confidence scores expose active gaps
+- rerunning produces the same substantive projection
+- README and relevant detailed docs are current
+- exact Git commit and output hashes are recorded
+
+## Agent coordination
+
+The GM/PM owns decomposition and integration. Parallel agents receive non-overlapping
+issues or review scopes. Each returns evidence, files changed, local test results, and
+open risks. One agent's output is not accepted merely because another agent produced
+it; integration and independent review remain explicit.
+

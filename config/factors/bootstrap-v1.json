@@ -1,0 +1,18 @@
+{
+  "confidence": 0.28,
+  "evidence_quality": 0.25,
+  "factor_group_id": "bootstrap-strategy-fit-v1",
+  "factors": [
+    "service_orientation",
+    "lmm_buyability",
+    "demand_and_ai_resistance",
+    "ambient_context_potential",
+    "rollup_scalability"
+  ],
+  "method": "deterministic_title_and_structure_heuristics",
+  "purpose": "research_queue_seed_only",
+  "score_maximum": 100,
+  "score_minimum": 0,
+  "version": 1
+}
+

@@ -1,0 +1,11 @@
+{
+  "acquired_at": "2026-11-08T17:40:00Z",
+  "dataset_id": "census-naics-2022",
+  "file": "2022-naics-structure.xlsx",
+  "publisher": "United States Census Bureau",
+  "reuse": "public_official_source",
+  "role": "structural_backbone_not_canonical_market_truth",
+  "sha256": "217c9e0d4d74e7517bc288f5f308b73aa0de5ee787976a6dd222412be28ada22",
+  "source_url": "https://www.census.gov/naics/2022NAICS/2022_NAICS_Structure.xlsx"
+}
+

@@ -1,0 +1,11 @@
+{
+  "acquired_at": "2026-11-08T18:15:00Z",
+  "dataset_id": "prior-model-normalized-markets-2026-11-05",
+  "file": "prior-model-normalized-markets-2026-11-05.json",
+  "publisher": "User-provided prior ChatGPT Space model",
+  "reuse": "user_owned_design_input",
+  "role": "candidate_and_audit_seed_not_validated_market_truth",
+  "sha256": "0e8fd754fe1abad8dfbd0d0a404ff0ede2c2260a23a9fdaa49858a36ed5661f3",
+  "source_url": "https://chatgpt.com/space/page_eadeedcfb7308191b1c65751b710db93"
+}
+

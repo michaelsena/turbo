@@ -1,0 +1,11 @@
+{
+  "acquired_at": "2026-11-08T18:18:00Z",
+  "dataset_id": "census-napcs-2022-economic-census-codes",
+  "file": "2022-economic-census-napcs-codes.xlsx",
+  "publisher": "United States Census Bureau",
+  "reuse": "public_official_source",
+  "role": "demand_side_product_and_service_list",
+  "sha256": "528e69e335342f9c356379f7074528efc5fcc89addd026cc13ab18b2072fd988",
+  "source_url": "https://www2.census.gov/programs-surveys/economic-census/technical-documentation/product-codes-descriptions/product_codes_descriptions.xlsx"
+}
+

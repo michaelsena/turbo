@@ -1,0 +1,261 @@
+{
+  "blank_factor_scores": 0,
+  "factor_scores_generated": 5060,
+  "multisource_counts": {
+    "naics_six_digit": 1012,
+    "napcs_products": 6290,
+    "prior_seed_markets": 978
+  },
+  "output_hashes": {
+    "multisource-reconciliation.json": "485f1a2e29d4ea0341a73c867cd4f557f9f10afdd103c587370e23cd78b8d257",
+    "provisional-source-category-scores.json": "b4ea45383e35b1a182e10f667dc1cc452ef328947fc8f350f1b4e6ab055defd4",
+    "raw-source-hierarchy.json": "aa2d144beba9d14d185d35a1268f8f98e3dd42c407d2c4d560c27af9a1790676"
+  },
+  "provisional_excluded_source_categories": 558,
+  "provisional_non_excluded_source_categories": 454,
+  "reconciliation_mapping_counts": {
+    "accepted_exact_label": 207,
+    "proposed_mapping": 99,
+    "unmatched_requires_add_split_or_exclusion_review": 6996
+  },
+  "run_config": {
+    "code_fingerprint": "e9c45f0da1464245eefb12f69cff6bff36ccd844c47c8c5835146796adf83689",
+    "method_version": "raw-naics-bootstrap-v1",
+    "napcs_sha256": "528e69e335342f9c356379f7074528efc5fcc89addd026cc13ab18b2072fd988",
+    "prior_seed_sha256": "0e8fd754fe1abad8dfbd0d0a404ff0ede2c2260a23a9fdaa49858a36ed5661f3",
+    "schema_version": 1,
+    "source_sha256": "217c9e0d4d74e7517bc288f5f308b73aa0de5ee787976a6dd222412be28ada22"
+  },
+  "run_id": "run-6ee0fdaf54913e16aa27",
+  "schema_version": 1,
+  "six_digit_source_categories": 1012,
+  "source_nodes": 2125,
+  "source_sha256": "217c9e0d4d74e7517bc288f5f308b73aa0de5ee787976a6dd222412be28ada22",
+  "top_provisional_queue_seeds": [
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-562998",
+      "rank": 1,
+      "raw_score": 71.6,
+      "risk_adjusted_score": 53.25,
+      "source_code": "562998",
+      "title": "All Other Miscellaneous Waste Management Services"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-541350",
+      "rank": 2,
+      "raw_score": 71.6,
+      "risk_adjusted_score": 53.25,
+      "source_code": "541350",
+      "title": "Building Inspection Services"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-488390",
+      "rank": 3,
+      "raw_score": 71.6,
+      "risk_adjusted_score": 53.25,
+      "source_code": "488390",
+      "title": "Other Support Activities for Water Transportation"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-811198",
+      "rank": 4,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "811198",
+      "title": "All Other Automotive Repair and Maintenance"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-811412",
+      "rank": 5,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "811412",
+      "title": "Appliance Repair and Maintenance"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-811121",
+      "rank": 6,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "811121",
+      "title": "Automotive Body, Paint, and Interior Repair and Maintenance"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-811310",
+      "rank": 7,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "811310",
+      "title": "Commercial and Industrial Machinery and Equipment (except Automotive and Electronic) Repair and Maintenance"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-238210",
+      "rank": 8,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "238210",
+      "title": "Electrical Contractors and Other Wiring Installation Contractors"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-811210",
+      "rank": 9,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "811210",
+      "title": "Electronic and Precision Equipment Repair and Maintenance"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-561710",
+      "rank": 10,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "561710",
+      "title": "Exterminating and Pest Control Services"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-811430",
+      "rank": 11,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "811430",
+      "title": "Footwear and Leather Goods Repair"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-812210",
+      "rank": 12,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "812210",
+      "title": "Funeral Homes and Funeral Services"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-811111",
+      "rank": 13,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "811111",
+      "title": "General Automotive Repair"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-811411",
+      "rank": 14,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "811411",
+      "title": "Home and Garden Equipment Repair and Maintenance"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-561730",
+      "rank": 15,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "561730",
+      "title": "Landscaping Services"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-238290",
+      "rank": 16,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "238290",
+      "title": "Other Building Equipment Contractors"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-238390",
+      "rank": 17,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "238390",
+      "title": "Other Building Finishing Contractors"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-238190",
+      "rank": 18,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "238190",
+      "title": "Other Foundation, Structure, and Building Exterior Contractors"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-811490",
+      "rank": 19,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "811490",
+      "title": "Other Personal and Household Goods Repair and Maintenance"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-561790",
+      "rank": 20,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "561790",
+      "title": "Other Services to Buildings and Dwellings"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-238220",
+      "rank": 21,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "238220",
+      "title": "Plumbing, Heating, and Air-Conditioning Contractors"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-562910",
+      "rank": 22,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "562910",
+      "title": "Remediation Services"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-811420",
+      "rank": 23,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "811420",
+      "title": "Reupholstery and Furniture Repair"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-561612",
+      "rank": 24,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "561612",
+      "title": "Security Guards and Patrol Services"
+    },
+    {
+      "confidence": 0.28,
+      "market_id": "candidate-561621",
+      "rank": 25,
+      "raw_score": 69.2,
+      "risk_adjusted_score": 52.58,
+      "source_code": "561621",
+      "title": "Security Systems Services (except Locksmiths)"
+    }
+  ]
+}
