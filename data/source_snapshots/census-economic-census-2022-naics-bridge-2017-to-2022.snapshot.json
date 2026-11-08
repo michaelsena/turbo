@@ -1,0 +1,10 @@
+{
+  "acquired_at": "2026-11-08T21:08:18Z",
+  "dataset_id": "census-economic-census-2022-naics-bridge-2017-to-2022",
+  "file": "2022-ecn-naics-bridge-2017-to-2022.zip",
+  "publisher": "United States Census Bureau",
+  "reuse": "public_official_source",
+  "role": "quantitative_2017_industry_to_2022_component_bridge_observations_not_identity_equivalence",
+  "sha256": "ca221c722bc8485c35a8902a63de7fc25f3471cc54fa00c412454e99fb96ded5",
+  "source_url": "https://www2.census.gov/programs-surveys/economic-census/data/2022/API_Datasets/ECNBRIDGE22022.zip"
+}

@@ -8,6 +8,7 @@ from turbo.pipeline import (
     run,
     validate,
     validate_identity_references,
+    validate_naics_identity_evidence,
     validate_manifest_metadata,
 )
 
@@ -97,6 +98,33 @@ class PipelineTest(unittest.TestCase):
             errors,
         )
 
+    def test_naics_identity_evidence_fails_closed_on_endpoints_and_snapshots(self) -> None:
+        evidence = {
+            "manual_index_entries": [
+                {
+                    "identity_id": "identity:naics:999999",
+                    "snapshot_id": "not-governed",
+                    "locator": "pdf:page:1:entry:1",
+                }
+            ],
+            "manual_index_cross_references": [],
+            "vintage_lineage_relationships": [],
+            "economic_census_bridge_observations": [],
+        }
+        errors = validate_naics_identity_evidence(
+            evidence,
+            {"identity:naics:111110"},
+            {"census-naics-2022-manual"},
+        )
+        self.assertIn(
+            "manual index entry references unknown identity identity:naics:999999",
+            errors,
+        )
+        self.assertIn(
+            "manual index entry references unknown snapshot not-governed",
+            errors,
+        )
+
     def test_replay_reuses_same_immutable_run(self) -> None:
         first = run()
         receipt = RUNS / first["run_id"] / "run-receipt.json"
@@ -109,6 +137,8 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(first["research_scores"], 0)
         self.assertGreaterEqual(first["governed_source_snapshots"], 8)
         self.assertEqual(first["identity_source_counts"]["collection_to_trilateral_rows"], 3_520)
+        self.assertEqual(first["run_config"]["dependency_versions"]["pypdf"], "6.21.4")
+        self.assertIn("project_config_sha256", first["run_config"])
         for artifact in first["output_hashes"]:
             self.assertTrue(artifact.endswith(".json.gz"))
             payload = gzip.decompress((RUNS / first["run_id"] / artifact).read_bytes())

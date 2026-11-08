@@ -31,6 +31,14 @@ contributing source observation separately, including snapshot ID, row number,
 dimensions, and a unique locator. Source-row IDs, normalized identities,
 candidate-market hypotheses, and canonical-market IDs are never interchangeable.
 
+Manual index terms are stored in a separate identity-evidence artifact with their
+current 2022 NAICS identity endpoint, raw extracted fragments, derived normalized
+label, and exact PDF coordinates. Historical NAICS codes are stored as vintage
+lineage values rather than current identities. Economic Census eight-digit bridge
+components are observations, not taxonomy or market nodes. This prevents semantic
+enrichment and historical accounting constructs from silently expanding the current
+market-reconciliation worklist.
+
 ## Observation and claim
 
 An observation is a narrow, directly located source statement. A claim is an
@@ -116,8 +124,8 @@ terminal condition. Gaps never null out accepted scores.
 
 ## Run receipt
 
-Contains immutable run ID, input/configuration hashes, code fingerprint, output
-hashes, and validation results. Exact Git head and wall-clock local verification are
+Contains immutable run ID, input/configuration hashes, code fingerprint, parser
+dependency versions, output hashes, and validation results. Exact Git head and wall-clock local verification are
 posted as GitHub issue/PR receipts so deterministic replay never dirties the worktree.
 
 Formal JSON Schemas and executable projection tests precede external API stability.

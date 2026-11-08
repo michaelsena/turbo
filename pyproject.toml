@@ -7,7 +7,10 @@ name = "turbo-market-engine"
 version = "0.1.0"
 description = "Auditable, continuously improving market research and ranking for an AI-enabled LMM roll-up strategy"
 requires-python = ">=3.11"
-dependencies = ["jsonschema[format]>=4.23,<5"]
+dependencies = [
+  "jsonschema[format]>=4.23,<5",
+  "pypdf==6.21.4",
+]
 
 [project.scripts]
 turbo = "turbo.cli:main"
