@@ -71,6 +71,31 @@ alternatives, and directed lineage.
 9. Publish the Target Market Universe with confidence and lineage.
 10. Continue discovering omissions, resolving residual categories, and versioning changes.
 
+## Stage boundary and role of AI
+
+Universe construction, strategy filtering, and market evaluation are different
+decision systems:
+
+- **Universe construction** determines market identity and boundaries. Raw capture,
+  code normalization, source relationships, and locator validation are deterministic.
+  AI specialists supply the operating judgment needed to turn classifications into
+  canonical markets: create, merge, split, map, reject, or exclude. Independent review
+  tests each proposal; accepted judgments retain evidence, assumptions, alternatives,
+  confidence, and append-only lineage.
+- **Target-universe filtering** applies versioned eligibility gates to already-defined
+  markets. A filtered-out market still exists in the canonical universe. Eligibility
+  is not an attractiveness score.
+- **Market evaluation** researches and scores only eligible market versions. It may
+  use evidence-backed inference and lower-confidence assumptions to avoid blank factor
+  fields, with retry tasks for weak evidence. It cannot change market identity.
+
+Temporary research queues may contain unresolved items. A published complete
+canonical or scored projection may not conceal missing decisions: the system records
+the best defensible judgment, labels inference or assumption explicitly, lowers its
+confidence, and keeps the gap active for future improvement. If evaluation discovers
+a boundary error, it proposes a separate universe event rather than changing the
+scored market in place.
+
 ## Operating-family review
 
 The 10,433 normalized NAICS/NAPCS identities are partitioned into bounded operating

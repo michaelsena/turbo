@@ -180,6 +180,55 @@ are filtered into the Target Market Universe.
 
 See [universe methodology](docs/universe/methodology.md).
 
+## Universe building and market evaluation are separate
+
+Turbo operates three ordered projections. They share evidence and lineage, but they
+do not share decision authority.
+
+### 1. Canonical American Market Universe
+
+The universe builder answers **what markets exist and where their boundaries are**.
+
+1. Deterministic parsers preserve official bytes, rows, codes, labels, hierarchy,
+   relationships, dimensions, and unique source locators.
+2. Deterministic normalization creates typed source identities without turning a
+   NAICS or NAPCS code into an investable market by assumption.
+3. AI boundary specialists review bounded operating families and propose market
+   creation, merge, split, mapping, rejection, or exclusion decisions.
+4. A second AI reviewer independently tests buyer, job, delivery model, workforce,
+   economics, acquisition universe, and Ambient AI workflow equivalence.
+5. Adjudication chooses the best defensible boundary using evidence and explicit
+   inference. A working item may remain open while research is retried, but a
+   published complete universe cannot hide a blank: weaker judgments remain visible
+   with lower confidence and an active improvement task.
+6. Accepted decisions become append-only Market Graph events. Rejected alternatives,
+   contrary evidence, confidence, and supersession history remain inspectable.
+
+This stage produces market identities and definitions—not attractiveness scores.
+No market may be added, removed, merged, or split merely because it looks attractive
+or unattractive for the strategy.
+
+### 2. Target Market Universe
+
+The eligibility filter asks **which canonical markets are in scope for this strategy**.
+It applies separately versioned hard gates and size/buyability estimates, including
+United States scope, likely $10M–$50M enterprise-value targets, and explicit strategy
+exclusions. Passing this filter means “evaluate this market,” not “this market is
+attractive.” Failing it does not erase the market from the canonical universe.
+
+### 3. Market evaluation and ranking
+
+Only target markets enter the evaluation engine. AI research specialists then gather
+evidence, estimate missing fields when necessary, score factors, expose raw and
+risk-adjusted results, and attach confidence to every judgment. Independent paired
+evaluators and adjudication resolve factor scores. Each submodel runs its own close-
+and far-neighbor pairwise comparisons; the global ranking only applies transparent
+weights and stability diagnostics.
+
+Evaluation cannot silently redefine a market. If research reveals a boundary defect,
+it creates a separate proposed universe event; accepted historical scores remain tied
+to the market version they evaluated.
+
 ## Research and scoring topology
 
 The intended mature model has six independently inspectable submodels:

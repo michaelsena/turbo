@@ -1,16 +1,23 @@
 # System architecture
 
-Turbo is an event-oriented research system with six logical layers.
+Turbo is an event-oriented research system with seven logical layers.
 
 1. **Source registry** preserves immutable public-source captures and exact locators.
 2. **Universe builder** ingests taxonomies and datasets into a versioned Market Graph.
-3. **Research memory** stores observations, claims, questions, decisions, lessons,
+3. **Target-universe filter** applies strategy eligibility gates without scoring
+   market attractiveness or erasing canonical markets.
+4. **Research memory** stores observations, claims, questions, decisions, lessons,
    and directed supersession/contradiction edges.
-4. **Scoring engine** runs specialist evaluations, adjudication, submodel-owned
+5. **Scoring engine** runs specialist evaluations, adjudication, submodel-owned
    pairwise calibration, global weighted aggregation, and confidence adjustment.
-5. **Scheduler** selects high-value evidence gaps, stale scores, challengers, and
+6. **Scheduler** selects high-value evidence gaps, stale scores, challengers, and
    comparison matches without mixing their queues.
-6. **API and web app** expose as-of graphs, scores, evidence, changes, and audit receipts.
+7. **API and web app** expose as-of graphs, scores, evidence, changes, and audit receipts.
+
+The projections are ordered but independent: canonical universe → target universe →
+evaluation. Attractiveness cannot decide whether a market exists; filtering cannot
+erase a canonical market; scoring cannot mutate a market boundary. A discovered
+boundary defect must return through a separate append-only universe proposal.
 
 ## Core durable identities
 
