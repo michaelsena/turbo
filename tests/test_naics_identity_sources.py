@@ -150,6 +150,15 @@ class NaicsIdentitySourcesTest(unittest.TestCase):
             definitions["522320"].illustrative_examples_text,
         )
         self.assertIn("one-half", definitions["111140"].cross_references_text)
+        for definition in definitions.values():
+            semantic_text = " ".join(
+                (
+                    definition.narrative_text,
+                    definition.illustrative_examples_text,
+                    definition.cross_references_text,
+                )
+            )
+            self.assertNotIn("Canadian, Mexican", semantic_text)
 
     def test_full_concordance_directions_are_exact_reverses(self) -> None:
         counts = self.summary["full_concordance"]

@@ -255,7 +255,7 @@ def parse_naics_manual_definitions() -> tuple[NaicsManualDefinition, ...]:
 
         reader.pages[page_number - 1].extract_text(visitor_text=visit)
         selected = [
-            span for span in spans if 60.0 <= float(span["y"]) <= 720.0
+            span for span in spans if 70.0 <= float(span["y"]) <= 720.0
         ]
         page_lines: list[dict[str, object]] = []
         for span in sorted(

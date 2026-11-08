@@ -50,6 +50,9 @@ replayable parsers, explicit coverage tests, and no downstream market decisions.
   after single hyphens at physical line wraps. Reconstruction now rejoins those
   compounds and reads illustrative-example columns independently; regression cases
   cover `air-conditioning`, `one-half`, `residential-type`, and `peer-to-peer`.
+- Re-review then found the recurring comparability footer inside 458 definition
+  records. The definition body gate now excludes that y-coordinate band, and a
+  full-record regression rejects the footer phrase from every semantic field.
 
 ## Open source gaps
 
