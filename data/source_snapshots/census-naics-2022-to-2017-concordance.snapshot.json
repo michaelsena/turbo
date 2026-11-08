@@ -1,0 +1,10 @@
+{
+  "acquired_at": "2026-11-08T21:08:18Z",
+  "dataset_id": "census-naics-2022-to-2017-concordance",
+  "file": "2022-to-2017-naics-concordance.xlsx",
+  "publisher": "United States Census Bureau",
+  "reuse": "public_official_source",
+  "role": "full_six_digit_naics_vintage_lineage_from_2022_to_2017",
+  "sha256": "76ed2d5bc8cd3443dc86f0c3225b83e6d187f3fc47d4c5696c911a3234f1716f",
+  "source_url": "https://www.census.gov/naics/concordances/2022_to_2017_NAICS.xlsx"
+}

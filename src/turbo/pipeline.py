@@ -12,6 +12,7 @@ from turbo.pipeline_paths import ROOT
 from turbo.universe.identity_sources import identity_source_artifacts
 from turbo.universe.multisource import NAPCS, PRIOR, reconcile
 from turbo.universe.naics import parse_naics
+from turbo.universe.naics_identity_sources import naics_identity_source_artifacts
 
 SOURCE = ROOT / "data/source_snapshots/2022-naics-structure.xlsx"
 SOURCE_SNAPSHOT_DIR = ROOT / "data/source_snapshots"
@@ -22,7 +23,7 @@ STRATEGY_CONFIG = ROOT / "config/strategy.json"
 GENERATED = ROOT / "data/generated"
 RUNS = ROOT / "data/runs"
 SOURCE_URL = "https://www.census.gov/naics/2022NAICS/2022_NAICS_Structure.xlsx"
-METHOD_VERSION = "identity-source-semantic-reconciliation-v6"
+METHOD_VERSION = "identity-source-semantic-reconciliation-v7"
 
 
 def sha256(path: Path) -> str:
@@ -262,6 +263,7 @@ def run() -> dict[str, object]:
     nodes = parse_naics(SOURCE)
     reconciliation = reconcile()
     identity_summary, identity_relationships = identity_source_artifacts()
+    naics_identity_summary, naics_identity_evidence = naics_identity_source_artifacts()
     registry = source_registry()
     identity_errors = validate_identity_references(
         reconciliation,
@@ -324,6 +326,13 @@ def run() -> dict[str, object]:
             "napcs_concordance_relationships": identity_summary["relationship_artifact_counts"]["napcs_concordance_relationships"],
             "napcs_concordance_non_mappings": identity_summary["relationship_artifact_counts"]["napcs_concordance_non_mappings"],
             "industry_product_relationships": identity_summary["relationship_artifact_counts"]["industry_product_relationships"],
+            "naics_manual_index_entries": naics_identity_summary["manual_index"]["entries"],
+            "naics_manual_index_codes": naics_identity_summary["manual_index"]["represented_six_digit_codes"],
+            "naics_vintage_lineage_pairs": naics_identity_summary["full_concordance"]["unique_pairs"],
+            "naics_bridge_observations": (
+                naics_identity_summary["economic_census_bridges"]["2017_to_2022_observations"]
+                + naics_identity_summary["economic_census_bridges"]["2022_to_2017_observations"]
+            ),
         },
         "six_digit_source_categories": len(leaf_nodes),
         "canonical_markets": 0,
@@ -342,6 +351,12 @@ def run() -> dict[str, object]:
         "identity-relationships.json.gz": hashlib.sha256(
             _canonical_gzip(identity_relationships)
         ).hexdigest(),
+        "naics-identity-source-summary.json.gz": hashlib.sha256(
+            _canonical_gzip(naics_identity_summary)
+        ).hexdigest(),
+        "naics-identity-evidence.json.gz": hashlib.sha256(
+            _canonical_gzip(naics_identity_evidence)
+        ).hexdigest(),
     }
     receipt["output_hashes"] = output_hashes
     _write_immutable_gzip(run_dir / "raw-source-hierarchy.json.gz", universe)
@@ -353,6 +368,14 @@ def run() -> dict[str, object]:
     _write_immutable_gzip(
         run_dir / "identity-relationships.json.gz",
         identity_relationships,
+    )
+    _write_immutable_gzip(
+        run_dir / "naics-identity-source-summary.json.gz",
+        naics_identity_summary,
+    )
+    _write_immutable_gzip(
+        run_dir / "naics-identity-evidence.json.gz",
+        naics_identity_evidence,
     )
     _write_immutable(run_dir / "run-receipt.json", receipt)
     latest = {
@@ -413,6 +436,7 @@ def validate() -> list[str]:
         try:
             reconciliation = reconcile()
             _, relationships = identity_source_artifacts()
+            naics_identity_source_artifacts()
             errors.extend(
                 validate_identity_references(
                     reconciliation,
