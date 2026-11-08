@@ -33,11 +33,16 @@ candidate-market hypotheses, and canonical-market IDs are never interchangeable.
 
 Manual index terms are stored in a separate identity-evidence artifact with their
 current 2022 NAICS identity endpoint, raw extracted fragments, derived normalized
-label, and exact PDF coordinates. Historical NAICS codes are stored as vintage
-lineage values rather than current identities. Economic Census eight-digit bridge
-components are observations, not taxonomy or market nodes. This prevents semantic
-enrichment and historical accounting constructs from silently expanding the current
-market-reconciliation worklist.
+label, and exact PDF coordinates. Manual definition records are a second semantic
+identity-evidence collection. Each record has one current NAICS endpoint, hierarchy
+level, disposition (`substantive_inline_definition`, `delegated_definition`, or
+`title_only_heading`), page range, derived narrative, separately derived illustrative
+and cross-reference blocks, and the original coordinate fragments behind every
+field. Delegated records also carry a validated current-identity endpoint. Historical
+NAICS codes are stored as vintage lineage values rather than current identities.
+Economic Census eight-digit bridge components are observations, not taxonomy or
+market nodes. This prevents semantic enrichment and historical accounting constructs
+from silently expanding the current market-reconciliation worklist.
 
 ## Observation and claim
 

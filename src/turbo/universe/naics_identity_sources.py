@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import io
+import re
 import zipfile
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass
@@ -69,6 +70,32 @@ class NaicsIndexCrossReference:
         )
 
 
+@dataclass(frozen=True)
+class NaicsManualDefinition:
+    naics_2022_code: str
+    level: int
+    disposition: str
+    start_page: int
+    start_y: float
+    end_page: int
+    end_y: float
+    narrative_text: str
+    illustrative_examples_text: str
+    cross_references_text: str
+    delegated_to_code: str
+    heading_fragments: tuple[dict[str, object], ...]
+    narrative_fragments: tuple[dict[str, object], ...]
+    illustrative_examples_fragments: tuple[dict[str, object], ...]
+    cross_references_fragments: tuple[dict[str, object], ...]
+
+    @property
+    def locator(self) -> str:
+        return (
+            f"pdf:physical-page:{self.start_page}:y:{self.start_y}:"
+            f"definition:{self.naics_2022_code}"
+        )
+
+
 def _clean(value: str) -> str:
     return " ".join(value.split())
 
@@ -107,6 +134,191 @@ def _join_pdf_spans(spans: list[dict[str, object]]) -> str:
         result += text
         previous_end_x = float(span["end_x"])
     return result.strip()
+
+
+def _flatten_lines(lines: list[dict[str, object]]) -> tuple[dict[str, object], ...]:
+    return tuple(
+        {
+            "page": line["page"],
+            "x": round(float(span["x"]), 3),
+            "y": round(float(span["y"]), 3),
+            "text": span["text"],
+            "font": span["font"],
+            "size": round(float(span["size"]), 3),
+        }
+        for line in lines
+        for span in line["spans"]  # type: ignore[union-attr]
+    )
+
+
+def _derived_line_text(lines: list[dict[str, object]]) -> str:
+    return _clean(
+        " ".join(
+            _join_pdf_spans(line["spans"])  # type: ignore[arg-type]
+            for line in lines
+        )
+    )
+
+
+@lru_cache(maxsize=1)
+def parse_naics_manual_definitions() -> tuple[NaicsManualDefinition, ...]:
+    nodes = parse_naics(STRUCTURE)
+    node_by_code = {node.source_code: node for node in nodes}
+    valid_codes = set(node_by_code)
+    sector_codes = {
+        code for code in valid_codes if len(code) == 2 or "-" in code
+    }
+    reader = PdfReader(str(MANUAL))
+    lines: list[dict[str, object]] = []
+
+    for page_number in range(79, 604):
+        spans: list[dict[str, object]] = []
+
+        def visit(
+            text: str,
+            _cm: list[float],
+            tm: list[float],
+            font: object,
+            size: float,
+        ) -> None:
+            raw = text.replace("\n", "")
+            if not raw.strip():
+                return
+            x = float(tm[4])
+            font_name = ""
+            if isinstance(font, dict):
+                font_name = str(font.get("/BaseFont", ""))
+            spans.append(
+                {
+                    "x": x,
+                    "y": float(tm[5]),
+                    "text": raw,
+                    "font": font_name,
+                    "size": size,
+                    "end_x": x + _pdf_text_width(raw, font, size),
+                }
+            )
+
+        reader.pages[page_number - 1].extract_text(visitor_text=visit)
+        selected = [
+            span for span in spans if 60.0 <= float(span["y"]) <= 720.0
+        ]
+        page_lines: list[dict[str, object]] = []
+        for span in sorted(
+            selected,
+            key=lambda item: (-float(item["y"]), float(item["x"])),
+        ):
+            if (
+                not page_lines
+                or abs(float(page_lines[-1]["y"]) - float(span["y"])) > 0.35
+            ):
+                page_lines.append(
+                    {"page": page_number, "y": float(span["y"]), "spans": [span]}
+                )
+            else:
+                page_lines[-1]["spans"].append(span)  # type: ignore[union-attr]
+        lines.extend(page_lines)
+
+    def heading_code(line: dict[str, object]) -> str | None:
+        spans = sorted(line["spans"], key=lambda item: float(item["x"]))  # type: ignore[arg-type]
+        text = _join_pdf_spans(spans)
+        sector = re.match(r"^Sector\s+(\d{2}(?:\s*-\s*\d{2})?)\s*--", text)
+        if sector:
+            code = re.sub(r"\s", "", sector.group(1))
+            return code if code in sector_codes else None
+        first = spans[0]
+        if abs(float(first["x"]) - 72.048) > 1.0 or "Bold" not in str(first["font"]):
+            return None
+        code = "".join(
+            str(span["text"])
+            for span in spans
+            if float(span["x"]) < 107.0 and "Bold" in str(span["font"])
+        )
+        code = "".join(code.split())
+        return code if code in valid_codes else None
+
+    blocks: list[tuple[str, list[dict[str, object]]]] = []
+    current_code: str | None = None
+    current_lines: list[dict[str, object]] = []
+    for line in lines:
+        code = heading_code(line)
+        if code is not None:
+            if current_code is not None:
+                blocks.append((current_code, current_lines))
+            current_code = code
+            current_lines = [line]
+        elif current_code is not None:
+            current_lines.append(line)
+    if current_code is not None:
+        blocks.append((current_code, current_lines))
+
+    definitions: list[NaicsManualDefinition] = []
+    for code, block_lines in blocks:
+        heading = block_lines[:1]
+        content = block_lines[1:]
+        marker_positions: dict[str, int] = {}
+        for index, line in enumerate(content):
+            line_text = _join_pdf_spans(line["spans"])  # type: ignore[arg-type]
+            marker_key = re.sub(r"[\s-]", "", line_text.lower())
+            if marker_key.startswith("illustrativeexamples:"):
+                if "illustrative_examples" in marker_positions:
+                    raise ValueError(f"duplicate illustrative marker for NAICS {code}")
+                marker_positions["illustrative_examples"] = index
+            elif marker_key.startswith("crossreferences."):
+                if "cross_references" in marker_positions:
+                    raise ValueError(f"duplicate cross-reference marker for NAICS {code}")
+                marker_positions["cross_references"] = index
+        illustration_start = marker_positions.get("illustrative_examples")
+        cross_start = marker_positions.get("cross_references")
+        semantic_starts = sorted(marker_positions.values())
+        narrative_end = semantic_starts[0] if semantic_starts else len(content)
+        narrative_lines = content[:narrative_end]
+        illustration_lines: list[dict[str, object]] = []
+        cross_lines: list[dict[str, object]] = []
+        if illustration_start is not None:
+            illustration_end = (
+                cross_start
+                if cross_start is not None and cross_start > illustration_start
+                else len(content)
+            )
+            illustration_lines = content[illustration_start:illustration_end]
+        if cross_start is not None:
+            cross_lines = content[cross_start:]
+
+        narrative_text = _derived_line_text(narrative_lines)
+        delegated_match = re.search(
+            r"seeindustrydescriptionfor(\d{6})\.?",
+            re.sub(r"\s", "", narrative_text.lower()),
+        )
+        delegated_to = delegated_match.group(1) if delegated_match else ""
+        if delegated_to:
+            disposition = "delegated_definition"
+            narrative_text = f"See industry description for {delegated_to}."
+        elif narrative_text:
+            disposition = "substantive_inline_definition"
+        else:
+            disposition = "title_only_heading"
+        end_line = block_lines[-1]
+        definitions.append(
+            NaicsManualDefinition(
+                naics_2022_code=code,
+                level=node_by_code[code].level,
+                disposition=disposition,
+                start_page=int(heading[0]["page"]),
+                start_y=round(float(heading[0]["y"]), 2),
+                end_page=int(end_line["page"]),
+                end_y=round(float(end_line["y"]), 2),
+                narrative_text=narrative_text,
+                illustrative_examples_text=_derived_line_text(illustration_lines),
+                cross_references_text=_derived_line_text(cross_lines),
+                delegated_to_code=delegated_to,
+                heading_fragments=_flatten_lines(heading),
+                narrative_fragments=_flatten_lines(narrative_lines),
+                illustrative_examples_fragments=_flatten_lines(illustration_lines),
+                cross_references_fragments=_flatten_lines(cross_lines),
+            )
+        )
+    return tuple(definitions)
 
 
 def parse_naics_concordance(
@@ -351,6 +563,7 @@ def naics_identity_source_artifacts() -> tuple[dict[str, object], dict[str, obje
         by_pair[(row.naics_2017_code, row.naics_2022_code)].append(row)
     index_entries = parse_naics_manual_index()
     index_cross_references = parse_naics_manual_index_cross_references()
+    manual_definitions = parse_naics_manual_definitions()
     valid_codes = _valid_six_digit_codes()
     represented_index_codes = {entry.naics_2022_code for entry in index_entries}
     if not represented_index_codes <= valid_codes:
@@ -377,6 +590,43 @@ def naics_identity_source_artifacts() -> tuple[dict[str, object], dict[str, obje
             "expected 25 uncoded NAICS manual index cross-reference rows, "
             f"found {len(index_cross_references)}"
         )
+    definition_by_code = {
+        definition.naics_2022_code: definition for definition in manual_definitions
+    }
+    if len(manual_definitions) != 2_125 or len(definition_by_code) != 2_125:
+        raise ValueError("NAICS Manual definition headings do not close to 2,125 identities")
+    if set(definition_by_code) != {node.source_code for node in parse_naics(STRUCTURE)}:
+        raise ValueError("NAICS Manual definitions do not close against the structure")
+    disposition_counts = Counter(
+        definition.disposition for definition in manual_definitions
+    )
+    if disposition_counts != {
+        "substantive_inline_definition": 1_572,
+        "delegated_definition": 522,
+        "title_only_heading": 31,
+    }:
+        raise ValueError(f"unexpected NAICS definition dispositions: {disposition_counts}")
+    delegated = [
+        definition for definition in manual_definitions if definition.delegated_to_code
+    ]
+    if any(definition.delegated_to_code not in valid_codes for definition in delegated):
+        raise ValueError("NAICS Manual delegated definition has an unknown endpoint")
+    if len({(item.naics_2022_code, item.delegated_to_code) for item in delegated}) != 522:
+        raise ValueError("NAICS Manual delegated definition pairs are not unique")
+    illustrative_counts = Counter(
+        definition.level
+        for definition in manual_definitions
+        if definition.illustrative_examples_fragments
+    )
+    cross_reference_counts = Counter(
+        definition.level
+        for definition in manual_definitions
+        if definition.cross_references_fragments
+    )
+    if illustrative_counts != {5: 65, 6: 316}:
+        raise ValueError(f"unexpected illustrative-example ownership: {illustrative_counts}")
+    if cross_reference_counts != {5: 163, 6: 932}:
+        raise ValueError(f"unexpected cross-reference ownership: {cross_reference_counts}")
     if valid_codes - represented_index_codes != {"112130", "541120"}:
         raise ValueError("unexpected six-digit coverage in the NAICS manual index")
     if len(forward) != 1_150 or len(reverse) != 1_150:
@@ -405,6 +655,21 @@ def naics_identity_source_artifacts() -> tuple[dict[str, object], dict[str, obje
             "represented_six_digit_codes": len(represented_index_codes),
             "missing_six_digit_codes": sorted(valid_codes - represented_index_codes),
             "physical_pdf_pages": [637, 958],
+        },
+        "manual_definitions": {
+            "definitions": len(manual_definitions),
+            "level_counts": dict(
+                sorted(Counter(item.level for item in manual_definitions).items())
+            ),
+            "disposition_counts": dict(sorted(disposition_counts.items())),
+            "illustrative_example_blocks": sum(illustrative_counts.values()),
+            "illustrative_example_level_counts": dict(sorted(illustrative_counts.items())),
+            "cross_reference_blocks": sum(cross_reference_counts.values()),
+            "cross_reference_level_counts": dict(
+                sorted(cross_reference_counts.items())
+            ),
+            "delegated_definition_links": len(delegated),
+            "physical_pdf_pages": [79, 603],
         },
         "full_concordance": {
             "forward_rows": len(forward),
@@ -453,6 +718,20 @@ def naics_identity_source_artifacts() -> tuple[dict[str, object], dict[str, obje
                 "snapshot_id": "census-naics-2022-manual",
             }
             for entry in index_cross_references
+        ],
+        "manual_definitions": [
+            {
+                **asdict(definition),
+                "identity_id": f"identity:naics:{definition.naics_2022_code}",
+                "delegated_to_identity_id": (
+                    f"identity:naics:{definition.delegated_to_code}"
+                    if definition.delegated_to_code
+                    else ""
+                ),
+                "locator": definition.locator,
+                "snapshot_id": "census-naics-2022-manual",
+            }
+            for definition in manual_definitions
         ],
         "vintage_lineage_relationships": [
             {

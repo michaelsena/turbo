@@ -152,8 +152,14 @@ fabricated index entries. Both full NAICS concordance directions produce the sam
 1,150 lineage pairs: 918 unchanged-code pairs and 232 changed-code pairs spanning
 1,057 2017 codes and all 1,012 2022 codes. The 846 Economic Census bridge rows remain
 quantitative observations; their eight-digit bridge components are not promoted to
-market or identity nodes. Manual industry-definition extraction remains open.
-Parsing is not represented as a canonical market decision.
+market or identity nodes. The Manual definition parser separately closes all 2,125
+official NAICS hierarchy identities: 1,572 contain substantive inline definitions,
+522 level-five headings delegate to a six-digit industry definition, and 31
+level-four headings are title-only. It also preserves 381 illustrative-example
+blocks and 1,095 cross-reference blocks. Every block retains its original coordinate
+fragments, exact physical-page locator, and current identity endpoint. These semantic
+records enrich identity review; parsing is not represented as a canonical market
+decision.
 
 The reconciliation artifact preserves 28,668 source rows or source observations
 with snapshot IDs, raw labels, definitions where available, exact locators, hierarchy
@@ -329,6 +335,12 @@ starting lists.
 | NAICS Manual coded alphabetic-index entries | 20,373 |
 | NAICS Manual uncoded cross-reference rows | 25 |
 | Six-digit codes represented in the manual index | 1,010 |
+| NAICS Manual definition records | 2,125 |
+| Substantive inline NAICS definitions | 1,572 |
+| Delegated level-five definition links | 522 |
+| Title-only level-four headings | 31 |
+| NAICS illustrative-example blocks | 381 |
+| NAICS cross-reference blocks | 1,095 |
 | Full 2017/2022 NAICS vintage-lineage pairs | 1,150 |
 | Economic Census NAICS bridge observations | 846 |
 | Collection-to-trilateral concordance rows | 3,520 |
@@ -365,7 +377,7 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | Path | Purpose |
 | --- | --- |
 | `src/turbo/universe/naics.py` | Deterministic parser for the official NAICS workbook |
-| `src/turbo/universe/naics_identity_sources.py` | Coordinate-aware NAICS index, vintage-lineage, and bridge parsers |
+| `src/turbo/universe/naics_identity_sources.py` | Coordinate-aware NAICS index and definition, vintage-lineage, and bridge parsers |
 | `src/turbo/universe/multisource.py` | Multi-list normalization and reconciliation worklist |
 | `src/turbo/pipeline.py` | Replayable source-universe and reconciliation generation |
 | `src/turbo/cli.py` | Local run, validation, and context commands |
@@ -445,7 +457,8 @@ results coherent. See [the local operating runbook](docs/operations/runbook.md).
 
 ## Near-term roadmap
 
-1. Extract official NAICS definitions and capture original bytes for the complete six-level NAPCS hierarchy.
+1. Capture original bytes for the complete six-level NAPCS hierarchy; the official
+   NAICS Manual definition layer is complete and replayable.
 2. Run AI operating-family review and append accepted split, merge, map, exclusion,
    and market-creation events.
 3. Complete the cross-family coverage audit and publish the first canonical graph.

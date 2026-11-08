@@ -108,6 +108,7 @@ class PipelineTest(unittest.TestCase):
                 }
             ],
             "manual_index_cross_references": [],
+            "manual_definitions": [],
             "vintage_lineage_relationships": [],
             "economic_census_bridge_observations": [],
         }
