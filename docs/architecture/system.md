@@ -6,8 +6,8 @@ Turbo is an event-oriented research system with six logical layers.
 2. **Universe builder** ingests taxonomies and datasets into a versioned Market Graph.
 3. **Research memory** stores observations, claims, questions, decisions, lessons,
    and directed supersession/contradiction edges.
-4. **Scoring engine** runs specialist evaluations, adjudication, aggregation,
-   confidence adjustment, and pairwise calibration.
+4. **Scoring engine** runs specialist evaluations, adjudication, submodel-owned
+   pairwise calibration, global weighted aggregation, and confidence adjustment.
 5. **Scheduler** selects high-value evidence gaps, stale scores, challengers, and
    comparison matches without mixing their queues.
 6. **API and web app** expose as-of graphs, scores, evidence, changes, and audit receipts.
@@ -43,6 +43,14 @@ and creates an inspectable exception or retry item.
 The same records render into a concise public explanation and a detailed audit view.
 This keeps the system understandable to the chairman and an interviewer without
 forking the truth into a presentation database and a hidden research database.
+
+## Comparison topology
+
+Pairwise comparison is a domain operation. Every submodel has its own comparator and
+comparison queue. Comparison events can adjust only that submodel's market scores and
+must preserve the pair, selection reason, evidence cutoff, factor contributions,
+confidence, and score delta. The global projection is a deterministic weighted view
+plus sensitivity and stability diagnostics; it does not add generalist judgment.
 
 ## Determinism and model work
 

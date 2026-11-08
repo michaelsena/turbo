@@ -37,7 +37,23 @@ evidence would change the result.
    create high-priority research questions.
 7. Aggregate factor scores using versioned weights.
 8. Adjust for evidence confidence and explicit downside.
-9. Compare close and far neighbors to detect scale drift or inconsistent anchors.
+9. Within the submodel, its specialist comparator compares close and selected far
+   neighbors to detect fine-ordering errors, scale drift, or inconsistent anchors.
+10. Record pair selection, evidence cutoff, result, score effect, confidence, and
+    rationale as a versioned comparison event.
+
+## Pairwise comparison boundary
+
+Each of the six submodels owns a comparator specialized in its topics and factors.
+The comparator may refine only that submodel's resolved score. Close neighbors test
+small ranking differences; deliberately sampled far neighbors test whether anchors
+remain globally coherent within the domain.
+
+There is no global generalist comparator. The global layer combines submodel scores
+using versioned weights and exposes raw, confidence-adjusted, and downside-adjusted
+rankings. It performs sensitivity, contribution, and rank-stability analysis and may
+request deeper research, but it cannot invent a qualitative override to the weighted
+data.
 
 ## Current V1 factor group
 

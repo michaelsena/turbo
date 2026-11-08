@@ -180,9 +180,15 @@ downside. It is a versioned policy, not an eternal formula.
 
 Open evidence gaps remain active. The research queue prioritizes them using the
 expected ranking impact of closing the gap, its uncertainty, the probability of
-finding better evidence, and research cost. Periodic close-neighbor and
-far-neighbor comparisons test whether absolute scores produce sensible relative
-ordering.
+finding better evidence, and research cost.
+
+Pairwise comparison happens **inside each submodel**, not at the global layer. A
+domain-specialist comparator uses that submodel's factors and evidence to compare
+close neighbors for fine ordering and selected far neighbors for scale calibration.
+Any adjustment is confined to that submodel and has its own receipt. The global
+layer only applies versioned weights, calculates aggregate/raw/risk-adjusted ranks,
+tests sensitivity and stability, and opens research gaps when the data look
+inconsistent.
 
 See [scoring model](docs/scoring/model.md).
 
@@ -324,8 +330,8 @@ results coherent. See [the local operating runbook](docs/operations/runbook.md).
 3. Add SUSB and QCEW to estimate firm density, enterprise-size fit, labor, and geography.
 4. Implement canonical market split/merge/dedupe decisions and lineage.
 5. Replace the five bootstrap heuristics with the first production submodel.
-6. Implement specialist independence, mandatory adjudication, gap priority, and
-   versioned score events.
+6. Implement specialist independence, mandatory adjudication, submodel pairwise
+   comparators, gap priority, and versioned score events.
 7. Build the read API and initial universe/ranking dashboard.
 8. Continuously research, compare, and rerank markets while preserving every version.
 
