@@ -21,7 +21,8 @@ for Turbo. It is not imported as validated evidence.
 - Separate raw score, confidence, evidence quality, downside, and risk adjustment.
 - Use independent specialists and mandatory adjudication rather than one scoring pass.
 - Keep weak estimates active but continuously retry evidence gaps.
-- Add pairwise close- and far-neighbor comparisons to calibrate global ranks.
+- Add specialist close- and far-neighbor comparisons to calibrate ordering within
+  each submodel before transparent global aggregation.
 - Separate global ranking, research queue, challenger intake, and shortlist.
 - Make all source snapshots, score changes, and decisions replayable as of a cutoff.
 - Expose results through an API and web application.
