@@ -1,0 +1,15 @@
+{
+  "event_id": "run-event-2026-11-08-referentially-closed-identity-graph",
+  "event_type": "supersedes",
+  "new_run_id": "run-67a1e3d2bb6a6772cac1",
+  "old_run_id": "run-597077725e2b15dd9333",
+  "reasons": [
+    "Source rows or observations, normalized source identities, candidate-market hypotheses, and canonical markets now use distinct typed namespaces.",
+    "All 3,516 collection-to-trilateral and 37,232 national industry-product relationship endpoints resolve to one of 10,433 preserved normalized identities.",
+    "Seven official NA concordance rows are explicit non-mapping dispositions rather than edges to a fabricated target.",
+    "Graph projection applies only active transition events, separates event supersession from market-version supersession, and moves mappings to retired markets into historical output.",
+    "Formal JSON Schemas execute locally against generated source records and shared valid/invalid event fixtures.",
+    "Large immutable derived artifacts use deterministic gzip encoding to keep repository growth bounded while preserving byte-identical replay."
+  ],
+  "recorded_at": "2026-11-08T19:37:17Z"
+}

@@ -127,25 +127,107 @@ The repository now preserves all three initial lists:
 
 - 2,125 NAICS hierarchy nodes, including 1,012 six-digit industry categories
 - 6,290 rows from the 2022 Economic Census NAPCS code/description workbook
+- 945 additional NAPCS product identities observed in the official
+  product-by-industry archive but absent from that collection-code workbook
+- 1 collection identity found only in the official concordance and 1,072
+  distinct trilateral product identities recovered from both concordance directions
 - all 978 markets from the prior normalized model
 
-The current reconciliation artifact identifies normalized exact-label candidates but
-does not accept them as operating-market mappings. Exact and fuzzy matches are review
-proposals, while unmatched rows form the add/split/
-merge/exclude review queue. This is intentionally conservative: normalization quality
-is more important than making the unresolved count look small.
+It also preserves five official identity-supporting snapshots: the 2022 NAICS Manual,
+both 2022 NAPCS collection/trilateral concordances, and both Economic Census
+industry-by-product/product-by-industry relationship datasets. The run receipt is
+bound to the complete eight-snapshot registry. The two concordances and two
+relationship archives are parsed into both a summary and a complete relationship
+artifact containing 3,516 distinct collection/trilateral relationships, 7 explicit
+official no-mapping dispositions, and 37,232 distinct national six-digit
+NAICS–NAPCS relationships. Their 80,111 contributing national six-digit source
+observations remain distinct, each with a governed snapshot and unique row-level
+locator. Every relationship endpoint resolves to a preserved normalized identity.
+The NAICS Manual is preserved, but definition extraction remains open.
+Parsing is not represented as a canonical market decision.
 
-The first reconciliation worklist contains 207 exact normalized-label candidates,
-99 fuzzy mapping proposals, and 6,996 unmatched source rows requiring add/split/
-merge/exclude review. A high unmatched count is expected because NAPCS contains
-detailed products, not one row per investable operating market. It is published as
-the work to do, not hidden as an error.
+The reconciliation artifact preserves 28,668 source rows or source observations
+with snapshot IDs, raw labels, definitions where available, exact locators, hierarchy
+paths, parent IDs, source relationships, row roles, and semantic flags. This includes
+12,247 exact rows supporting the 945 relationship-only collection identities and
+7,026 snapshot-specific trilateral label observations. It separately publishes
+10,433 normalized NAICS/NAPCS identity nodes; source-row IDs, normalized identities,
+candidate-market hypotheses, and future canonical-market IDs use different typed
+namespaces. The 6,290 collection-code
+rows are typed as 2,574 broad lines, 3,710 detail lines, and 6 survey controls; the
+945 relationship-only and 1 concordance-only collection products retain neutral row
+roles, while 1,072 trilateral products remain distinct. Prior source rows
+remain distinct from content-derived candidate-market hypotheses, so duplicate or
+reordered rows cannot change candidate identity.
+
+Exact and fuzzy matches remain review proposals. Retrieval retains up to five
+candidates, the top-two margin, ambiguity, and semantic conflicts such as residual
+scope, excluded scope, or hazardous/nonhazardous mismatch. The current worklist has
+351 exact-label candidates, 146 clean top-candidate proposals, 36 ambiguous or
+semantically conflicted proposals, and 9,900 unmatched identities. Each result exposes
+matched, source-only, and candidate-only tokens, exact-label and semantic-scope
+signals, the top-two margin, contradictions, all supporting source rows, and every
+official label evaluation. Conflicting labels remain visible and force conflict
+review when they change candidate ordering. The safer method reduced
+unsafe similarity because scope words are no longer discarded. The absolute worklist
+is larger because all hierarchy and trilateral identities are now included. A high unmatched
+count is expected because NAPCS contains products, controls, and aggregates—not one
+row per investable operating market.
 
 The current V1 run stops at this reconciliation worklist. It intentionally produces
 no market rankings. Research and scoring begin only after reviewed canonical markets
 are filtered into the Target Market Universe.
 
 See [universe methodology](docs/universe/methodology.md).
+
+## Universe building and market evaluation are separate
+
+Turbo operates three ordered projections. They share evidence and lineage, but they
+do not share decision authority.
+
+### 1. Canonical American Market Universe
+
+The universe builder answers **what markets exist and where their boundaries are**.
+
+1. Deterministic parsers preserve official bytes, rows, codes, labels, hierarchy,
+   relationships, dimensions, and unique source locators.
+2. Deterministic normalization creates typed source identities without turning a
+   NAICS or NAPCS code into an investable market by assumption.
+3. AI boundary specialists review bounded operating families and propose market
+   creation, merge, split, mapping, rejection, or exclusion decisions.
+4. A second AI reviewer independently tests buyer, job, delivery model, workforce,
+   economics, acquisition universe, and Ambient AI workflow equivalence.
+5. Adjudication chooses the best defensible boundary using evidence and explicit
+   inference. A working item may remain open while research is retried, but a
+   published complete universe cannot hide a blank: weaker judgments remain visible
+   with lower confidence and an active improvement task.
+6. Accepted decisions become append-only Market Graph events. Rejected alternatives,
+   contrary evidence, confidence, and supersession history remain inspectable.
+
+This stage produces market identities and definitions—not attractiveness scores.
+No market may be added, removed, merged, or split merely because it looks attractive
+or unattractive for the strategy.
+
+### 2. Target Market Universe
+
+The eligibility filter asks **which canonical markets are in scope for this strategy**.
+It applies separately versioned hard gates and size/buyability estimates, including
+United States scope, likely $10M–$50M enterprise-value targets, and explicit strategy
+exclusions. Passing this filter means “evaluate this market,” not “this market is
+attractive.” Failing it does not erase the market from the canonical universe.
+
+### 3. Market evaluation and ranking
+
+Only target markets enter the evaluation engine. AI research specialists then gather
+evidence, estimate missing fields when necessary, score factors, expose raw and
+risk-adjusted results, and attach confidence to every judgment. Independent paired
+evaluators and adjudication resolve factor scores. Each submodel runs its own close-
+and far-neighbor pairwise comparisons; the global ranking only applies transparent
+weights and stability diagnostics.
+
+Evaluation cannot silently redefine a market. If research reveals a boundary defect,
+it creates a separate proposed universe event; accepted historical scores remain tied
+to the market version they evaluated.
 
 ## Research and scoring topology
 
@@ -224,17 +306,38 @@ starting lists.
 | --- | ---: |
 | Official hierarchy nodes | 2,125 |
 | Six-digit NAICS source categories | 1,012 |
-| NAPCS product/service rows | 6,290 |
+| NAPCS collection-code rows | 6,290 |
+| Additional relationship-only NAPCS products | 945 |
+| Concordance-only collection products | 1 |
+| NAPCS collection identities in reconciliation | 7,236 |
+| NAPCS trilateral identities recovered from concordances | 1,072 |
+| Normalized NAICS/NAPCS identities | 10,433 |
+| Preserved source rows/observations including prior seeds | 28,668 |
+| Relationship-only collection source observations | 12,247 |
+| Trilateral label source observations | 7,026 |
 | Prior-model market seeds | 978 |
-| Exact-label review candidates | 207 |
-| Fuzzy mapping proposals | 99 |
-| Unmatched reconciliation items | 6,996 |
+| Governed source snapshots | 8 |
+| Collection-to-trilateral concordance rows | 3,520 |
+| Trilateral-to-collection concordance rows | 3,520 |
+| Industry-by-products observations | 569,027 |
+| Products-by-industry observations | 32,024 |
+| Unique national six-digit NAICS-NAPCS pairs in products-by-industry | 28,521 |
+| Preserved collection/trilateral relationships | 3,516 |
+| Explicit official no-trilateral-mapping dispositions | 7 |
+| Preserved national six-digit NAICS-NAPCS relationships | 37,232 |
+| Contributing national six-digit relationship observations | 80,111 |
+| Exact-label review candidates | 351 |
+| Clean top-candidate proposals | 146 |
+| Ambiguous/conflicted proposals | 36 |
+| Unmatched reconciliation items | 9,900 |
 | Canonical markets accepted | 0 |
 | Target markets filtered | 0 |
 | Research scores produced | 0 |
 
-These counts and every reconciliation proposal are in
-`multisource-reconciliation.json` inside the immutable run directory. Zero canonical
+These counts and every reconciliation proposal are in the deterministic
+`multisource-reconciliation.json.gz` artifact inside the immutable run directory.
+Large derived views are compressed with a fixed timestamp so replay produces
+byte-identical files and repository growth remains bounded. Zero canonical
 and target markets is the honest current state: source ingestion is working, while
 reviewed normalization is the active critical path.
 
@@ -264,7 +367,8 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 
 ## Running locally
 
-Turbo V1 has no runtime dependencies beyond Python 3.11+.
+Turbo V1 requires Python 3.11+ and uses `jsonschema` to execute the same formal
+contracts documented in `schemas/` during local verification.
 
 ```bash
 python3 -m venv .venv
@@ -324,11 +428,14 @@ results coherent. See [the local operating runbook](docs/operations/runbook.md).
 
 ## Near-term roadmap
 
-1. Freeze V1 bootstrap inputs and validate deterministic replay.
-2. Reconcile and map NAPCS into reviewed canonical operating markets.
-3. Add SUSB and QCEW to estimate firm density, enterprise-size fit, labor, and geography.
-4. Implement canonical market split/merge/dedupe decisions and lineage.
-5. Replace the five bootstrap heuristics with the first production submodel.
+1. Extract official NAICS definitions and complete the six-level NAPCS hierarchy.
+2. Run AI operating-family review and append accepted split, merge, map, exclusion,
+   and market-creation events.
+3. Complete the cross-family coverage audit and publish the first canonical graph.
+4. Add SUSB and QCEW evidence and publish the separately versioned Target Market
+   Universe.
+5. Implement the first production evaluation submodel only after target eligibility
+   is available.
 6. Implement specialist independence, mandatory adjudication, submodel pairwise
    comparators, gap priority, and versioned score events.
 7. Build the read API and initial universe/ranking dashboard.
@@ -338,9 +445,10 @@ results coherent. See [the local operating runbook](docs/operations/runbook.md).
 
 - NAICS establishments are not acquisition targets and NAICS categories are not
   automatically operating markets.
-- The V1 scoring rules use names and structural proxies; they do not establish
-  transaction pricing, target availability, margins, fragmentation, or AI value.
-- A low-confidence rank is a research-priority estimate, not a recommendation.
+- The current V1 has no market-attractiveness scores or ranks. Its label-similarity
+  proposals are reconciliation work items, not investment findings.
+- Transaction pricing, target availability, margins, fragmentation, and Ambient AI
+  value remain future evaluation evidence after canonicalization and eligibility.
 - No companies are named, discovered, ranked, or diligenced by this bootstrap.
 - Public evidence can be incomplete. Turbo exposes and discounts that weakness
   instead of pretending it does not exist.

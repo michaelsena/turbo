@@ -1,0 +1,14 @@
+{
+  "event_id": "run-event-2026-11-08-provenance-closed-identity-worklist",
+  "event_type": "supersedes",
+  "new_run_id": "run-23519308238847742477",
+  "old_run_id": "run-67a1e3d2bb6a6772cac1",
+  "reasons": [
+    "All 80,111 contributing national six-digit industry-product observations now retain unique row-level locators and source dimensions.",
+    "Snapshot-specific trilateral labels remain separate, including two explicit official label conflicts, rather than being attributed to the wrong concordance.",
+    "NAICS structural T indicators remain in raw evidence but no longer contaminate normalized labels, retrieval tokens, or candidate signals.",
+    "The reconciliation artifact preserves 28,668 immutable source records while emitting exactly one reviewed proposal for each of 10,433 normalized identities.",
+    "Every installed accepted market version remains referentially validated after retirement, standalone validation executes identity closure, and schema/runtime parity boundaries are explicit and tested."
+  ],
+  "recorded_at": "2026-11-08T20:20:33Z"
+}

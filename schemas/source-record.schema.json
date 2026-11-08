@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelsena/turbo/schemas/source-record.schema.json",
+  "title": "Turbo source record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "source",
+    "source_code",
+    "raw_label",
+    "record_kind",
+    "locator",
+    "snapshot_id",
+    "normalized_identity_ids",
+    "raw_definition",
+    "hierarchy_path",
+    "parent_ids",
+    "source_relationships",
+    "source_indicator",
+    "normalized_label",
+    "semantic_flags"
+  ],
+  "properties": {
+    "record_id": {"type": "string", "minLength": 1},
+    "source": {"type": "string", "minLength": 1},
+    "source_code": {"type": "string"},
+    "raw_label": {"type": "string", "minLength": 1},
+    "record_kind": {
+      "enum": [
+        "industry",
+        "industry_aggregate",
+        "napcs_broad_line",
+        "napcs_detail_line",
+        "survey_control",
+        "relationship_product",
+        "concordance_product",
+        "trilateral_product",
+        "market_hypothesis",
+        "aggregate",
+        "residual",
+        "task",
+        "unknown"
+      ]
+    },
+    "locator": {"type": "string", "minLength": 1},
+    "snapshot_id": {"type": "string", "minLength": 1},
+    "normalized_identity_ids": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^identity:"},
+      "uniqueItems": true
+    },
+    "raw_definition": {"type": "string"},
+    "hierarchy_path": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "parent_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "source_relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": {"type": "string"},
+        "required": ["relationship_type", "target_identity_id"],
+        "properties": {
+          "relationship_type": {"type": "string", "minLength": 1},
+          "target_identity_id": {"type": "string", "pattern": "^identity:"}
+        }
+      }
+    },
+    "source_indicator": {"type": "string"},
+    "normalized_label": {"type": "string"},
+    "semantic_flags": {"type": "object"}
+  }
+}

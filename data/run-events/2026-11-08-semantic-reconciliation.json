@@ -1,0 +1,14 @@
+{
+  "event_id": "run-event-2026-11-08-semantic-reconciliation",
+  "event_type": "supersedes",
+  "new_run_id": "run-e73765768fc099149346",
+  "old_run_id": "run-602b7098288f5e48f3f3",
+  "reasons": [
+    "Prior-seed identities are now content-based rather than list-position-based.",
+    "Source records now preserve raw labels, locators, row roles, and semantic scope flags.",
+    "Reconciliation now retains top-k candidates, score margins, ambiguity, and semantic conflicts instead of silently selecting one lexical winner.",
+    "Append-only graph events now have executable validation and deterministic as-of projection tests.",
+    "Five additional official identity-source snapshots are preserved and the run receipt is bound to the complete governed source registry."
+  ],
+  "recorded_at": "2026-11-08T18:52:05Z"
+}

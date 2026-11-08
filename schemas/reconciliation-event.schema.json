@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelsena/turbo/schemas/reconciliation-event.schema.json",
+  "title": "Turbo reconciliation event",
+  "$comment": "JSON Schema validates per-field structure. Cross-field identity invariants that draft 2020-12 cannot express, including split output/market-version cardinality equality and rename/reparent input/output market-ID equality, are enforced by turbo.universe.graph.validate_event and covered by runtime-only parity-boundary tests.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "event_id", "event_type", "decision", "recorded_at",
+    "input_source_record_ids", "input_market_ids", "input_candidate_market_ids", "output_market_ids",
+    "operating_identity", "supporting_record_ids", "counterevidence_record_ids",
+    "alternatives_considered", "review", "supersedes", "supersedes_market_version_ids"
+  ],
+  "properties": {
+    "event_id": {"type": "string", "pattern": "\\S"},
+    "event_type": {"enum": ["create_market", "map", "split", "merge", "rename", "reparent", "exclude_source_record", "reject_candidate", "supersede_decision"]},
+    "decision": {"enum": ["accepted", "rejected", "deferred"]},
+    "recorded_at": {"type": "string", "format": "date-time", "pattern": "^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?Z$"},
+    "input_source_record_ids": {"$ref": "#/$defs/uniqueStringArray"},
+    "input_market_ids": {"$ref": "#/$defs/uniqueStringArray"},
+    "input_candidate_market_ids": {"$ref": "#/$defs/uniqueStringArray"},
+    "output_market_ids": {"$ref": "#/$defs/uniqueStringArray"},
+    "relationship_type": {"enum": ["equivalent_label_candidate", "broader_than_market", "narrower_than_market", "product_sold_by_market", "industry_containing_market", "task_performed_by_market", "partial_overlap", "residual_bucket", "duplicate_source_record", "non_market_product", "out_of_scope_for_canonicalization", "unresolved", null]},
+    "operating_identity": {"$ref": "#/$defs/operatingIdentity"},
+    "supporting_record_ids": {"$ref": "#/$defs/uniqueStringArray"},
+    "counterevidence_record_ids": {"$ref": "#/$defs/uniqueStringArray"},
+    "alternatives_considered": {"type": "array"},
+    "review": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["proposer", "independent_reviewer", "result"],
+      "properties": {
+        "proposer": {"type": "string", "pattern": "\\S"},
+        "independent_reviewer": {"type": "string", "pattern": "\\S"},
+        "result": {"enum": ["accepted", "rejected", "changes_requested"]}
+      }
+    },
+    "supersedes": {"$ref": "#/$defs/uniqueStringArray"},
+    "supersedes_market_version_ids": {"$ref": "#/$defs/uniqueStringArray"},
+    "market_version": {"$ref": "#/$defs/marketVersion"},
+    "market_versions": {"type": "array", "items": {"$ref": "#/$defs/marketVersion"}, "$comment": "validate_event requires exactly one market version per split output; JSON Schema cannot express equality between sibling array lengths."}
+  },
+  "$defs": {
+    "uniqueStringArray": {"type": "array", "items": {"type": "string", "pattern": "\\S"}, "uniqueItems": true},
+    "identityResult": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["confidence"],
+      "properties": {"result": {"type": "string"}, "confidence": {"type": "number", "minimum": 0, "maximum": 1}}
+    },
+    "operatingIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["buyer", "job", "delivery", "workforce", "economics_risk", "acquisition_universe", "ambient_ai_workflow"],
+      "properties": {
+        "buyer": {"$ref": "#/$defs/identityResult"},
+        "job": {"$ref": "#/$defs/identityResult"},
+        "delivery": {"$ref": "#/$defs/identityResult"},
+        "workforce": {"$ref": "#/$defs/identityResult"},
+        "economics_risk": {"$ref": "#/$defs/identityResult"},
+        "acquisition_universe": {"$ref": "#/$defs/identityResult"},
+        "ambient_ai_workflow": {"$ref": "#/$defs/identityResult"}
+      }
+    },
+    "dimensionConfidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["buyer", "job", "delivery", "workforce", "economics_risk", "acquisition_universe", "ambient_ai_workflow"],
+      "properties": {
+        "buyer": {"type": "number", "minimum": 0, "maximum": 1},
+        "job": {"type": "number", "minimum": 0, "maximum": 1},
+        "delivery": {"type": "number", "minimum": 0, "maximum": 1},
+        "workforce": {"type": "number", "minimum": 0, "maximum": 1},
+        "economics_risk": {"type": "number", "minimum": 0, "maximum": 1},
+        "acquisition_universe": {"type": "number", "minimum": 0, "maximum": 1},
+        "ambient_ai_workflow": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "dimensionEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["buyer", "job", "delivery", "workforce", "economics_risk", "acquisition_universe", "ambient_ai_workflow"],
+      "properties": {
+        "buyer": {"enum": ["fact", "inference", "assumption", "unknown"]},
+        "job": {"enum": ["fact", "inference", "assumption", "unknown"]},
+        "delivery": {"enum": ["fact", "inference", "assumption", "unknown"]},
+        "workforce": {"enum": ["fact", "inference", "assumption", "unknown"]},
+        "economics_risk": {"enum": ["fact", "inference", "assumption", "unknown"]},
+        "acquisition_universe": {"enum": ["fact", "inference", "assumption", "unknown"]},
+        "ambient_ai_workflow": {"enum": ["fact", "inference", "assumption", "unknown"]}
+      }
+    },
+    "marketVersion": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["market_version_id", "market_id", "canonical_name", "definition", "boundary", "buyer", "job_to_be_done", "delivery_model", "workforce_model", "economics_risk", "acquisition_universe", "ambient_ai_workflow", "parent_market_id", "aliases", "explicit_exclusions", "source_record_ids", "mapping_event_ids", "candidate_market_ids", "evidence_by_dimension", "confidence_by_dimension"],
+      "properties": {
+        "market_version_id": {"type": "string", "pattern": "^market-version:[0-9a-f]{24}$"},
+        "market_id": {"type": "string", "pattern": "^market:[0-9a-f]{24}$"},
+        "canonical_name": {"type": "string", "pattern": "\\S"},
+        "definition": {"type": "string", "pattern": "\\S"},
+        "boundary": {"type": "string", "pattern": "\\S"},
+        "buyer": {"type": "string", "pattern": "\\S"},
+        "job_to_be_done": {"type": "string", "pattern": "\\S"},
+        "delivery_model": {"type": "string", "pattern": "\\S"},
+        "workforce_model": {"type": "string", "pattern": "\\S"},
+        "economics_risk": {"type": "string", "pattern": "\\S"},
+        "acquisition_universe": {"type": "string", "pattern": "\\S"},
+        "ambient_ai_workflow": {"type": "string", "pattern": "\\S"},
+        "parent_market_id": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^market:[0-9a-f]{24}$"}]},
+        "aliases": {"$ref": "#/$defs/uniqueStringArray"},
+        "explicit_exclusions": {"$ref": "#/$defs/uniqueStringArray"},
+        "source_record_ids": {"$ref": "#/$defs/uniqueStringArray"},
+        "mapping_event_ids": {"$ref": "#/$defs/uniqueStringArray"},
+        "candidate_market_ids": {"$ref": "#/$defs/uniqueStringArray"},
+        "evidence_by_dimension": {"$ref": "#/$defs/dimensionEvidence"},
+        "confidence_by_dimension": {"$ref": "#/$defs/dimensionConfidence"}
+      }
+    }
+  },
+  "allOf": [
+    {"if": {"properties": {"event_type": {"const": "map"}}}, "then": {"required": ["relationship_type"], "properties": {"input_source_record_ids": {"minItems": 1}, "input_market_ids": {"maxItems": 0}, "output_market_ids": {"minItems": 1, "maxItems": 1}}}},
+    {"if": {"properties": {"event_type": {"const": "create_market"}}}, "then": {"required": ["market_version"], "properties": {"input_market_ids": {"maxItems": 0}, "output_market_ids": {"minItems": 1, "maxItems": 1}, "supersedes": {"maxItems": 0}}}},
+    {"if": {"properties": {"event_type": {"const": "split"}}}, "then": {"required": ["market_versions"], "properties": {"input_market_ids": {"minItems": 1, "maxItems": 1}, "output_market_ids": {"minItems": 2}, "market_versions": {"minItems": 2}}}},
+    {"if": {"properties": {"event_type": {"const": "merge"}}}, "then": {"required": ["market_version"], "properties": {"input_market_ids": {"minItems": 2}, "output_market_ids": {"minItems": 1, "maxItems": 1}}}},
+    {"if": {"properties": {"event_type": {"enum": ["rename", "reparent"]}}}, "then": {"required": ["market_version"], "$comment": "validate_event additionally requires input_market_ids and output_market_ids to contain the same ID; JSON Schema cannot express cross-array value equality.", "properties": {"input_market_ids": {"minItems": 1, "maxItems": 1}, "output_market_ids": {"minItems": 1, "maxItems": 1}, "supersedes_market_version_ids": {"minItems": 1, "maxItems": 1}}}},
+    {"if": {"properties": {"event_type": {"const": "exclude_source_record"}}}, "then": {"properties": {"input_source_record_ids": {"minItems": 1}, "output_market_ids": {"maxItems": 0}}}},
+    {"if": {"properties": {"event_type": {"const": "reject_candidate"}}}, "then": {"properties": {"input_candidate_market_ids": {"minItems": 1}, "output_market_ids": {"maxItems": 0}}}},
+    {"if": {"properties": {"event_type": {"const": "supersede_decision"}}}, "then": {"properties": {"supersedes": {"minItems": 1}, "output_market_ids": {"maxItems": 0}}}},
+    {"if": {"properties": {"event_type": {"not": {"enum": ["rename", "reparent"]}}}}, "then": {"properties": {"supersedes_market_version_ids": {"maxItems": 0}}}}
+  ]
+}

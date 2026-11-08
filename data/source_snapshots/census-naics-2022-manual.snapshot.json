@@ -1,0 +1,10 @@
+{
+  "acquired_at": "2026-11-08T18:54:36Z",
+  "dataset_id": "census-naics-2022-manual",
+  "file": "2022-naics-manual.pdf",
+  "publisher": "United States Census Bureau",
+  "reuse": "public_official_source",
+  "role": "industry_definitions_inclusions_exclusions_cross_references_and_concordance_context",
+  "sha256": "8a19163d845163abe7e93f3e26b9c9110fa6752e4a2797146b593a1818643202",
+  "source_url": "https://www.census.gov/naics/reference_files_tools/2022_NAICS_Manual.pdf"
+}

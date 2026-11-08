@@ -1,0 +1,73 @@
+{
+  "artifact_type": "official_identity_source_summary",
+  "collection_to_trilateral": {
+    "not_applicable_rows": 7,
+    "part_rows": 2833,
+    "rows": 3520,
+    "unique_pairs": 3520
+  },
+  "concordance_pair_difference": {
+    "forward_only": 3,
+    "reverse_only": 3
+  },
+  "industry_by_products": {
+    "national_rows": 137429,
+    "national_six_digit_rows": 51590,
+    "rows": 569027,
+    "unique_national_six_digit_naics_napcs_pairs": 37232
+  },
+  "products_by_industry": {
+    "national_rows": 32024,
+    "national_six_digit_rows": 28521,
+    "rows": 32024,
+    "unique_national_six_digit_naics_napcs_pairs": 28521
+  },
+  "relationship_artifact_counts": {
+    "industry_product_relationships": 37232,
+    "napcs_concordance_relationships": 3523
+  },
+  "sample_forward_records": [
+    {
+      "collection_code": "1000025000",
+      "collection_description": "Extraction of natural gas (volumes adjusted to pressure base of 14.73 lb absolute at 60 degrees F)",
+      "part_indicator": "PT",
+      "trilateral_code": "61101010101",
+      "trilateral_description": "Natural gas and residue gas"
+    },
+    {
+      "collection_code": "1000050000",
+      "collection_description": "Extraction of residue gas (volumes adjusted to a pressure base of 14.73 lb absolute at 60 degrees F) from natural gas liquids",
+      "part_indicator": "PT",
+      "trilateral_code": "61101010101",
+      "trilateral_description": "Natural gas and residue gas"
+    },
+    {
+      "collection_code": "1000075000",
+      "collection_description": "Mining of run-of-mine (raw) lignite, for use without processing",
+      "part_indicator": "PT",
+      "trilateral_code": "61101010102",
+      "trilateral_description": "Coal products"
+    },
+    {
+      "collection_code": "1000100000",
+      "collection_description": "Mining of run-of-mine (raw) lignite, for processing at other establishments",
+      "part_indicator": "PT",
+      "trilateral_code": "61101010102",
+      "trilateral_description": "Coal products"
+    },
+    {
+      "collection_code": "1000125000",
+      "collection_description": "Mining of processed lignite, washed by wet-washing, pneumatic, or other methods",
+      "part_indicator": "PT",
+      "trilateral_code": "61101010102",
+      "trilateral_description": "Coal products"
+    }
+  ],
+  "schema_version": 1,
+  "trilateral_to_collection": {
+    "part_rows": 2833,
+    "rows": 3520,
+    "unique_pairs": 3520
+  },
+  "warning": "Counts and observed relationships are identity evidence, not accepted canonical market mappings."
+}
