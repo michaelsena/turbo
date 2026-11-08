@@ -132,7 +132,7 @@ def reconcile() -> dict[str, object]:
     return {
         "schema_version": 1,
         "artifact_type": "multisource_universe_reconciliation_worklist",
-        "warning": "Mappings other than accepted exact labels are proposals, not canonical market decisions.",
+        "warning": "All mappings are proposals until operating-identity review; label similarity never establishes a canonical market decision.",
         "source_counts": {"naics_six_digit": len(naics), "napcs_products": len(napcs), "prior_seed_markets": len(seeds)},
         "candidate_markets": [
             {

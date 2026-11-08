@@ -3,18 +3,16 @@
 ## Outcome
 
 Create the smallest complete Turbo loop that preserves an authoritative American
-industry source, validates its hierarchy, gives every six-digit category a provisional
-strategy-fit score, and produces documented results immediately.
+industry source, validates its hierarchy, reconciles all starting lists into an
+explicit review worklist, and produces documented upstream results immediately.
 
 ## Acceptance criteria
 
 - [ ] Official NAICS 2022 workbook preserved with URL, retrieval time, and SHA-256.
 - [ ] Full hierarchy parsed deterministically with valid parent links.
-- [ ] Every six-digit category receives five numeric factor scores.
-- [ ] Every score contains raw value, confidence, evidence quality, downside,
-      risk-adjusted value, rationale, source, and active evidence gap.
-- [ ] Clear strategy exclusions are explicit and do not disappear from the universe.
-- [ ] Generated universe, score ledger, and run receipt are versioned.
+- [ ] Every source row remains present in the reconciliation worklist.
+- [ ] Exact and fuzzy matches remain review candidates until identity review.
+- [ ] Generated source universe, reconciliation ledger, and run receipt are versioned.
 - [ ] Expansive README and detailed architecture/universe/scoring/Ambient AI/runbook docs.
 - [ ] All tests and replays run locally; no GitHub Actions or hosted CI.
 - [ ] Independent exact-head review reports zero unresolved P0/P1 findings.

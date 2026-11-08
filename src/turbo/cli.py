@@ -35,7 +35,6 @@ def main() -> int:
             print(json.dumps({"error": "No run exists. Execute `turbo run`."}, indent=2))
             return 1
         payload = json.loads(latest.read_text(encoding="utf-8"))
-        payload["top_provisional_queue_seeds"] = payload["top_provisional_queue_seeds"][: args.limit]
         print(json.dumps(payload, indent=2, sort_keys=True))
         return 0
     return 2

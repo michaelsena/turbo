@@ -8,18 +8,16 @@ from turbo.models import to_dict
 from turbo.pipeline_paths import ROOT
 from turbo.universe.multisource import NAPCS, PRIOR, reconcile
 from turbo.universe.naics import parse_naics
-from turbo.universe.scoring import evaluate_market
 
 SOURCE = ROOT / "data/source_snapshots/2022-naics-structure.xlsx"
 SOURCE_MANIFEST = ROOT / "data/source_snapshots/census-naics-2022.snapshot.json"
 NAPCS_MANIFEST = ROOT / "data/source_snapshots/census-napcs-2022.snapshot.json"
 PRIOR_MANIFEST = ROOT / "data/source_snapshots/prior-model-normalized-markets-2026-11-05.snapshot.json"
 STRATEGY_CONFIG = ROOT / "config/strategy.json"
-FACTOR_CONFIG = ROOT / "config/factors/bootstrap-v1.json"
 GENERATED = ROOT / "data/generated"
 RUNS = ROOT / "data/runs"
 SOURCE_URL = "https://www.census.gov/naics/2022NAICS/2022_NAICS_Structure.xlsx"
-METHOD_VERSION = "raw-naics-bootstrap-v1"
+METHOD_VERSION = "multisource-universe-bootstrap-v2"
 
 
 def sha256(path: Path) -> str:
@@ -62,12 +60,6 @@ def run() -> dict[str, object]:
     nodes = parse_naics(SOURCE)
     reconciliation = reconcile()
     leaf_nodes = [node for node in nodes if node.level == 6]
-    evaluations = [evaluate_market(node) for node in leaf_nodes]
-    rankings = sorted(
-        evaluations,
-        key=lambda item: (-item.aggregate_risk_adjusted_score, item.title, item.source_code),
-    )
-    eligible = [item for item in rankings if item.status == "provisional_candidate"]
     source_hash = sha256(SOURCE)
     source_manifest = json.loads(SOURCE_MANIFEST.read_text(encoding="utf-8"))
     if source_hash != source_manifest["sha256"]:
@@ -84,7 +76,6 @@ def run() -> dict[str, object]:
         "napcs_manifest_sha256": sha256(NAPCS_MANIFEST),
         "prior_seed_manifest_sha256": sha256(PRIOR_MANIFEST),
         "strategy_config_sha256": sha256(STRATEGY_CONFIG),
-        "factor_config_sha256": sha256(FACTOR_CONFIG),
     }
     run_id = "run-" + hashlib.sha256(_canonical_bytes(run_config)).hexdigest()[:20]
     run_dir = RUNS / run_id
@@ -96,14 +87,6 @@ def run() -> dict[str, object]:
         "source_snapshot": source_manifest,
         "nodes": [to_dict(node) for node in nodes],
     }
-    scores = {
-        "schema_version": 1,
-        "run_id": run_id,
-        "artifact_type": "provisional_source_category_queue_scores",
-        "method": METHOD_VERSION,
-        "warning": "Low-confidence title-based inferences for queue ordering only; not canonical markets, target eligibility, diligence, or investment conclusions.",
-        "evaluations": [to_dict(item) for item in rankings],
-    }
     receipt = {
         "schema_version": 1,
         "run_id": run_id,
@@ -113,32 +96,18 @@ def run() -> dict[str, object]:
         "multisource_counts": reconciliation["source_counts"],
         "reconciliation_mapping_counts": reconciliation["mapping_counts"],
         "six_digit_source_categories": len(leaf_nodes),
-        "provisional_non_excluded_source_categories": len(eligible),
-        "provisional_excluded_source_categories": len(rankings) - len(eligible),
-        "factor_scores_generated": len(rankings) * 5,
-        "blank_factor_scores": 0,
-        "top_provisional_queue_seeds": [
-            {
-                "rank": index,
-                "market_id": item.market_id,
-                "title": item.title,
-                "source_code": item.source_code,
-                "raw_score": item.aggregate_raw_score,
-                "confidence": item.aggregate_confidence,
-                "risk_adjusted_score": item.aggregate_risk_adjusted_score,
-            }
-            for index, item in enumerate(eligible[:25], 1)
-        ],
+        "canonical_markets": 0,
+        "target_markets": 0,
+        "research_scores": 0,
+        "current_stage": "source_reconciliation_before_canonical_market_decisions",
     }
     output_hashes = {
         "raw-source-hierarchy.json": hashlib.sha256(_canonical_bytes(universe)).hexdigest(),
         "multisource-reconciliation.json": hashlib.sha256(_canonical_bytes(reconciliation)).hexdigest(),
-        "provisional-source-category-scores.json": hashlib.sha256(_canonical_bytes(scores)).hexdigest(),
     }
     receipt["output_hashes"] = output_hashes
     _write_immutable(run_dir / "raw-source-hierarchy.json", universe)
     _write_immutable(run_dir / "multisource-reconciliation.json", reconciliation)
-    _write_immutable(run_dir / "provisional-source-category-scores.json", scores)
     _write_immutable(run_dir / "run-receipt.json", receipt)
     latest = {
         **receipt,

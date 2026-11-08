@@ -12,7 +12,8 @@ class PipelineTest(unittest.TestCase):
         after = receipt.read_bytes()
         self.assertEqual(first["run_id"], second["run_id"])
         self.assertEqual(before, after)
-        self.assertEqual(first["blank_factor_scores"], 0)
+        self.assertEqual(first["canonical_markets"], 0)
+        self.assertEqual(first["research_scores"], 0)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,12 @@
+{
+  "event_id": "run-event-2026-11-08-scoring-bootstrap-withdrawal",
+  "event_type": "supersedes",
+  "new_run_id": "run-d0e09e59a90cf9d34a75",
+  "old_run_id": "run-d49a5798afc8fb3e2635",
+  "reasons": [
+    "Real-market scoring must not begin before reviewed canonical markets and the Target Market Universe exist.",
+    "Title and source-hierarchy proxies were withdrawn from current product output rather than represented as market research.",
+    "The successor run preserves all three source lists and the complete reconciliation worklist while producing zero canonical markets, target markets, and research scores."
+  ],
+  "recorded_at": "2026-11-08T18:36:12Z"
+}

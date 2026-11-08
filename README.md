@@ -141,9 +141,9 @@ merge/exclude review. A high unmatched count is expected because NAPCS contains
 detailed products, not one row per investable operating market. It is published as
 the work to do, not hidden as an error.
 
-The first V1 run includes this reconciliation worklist and separately treats NAICS
-six-digit entries as low-confidence scoring smoke tests. Those scores do not define
-the universe and are not yet the Target Market Universe.
+The current V1 run stops at this reconciliation worklist. It intentionally produces
+no market rankings. Research and scoring begin only after reviewed canonical markets
+are filtered into the Target Market Universe.
 
 See [universe methodology](docs/universe/methodology.md).
 
@@ -167,8 +167,9 @@ For each market-factor pair:
 - If they agree within the registered tolerance, Turbo combines them.
 - If they disagree materially, a third adjudicator must issue a usable provisional
   score, explain the disagreement, and request more evidence if appropriate.
-- A gap never produces a blank score. Weak evidence produces a documented
-  inference or assumption with lower confidence.
+- Research is attempted before inference. If lawful public evidence cannot close a
+  field, a documented inference or assumption supplies the numeric score with lower
+  confidence and an active retry gap.
 - Both raw and uncertainty-adjusted results remain visible.
 
 The initial uncertainty adjustment is:
@@ -210,38 +211,36 @@ system and adapts them to a no-blank scoring model:
 - Chairman gates for changes to strategy, evidence boundaries, external posture,
   company discovery, and other consequential scope.
 
-Unlike the earlier system, missing evidence does not leave a field unresolved.
-Turbo creates the best defensible provisional estimate, exposes low confidence,
-and keeps trying to improve it.
+Unlike the earlier system, a field is not abandoned after a research gap. Turbo first
+attempts evidence-backed research; only then does it create the best defensible
+provisional inference, expose low confidence, and keep trying to improve it.
 
 ## Current V1 result
 
-The first end-to-end run completed on 2026-11-08 from the preserved official
-Census NAICS 2022 workbook.
+The current end-to-end upstream run completed on 2026-11-08 from all three preserved
+starting lists.
 
 | Result | Count |
 | --- | ---: |
 | Official hierarchy nodes | 2,125 |
-| Six-digit source categories scored | 1,012 |
-| Provisional non-excluded source categories | 454 |
-| Provisional excluded source categories | 558 |
-| Factor scores produced | 5,060 |
-| Blank factor scores | 0 |
-| Starting confidence | 0.28 |
+| Six-digit NAICS source categories | 1,012 |
+| NAPCS product/service rows | 6,290 |
+| Prior-model market seeds | 978 |
+| Exact-label review candidates | 207 |
+| Fuzzy mapping proposals | 99 |
+| Unmatched reconciliation items | 6,996 |
+| Canonical markets accepted | 0 |
+| Target markets filtered | 0 |
+| Research scores produced | 0 |
 
-Upstream construction in the same run covers 1,012 NAICS leaves, 6,290 NAPCS product
-rows, and 978 prior-model candidate markets. These counts and every reconciliation
-proposal are in `multisource-reconciliation.json` inside the immutable run directory.
-
-The initial queue seeds include waste-management services, building inspection,
-repair and maintenance, pest control, building trades, remediation, and security
-services. These are **queue-ordering signals only**. Their scores come from
-title- and structure-based inferences, deliberately carry low confidence, and
-must not be represented as investment conclusions.
+These counts and every reconciliation proposal are in
+`multisource-reconciliation.json` inside the immutable run directory. Zero canonical
+and target markets is the honest current state: source ingestion is working, while
+reviewed normalization is the active critical path.
 
 The current machine-readable pointer and receipt is
 [`data/generated/latest-run.json`](data/generated/latest-run.json). Full source
-nodes, scores, and immutable receipts live in content-addressed directories under
+nodes, reconciliation worklists, and immutable receipts live in content-addressed directories under
 `data/runs/`.
 
 ## Repository map
@@ -249,11 +248,11 @@ nodes, scores, and immutable receipts live in content-addressed directories unde
 | Path | Purpose |
 | --- | --- |
 | `src/turbo/universe/naics.py` | Deterministic parser for the official NAICS workbook |
-| `src/turbo/universe/scoring.py` | V1 no-blank factor scoring and exclusions |
-| `src/turbo/pipeline.py` | Replayable universe and score generation |
+| `src/turbo/universe/multisource.py` | Multi-list normalization and reconciliation worklist |
+| `src/turbo/pipeline.py` | Replayable source-universe and reconciliation generation |
 | `src/turbo/cli.py` | Local run, validation, and context commands |
 | `data/source_snapshots/` | Immutable official source captures and manifests |
-| `data/runs/` | Immutable, content-addressed source and score artifacts |
+| `data/runs/` | Immutable, content-addressed universe artifacts |
 | `data/generated/` | Mutable pointer to the most recent immutable run |
 | `docs/universe/` | Universe sources, identity rules, normalization, and roadmap |
 | `docs/scoring/` | Factor topology, confidence, adjudication, and comparisons |
@@ -261,7 +260,7 @@ nodes, scores, and immutable receipts live in content-addressed directories unde
 | `docs/architecture/` | System components, graph, event flow, and boundaries |
 | `docs/operations/` | Local verification, issue/branch/PR process, and runbooks |
 | `docs/decisions/` | Append-only architecture decision records |
-| `tests/` | Local parser, hierarchy, exclusion, and scoring tests |
+| `tests/` | Local source, parser, hierarchy, reconciliation, and replay tests |
 
 ## Running locally
 
@@ -283,9 +282,9 @@ results, input hash, output hash, and exact commit are posted as GitHub issue/PR
 receipts instead.
 
 The production scoring design uses independent model specialists and mandatory
-adjudication. The V1 bootstrap does **not** pretend its two deterministic heuristic
-lenses are independent agents; they exist only to create transparent starting
-estimates until the audited model-scoring subsystem is implemented.
+adjudication. The V1 bootstrap performs no real-market scoring: it stops at the
+source-reconciliation worklist until canonical markets and the Target Market
+Universe have been reviewed and published.
 
 ## The application and API
 

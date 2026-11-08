@@ -55,20 +55,13 @@ rankings. It performs sensitivity, contribution, and rank-stability analysis and
 request deeper research, but it cannot invent a qualitative override to the weighted
 data.
 
-## Current V1 factor group
+## Current implementation status
 
-The bootstrap runs five title/structure proxies:
-
-- service orientation
-- LMM buyability
-- demand persistence and AI displacement resistance
-- ambient-context potential
-- roll-up scalability
-
-All begin at confidence 0.28 and evidence quality 0.25. They exist to produce an
-immediate, complete research queue—not to substitute for production scoring.
-Their two deterministic lenses are not represented as independent model agents;
-blind specialist execution and adjudication are a subsequent audited subsystem.
+V1 performs no real-market scoring. It constructs and reconciles the starting source
+lists. Production factor research begins only after canonical operating markets are
+reviewed and filtered into the Target Market Universe. Synthetic fixtures may later
+test scoring mechanics, but they must never rank real source categories or appear as
+research results.
 
 ## Research-gap priority
 
