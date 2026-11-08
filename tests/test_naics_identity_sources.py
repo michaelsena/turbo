@@ -44,6 +44,24 @@ class NaicsIdentitySourcesTest(unittest.TestCase):
                 for entry in entries
             )
         )
+        self.assertTrue(
+            any(
+                entry.naics_2022_code == "423120"
+                and entry.page == 640
+                and entry.normalized_label
+                == "Aftermarket parts, automotive, merchant wholesalers"
+                for entry in entries
+            )
+        )
+        self.assertTrue(
+            any(
+                entry.naics_2022_code == "331314"
+                and entry.page == 644
+                and entry.normalized_label
+                == "Aluminum billet made from purchased aluminum"
+                for entry in entries
+            )
+        )
 
     def test_uncoded_index_cross_references_are_separate_rows(self) -> None:
         cross_references = parse_naics_manual_index_cross_references()
@@ -58,7 +76,7 @@ class NaicsIdentitySourcesTest(unittest.TestCase):
         )
         self.assertTrue(
             any(
-                entry.normalized_label == "Cards, publishing --see specific product"
+                entry.normalized_label == "Cards, publishing -- see specific product"
                 for entry in cross_references
             )
         )

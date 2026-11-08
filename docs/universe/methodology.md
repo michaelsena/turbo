@@ -65,7 +65,9 @@ entries. Turbo reconstructs each column independently from physical PDF pages
 wrapped text across column/page boundaries, and emits a unique page/column/baseline/
 ordinal locator. The resulting 20,373 coded entries cover 1,010 codes. Twenty-five
 `******` cross-reference rows remain separate uncoded observations rather than being
-attached to the preceding industry. The two uncovered codes remain explicit; absence
+attached to the preceding industry. Adjacent semantic spans use embedded font widths
+and x-coordinate gaps to preserve real word spaces without splitting fragmented words.
+The two uncovered codes remain explicit; absence
 from the index is not negative market evidence.
 
 NAICS vintage lineage is separate from canonical identity. The two official full

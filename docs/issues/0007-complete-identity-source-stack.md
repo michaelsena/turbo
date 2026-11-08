@@ -35,6 +35,9 @@ replayable parsers, explicit coverage tests, and no downstream market decisions.
 - Independent review found and corrected an initial parser defect: some six-digit
   codes were split across PDF glyph spans, and uncoded cross-reference rows had been
   appended to prior labels. Regression tests now cover both cases.
+- Exact-head re-review found and corrected dropped spaces between adjacent PDF text
+  spans. Reconstruction now uses embedded font widths and coordinate gaps; regression
+  fixtures include `Aftermarket parts, automotive` and `Aluminum billet`.
 
 ## Open source gaps
 

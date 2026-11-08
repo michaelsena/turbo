@@ -73,6 +73,42 @@ def _clean(value: str) -> str:
     return " ".join(value.split())
 
 
+def _pdf_text_width(text: str, font: object, size: float) -> float:
+    if not isinstance(font, dict):
+        return 0.0
+    widths_reference = font.get("/Widths")
+    first = font.get("/FirstChar")
+    last = font.get("/LastChar")
+    if widths_reference is None or not isinstance(first, int) or not isinstance(last, int):
+        return 0.0
+    widths = widths_reference.get_object()
+    total = 0.0
+    for character in text:
+        code = ord(character)
+        if first <= code <= last:
+            total += float(widths[code - first])
+    return total * size / 1000.0
+
+
+def _join_pdf_spans(spans: list[dict[str, object]]) -> str:
+    result = ""
+    previous_end_x: float | None = None
+    for span in sorted(spans, key=lambda item: float(item["x"])):
+        text = str(span["text"])
+        if (
+            result
+            and previous_end_x is not None
+            and not result[-1].isspace()
+            and text
+            and not text[0].isspace()
+            and float(span["x"]) - previous_end_x > 0.75
+        ):
+            result += " "
+        result += text
+        previous_end_x = float(span["end_x"])
+    return result.strip()
+
+
 def parse_naics_concordance(
     path: Path,
     direction: str,
@@ -137,12 +173,20 @@ def _parse_naics_manual_index_rows() -> tuple[
             text: str,
             _cm: list[float],
             tm: list[float],
-            _font: object,
-            _size: float,
+            font: object,
+            size: float,
         ) -> None:
             raw = text.replace("\n", "")
             if raw.strip():
-                spans.append({"x": float(tm[4]), "y": float(tm[5]), "text": raw})
+                x = float(tm[4])
+                spans.append(
+                    {
+                        "x": x,
+                        "y": float(tm[5]),
+                        "text": raw,
+                        "end_x": x + _pdf_text_width(raw, font, size),
+                    }
+                )
 
         reader.pages[page_number - 1].extract_text(visitor_text=visit)
         for column, (xmin, xmax, code_band_max) in enumerate(
@@ -180,11 +224,13 @@ def _parse_naics_manual_index_rows() -> tuple[
                 if float(span["x"]) < code_band_max
             )
             code_band = "".join(code_band.split())
-            same_line_text = "".join(
-                str(span["text"])
-                for span in line_spans
-                if float(span["x"]) >= code_band_max
-            ).strip()
+            same_line_text = _join_pdf_spans(
+                [
+                    span
+                    for span in line_spans
+                    if float(span["x"]) >= code_band_max
+                ]
+            )
             if code_band in valid_codes or code_band == "******":
                 if current is not None:
                     raw_rows.append(current)
