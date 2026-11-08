@@ -2,26 +2,38 @@
   "canonical_markets": 0,
   "current_stage": "source_reconciliation_before_canonical_market_decisions",
   "governed_source_snapshots": 8,
-  "immutable_run_path": "data/runs/run-e73765768fc099149346",
+  "identity_source_counts": {
+    "collection_to_trilateral_rows": 3520,
+    "industry_by_products_rows": 569027,
+    "products_by_industry_rows": 32024,
+    "products_by_industry_unique_national_six_digit_pairs": 28521,
+    "trilateral_to_collection_rows": 3520
+  },
+  "immutable_run_path": "data/runs/run-597077725e2b15dd9333",
   "multisource_counts": {
     "naics_six_digit": 1012,
-    "napcs_products": 6290,
-    "prior_seed_markets": 978
+    "napcs_collection_records": 6290,
+    "napcs_products": 7235,
+    "napcs_relationship_only_products": 945,
+    "prior_candidate_markets": 978,
+    "prior_seed_records": 978
   },
   "output_hashes": {
-    "multisource-reconciliation.json": "00d368054f60bb42a21af69d2c2ca972a361ec02abbefd93e2f096a788582cc2",
-    "raw-source-hierarchy.json": "dffcaee7e67684970a4bfe7029acc993cb6f53f93fb0ef9c84b1774f8800792a"
+    "identity-relationships.json": "d801e6c624fecf7aa5b8889e74b88945e90837b1c9184ce9a02f24adcf0aae0f",
+    "identity-source-summary.json": "d45b38a9a6093c40d3f4ca170cce572f7b6325786f9ab32fe2d8f14245e51a4e",
+    "multisource-reconciliation.json": "9e70fcfe4d3f834ba3f7d01f51c6d42e7bc01dea0533dc7209e68c105cb2dd6b",
+    "raw-source-hierarchy.json": "c9368a35dca50c236f663aea2a4f6bac025a7d2e5d2f035debde6516e27be2aa"
   },
   "reconciliation_mapping_counts": {
-    "ambiguous_or_semantically_conflicted_review": 5,
-    "exact_label_candidate": 207,
-    "proposed_mapping_review": 75,
-    "unmatched_requires_add_split_or_exclusion_review": 7015
+    "ambiguous_or_semantically_conflicted_review": 7,
+    "exact_label_candidate": 211,
+    "proposed_mapping_review": 85,
+    "unmatched_requires_add_split_or_exclusion_review": 7944
   },
   "research_scores": 0,
   "run_config": {
-    "code_fingerprint": "9f2c08c5fc19854c8d797c47c1f8520a0ac0274ae4f03b5df94e10d12b41779a",
-    "method_version": "semantic-reconciliation-worklist-v1",
+    "code_fingerprint": "511042d5e9c1f2de211aeb92656e1186f631d2a169f21ccb886e7ab295e0f1cd",
+    "method_version": "identity-source-semantic-reconciliation-v3",
     "napcs_manifest_sha256": "06da74961d4777e1848973b9675b7861fc626b3d4750627b03502716c7afd5a3",
     "napcs_sha256": "528e69e335342f9c356379f7074528efc5fcc89addd026cc13ab18b2072fd988",
     "prior_seed_manifest_sha256": "70d496a577ba26a1d1bfae73be24cfb1a6a5301d25a6142b451d111c6b2d5fb9",
@@ -32,7 +44,7 @@
     "source_sha256": "217c9e0d4d74e7517bc288f5f308b73aa0de5ee787976a6dd222412be28ada22",
     "strategy_config_sha256": "482f49180ff58d7957ec8c220f1c7dfa0e2aa1140f6f9ecc5afd21be0d98d431"
   },
-  "run_id": "run-e73765768fc099149346",
+  "run_id": "run-597077725e2b15dd9333",
   "schema_version": 1,
   "six_digit_source_categories": 1012,
   "source_nodes": 2125,

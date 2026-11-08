@@ -27,14 +27,16 @@ def _column_index(reference: str) -> int:
     return result - 1
 
 
-def read_first_sheet(path: Path) -> list[list[str]]:
+def read_sheet(path: Path, sheet_number: int = 1) -> list[list[str]]:
+    if sheet_number < 1:
+        raise ValueError("sheet_number must be at least 1")
     with zipfile.ZipFile(path) as book:
         shared_root = ET.fromstring(book.read("xl/sharedStrings.xml"))
         shared = [
             "".join(text.text or "" for text in item.iter(NS + "t"))
             for item in shared_root.findall(NS + "si")
         ]
-        sheet = ET.fromstring(book.read("xl/worksheets/sheet1.xml"))
+        sheet = ET.fromstring(book.read(f"xl/worksheets/sheet{sheet_number}.xml"))
     rows: list[list[str]] = []
     for row in sheet.iter(NS + "row"):
         indexed: dict[int, str] = {}
@@ -48,6 +50,10 @@ def read_first_sheet(path: Path) -> list[list[str]]:
         values = [indexed.get(index, "") for index in range(width)]
         rows.append(values)
     return rows
+
+
+def read_first_sheet(path: Path) -> list[list[str]]:
+    return read_sheet(path, 1)
 
 
 def _sector_parent(code: str, sectors: list[str]) -> str | None:

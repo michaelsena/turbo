@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import hashlib
 import json
+from datetime import datetime
 from pathlib import Path
 
 from turbo.models import to_dict
 from turbo.pipeline_paths import ROOT
+from turbo.universe.identity_sources import identity_source_artifacts
 from turbo.universe.multisource import NAPCS, PRIOR, reconcile
 from turbo.universe.naics import parse_naics
 
@@ -18,7 +20,7 @@ STRATEGY_CONFIG = ROOT / "config/strategy.json"
 GENERATED = ROOT / "data/generated"
 RUNS = ROOT / "data/runs"
 SOURCE_URL = "https://www.census.gov/naics/2022NAICS/2022_NAICS_Structure.xlsx"
-METHOD_VERSION = "semantic-reconciliation-worklist-v1"
+METHOD_VERSION = "identity-source-semantic-reconciliation-v3"
 
 
 def sha256(path: Path) -> str:
@@ -79,6 +81,7 @@ def run() -> dict[str, object]:
     GENERATED.mkdir(parents=True, exist_ok=True)
     nodes = parse_naics(SOURCE)
     reconciliation = reconcile()
+    identity_summary, identity_relationships = identity_source_artifacts()
     leaf_nodes = [node for node in nodes if node.level == 6]
     source_hash = sha256(SOURCE)
     source_manifest = json.loads(SOURCE_MANIFEST.read_text(encoding="utf-8"))
@@ -118,6 +121,13 @@ def run() -> dict[str, object]:
         "governed_source_snapshots": len(registry),
         "multisource_counts": reconciliation["source_counts"],
         "reconciliation_mapping_counts": reconciliation["mapping_counts"],
+        "identity_source_counts": {
+            "collection_to_trilateral_rows": identity_summary["collection_to_trilateral"]["rows"],
+            "trilateral_to_collection_rows": identity_summary["trilateral_to_collection"]["rows"],
+            "industry_by_products_rows": identity_summary["industry_by_products"]["rows"],
+            "products_by_industry_rows": identity_summary["products_by_industry"]["rows"],
+            "products_by_industry_unique_national_six_digit_pairs": identity_summary["products_by_industry"]["unique_national_six_digit_naics_napcs_pairs"],
+        },
         "six_digit_source_categories": len(leaf_nodes),
         "canonical_markets": 0,
         "target_markets": 0,
@@ -127,10 +137,16 @@ def run() -> dict[str, object]:
     output_hashes = {
         "raw-source-hierarchy.json": hashlib.sha256(_canonical_bytes(universe)).hexdigest(),
         "multisource-reconciliation.json": hashlib.sha256(_canonical_bytes(reconciliation)).hexdigest(),
+        "identity-source-summary.json": hashlib.sha256(_canonical_bytes(identity_summary)).hexdigest(),
+        "identity-relationships.json": hashlib.sha256(
+            _canonical_bytes(identity_relationships)
+        ).hexdigest(),
     }
     receipt["output_hashes"] = output_hashes
     _write_immutable(run_dir / "raw-source-hierarchy.json", universe)
     _write_immutable(run_dir / "multisource-reconciliation.json", reconciliation)
+    _write_immutable(run_dir / "identity-source-summary.json", identity_summary)
+    _write_immutable(run_dir / "identity-relationships.json", identity_relationships)
     _write_immutable(run_dir / "run-receipt.json", receipt)
     latest = {
         **receipt,
@@ -153,10 +169,26 @@ def validate() -> list[str]:
         except (json.JSONDecodeError, OSError) as error:
             errors.append(f"invalid source manifest {manifest_path.name}: {error}")
             continue
-        missing = sorted({"dataset_id", "file", "sha256"} - set(manifest))
+        required_manifest_fields = {
+            "acquired_at",
+            "dataset_id",
+            "file",
+            "publisher",
+            "reuse",
+            "role",
+            "sha256",
+            "source_url",
+        }
+        missing = sorted(required_manifest_fields - set(manifest))
         if missing:
             errors.append(f"source manifest {manifest_path.name} missing: {', '.join(missing)}")
             continue
+        try:
+            datetime.fromisoformat(str(manifest["acquired_at"]).replace("Z", "+00:00"))
+        except ValueError:
+            errors.append(f"source manifest {manifest_path.name} has invalid acquired_at")
+        if not str(manifest["source_url"]).startswith("https://"):
+            errors.append(f"source manifest {manifest_path.name} source_url must use https")
         dataset_id = str(manifest["dataset_id"])
         file_name = str(manifest["file"])
         if dataset_id in dataset_ids:

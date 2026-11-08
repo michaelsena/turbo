@@ -50,8 +50,8 @@ labels and source IDs. Every normalized decision points back to those immutable 
 
 Automatic normalization is limited to deterministic cleaning, row-role typing,
 hierarchy preservation, semantic flags, and top-k retrieval. Exact and fuzzy matches
-are proposals only. Candidate output retains score components, margins, exclusions,
-residual flags, contradictions, and ambiguity. Review applies the seven
+are proposals only. Candidate output currently retains Jaccard similarity, top-two
+margin, exclusions, residual flags, contradictions, and ambiguity. Review applies the seven
 operating-identity tests and records rationale, reviewer, cutoff, confidence,
 alternatives, and directed lineage.
 
@@ -70,7 +70,7 @@ alternatives, and directed lineage.
 
 ## Operating-family review
 
-The 8,280 starting rows are partitioned into bounded operating families rather than
+The 9,225 starting records are partitioned into bounded operating families rather than
 reviewed as one flat list. For each family, one specialist proposes boundaries, a
 second independently tests them and searches for countercases, and adjudication
 resolves disagreements or keeps the mapping explicitly unresolved. Accepted events
@@ -93,9 +93,14 @@ universe and operating playbook, not whether their labels sound similar.
 ## V1 status
 
 The bootstrap ingests all 2,125 official NAICS hierarchy nodes, the 2022 Economic
-Census NAPCS collection-code list, and the prior 978-market seed. Issue #2 upgrades
-that worklist with stable content-based seed IDs, preserved row roles and semantic
-flags, and top-k candidates. The additional official identity sources, canonical
-operating-market decisions, SUSB size filtering, and enrichment remain incomplete
-and must precede claims of Target Market completeness.
+Census NAPCS collection-code list, 945 additional product identities observed only
+in the relationship archive, and the prior 978-market seed. Issue #2 upgrades that
+worklist with separate source-row and stable content-based candidate IDs, preserved
+lineage, row roles and semantic flags, and top-k candidates. Both
+collection/trilateral concordances and both Economic Census industry-product archives
+are preserved and parsed into a summary plus complete many-to-many relationship
+artifact. NAICS Manual definition extraction, the complete
+trilateral hierarchy capture, canonical operating-market decisions, SUSB size
+filtering, and enrichment remain incomplete and must precede claims of Target Market
+completeness.
 

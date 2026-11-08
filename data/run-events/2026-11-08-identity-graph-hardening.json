@@ -1,0 +1,14 @@
+{
+  "event_id": "run-event-2026-11-08-identity-graph-hardening",
+  "event_type": "supersedes",
+  "new_run_id": "run-597077725e2b15dd9333",
+  "old_run_id": "run-e73765768fc099149346",
+  "reasons": [
+    "Both official NAPCS concordances and both Economic Census relationship archives are parsed into complete summary and relationship artifacts.",
+    "The source universe adds 945 product identities observed in the official relationship archive but absent from the collection-code workbook.",
+    "Source-row identity is separated from content-derived candidate-market identity, and source records preserve snapshot, hierarchy, parent, and source-relationship lineage.",
+    "Append-only graph contracts enforce opaque event-derived market IDs, referential integrity, timezone-aware cutoffs, event cardinality, independent review, deterministic supersession, and split/merge retirement.",
+    "Schema/runtime parity and semantic-scope regression tests now fail closed locally."
+  ],
+  "recorded_at": "2026-11-08T19:17:09Z"
+}

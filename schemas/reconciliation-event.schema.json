@@ -5,76 +5,119 @@
   "type": "object",
   "additionalProperties": true,
   "required": [
-    "event_id",
-    "event_type",
-    "decision",
-    "recorded_at",
-    "input_source_record_ids",
-    "input_market_ids",
-    "output_market_ids",
-    "operating_identity",
-    "supporting_record_ids",
-    "counterevidence_record_ids",
-    "alternatives_considered",
-    "review",
-    "supersedes"
+    "event_id", "event_type", "decision", "recorded_at",
+    "input_source_record_ids", "input_market_ids", "output_market_ids",
+    "operating_identity", "supporting_record_ids", "counterevidence_record_ids",
+    "alternatives_considered", "review", "supersedes"
   ],
   "properties": {
     "event_id": {"type": "string", "minLength": 1},
-    "event_type": {
-      "enum": [
-        "create_market",
-        "map",
-        "split",
-        "merge",
-        "rename",
-        "reparent",
-        "exclude_source_record",
-        "reject_candidate",
-        "supersede_decision"
-      ]
-    },
+    "event_type": {"enum": ["create_market", "map", "split", "merge", "rename", "reparent", "exclude_source_record", "reject_candidate", "supersede_decision"]},
     "decision": {"enum": ["accepted", "rejected", "deferred"]},
     "recorded_at": {"type": "string", "format": "date-time"},
-    "input_source_record_ids": {"type": "array", "items": {"type": "string"}},
-    "input_market_ids": {"type": "array", "items": {"type": "string"}},
-    "output_market_ids": {"type": "array", "items": {"type": "string"}},
-    "relationship_type": {
-      "enum": [
-        "equivalent_label_candidate",
-        "broader_than_market",
-        "narrower_than_market",
-        "product_sold_by_market",
-        "industry_containing_market",
-        "task_performed_by_market",
-        "partial_overlap",
-        "residual_bucket",
-        "duplicate_source_record",
-        "non_market_product",
-        "out_of_scope_for_canonicalization",
-        "unresolved"
-      ]
-    },
-    "operating_identity": {
-      "type": "object",
-      "required": [
-        "buyer",
-        "job",
-        "delivery",
-        "workforce",
-        "economics_risk",
-        "acquisition_universe",
-        "ambient_ai_workflow"
-      ]
-    },
-    "supporting_record_ids": {"type": "array", "items": {"type": "string"}},
-    "counterevidence_record_ids": {"type": "array", "items": {"type": "string"}},
+    "input_source_record_ids": {"$ref": "#/$defs/uniqueStringArray"},
+    "input_market_ids": {"$ref": "#/$defs/uniqueStringArray"},
+    "output_market_ids": {"$ref": "#/$defs/uniqueStringArray"},
+    "relationship_type": {"enum": ["equivalent_label_candidate", "broader_than_market", "narrower_than_market", "product_sold_by_market", "industry_containing_market", "task_performed_by_market", "partial_overlap", "residual_bucket", "duplicate_source_record", "non_market_product", "out_of_scope_for_canonicalization", "unresolved"]},
+    "operating_identity": {"$ref": "#/$defs/operatingIdentity"},
+    "supporting_record_ids": {"$ref": "#/$defs/uniqueStringArray"},
+    "counterevidence_record_ids": {"$ref": "#/$defs/uniqueStringArray"},
     "alternatives_considered": {"type": "array"},
     "review": {
       "type": "object",
-      "required": ["proposer", "independent_reviewer", "result"]
+      "additionalProperties": true,
+      "required": ["proposer", "independent_reviewer", "result"],
+      "properties": {
+        "proposer": {"type": "string", "minLength": 1},
+        "independent_reviewer": {"type": "string", "minLength": 1},
+        "result": {"enum": ["accepted", "rejected", "changes_requested"]}
+      }
     },
-    "supersedes": {"type": "array", "items": {"type": "string"}},
-    "market_version": {"type": "object"}
-  }
+    "supersedes": {"$ref": "#/$defs/uniqueStringArray"},
+    "market_version": {"$ref": "#/$defs/marketVersion"},
+    "market_versions": {"type": "array", "items": {"$ref": "#/$defs/marketVersion"}}
+  },
+  "$defs": {
+    "uniqueStringArray": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "identityResult": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["confidence"],
+      "properties": {"result": {"type": "string"}, "confidence": {"type": "number", "minimum": 0, "maximum": 1}}
+    },
+    "operatingIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["buyer", "job", "delivery", "workforce", "economics_risk", "acquisition_universe", "ambient_ai_workflow"],
+      "properties": {
+        "buyer": {"$ref": "#/$defs/identityResult"},
+        "job": {"$ref": "#/$defs/identityResult"},
+        "delivery": {"$ref": "#/$defs/identityResult"},
+        "workforce": {"$ref": "#/$defs/identityResult"},
+        "economics_risk": {"$ref": "#/$defs/identityResult"},
+        "acquisition_universe": {"$ref": "#/$defs/identityResult"},
+        "ambient_ai_workflow": {"$ref": "#/$defs/identityResult"}
+      }
+    },
+    "dimensionConfidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["buyer", "job", "delivery", "workforce", "economics_risk", "acquisition_universe", "ambient_ai_workflow"],
+      "properties": {
+        "buyer": {"type": "number", "minimum": 0, "maximum": 1},
+        "job": {"type": "number", "minimum": 0, "maximum": 1},
+        "delivery": {"type": "number", "minimum": 0, "maximum": 1},
+        "workforce": {"type": "number", "minimum": 0, "maximum": 1},
+        "economics_risk": {"type": "number", "minimum": 0, "maximum": 1},
+        "acquisition_universe": {"type": "number", "minimum": 0, "maximum": 1},
+        "ambient_ai_workflow": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "dimensionEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["buyer", "job", "delivery", "workforce", "economics_risk", "acquisition_universe", "ambient_ai_workflow"],
+      "properties": {
+        "buyer": {"enum": ["fact", "inference", "assumption", "unknown"]},
+        "job": {"enum": ["fact", "inference", "assumption", "unknown"]},
+        "delivery": {"enum": ["fact", "inference", "assumption", "unknown"]},
+        "workforce": {"enum": ["fact", "inference", "assumption", "unknown"]},
+        "economics_risk": {"enum": ["fact", "inference", "assumption", "unknown"]},
+        "acquisition_universe": {"enum": ["fact", "inference", "assumption", "unknown"]},
+        "ambient_ai_workflow": {"enum": ["fact", "inference", "assumption", "unknown"]}
+      }
+    },
+    "marketVersion": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["market_version_id", "market_id", "canonical_name", "definition", "boundary", "buyer", "job_to_be_done", "delivery_model", "workforce_model", "economics_risk", "acquisition_universe", "ambient_ai_workflow", "parent_market_id", "aliases", "explicit_exclusions", "source_record_ids", "mapping_event_ids", "evidence_by_dimension", "confidence_by_dimension"],
+      "properties": {
+        "market_version_id": {"type": "string", "pattern": "^market-version:[0-9a-f]{24}$"},
+        "market_id": {"type": "string", "pattern": "^market:[0-9a-f]{24}$"},
+        "canonical_name": {"type": "string", "minLength": 1},
+        "definition": {"type": "string", "minLength": 1},
+        "boundary": {"type": "string", "minLength": 1},
+        "buyer": {"type": "string", "minLength": 1},
+        "job_to_be_done": {"type": "string", "minLength": 1},
+        "delivery_model": {"type": "string", "minLength": 1},
+        "workforce_model": {"type": "string", "minLength": 1},
+        "economics_risk": {"type": "string", "minLength": 1},
+        "acquisition_universe": {"type": "string", "minLength": 1},
+        "ambient_ai_workflow": {"type": "string", "minLength": 1},
+        "parent_market_id": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^market:[0-9a-f]{24}$"}]},
+        "aliases": {"$ref": "#/$defs/uniqueStringArray"},
+        "explicit_exclusions": {"$ref": "#/$defs/uniqueStringArray"},
+        "source_record_ids": {"$ref": "#/$defs/uniqueStringArray"},
+        "mapping_event_ids": {"$ref": "#/$defs/uniqueStringArray"},
+        "evidence_by_dimension": {"$ref": "#/$defs/dimensionEvidence"},
+        "confidence_by_dimension": {"$ref": "#/$defs/dimensionConfidence"}
+      }
+    }
+  },
+  "allOf": [
+    {"if": {"properties": {"event_type": {"const": "map"}}}, "then": {"required": ["relationship_type"], "properties": {"input_source_record_ids": {"minItems": 1}, "output_market_ids": {"minItems": 1, "maxItems": 1}}}},
+    {"if": {"properties": {"event_type": {"const": "create_market"}}}, "then": {"required": ["market_version"], "properties": {"input_market_ids": {"maxItems": 0}, "output_market_ids": {"minItems": 1, "maxItems": 1}}}},
+    {"if": {"properties": {"event_type": {"const": "split"}}}, "then": {"required": ["market_versions"], "properties": {"input_market_ids": {"minItems": 1, "maxItems": 1}, "output_market_ids": {"minItems": 2}, "market_versions": {"minItems": 2}}}},
+    {"if": {"properties": {"event_type": {"const": "merge"}}}, "then": {"required": ["market_version"], "properties": {"input_market_ids": {"minItems": 2}, "output_market_ids": {"minItems": 1, "maxItems": 1}}}}
+  ]
 }

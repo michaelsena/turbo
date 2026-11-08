@@ -8,6 +8,11 @@ from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass
 
 from turbo.pipeline_paths import ROOT
+from turbo.universe.identity_sources import (
+    parse_collection_to_trilateral,
+    parse_trilateral_to_collection,
+    relationship_product_records,
+)
 from turbo.universe.naics import parse_naics, read_first_sheet
 
 NAICS = ROOT / "data/source_snapshots/2022-naics-structure.xlsx"
@@ -30,10 +35,20 @@ class NamedRecord:
     raw_label: str
     record_kind: str
     locator: str
+    snapshot_id: str
+    raw_definition: str = ""
+    hierarchy_path: tuple[str, ...] = ()
+    parent_ids: tuple[str, ...] = ()
+    source_relationships: tuple[dict[str, str], ...] = ()
 
     @property
     def name(self) -> str:
         return self.raw_label
+
+    @property
+    def candidate_market_id(self) -> str:
+        digest = hashlib.sha256(normalize_name(self.raw_label).encode("utf-8")).hexdigest()[:24]
+        return f"candidate-market:{digest}"
 
 
 def normalize_name(value: str) -> str:
@@ -55,11 +70,12 @@ def retrieval_tokens(value: str) -> frozenset[str]:
 def semantic_flags(value: str) -> dict[str, object]:
     normalized = normalize_name(value)
     words = frozenset(normalized.split())
+    semantic_text = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii").lower()
     excluded_terms: set[str] = set()
-    for match in re.finditer(r"\b(?:except|excluding)\b\s+(.+?)(?=\b(?:and|or)\b|$)", normalized):
+    for match in re.finditer(r"\b(?:except|excluding)\b\s+([^)]+?)(?=\)|,|;|$)", semantic_text):
         excluded_terms.update(
             part
-            for part in match.group(1).split()
+            for part in normalize_name(match.group(1)).split()
             if part not in RETRIEVAL_STOPWORDS and part not in {"service", "services"}
         )
     return {
@@ -70,7 +86,7 @@ def semantic_flags(value: str) -> dict[str, object]:
         "excluded_terms": sorted(excluded_terms),
         "hazard_scope": (
             "nonhazardous"
-            if "nonhazardous" in words
+            if re.search(r"\bnon[\s-]*hazardous\b", semantic_text)
             else "hazardous"
             if "hazardous" in words
             else None
@@ -100,6 +116,18 @@ def semantic_conflicts(left: str, right: str) -> list[str]:
 
 
 def parse_napcs() -> list[NamedRecord]:
+    concordance: dict[str, dict[tuple[str, str], set[str]]] = defaultdict(
+        lambda: defaultdict(set)
+    )
+    for direction, rows in (
+        ("collection_to_trilateral", parse_collection_to_trilateral()),
+        ("trilateral_to_collection", parse_trilateral_to_collection()),
+    ):
+        for row in rows:
+            if row.collection_code and row.trilateral_code not in {"", "NA"}:
+                concordance[row.collection_code][
+                    (row.trilateral_code, row.part_indicator)
+                ].add(direction)
     result: list[NamedRecord] = []
     for row_number, row in enumerate(read_first_sheet(NAPCS), 1):
         if len(row) < 2 or not row[0].strip().isdigit():
@@ -120,6 +148,36 @@ def parse_napcs() -> list[NamedRecord]:
                 raw_label=label,
                 record_kind=record_kind,
                 locator=f"first_sheet:row:{row_number}",
+                snapshot_id="census-napcs-2022",
+                source_relationships=tuple(
+                    {
+                        "relationship_type": "collection_to_trilateral",
+                        "target_source_record_id": f"napcs-trilateral:{trilateral_code}",
+                        "part_indicator": part_indicator,
+                        "observed_in": ",".join(sorted(directions)),
+                    }
+                    for (trilateral_code, part_indicator), directions in sorted(
+                        concordance.get(code, {}).items()
+                    )
+                ),
+            )
+        )
+    known_codes = {record.source_code for record in result}
+    for code, label in sorted(relationship_product_records().items()):
+        if code in known_codes:
+            continue
+        result.append(
+            NamedRecord(
+                record_id=f"napcs:{code}",
+                source="economic_census_products_by_industry_2022",
+                source_code=code,
+                raw_label=label,
+                record_kind="relationship_product",
+                locator=(
+                    "EC2200NAPCSPRDIND.dat:GEO_ID=0100000US:"
+                    f"NAPCS2022={code}"
+                ),
+                snapshot_id="census-economic-census-2022-products-by-industry",
             )
         )
     return result
@@ -141,6 +199,7 @@ def prior_records(names: list[str]) -> list[NamedRecord]:
                 raw_label=name,
                 record_kind="market_hypothesis",
                 locator=f"markets[{index - 1}]",
+                snapshot_id="prior-model-normalized-markets-2026-11-05",
             )
         )
     return records
@@ -166,28 +225,69 @@ def _source_record(record: NamedRecord) -> dict[str, object]:
 
 
 def reconcile() -> dict[str, object]:
-    naics = [
-        NamedRecord(
-            record_id=f"naics:{node.source_code}",
-            source="naics_2022",
-            source_code=node.source_code,
-            raw_label=node.raw_title,
-            record_kind="industry",
-            locator=f"2022_NAICS_Structure:{node.source_code}",
+    naics_nodes = parse_naics(NAICS)
+    node_by_id = {node.node_id: node for node in naics_nodes}
+
+    def hierarchy_path(node_id: str) -> tuple[str, ...]:
+        path: list[str] = []
+        current = node_by_id[node_id]
+        while True:
+            path.append(f"naics:{current.source_code}")
+            if current.parent_id is None:
+                break
+            current = node_by_id[current.parent_id]
+        return tuple(reversed(path))
+
+    naics = []
+    for node in naics_nodes:
+        if node.level != 6:
+            continue
+        parent_ids = (
+            (f"naics:{node_by_id[node.parent_id].source_code}",)
+            if node.parent_id is not None
+            else ()
         )
-        for node in parse_naics(NAICS)
-        if node.level == 6
-    ]
+        relationships = (
+            (
+                {
+                    "relationship_type": "source_parent",
+                    "target_source_record_id": parent_ids[0],
+                },
+            )
+            if parent_ids
+            else ()
+        )
+        naics.append(
+            NamedRecord(
+                record_id=f"naics:{node.source_code}",
+                source="naics_2022",
+                source_code=node.source_code,
+                raw_label=node.raw_title,
+                record_kind="industry",
+                locator=f"2022_NAICS_Structure:{node.source_code}",
+                snapshot_id="census-naics-2022",
+                hierarchy_path=hierarchy_path(node.node_id),
+                parent_ids=parent_ids,
+                source_relationships=relationships,
+            )
+        )
     napcs = parse_napcs()
     seeds = parse_prior()
-    seed_tokens = {item.record_id: retrieval_tokens(item.name) for item in seeds}
-    seed_by_id = {item.record_id: item for item in seeds}
+    seed_by_id: dict[str, NamedRecord] = {}
+    duplicate_seed_rows: dict[str, list[str]] = defaultdict(list)
+    for item in seeds:
+        seed_by_id.setdefault(item.candidate_market_id, item)
+        duplicate_seed_rows[item.candidate_market_id].append(item.record_id)
+    seed_tokens = {
+        candidate_id: retrieval_tokens(item.name)
+        for candidate_id, item in seed_by_id.items()
+    }
     inverted: dict[str, set[str]] = defaultdict(set)
     exact: dict[str, list[str]] = defaultdict(list)
-    for item in seeds:
-        exact[normalize_name(item.name)].append(item.record_id)
-        for token in seed_tokens[item.record_id]:
-            inverted[token].add(item.record_id)
+    for candidate_id, item in seed_by_id.items():
+        exact[normalize_name(item.name)].append(candidate_id)
+        for token in seed_tokens[candidate_id]:
+            inverted[token].add(candidate_id)
     for ids in exact.values():
         ids.sort()
 
@@ -204,19 +304,8 @@ def reconcile() -> dict[str, object]:
     def match(record: NamedRecord) -> dict[str, object]:
         normalized = normalize_name(record.name)
         exact_ids = exact.get(normalized, [])
-        if exact_ids:
-            candidates = [candidate(record, candidate_id, 1.0) for candidate_id in exact_ids[:TOP_K]]
-            return {
-                "source_record_id": record.record_id,
-                "status": "exact_label_candidate",
-                "reason": "identical_normalized_label_still_requires_operating_identity_review",
-                "top_similarity": 1.0,
-                "top_two_margin": 0.0 if len(candidates) > 1 else 1.0,
-                "ambiguous": len(candidates) > 1,
-                "candidates": candidates,
-            }
         record_tokens = retrieval_tokens(record.name)
-        candidate_ids: set[str] = set()
+        candidate_ids: set[str] = set(exact_ids)
         for token in record_tokens:
             candidate_ids.update(inverted[token])
         scored = sorted(
@@ -232,7 +321,10 @@ def reconcile() -> dict[str, object]:
         margin = top_score - second_score
         has_conflict = bool(candidates and candidates[0]["semantic_conflicts"])
         ambiguous = top_score >= MIN_PROPOSAL_SIMILARITY and margin <= AMBIGUITY_MARGIN
-        if top_score >= MIN_PROPOSAL_SIMILARITY:
+        if exact_ids:
+            status = "exact_label_candidate"
+            reason = "identical_normalized_label_still_requires_operating_identity_review"
+        elif top_score >= MIN_PROPOSAL_SIMILARITY:
             status = (
                 "ambiguous_or_semantically_conflicted_review"
                 if ambiguous or has_conflict
@@ -254,7 +346,11 @@ def reconcile() -> dict[str, object]:
 
     source_records = [*naics, *napcs, *seeds]
     mappings = [match(record) for record in [*naics, *napcs]]
-    exact_duplicate_groups = [ids for ids in exact.values() if len(ids) > 1]
+    exact_duplicate_groups = [
+        source_ids
+        for source_ids in duplicate_seed_rows.values()
+        if len(source_ids) > 1
+    ]
     counts: dict[str, int] = defaultdict(int)
     for item in mappings:
         counts[str(item["status"])] += 1
@@ -265,17 +361,24 @@ def reconcile() -> dict[str, object]:
         "source_counts": {
             "naics_six_digit": len(naics),
             "napcs_products": len(napcs),
-            "prior_seed_markets": len(seeds),
+            "napcs_collection_records": sum(
+                item.source == "napcs_collection_codes_2022" for item in napcs
+            ),
+            "napcs_relationship_only_products": sum(
+                item.record_kind == "relationship_product" for item in napcs
+            ),
+            "prior_seed_records": len(seeds),
+            "prior_candidate_markets": len(seed_by_id),
         },
         "source_records": [_source_record(item) for item in source_records],
         "candidate_markets": [
             {
-                "candidate_market_id": item.record_id,
+                "candidate_market_id": candidate_id,
                 "name": item.name,
                 "status": "unvalidated_prior_model_seed",
-                "source_record_id": item.record_id,
+                "source_record_ids": duplicate_seed_rows[candidate_id],
             }
-            for item in seeds
+            for candidate_id, item in sorted(seed_by_id.items())
         ],
         "mapping_counts": dict(sorted(counts.items())),
         "mappings": mappings,

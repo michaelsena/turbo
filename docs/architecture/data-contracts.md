@@ -73,6 +73,8 @@ adjudication, cutoff, and supersession.
 A graph version is the deterministic projection of accepted events through a cutoff.
 Its identity includes the ordered-event hash plus governed source, configuration, and
 code hashes. Corrections add a superseding event; they never rewrite the prior event.
+Split and merge events retire their predecessor market IDs from the effective graph
+while preserving them and their successor lineage in history.
 
 
 ## Factor definition, evaluator result, and score event

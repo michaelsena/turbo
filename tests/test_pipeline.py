@@ -21,6 +21,7 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(first["canonical_markets"], 0)
         self.assertEqual(first["research_scores"], 0)
         self.assertGreaterEqual(first["governed_source_snapshots"], 8)
+        self.assertEqual(first["identity_source_counts"]["collection_to_trilateral_rows"], 3_520)
 
 
 if __name__ == "__main__":
