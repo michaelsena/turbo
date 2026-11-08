@@ -66,6 +66,10 @@ MARKET_VERSION_FIELDS = {
     "confidence_by_dimension",
 }
 
+UTC_EVENT_TIMESTAMP_PATTERN = re.compile(
+    r"\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?Z"
+)
+
 
 def _canonical_bytes(value: object) -> bytes:
     return (json.dumps(value, sort_keys=True, separators=(",", ":")) + "\n").encode("utf-8")
@@ -200,6 +204,11 @@ def validate_event(event: dict[str, Any]) -> list[str]:
     recorded_at = event["recorded_at"]
     if not isinstance(recorded_at, str):
         errors.append("recorded_at must be a timezone-aware ISO-8601 string")
+    elif UTC_EVENT_TIMESTAMP_PATTERN.fullmatch(recorded_at) is None:
+        errors.append(
+            "recorded_at must be timezone-aware strict UTC "
+            "YYYY-MM-DDTHH:MM:SS[.fraction]Z"
+        )
     else:
         try:
             _parse_timestamp(recorded_at)

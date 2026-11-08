@@ -1,0 +1,12 @@
+{
+  "event_id": "run-event-2026-11-08-event-lexical-domain-closure",
+  "event_type": "supersedes",
+  "new_run_id": "run-1f039950ed1e4e3192c7",
+  "old_run_id": "run-2bda6fc2cb0a055b6596",
+  "reasons": [
+    "Schema and runtime now share the same nonblank lexical domain for single-line and multiline event, review, array, and market text values.",
+    "Reconciliation-event timestamps now use the same strict uppercase UTC Z grammar and calendar validation in both schema and runtime.",
+    "Shared regression fixtures cover multiline values, lowercase timestamp separators, leap seconds, and numeric UTC offsets."
+  ],
+  "recorded_at": "2026-11-08T20:43:35Z"
+}

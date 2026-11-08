@@ -142,6 +142,36 @@ class SchemaParityTest(unittest.TestCase):
                 self.assertNotEqual(list(validator.iter_errors(candidate)), [])
                 self.assertNotEqual(validate_event(candidate), [])
 
+    def test_runtime_and_schema_share_multiline_and_timestamp_domains(self) -> None:
+        schema = self.load("reconciliation-event.schema.json")
+        validator = Draft202012Validator(
+            schema,
+            format_checker=Draft202012Validator.FORMAT_CHECKER,
+        )
+
+        multiline_event = event("event\nmultiline", "2026-11-08T12:00:00Z")
+        multiline_event["review"]["independent_reviewer"] = "reviewer\nsecond-line"
+        self.assertEqual(list(validator.iter_errors(multiline_event)), [])
+        self.assertEqual(validate_event(multiline_event), [])
+
+        multiline_market = creation("multiline-market", "2026-11-08T12:00:00Z")
+        multiline_market["market_version"]["canonical_name"] = "Market\nname"
+        multiline_market["market_version"]["definition"] = "Line one\nline two"
+        multiline_market["market_version"]["boundary"] = "Included\nExcluded"
+        self.assertEqual(list(validator.iter_errors(multiline_market)), [])
+        self.assertEqual(validate_event(multiline_market), [])
+
+        for invalid_timestamp in (
+            "2026-11-08t12:00:00z",
+            "2016-12-31T23:59:60Z",
+            "2026-11-08T12:00:00+00:00",
+        ):
+            candidate = event("invalid-time-domain", "2026-11-08T12:00:00Z")
+            candidate["recorded_at"] = invalid_timestamp
+            with self.subTest(recorded_at=invalid_timestamp):
+                self.assertNotEqual(list(validator.iter_errors(candidate)), [])
+                self.assertNotEqual(validate_event(candidate), [])
+
         event_fields = (
             "input_source_record_ids",
             "input_market_ids",
