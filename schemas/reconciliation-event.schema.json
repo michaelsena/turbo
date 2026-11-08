@@ -12,7 +12,7 @@
     "alternatives_considered", "review", "supersedes", "supersedes_market_version_ids"
   ],
   "properties": {
-    "event_id": {"type": "string", "minLength": 1},
+    "event_id": {"type": "string", "pattern": "^.*\\S.*$"},
     "event_type": {"enum": ["create_market", "map", "split", "merge", "rename", "reparent", "exclude_source_record", "reject_candidate", "supersede_decision"]},
     "decision": {"enum": ["accepted", "rejected", "deferred"]},
     "recorded_at": {"type": "string", "format": "date-time"},
@@ -30,8 +30,8 @@
       "additionalProperties": true,
       "required": ["proposer", "independent_reviewer", "result"],
       "properties": {
-        "proposer": {"type": "string", "minLength": 1},
-        "independent_reviewer": {"type": "string", "minLength": 1},
+        "proposer": {"type": "string", "pattern": "^.*\\S.*$"},
+        "independent_reviewer": {"type": "string", "pattern": "^.*\\S.*$"},
         "result": {"enum": ["accepted", "rejected", "changes_requested"]}
       }
     },
@@ -97,16 +97,16 @@
       "properties": {
         "market_version_id": {"type": "string", "pattern": "^market-version:[0-9a-f]{24}$"},
         "market_id": {"type": "string", "pattern": "^market:[0-9a-f]{24}$"},
-        "canonical_name": {"type": "string", "minLength": 1},
-        "definition": {"type": "string", "minLength": 1},
-        "boundary": {"type": "string", "minLength": 1},
-        "buyer": {"type": "string", "minLength": 1},
-        "job_to_be_done": {"type": "string", "minLength": 1},
-        "delivery_model": {"type": "string", "minLength": 1},
-        "workforce_model": {"type": "string", "minLength": 1},
-        "economics_risk": {"type": "string", "minLength": 1},
-        "acquisition_universe": {"type": "string", "minLength": 1},
-        "ambient_ai_workflow": {"type": "string", "minLength": 1},
+        "canonical_name": {"type": "string", "pattern": "^.*\\S.*$"},
+        "definition": {"type": "string", "pattern": "^.*\\S.*$"},
+        "boundary": {"type": "string", "pattern": "^.*\\S.*$"},
+        "buyer": {"type": "string", "pattern": "^.*\\S.*$"},
+        "job_to_be_done": {"type": "string", "pattern": "^.*\\S.*$"},
+        "delivery_model": {"type": "string", "pattern": "^.*\\S.*$"},
+        "workforce_model": {"type": "string", "pattern": "^.*\\S.*$"},
+        "economics_risk": {"type": "string", "pattern": "^.*\\S.*$"},
+        "acquisition_universe": {"type": "string", "pattern": "^.*\\S.*$"},
+        "ambient_ai_workflow": {"type": "string", "pattern": "^.*\\S.*$"},
         "parent_market_id": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^market:[0-9a-f]{24}$"}]},
         "aliases": {"$ref": "#/$defs/uniqueStringArray"},
         "explicit_exclusions": {"$ref": "#/$defs/uniqueStringArray"},

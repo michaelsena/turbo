@@ -428,11 +428,14 @@ results coherent. See [the local operating runbook](docs/operations/runbook.md).
 
 ## Near-term roadmap
 
-1. Freeze V1 bootstrap inputs and validate deterministic replay.
-2. Reconcile and map NAPCS into reviewed canonical operating markets.
-3. Add SUSB and QCEW to estimate firm density, enterprise-size fit, labor, and geography.
-4. Implement canonical market split/merge/dedupe decisions and lineage.
-5. Replace the five bootstrap heuristics with the first production submodel.
+1. Extract official NAICS definitions and complete the six-level NAPCS hierarchy.
+2. Run AI operating-family review and append accepted split, merge, map, exclusion,
+   and market-creation events.
+3. Complete the cross-family coverage audit and publish the first canonical graph.
+4. Add SUSB and QCEW evidence and publish the separately versioned Target Market
+   Universe.
+5. Implement the first production evaluation submodel only after target eligibility
+   is available.
 6. Implement specialist independence, mandatory adjudication, submodel pairwise
    comparators, gap priority, and versioned score events.
 7. Build the read API and initial universe/ranking dashboard.
@@ -442,9 +445,10 @@ results coherent. See [the local operating runbook](docs/operations/runbook.md).
 
 - NAICS establishments are not acquisition targets and NAICS categories are not
   automatically operating markets.
-- The V1 scoring rules use names and structural proxies; they do not establish
-  transaction pricing, target availability, margins, fragmentation, or AI value.
-- A low-confidence rank is a research-priority estimate, not a recommendation.
+- The current V1 has no market-attractiveness scores or ranks. Its label-similarity
+  proposals are reconciliation work items, not investment findings.
+- Transaction pricing, target availability, margins, fragmentation, and Ambient AI
+  value remain future evaluation evidence after canonicalization and eligibility.
 - No companies are named, discovered, ranked, or diligenced by this bootstrap.
 - Public evidence can be incomplete. Turbo exposes and discounts that weakness
   instead of pretending it does not exist.

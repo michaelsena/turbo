@@ -91,6 +91,57 @@ class SchemaParityTest(unittest.TestCase):
                     self.assertNotEqual(list(validator.iter_errors(candidate)), [])
                     self.assertNotEqual(validate_event(candidate), [])
 
+    def test_runtime_and_schema_reject_the_same_invalid_scalar_types(self) -> None:
+        schema = self.load("reconciliation-event.schema.json")
+        validator = Draft202012Validator(
+            schema,
+            format_checker=Draft202012Validator.FORMAT_CHECKER,
+        )
+        fixtures: list[tuple[str, dict[str, object]]] = []
+
+        invalid_event_id = creation("invalid-event-id", "2026-11-08T12:00:00Z")
+        invalid_event_id["event_id"] = 7
+        fixtures.append(("event_id", invalid_event_id))
+
+        invalid_recorded_at = event("invalid-recorded-at", "2026-11-08T12:00:00Z")
+        invalid_recorded_at["recorded_at"] = 7
+        fixtures.append(("recorded_at", invalid_recorded_at))
+
+        invalid_result = event("invalid-result", "2026-11-08T12:00:00Z")
+        invalid_result["operating_identity"]["buyer"]["result"] = 7
+        fixtures.append(("identity_result", invalid_result))
+
+        invalid_identity_confidence = event(
+            "invalid-identity-confidence", "2026-11-08T12:00:00Z"
+        )
+        invalid_identity_confidence["operating_identity"]["buyer"]["confidence"] = True
+        fixtures.append(("identity_confidence", invalid_identity_confidence))
+
+        invalid_market_confidence = creation(
+            "invalid-market-confidence", "2026-11-08T12:00:00Z"
+        )
+        invalid_market_confidence["market_version"]["confidence_by_dimension"][
+            "buyer"
+        ] = True
+        fixtures.append(("market_confidence", invalid_market_confidence))
+
+        invalid_parent = creation("invalid-parent", "2026-11-08T12:00:00Z")
+        invalid_parent["market_version"]["parent_market_id"] = "not-a-market-id"
+        fixtures.append(("parent_market_id", invalid_parent))
+
+        blank_name = creation("blank-market-name", "2026-11-08T12:00:00Z")
+        blank_name["market_version"]["canonical_name"] = " "
+        fixtures.append(("blank_market_name", blank_name))
+
+        blank_reviewer = event("blank-reviewer", "2026-11-08T12:00:00Z")
+        blank_reviewer["review"]["independent_reviewer"] = " "
+        fixtures.append(("blank_reviewer", blank_reviewer))
+
+        for name, candidate in fixtures:
+            with self.subTest(name=name):
+                self.assertNotEqual(list(validator.iter_errors(candidate)), [])
+                self.assertNotEqual(validate_event(candidate), [])
+
         event_fields = (
             "input_source_record_ids",
             "input_market_ids",

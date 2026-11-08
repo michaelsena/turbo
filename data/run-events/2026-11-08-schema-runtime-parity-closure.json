@@ -1,0 +1,12 @@
+{
+  "event_id": "run-event-2026-11-08-schema-runtime-parity-closure",
+  "event_type": "supersedes",
+  "new_run_id": "run-2bda6fc2cb0a055b6596",
+  "old_run_id": "run-23519308238847742477",
+  "reasons": [
+    "Runtime validation now matches expressible schema constraints for event IDs, timestamps, operating-identity results, confidence values, reviewer names, market text, and parent market IDs.",
+    "Boolean confidence values and non-string IDs or identity results now fail closed in both validation layers.",
+    "Obsolete bootstrap-scoring language was removed so the public documentation consistently reports a reconciliation-only V1 with zero market scores or ranks."
+  ],
+  "recorded_at": "2026-11-08T20:35:17Z"
+}

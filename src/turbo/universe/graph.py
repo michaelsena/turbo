@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from datetime import datetime
 from typing import Any, Iterable
 
@@ -123,7 +124,9 @@ def _validate_market_version(
     if not isinstance(confidence, dict) or set(confidence) != IDENTITY_DIMENSIONS:
         errors.append("confidence_by_dimension must contain exactly the seven identity dimensions")
     elif any(
-        not isinstance(value, (int, float)) or not 0 <= value <= 1
+        isinstance(value, bool)
+        or not isinstance(value, (int, float))
+        or not 0 <= value <= 1
         for value in confidence.values()
     ):
         errors.append("confidence_by_dimension values must be between 0 and 1")
@@ -135,10 +138,12 @@ def _validate_market_version(
         for label in evidence.values()
     ):
         errors.append("evidence_by_dimension contains an invalid evidence label")
-    if version["parent_market_id"] is not None and not isinstance(
-        version["parent_market_id"], str
+    parent_market_id = version["parent_market_id"]
+    if parent_market_id is not None and (
+        not isinstance(parent_market_id, str)
+        or re.fullmatch(r"market:[0-9a-f]{24}", parent_market_id) is None
     ):
-        errors.append("parent_market_id must be a string or null")
+        errors.append("parent_market_id must be a valid market ID or null")
     for field in (
         "aliases",
         "explicit_exclusions",
@@ -181,16 +186,25 @@ def validate_event(event: dict[str, Any]) -> list[str]:
     missing = sorted(required - set(event))
     if missing:
         return ["missing fields: " + ", ".join(missing)]
-    event_id = str(event["event_id"])
+    raw_event_id = event["event_id"]
+    if not isinstance(raw_event_id, str) or not raw_event_id.strip():
+        errors.append("event_id must be a non-empty string")
+        event_id = ""
+    else:
+        event_id = raw_event_id
     event_type = event["event_type"]
     if event_type not in EVENT_TYPES:
         errors.append(f"unknown event_type: {event_type}")
     if event["decision"] not in {"accepted", "rejected", "deferred"}:
         errors.append(f"unknown decision: {event['decision']}")
-    try:
-        _parse_timestamp(str(event["recorded_at"]))
-    except ValueError as error:
-        errors.append(f"recorded_at must be timezone-aware ISO-8601: {error}")
+    recorded_at = event["recorded_at"]
+    if not isinstance(recorded_at, str):
+        errors.append("recorded_at must be a timezone-aware ISO-8601 string")
+    else:
+        try:
+            _parse_timestamp(recorded_at)
+        except ValueError as error:
+            errors.append(f"recorded_at must be timezone-aware ISO-8601: {error}")
     list_fields = (
         "input_source_record_ids",
         "input_market_ids",
@@ -238,8 +252,17 @@ def validate_event(event: dict[str, Any]) -> list[str]:
             if dimension not in IDENTITY_DIMENSIONS:
                 errors.append(f"unknown operating-identity dimension: {dimension}")
                 continue
-            confidence = result.get("confidence") if isinstance(result, dict) else None
-            if not isinstance(confidence, (int, float)) or not 0 <= confidence <= 1:
+            if not isinstance(result, dict):
+                errors.append(f"operating-identity result for {dimension} must be an object")
+                continue
+            if "result" in result and not isinstance(result["result"], str):
+                errors.append(f"operating-identity result for {dimension} must be a string")
+            confidence = result.get("confidence")
+            if (
+                isinstance(confidence, bool)
+                or not isinstance(confidence, (int, float))
+                or not 0 <= confidence <= 1
+            ):
                 errors.append(f"invalid confidence for {dimension}")
     review = event["review"]
     if not isinstance(review, dict):
@@ -247,9 +270,9 @@ def validate_event(event: dict[str, Any]) -> list[str]:
     else:
         proposer = review.get("proposer")
         independent = review.get("independent_reviewer")
-        if not isinstance(proposer, str) or not proposer:
+        if not isinstance(proposer, str) or not proposer.strip():
             errors.append("review.proposer must be a non-empty string")
-        if not isinstance(independent, str) or not independent:
+        if not isinstance(independent, str) or not independent.strip():
             errors.append("review.independent_reviewer must be a non-empty string")
         elif proposer == independent:
             errors.append("proposer and independent_reviewer must differ")
