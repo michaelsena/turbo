@@ -165,6 +165,7 @@ class SchemaParityTest(unittest.TestCase):
             "2026-11-08t12:00:00z",
             "2016-12-31T23:59:60Z",
             "2026-11-08T12:00:00+00:00",
+            "2026-02-30T12:00:00Z",
         ):
             candidate = event("invalid-time-domain", "2026-11-08T12:00:00Z")
             candidate["recorded_at"] = invalid_timestamp
