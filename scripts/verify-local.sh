@@ -5,5 +5,5 @@ export PYTHONPATH="${PYTHONPATH:-src}"
 python3 -m turbo.cli validate
 python3 -m unittest discover -s tests -v
 python3 -m turbo.cli run
-python3 -m turbo.cli context --limit 10
+python3 -m turbo.cli context
 

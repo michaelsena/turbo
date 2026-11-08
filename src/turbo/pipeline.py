@@ -56,6 +56,9 @@ def _write_immutable(path: Path, value: object) -> None:
 
 
 def run() -> dict[str, object]:
+    errors = validate()
+    if errors:
+        raise ValueError("source validation failed: " + "; ".join(errors))
     GENERATED.mkdir(parents=True, exist_ok=True)
     nodes = parse_naics(SOURCE)
     reconciliation = reconcile()
@@ -119,20 +122,22 @@ def run() -> dict[str, object]:
 
 def validate() -> list[str]:
     errors: list[str] = []
-    if not SOURCE.exists():
-        errors.append(f"missing source snapshot: {SOURCE}")
-        return errors
     for snapshot, manifest_path in (
         (SOURCE, SOURCE_MANIFEST),
         (NAPCS, NAPCS_MANIFEST),
         (PRIOR, PRIOR_MANIFEST),
     ):
+        if not snapshot.exists():
+            errors.append(f"missing source snapshot: {snapshot}")
+            continue
         if not manifest_path.exists():
             errors.append(f"missing source manifest: {manifest_path}")
             continue
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         if manifest.get("sha256") != sha256(snapshot):
             errors.append(f"source snapshot hash does not match manifest: {snapshot.name}")
+    if not SOURCE.exists():
+        return errors
     nodes = parse_naics(SOURCE)
     ids = [node.node_id for node in nodes]
     if len(ids) != len(set(ids)):

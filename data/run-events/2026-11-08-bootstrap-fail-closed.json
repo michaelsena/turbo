@@ -1,0 +1,11 @@
+{
+  "event_id": "run-event-2026-11-08-bootstrap-fail-closed",
+  "event_type": "supersedes",
+  "new_run_id": "run-602b7098288f5e48f3f3",
+  "old_run_id": "run-d0e09e59a90cf9d34a75",
+  "reasons": [
+    "Direct pipeline execution now validates every governed source snapshot against its manifest before parsing or writing artifacts.",
+    "The command-line interface and local verification commands now describe and exercise the source-reconciliation stage accurately."
+  ],
+  "recorded_at": "2026-11-08T18:40:48Z"
+}

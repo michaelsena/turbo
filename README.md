@@ -272,7 +272,7 @@ source .venv/bin/activate
 python3 -m pip install -e .
 turbo validate
 turbo run
-turbo context --limit 10
+turbo context
 python3 -m unittest discover -s tests -v
 ```
 

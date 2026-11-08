@@ -42,7 +42,7 @@ truth. Private or unsupported evidence must never leak into publication artifact
 ```bash
 PYTHONPATH=src python3 -m turbo.cli validate
 PYTHONPATH=src python3 -m turbo.cli run
-PYTHONPATH=src python3 -m turbo.cli context --limit 10
+PYTHONPATH=src python3 -m turbo.cli context
 PYTHONPATH=src python3 -m unittest discover -s tests -v
 ```
 

@@ -10,10 +10,9 @@ from turbo.pipeline import GENERATED, run, validate
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="turbo", description="Turbo market research engine")
     commands = parser.add_subparsers(dest="command", required=True)
-    commands.add_parser("run", help="Build and score the current market universe")
+    commands.add_parser("run", help="Build the source universe and reconciliation worklist")
     commands.add_parser("validate", help="Validate immutable inputs and market hierarchy")
-    context = commands.add_parser("context", help="Render a narrow current context view")
-    context.add_argument("--limit", type=int, default=10)
+    commands.add_parser("context", help="Render the current run receipt")
     return parser
 
 
