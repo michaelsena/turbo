@@ -9,6 +9,7 @@ from turbo.pipeline import (
     validate,
     validate_identity_references,
     validate_naics_identity_evidence,
+    validate_napcs_hierarchy_evidence,
     validate_manifest_metadata,
 )
 
@@ -123,6 +124,38 @@ class PipelineTest(unittest.TestCase):
         )
         self.assertIn(
             "manual index entry references unknown snapshot not-governed",
+            errors,
+        )
+
+    def test_napcs_hierarchy_evidence_fails_closed_on_endpoints_and_snapshots(self) -> None:
+        evidence = {
+            "nodes": [
+                {
+                    "code": "99999999999",
+                    "parent_code": "999999999",
+                    "snapshot_id": "not-governed",
+                    "locator": "section99.html:table.data:row:2:code:99999999999",
+                }
+            ],
+            "hierarchy_only_product_codes": ["99999999999"],
+        }
+        errors = validate_napcs_hierarchy_evidence(
+            evidence,
+            {"identity:napcs-trilateral:11101010101"},
+            {"census-napcs-2022-trilateral-hierarchy"},
+        )
+        self.assertIn(
+            "NAPCS hierarchy node references unknown identity "
+            "identity:napcs-trilateral:99999999999",
+            errors,
+        )
+        self.assertIn(
+            "NAPCS hierarchy node references unknown snapshot not-governed",
+            errors,
+        )
+        self.assertIn(
+            "NAPCS hierarchy node references unknown parent identity "
+            "identity:napcs-trilateral:999999999",
             errors,
         )
 

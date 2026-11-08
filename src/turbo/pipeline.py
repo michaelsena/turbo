@@ -14,18 +14,27 @@ from turbo.universe.identity_sources import identity_source_artifacts
 from turbo.universe.multisource import NAPCS, PRIOR, reconcile
 from turbo.universe.naics import parse_naics
 from turbo.universe.naics_identity_sources import naics_identity_source_artifacts
+from turbo.universe.napcs_hierarchy import napcs_hierarchy_artifacts
 
 SOURCE = ROOT / "data/source_snapshots/2022-naics-structure.xlsx"
 SOURCE_SNAPSHOT_DIR = ROOT / "data/source_snapshots"
 SOURCE_MANIFEST = ROOT / "data/source_snapshots/census-naics-2022.snapshot.json"
 NAPCS_MANIFEST = ROOT / "data/source_snapshots/census-napcs-2022.snapshot.json"
 PRIOR_MANIFEST = ROOT / "data/source_snapshots/prior-model-normalized-markets-2026-11-05.snapshot.json"
+NAPCS_HIERARCHY_CAPTURE = (
+    ROOT
+    / "data/source_snapshots/2022-napcs-trilateral-hierarchy-browser-capture.json"
+)
+NAPCS_HIERARCHY_MANIFEST = (
+    ROOT
+    / "data/source_snapshots/census-napcs-2022-trilateral-hierarchy.snapshot.json"
+)
 STRATEGY_CONFIG = ROOT / "config/strategy.json"
 PROJECT_CONFIG = ROOT / "pyproject.toml"
 GENERATED = ROOT / "data/generated"
 RUNS = ROOT / "data/runs"
 SOURCE_URL = "https://www.census.gov/naics/2022NAICS/2022_NAICS_Structure.xlsx"
-METHOD_VERSION = "identity-source-semantic-reconciliation-v7"
+METHOD_VERSION = "identity-source-semantic-reconciliation-v8"
 
 
 def sha256(path: Path) -> str:
@@ -243,6 +252,49 @@ def validate_naics_identity_evidence(
     return errors
 
 
+def validate_napcs_hierarchy_evidence(
+    evidence: dict[str, object],
+    known_identity_ids: set[str],
+    governed_snapshot_ids: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    locator_keys: list[tuple[str, str]] = []
+    for node in evidence["nodes"]:  # type: ignore[index]
+        identity_id = f"identity:napcs-trilateral:{node['code']}"
+        if identity_id not in known_identity_ids:
+            errors.append(
+                f"NAPCS hierarchy node references unknown identity {identity_id}"
+            )
+        snapshot_id = node.get("snapshot_id")
+        locator = node.get("locator")
+        if snapshot_id not in governed_snapshot_ids:
+            errors.append(
+                f"NAPCS hierarchy node references unknown snapshot {snapshot_id}"
+            )
+        if not isinstance(locator, str) or not locator.strip():
+            errors.append(f"NAPCS hierarchy node {node['code']} has an empty locator")
+        elif isinstance(snapshot_id, str):
+            locator_keys.append((snapshot_id, locator))
+        parent_code = node.get("parent_code")
+        if parent_code:
+            parent_identity_id = f"identity:napcs-trilateral:{parent_code}"
+            if parent_identity_id not in known_identity_ids:
+                errors.append(
+                    "NAPCS hierarchy node references unknown parent identity "
+                    f"{parent_identity_id}"
+                )
+    if len(locator_keys) != len(set(locator_keys)):
+        errors.append("NAPCS hierarchy evidence contains duplicate snapshot locators")
+    for code in evidence["hierarchy_only_product_codes"]:  # type: ignore[index]
+        identity_id = f"identity:napcs-trilateral:{code}"
+        if identity_id not in known_identity_ids:
+            errors.append(
+                "NAPCS hierarchy-only product references unknown identity "
+                f"{identity_id}"
+            )
+    return errors
+
+
 def source_registry() -> list[dict[str, object]]:
     registry: list[dict[str, object]] = []
     for manifest_path in sorted(SOURCE_SNAPSHOT_DIR.glob("*.snapshot.json")):
@@ -318,6 +370,7 @@ def run() -> dict[str, object]:
     reconciliation = reconcile()
     identity_summary, identity_relationships = identity_source_artifacts()
     naics_identity_summary, naics_identity_evidence = naics_identity_source_artifacts()
+    napcs_hierarchy_summary, napcs_hierarchy_evidence = napcs_hierarchy_artifacts()
     registry = source_registry()
     identity_errors = validate_identity_references(
         reconciliation,
@@ -327,6 +380,16 @@ def run() -> dict[str, object]:
     identity_errors.extend(
         validate_naics_identity_evidence(
             naics_identity_evidence,
+            {
+                str(item["identity_id"])
+                for item in reconciliation["source_identities"]
+            },
+            {str(item["dataset_id"]) for item in registry},
+        )
+    )
+    identity_errors.extend(
+        validate_napcs_hierarchy_evidence(
+            napcs_hierarchy_evidence,
             {
                 str(item["identity_id"])
                 for item in reconciliation["source_identities"]
@@ -354,6 +417,8 @@ def run() -> dict[str, object]:
         "prior_seed_sha256": sha256(PRIOR),
         "source_manifest_sha256": sha256(SOURCE_MANIFEST),
         "napcs_manifest_sha256": sha256(NAPCS_MANIFEST),
+        "napcs_hierarchy_capture_sha256": sha256(NAPCS_HIERARCHY_CAPTURE),
+        "napcs_hierarchy_manifest_sha256": sha256(NAPCS_HIERARCHY_MANIFEST),
         "prior_seed_manifest_sha256": sha256(PRIOR_MANIFEST),
         "strategy_config_sha256": sha256(STRATEGY_CONFIG),
         "source_registry_sha256": hashlib.sha256(_canonical_bytes(registry)).hexdigest(),
@@ -404,6 +469,17 @@ def run() -> dict[str, object]:
                 naics_identity_summary["economic_census_bridges"]["2017_to_2022_observations"]
                 + naics_identity_summary["economic_census_bridges"]["2022_to_2017_observations"]
             ),
+            "napcs_hierarchy_pages": napcs_hierarchy_summary["pages"],
+            "napcs_hierarchy_response_entity_bytes": napcs_hierarchy_summary["response_entity_bytes"],
+            "napcs_hierarchy_nodes": napcs_hierarchy_summary["nodes"],
+            "napcs_hierarchy_sections": napcs_hierarchy_summary["level_counts"]["section"],
+            "napcs_hierarchy_subsections": napcs_hierarchy_summary["level_counts"]["subsection"],
+            "napcs_hierarchy_divisions": napcs_hierarchy_summary["level_counts"]["division"],
+            "napcs_hierarchy_groups": napcs_hierarchy_summary["level_counts"]["group"],
+            "napcs_hierarchy_subgroups": napcs_hierarchy_summary["level_counts"]["subgroup"],
+            "napcs_hierarchy_products": napcs_hierarchy_summary["level_counts"]["trilateral_product"],
+            "napcs_hierarchy_only_products": napcs_hierarchy_summary["hierarchy_only_products"],
+            "napcs_hierarchy_published_parent_anomalies": napcs_hierarchy_summary["published_parent_anomalies"],
         },
         "six_digit_source_categories": len(leaf_nodes),
         "canonical_markets": 0,
@@ -428,6 +504,12 @@ def run() -> dict[str, object]:
         "naics-identity-evidence.json.gz": hashlib.sha256(
             _canonical_gzip(naics_identity_evidence)
         ).hexdigest(),
+        "napcs-hierarchy-source-summary.json.gz": hashlib.sha256(
+            _canonical_gzip(napcs_hierarchy_summary)
+        ).hexdigest(),
+        "napcs-hierarchy-evidence.json.gz": hashlib.sha256(
+            _canonical_gzip(napcs_hierarchy_evidence)
+        ).hexdigest(),
     }
     receipt["output_hashes"] = output_hashes
     _write_immutable_gzip(run_dir / "raw-source-hierarchy.json.gz", universe)
@@ -447,6 +529,14 @@ def run() -> dict[str, object]:
     _write_immutable_gzip(
         run_dir / "naics-identity-evidence.json.gz",
         naics_identity_evidence,
+    )
+    _write_immutable_gzip(
+        run_dir / "napcs-hierarchy-source-summary.json.gz",
+        napcs_hierarchy_summary,
+    )
+    _write_immutable_gzip(
+        run_dir / "napcs-hierarchy-evidence.json.gz",
+        napcs_hierarchy_evidence,
     )
     _write_immutable(run_dir / "run-receipt.json", receipt)
     latest = {
@@ -508,6 +598,7 @@ def validate() -> list[str]:
             reconciliation = reconcile()
             _, relationships = identity_source_artifacts()
             _, naics_identity_evidence = naics_identity_source_artifacts()
+            _, napcs_hierarchy_evidence = napcs_hierarchy_artifacts()
             errors.extend(
                 validate_identity_references(
                     reconciliation,
@@ -518,6 +609,16 @@ def validate() -> list[str]:
             errors.extend(
                 validate_naics_identity_evidence(
                     naics_identity_evidence,
+                    {
+                        str(item["identity_id"])
+                        for item in reconciliation["source_identities"]
+                    },
+                    dataset_ids,
+                )
+            )
+            errors.extend(
+                validate_napcs_hierarchy_evidence(
+                    napcs_hierarchy_evidence,
                     {
                         str(item["identity_id"])
                         for item in reconciliation["source_identities"]
