@@ -1,33 +1,38 @@
 {
   "blank_factor_scores": 0,
   "factor_scores_generated": 5060,
-  "immutable_run_path": "data/runs/run-6ee0fdaf54913e16aa27",
+  "immutable_run_path": "data/runs/run-d49a5798afc8fb3e2635",
   "multisource_counts": {
     "naics_six_digit": 1012,
     "napcs_products": 6290,
     "prior_seed_markets": 978
   },
   "output_hashes": {
-    "multisource-reconciliation.json": "485f1a2e29d4ea0341a73c867cd4f557f9f10afdd103c587370e23cd78b8d257",
-    "provisional-source-category-scores.json": "b4ea45383e35b1a182e10f667dc1cc452ef328947fc8f350f1b4e6ab055defd4",
-    "raw-source-hierarchy.json": "aa2d144beba9d14d185d35a1268f8f98e3dd42c407d2c4d560c27af9a1790676"
+    "multisource-reconciliation.json": "6ca4f96e66a74336d59a88948f4cada83720acb3b17b321d40e7919462d3a77a",
+    "provisional-source-category-scores.json": "db105fd9e9471ed3e310159e44b70f074e5d4d9080675337ba455a36aa926de1",
+    "raw-source-hierarchy.json": "9a23f1bf6cdb4138d20b111c3a0bff283e2eb06027830afbbdb0264a042817a6"
   },
   "provisional_excluded_source_categories": 558,
   "provisional_non_excluded_source_categories": 454,
   "reconciliation_mapping_counts": {
-    "accepted_exact_label": 207,
+    "exact_label_candidate": 207,
     "proposed_mapping": 99,
     "unmatched_requires_add_split_or_exclusion_review": 6996
   },
   "run_config": {
-    "code_fingerprint": "e9c45f0da1464245eefb12f69cff6bff36ccd844c47c8c5835146796adf83689",
+    "code_fingerprint": "130c1dae125e8d365c3458881c1dbc12495d2260426a8ca06da5adbf618ffc3f",
+    "factor_config_sha256": "03e56b7fc8d1bc99b29c0ec2287f5fc1b909c8037f31b6becc7e382566f0ee5a",
     "method_version": "raw-naics-bootstrap-v1",
+    "napcs_manifest_sha256": "06da74961d4777e1848973b9675b7861fc626b3d4750627b03502716c7afd5a3",
     "napcs_sha256": "528e69e335342f9c356379f7074528efc5fcc89addd026cc13ab18b2072fd988",
+    "prior_seed_manifest_sha256": "70d496a577ba26a1d1bfae73be24cfb1a6a5301d25a6142b451d111c6b2d5fb9",
     "prior_seed_sha256": "0e8fd754fe1abad8dfbd0d0a404ff0ede2c2260a23a9fdaa49858a36ed5661f3",
     "schema_version": 1,
-    "source_sha256": "217c9e0d4d74e7517bc288f5f308b73aa0de5ee787976a6dd222412be28ada22"
+    "source_manifest_sha256": "3f29736ad9c044f332dfdf0d8c366219988212042e7f8e085cbd4d37486b9ae2",
+    "source_sha256": "217c9e0d4d74e7517bc288f5f308b73aa0de5ee787976a6dd222412be28ada22",
+    "strategy_config_sha256": "482f49180ff58d7957ec8c220f1c7dfa0e2aa1140f6f9ecc5afd21be0d98d431"
   },
-  "run_id": "run-6ee0fdaf54913e16aa27",
+  "run_id": "run-d49a5798afc8fb3e2635",
   "schema_version": 1,
   "six_digit_source_categories": 1012,
   "source_nodes": 2125,

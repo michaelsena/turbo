@@ -17,6 +17,8 @@ class MultiSourceUniverseTest(unittest.TestCase):
         )
         self.assertEqual(len(result["candidate_markets"]), counts["prior_seed_markets"])
         self.assertEqual(sum(result["mapping_counts"].values()), len(result["mappings"]))
+        self.assertNotIn("accepted_exact_label", result["mapping_counts"])
+        self.assertEqual(result["mapping_counts"]["exact_label_candidate"], 207)
 
 
 if __name__ == "__main__":

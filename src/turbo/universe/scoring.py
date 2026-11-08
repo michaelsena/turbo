@@ -1,8 +1,15 @@
 from __future__ import annotations
 
+import json
 from statistics import fmean
 
 from turbo.models import EvidenceGap, EvaluatorScore, FactorScore, MarketEvaluation, MarketNode, SourceRef
+from turbo.pipeline_paths import ROOT
+
+STRATEGY = json.loads((ROOT / "config/strategy.json").read_text(encoding="utf-8"))
+FACTOR_CONFIG = json.loads(
+    (ROOT / "config/factors/bootstrap-v1.json").read_text(encoding="utf-8")
+)
 
 POSITIVE_SERVICE = (
     "services", "consulting", "repair", "maintenance", "administration",
@@ -24,13 +31,7 @@ CONTEXT_RICH = (
     "travel", "association", "claims", "facilities", "business services",
 )
 
-FACTOR_IDS = (
-    "service_orientation",
-    "lmm_buyability",
-    "demand_and_ai_resistance",
-    "ambient_context_potential",
-    "rollup_scalability",
-)
+FACTOR_IDS = tuple(FACTOR_CONFIG["factors"])
 
 
 def _has(title: str, phrases: tuple[str, ...]) -> bool:
@@ -48,10 +49,11 @@ def exclusion_reasons(node: MarketNode) -> tuple[str, ...]:
     if code.startswith(("522", "524")):
         reasons.append("insurance_or_credit_risk")
     if code.startswith(("31", "32", "33", "42", "44", "45")):
-        reasons.append("significant_inventory_or_manufacturing")
+        reasons.append("significant_inventory")
     if "equipment rental" in title or "heavy and civil engineering" in title:
         reasons.append("heavy_equipment_ownership")
-    return tuple(sorted(set(reasons)))
+    enabled = set(STRATEGY["excluded_exposures"])
+    return tuple(sorted(set(reasons) & enabled))
 
 
 def _base_scores(node: MarketNode) -> dict[str, tuple[float, float, str]]:
@@ -112,8 +114,8 @@ def _resolve_factor(node: MarketNode, factor_id: str) -> FactorScore:
             )
         )
         resolution = "bootstrap_conservative_resolution"
-    confidence = 0.28
-    evidence_quality = 0.25
+    confidence = float(FACTOR_CONFIG["confidence"])
+    evidence_quality = float(FACTOR_CONFIG["evidence_quality"])
     downside_penalty = 4.0 if factor_id in {"lmm_buyability", "rollup_scalability"} else 2.0
     risk_adjusted = 50 + confidence * (raw - 50) - downside_penalty
     questions = [f"Replace title-based inference for {factor_id} with market-specific public evidence."]

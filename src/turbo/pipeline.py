@@ -14,6 +14,8 @@ SOURCE = ROOT / "data/source_snapshots/2022-naics-structure.xlsx"
 SOURCE_MANIFEST = ROOT / "data/source_snapshots/census-naics-2022.snapshot.json"
 NAPCS_MANIFEST = ROOT / "data/source_snapshots/census-napcs-2022.snapshot.json"
 PRIOR_MANIFEST = ROOT / "data/source_snapshots/prior-model-normalized-markets-2026-11-05.snapshot.json"
+STRATEGY_CONFIG = ROOT / "config/strategy.json"
+FACTOR_CONFIG = ROOT / "config/factors/bootstrap-v1.json"
 GENERATED = ROOT / "data/generated"
 RUNS = ROOT / "data/runs"
 SOURCE_URL = "https://www.census.gov/naics/2022NAICS/2022_NAICS_Structure.xlsx"
@@ -78,6 +80,11 @@ def run() -> dict[str, object]:
         "source_sha256": source_hash,
         "napcs_sha256": sha256(NAPCS),
         "prior_seed_sha256": sha256(PRIOR),
+        "source_manifest_sha256": sha256(SOURCE_MANIFEST),
+        "napcs_manifest_sha256": sha256(NAPCS_MANIFEST),
+        "prior_seed_manifest_sha256": sha256(PRIOR_MANIFEST),
+        "strategy_config_sha256": sha256(STRATEGY_CONFIG),
+        "factor_config_sha256": sha256(FACTOR_CONFIG),
     }
     run_id = "run-" + hashlib.sha256(_canonical_bytes(run_config)).hexdigest()[:20]
     run_dir = RUNS / run_id

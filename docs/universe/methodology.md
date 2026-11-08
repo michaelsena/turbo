@@ -65,7 +65,7 @@ universe and operating playbook, not whether their labels sound similar.
 
 V1 ingests all 2,125 official NAICS hierarchy nodes, the 2022 Economic Census NAPCS
 product/service list, and the prior 978-market seed. It generates a complete mapping
-worklist, accepting only exact normalized labels and exposing every proposed or
-unmatched row. Canonical operating-market decisions, SUSB size filtering, and QCEW
+worklist, treating even exact normalized labels as review candidates and exposing
+every proposed or unmatched row. Canonical operating-market decisions, SUSB size filtering, and QCEW
 enrichment remain incomplete and must precede claims of Target Market completeness.
 

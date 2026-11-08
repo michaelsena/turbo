@@ -88,8 +88,8 @@ def reconcile() -> dict[str, object]:
                 "candidate_market_id": exact_ids[0],
                 "candidate_market_name": seed_by_id[exact_ids[0]].name,
                 "similarity": 1.0,
-                "status": "accepted_exact_label",
-                "reason": "identical_normalized_label",
+                "status": "exact_label_candidate",
+                "reason": "identical_normalized_label_still_requires_operating_identity_review",
             }
         record_tokens = tokens(record.name)
         candidate_ids: set[str] = set()
@@ -147,6 +147,7 @@ def reconcile() -> dict[str, object]:
         "mappings": mappings,
         "exact_duplicate_seed_groups": exact_duplicate_groups,
         "required_next_actions": [
+            "Review exact-label candidates; label equality does not prove operating-market identity.",
             "Review proposed mappings using buyer/job/delivery/workforce/economics/acquisition/AI identity tests.",
             "Resolve every unmatched NAICS row as add, split input, merge input, or explicit exclusion.",
             "Use NAPCS product rows to identify hidden submarkets and cross-industry service products.",

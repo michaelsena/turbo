@@ -129,12 +129,13 @@ The repository now preserves all three initial lists:
 - 6,290 rows from the 2022 Economic Census NAPCS code/description workbook
 - all 978 markets from the prior normalized model
 
-The current reconciliation artifact automatically accepts only normalized exact-label
-matches. Fuzzy matches are work proposals, while unmatched rows form the add/split/
+The current reconciliation artifact identifies normalized exact-label candidates but
+does not accept them as operating-market mappings. Exact and fuzzy matches are review
+proposals, while unmatched rows form the add/split/
 merge/exclude review queue. This is intentionally conservative: normalization quality
 is more important than making the unresolved count look small.
 
-The first reconciliation worklist contains 207 exact normalized-label mappings,
+The first reconciliation worklist contains 207 exact normalized-label candidates,
 99 fuzzy mapping proposals, and 6,996 unmatched source rows requiring add/split/
 merge/exclude review. A high unmatched count is expected because NAPCS contains
 detailed products, not one row per investable operating market. It is published as
@@ -220,11 +221,11 @@ Census NAICS 2022 workbook.
 | Provisional excluded source categories | 558 |
 | Factor scores produced | 5,060 |
 | Blank factor scores | 0 |
+| Starting confidence | 0.28 |
 
 Upstream construction in the same run covers 1,012 NAICS leaves, 6,290 NAPCS product
 rows, and 978 prior-model candidate markets. These counts and every reconciliation
 proposal are in `multisource-reconciliation.json` inside the immutable run directory.
-| Starting confidence | 0.28 |
 
 The initial queue seeds include waste-management services, building inspection,
 repair and maintenance, pest control, building trades, remediation, and security
@@ -319,7 +320,7 @@ results coherent. See [the local operating runbook](docs/operations/runbook.md).
 ## Near-term roadmap
 
 1. Freeze V1 bootstrap inputs and validate deterministic replay.
-2. Add NAPCS and build the first source-to-market mapping layer.
+2. Reconcile and map NAPCS into reviewed canonical operating markets.
 3. Add SUSB and QCEW to estimate firm density, enterprise-size fit, labor, and geography.
 4. Implement canonical market split/merge/dedupe decisions and lineage.
 5. Replace the five bootstrap heuristics with the first production submodel.
