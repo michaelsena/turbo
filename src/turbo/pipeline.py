@@ -5,6 +5,7 @@ import gzip
 import json
 import re
 from datetime import datetime, timedelta
+from importlib.metadata import version
 from pathlib import Path
 
 from turbo.models import to_dict
@@ -20,6 +21,7 @@ SOURCE_MANIFEST = ROOT / "data/source_snapshots/census-naics-2022.snapshot.json"
 NAPCS_MANIFEST = ROOT / "data/source_snapshots/census-napcs-2022.snapshot.json"
 PRIOR_MANIFEST = ROOT / "data/source_snapshots/prior-model-normalized-markets-2026-11-05.snapshot.json"
 STRATEGY_CONFIG = ROOT / "config/strategy.json"
+PROJECT_CONFIG = ROOT / "pyproject.toml"
 GENERATED = ROOT / "data/generated"
 RUNS = ROOT / "data/runs"
 SOURCE_URL = "https://www.census.gov/naics/2022NAICS/2022_NAICS_Structure.xlsx"
@@ -189,6 +191,47 @@ def validate_identity_references(
     return errors
 
 
+def validate_naics_identity_evidence(
+    evidence: dict[str, object],
+    known_identity_ids: set[str],
+    governed_snapshot_ids: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    locator_keys: list[tuple[str, str]] = []
+
+    def observe_snapshot_and_locator(observation: dict[str, object], context: str) -> None:
+        snapshot_id = observation.get("snapshot_id")
+        locator = observation.get("locator")
+        if snapshot_id not in governed_snapshot_ids:
+            errors.append(f"{context} references unknown snapshot {snapshot_id}")
+        if not isinstance(locator, str) or not locator.strip():
+            errors.append(f"{context} has an empty locator")
+        elif isinstance(snapshot_id, str):
+            locator_keys.append((snapshot_id, locator))
+
+    for entry in evidence["manual_index_entries"]:  # type: ignore[index]
+        if entry["identity_id"] not in known_identity_ids:
+            errors.append(
+                f"manual index entry references unknown identity {entry['identity_id']}"
+            )
+        observe_snapshot_and_locator(entry, "manual index entry")
+    for entry in evidence["manual_index_cross_references"]:  # type: ignore[index]
+        observe_snapshot_and_locator(entry, "manual index cross-reference")
+    for relationship in evidence["vintage_lineage_relationships"]:  # type: ignore[index]
+        if relationship["naics_2022_identity_id"] not in known_identity_ids:
+            errors.append(
+                "vintage lineage references unknown identity "
+                f"{relationship['naics_2022_identity_id']}"
+            )
+        for observation in relationship["source_observations"]:
+            observe_snapshot_and_locator(observation, "vintage lineage observation")
+    for observation in evidence["economic_census_bridge_observations"]:  # type: ignore[index]
+        observe_snapshot_and_locator(observation, "NAICS bridge observation")
+    if len(locator_keys) != len(set(locator_keys)):
+        errors.append("NAICS identity evidence contains duplicate snapshot locators")
+    return errors
+
+
 def source_registry() -> list[dict[str, object]]:
     registry: list[dict[str, object]] = []
     for manifest_path in sorted(SOURCE_SNAPSHOT_DIR.glob("*.snapshot.json")):
@@ -270,6 +313,16 @@ def run() -> dict[str, object]:
         identity_relationships,
         {str(item["dataset_id"]) for item in registry},
     )
+    identity_errors.extend(
+        validate_naics_identity_evidence(
+            naics_identity_evidence,
+            {
+                str(item["identity_id"])
+                for item in reconciliation["source_identities"]
+            },
+            {str(item["dataset_id"]) for item in registry},
+        )
+    )
     if identity_errors:
         raise ValueError("identity reference validation failed: " + "; ".join(identity_errors))
     leaf_nodes = [node for node in nodes if node.level == 6]
@@ -280,7 +333,9 @@ def run() -> dict[str, object]:
     code_fingerprint = _code_fingerprint()
     run_config = {
         "code_fingerprint": code_fingerprint,
+        "dependency_versions": {"pypdf": version("pypdf")},
         "method_version": METHOD_VERSION,
+        "project_config_sha256": sha256(PROJECT_CONFIG),
         "schema_version": 1,
         "schema_fingerprint": _schema_fingerprint(),
         "source_sha256": source_hash,
@@ -326,7 +381,8 @@ def run() -> dict[str, object]:
             "napcs_concordance_relationships": identity_summary["relationship_artifact_counts"]["napcs_concordance_relationships"],
             "napcs_concordance_non_mappings": identity_summary["relationship_artifact_counts"]["napcs_concordance_non_mappings"],
             "industry_product_relationships": identity_summary["relationship_artifact_counts"]["industry_product_relationships"],
-            "naics_manual_index_entries": naics_identity_summary["manual_index"]["entries"],
+            "naics_manual_index_coded_entries": naics_identity_summary["manual_index"]["coded_entries"],
+            "naics_manual_index_cross_references": naics_identity_summary["manual_index"]["uncoded_cross_reference_rows"],
             "naics_manual_index_codes": naics_identity_summary["manual_index"]["represented_six_digit_codes"],
             "naics_vintage_lineage_pairs": naics_identity_summary["full_concordance"]["unique_pairs"],
             "naics_bridge_observations": (
@@ -436,11 +492,21 @@ def validate() -> list[str]:
         try:
             reconciliation = reconcile()
             _, relationships = identity_source_artifacts()
-            naics_identity_source_artifacts()
+            _, naics_identity_evidence = naics_identity_source_artifacts()
             errors.extend(
                 validate_identity_references(
                     reconciliation,
                     relationships,
+                    dataset_ids,
+                )
+            )
+            errors.extend(
+                validate_naics_identity_evidence(
+                    naics_identity_evidence,
+                    {
+                        str(item["identity_id"])
+                        for item in reconciliation["source_identities"]
+                    },
                     dataset_ids,
                 )
             )

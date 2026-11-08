@@ -22,15 +22,19 @@ replayable parsers, explicit coverage tests, and no downstream market decisions.
 
 - Preserved both official full NAICS concordance workbooks and both Economic Census
   NAICS bridge archives with URL, retrieval UTC, SHA-256, publisher, reuse, and role.
-- Reconstructed 20,317 NAICS Manual alphabetic-index entries using coordinate-aware
-  two-column parsing. The entries cover 1,010 of 1,012 official six-digit codes;
-  `112130` and `541120` are explicit uncovered codes.
+- Reconstructed 20,373 coded NAICS Manual alphabetic-index entries using
+  coordinate-aware two-column parsing. The entries cover 1,010 of 1,012 official
+  six-digit codes; `112130` and `541120` are explicit uncovered codes. Twenty-five
+  uncoded `******` cross-reference rows remain separate observations.
 - Verified that both concordance directions contain 1,150 rows and reverse to the
   same 1,150 unique code pairs. Preserved every direction-specific row locator.
 - Preserved 846 bridge observations: 236 industry totals and 610 component rows.
   Eight-digit bridge values remain observations, never identity or market nodes.
 - Published separate compressed summary/evidence artifacts so this semantic and
   historical evidence does not silently change current-market candidate retrieval.
+- Independent review found and corrected an initial parser defect: some six-digit
+  codes were split across PDF glyph spans, and uncoded cross-reference rows had been
+  appended to prior labels. Regression tests now cover both cases.
 
 ## Open source gaps
 

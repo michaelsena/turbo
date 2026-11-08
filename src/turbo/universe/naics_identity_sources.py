@@ -52,6 +52,23 @@ class NaicsIndexEntry:
         )
 
 
+@dataclass(frozen=True)
+class NaicsIndexCrossReference:
+    ordinal: int
+    page: int
+    column: int
+    y: float
+    raw_fragments: tuple[str, ...]
+    normalized_label: str
+
+    @property
+    def locator(self) -> str:
+        return (
+            f"pdf:page:{self.page}:column:{self.column}:y:{self.y}:"
+            f"cross-reference:{self.ordinal}"
+        )
+
+
 def _clean(value: str) -> str:
     return " ".join(value.split())
 
@@ -102,10 +119,13 @@ def _valid_six_digit_codes() -> set[str]:
 
 
 @lru_cache(maxsize=1)
-def parse_naics_manual_index() -> tuple[NaicsIndexEntry, ...]:
+def _parse_naics_manual_index_rows() -> tuple[
+    tuple[NaicsIndexEntry, ...],
+    tuple[NaicsIndexCrossReference, ...],
+]:
     valid_codes = _valid_six_digit_codes()
     reader = PdfReader(str(MANUAL))
-    frames: list[tuple[int, int, list[list[object]]]] = []
+    frames: list[tuple[int, int, float, list[list[object]]]] = []
 
     # The manual's alphabetic index occupies physical PDF pages 637 through 958.
     # Coordinates are measured against the immutable pinned PDF. Parsing columns
@@ -125,8 +145,8 @@ def parse_naics_manual_index() -> tuple[NaicsIndexEntry, ...]:
                 spans.append({"x": float(tm[4]), "y": float(tm[5]), "text": raw})
 
         reader.pages[page_number - 1].extract_text(visitor_text=visit)
-        for column, (xmin, xmax) in enumerate(
-            ((60.0, 306.0), (306.0, 550.0)),
+        for column, (xmin, xmax, code_band_max) in enumerate(
+            ((60.0, 306.0, 110.0), (306.0, 550.0, 362.0)),
             start=1,
         ):
             selected = [
@@ -144,48 +164,49 @@ def parse_naics_manual_index() -> tuple[NaicsIndexEntry, ...]:
                     lines.append([float(span["y"]), [span]])
                 else:
                     lines[-1][1].append(span)  # type: ignore[union-attr]
-            frames.append((page_number, column, lines))
+            frames.append((page_number, column, code_band_max, lines))
 
-    raw_entries: list[dict[str, object]] = []
+    raw_rows: list[dict[str, object]] = []
     current: dict[str, object] | None = None
-    for page_number, column, lines in frames:
+    for page_number, column, code_band_max, lines in frames:
         for y, untyped_spans in lines:
             line_spans = sorted(
                 untyped_spans,  # type: ignore[arg-type]
                 key=lambda item: float(item["x"]),
             )
-            reconstructed = "".join(str(span["text"]) for span in line_spans).strip()
-            anchors = [
-                span
+            code_band = "".join(
+                str(span["text"])
                 for span in line_spans
-                if str(span["text"]).strip() in valid_codes
-            ]
-            if anchors:
-                if len(anchors) != 1:
-                    raise ValueError(
-                        f"ambiguous NAICS index anchor at page {page_number}, "
-                        f"column {column}, y {y}"
-                    )
+                if float(span["x"]) < code_band_max
+            )
+            code_band = "".join(code_band.split())
+            same_line_text = "".join(
+                str(span["text"])
+                for span in line_spans
+                if float(span["x"]) >= code_band_max
+            ).strip()
+            if code_band in valid_codes or code_band == "******":
                 if current is not None:
-                    raw_entries.append(current)
-                anchor = anchors[0]
-                same_line_text = "".join(
-                    str(span["text"])
-                    for span in line_spans
-                    if float(span["x"]) > float(anchor["x"])
-                ).strip()
+                    raw_rows.append(current)
                 current = {
-                    "code": str(anchor["text"]).strip(),
+                    "row_kind": (
+                        "coded_entry" if code_band in valid_codes else "cross_reference"
+                    ),
+                    "code": code_band if code_band in valid_codes else "",
                     "page": page_number,
                     "column": column,
                     "y": round(float(y), 2),
                     "fragments": [same_line_text] if same_line_text else [],
                 }
-            elif current is not None and reconstructed:
-                current["fragments"].append(reconstructed)  # type: ignore[union-attr]
+            elif current is not None and same_line_text:
+                current["fragments"].append(same_line_text)  # type: ignore[union-attr]
     if current is not None:
-        raw_entries.append(current)
+        raw_rows.append(current)
 
+    coded_rows = [value for value in raw_rows if value["row_kind"] == "coded_entry"]
+    cross_reference_rows = [
+        value for value in raw_rows if value["row_kind"] == "cross_reference"
+    ]
     entries = tuple(
         NaicsIndexEntry(
             ordinal=ordinal,
@@ -196,11 +217,34 @@ def parse_naics_manual_index() -> tuple[NaicsIndexEntry, ...]:
             raw_fragments=tuple(str(fragment) for fragment in value["fragments"]),
             normalized_label=_clean(" ".join(value["fragments"])),  # type: ignore[arg-type]
         )
-        for ordinal, value in enumerate(raw_entries, start=1)
+        for ordinal, value in enumerate(coded_rows, start=1)
+    )
+    cross_references = tuple(
+        NaicsIndexCrossReference(
+            ordinal=ordinal,
+            page=int(value["page"]),
+            column=int(value["column"]),
+            y=float(value["y"]),
+            raw_fragments=tuple(str(fragment) for fragment in value["fragments"]),
+            normalized_label=_clean(" ".join(value["fragments"])),  # type: ignore[arg-type]
+        )
+        for ordinal, value in enumerate(cross_reference_rows, start=1)
     )
     if any(not entry.normalized_label for entry in entries):
         raise ValueError("NAICS manual index contains an empty reconstructed entry")
-    return entries
+    if any(not entry.normalized_label for entry in cross_references):
+        raise ValueError("NAICS manual index contains an empty cross-reference row")
+    return entries, cross_references
+
+
+def parse_naics_manual_index() -> tuple[NaicsIndexEntry, ...]:
+    return _parse_naics_manual_index_rows()[0]
+
+
+def parse_naics_manual_index_cross_references() -> tuple[
+    NaicsIndexCrossReference, ...
+]:
+    return _parse_naics_manual_index_rows()[1]
 
 
 def _bridge_rows(
@@ -260,6 +304,7 @@ def naics_identity_source_artifacts() -> tuple[dict[str, object], dict[str, obje
     for row in [*forward, *reverse]:
         by_pair[(row.naics_2017_code, row.naics_2022_code)].append(row)
     index_entries = parse_naics_manual_index()
+    index_cross_references = parse_naics_manual_index_cross_references()
     valid_codes = _valid_six_digit_codes()
     represented_index_codes = {entry.naics_2022_code for entry in index_entries}
     if not represented_index_codes <= valid_codes:
@@ -277,9 +322,14 @@ def naics_identity_source_artifacts() -> tuple[dict[str, object], dict[str, obje
         "census-economic-census-2022-naics-bridge-2022-to-2017",
         "2022_to_2017",
     )
-    if len(index_entries) != 20_317:
+    if len(index_entries) != 20_373:
         raise ValueError(
-            f"expected 20,317 NAICS manual index entries, found {len(index_entries)}"
+            f"expected 20,373 coded NAICS manual index entries, found {len(index_entries)}"
+        )
+    if len(index_cross_references) != 25:
+        raise ValueError(
+            "expected 25 uncoded NAICS manual index cross-reference rows, "
+            f"found {len(index_cross_references)}"
         )
     if valid_codes - represented_index_codes != {"112130", "541120"}:
         raise ValueError("unexpected six-digit coverage in the NAICS manual index")
@@ -303,7 +353,9 @@ def naics_identity_source_artifacts() -> tuple[dict[str, object], dict[str, obje
             "evidence; they are not canonical operating markets or market scores."
         ),
         "manual_index": {
-            "entries": len(index_entries),
+            "coded_entries": len(index_entries),
+            "uncoded_cross_reference_rows": len(index_cross_references),
+            "total_rows": len(index_entries) + len(index_cross_references),
             "represented_six_digit_codes": len(represented_index_codes),
             "missing_six_digit_codes": sorted(valid_codes - represented_index_codes),
             "physical_pdf_pages": [637, 958],
@@ -347,6 +399,14 @@ def naics_identity_source_artifacts() -> tuple[dict[str, object], dict[str, obje
                 "snapshot_id": "census-naics-2022-manual",
             }
             for entry in index_entries
+        ],
+        "manual_index_cross_references": [
+            {
+                **asdict(entry),
+                "locator": entry.locator,
+                "snapshot_id": "census-naics-2022-manual",
+            }
+            for entry in index_cross_references
         ],
         "vintage_lineage_relationships": [
             {

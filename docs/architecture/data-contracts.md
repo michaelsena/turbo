@@ -124,8 +124,8 @@ terminal condition. Gaps never null out accepted scores.
 
 ## Run receipt
 
-Contains immutable run ID, input/configuration hashes, code fingerprint, output
-hashes, and validation results. Exact Git head and wall-clock local verification are
+Contains immutable run ID, input/configuration hashes, code fingerprint, parser
+dependency versions, output hashes, and validation results. Exact Git head and wall-clock local verification are
 posted as GitHub issue/PR receipts so deterministic replay never dirties the worktree.
 
 Formal JSON Schemas and executable projection tests precede external API stability.

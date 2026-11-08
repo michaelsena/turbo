@@ -63,8 +63,10 @@ in two columns; plain text extraction can concatenate the columns and create fal
 entries. Turbo reconstructs each column independently from physical PDF pages
 637–958, accepts only anchors matching an official six-digit 2022 code, carries
 wrapped text across column/page boundaries, and emits a unique page/column/baseline/
-ordinal locator. The resulting 20,317 entries cover 1,010 codes. The two uncovered
-codes remain explicit; absence from the index is not negative market evidence.
+ordinal locator. The resulting 20,373 coded entries cover 1,010 codes. Twenty-five
+`******` cross-reference rows remain separate uncoded observations rather than being
+attached to the preceding industry. The two uncovered codes remain explicit; absence
+from the index is not negative market evidence.
 
 NAICS vintage lineage is separate from canonical identity. The two official full
 concordance directions must reverse to the same 1,150 pairs. Historical 2017 codes
@@ -148,7 +150,8 @@ artifact with referentially closed identity endpoints. Seven official `NA`
 concordance rows remain explicit non-mapping dispositions. The reconciliation layer
 retains 28,668 source rows/observations but produces one review mapping for each of
 10,433 normalized identities. NAICS Manual definition extraction remains open. Its
-20,317-entry alphabetic index, the 1,150 full 2017/2022 lineage pairs, and 846 bridge
+20,373 coded alphabetic-index entries, 25 uncoded index cross-references, the 1,150
+full 2017/2022 lineage pairs, and 846 bridge
 observations are published separately as replayable identity evidence so they cannot
 silently alter market-candidate retrieval.
 

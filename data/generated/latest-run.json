@@ -9,8 +9,9 @@
     "industry_product_relationships": 37232,
     "industry_product_source_observations": 80111,
     "naics_bridge_observations": 846,
+    "naics_manual_index_coded_entries": 20373,
     "naics_manual_index_codes": 1010,
-    "naics_manual_index_entries": 20317,
+    "naics_manual_index_cross_references": 25,
     "naics_vintage_lineage_pairs": 1150,
     "napcs_concordance_non_mappings": 7,
     "napcs_concordance_relationships": 3516,
@@ -19,7 +20,7 @@
     "products_by_industry_unique_national_six_digit_pairs": 28521,
     "trilateral_to_collection_rows": 3520
   },
-  "immutable_run_path": "data/runs/run-e56cf35670cd7cea5b60",
+  "immutable_run_path": "data/runs/run-604bdf24435cf267a892",
   "multisource_counts": {
     "naics_nodes": 2125,
     "naics_six_digit": 1012,
@@ -41,9 +42,9 @@
     "identity-relationships.json.gz": "e3753b2902723245369fa01aae42b23b95ac641b3f8194d43b36f3421e9f06b7",
     "identity-source-summary.json.gz": "b7b4fa9685b98f292b9c1365df1577a3bf221e21dfe2591992284c5955e4f6ee",
     "multisource-reconciliation.json.gz": "12e2c9387788a7d08730e8c22ede2b4caed1717c689c59f0930a7f71511ef237",
-    "naics-identity-evidence.json.gz": "089a3f1135f7c6299a63f8413b92c62f091e78fa565c7350217959fbea3f2732",
-    "naics-identity-source-summary.json.gz": "397c4598cae7a2721b7cff5cafcc4a8b1c7040d6df78df71e4cfa1ca747d2f4d",
-    "raw-source-hierarchy.json.gz": "426364ecf11dc8836d3c593bda15b33f3f74be2ca6fa470c69d8cfe164a5972e"
+    "naics-identity-evidence.json.gz": "8a9ebcc5c6fd0d3c1b7397c31a6c0b080d29dbc235f861e4e272e5c1723a6488",
+    "naics-identity-source-summary.json.gz": "8a042bcd60d1cefeb2c2b98856db3b5758b3dfeddf59a9d8b6b05442d1f12bff",
+    "raw-source-hierarchy.json.gz": "aed6b9e255129326f191ca4dece6513933f2bc5ea641cbfd065048255f58897d"
   },
   "reconciliation_mapping_counts": {
     "ambiguous_or_semantically_conflicted_review": 36,
@@ -53,12 +54,16 @@
   },
   "research_scores": 0,
   "run_config": {
-    "code_fingerprint": "24609f47f35a1a3c76486091df8926e22ed699de0996a4910e6def771a6beebf",
+    "code_fingerprint": "ba3d6f99d1b95b72b420cfd97dece79599378fdc5f19d056e585b26057943e09",
+    "dependency_versions": {
+      "pypdf": "6.21.4"
+    },
     "method_version": "identity-source-semantic-reconciliation-v7",
     "napcs_manifest_sha256": "06da74961d4777e1848973b9675b7861fc626b3d4750627b03502716c7afd5a3",
     "napcs_sha256": "528e69e335342f9c356379f7074528efc5fcc89addd026cc13ab18b2072fd988",
     "prior_seed_manifest_sha256": "70d496a577ba26a1d1bfae73be24cfb1a6a5301d25a6142b451d111c6b2d5fb9",
     "prior_seed_sha256": "0e8fd754fe1abad8dfbd0d0a404ff0ede2c2260a23a9fdaa49858a36ed5661f3",
+    "project_config_sha256": "63767f87333ce471993d933e4f8ba69115044098a13d4ee69cd2811984a3b78d",
     "schema_fingerprint": "d8e747aae59eb6a4850b6d94e052086922f7222e728f235c57a5baaf08ec8c26",
     "schema_version": 1,
     "source_manifest_sha256": "3f29736ad9c044f332dfdf0d8c366219988212042e7f8e085cbd4d37486b9ae2",
@@ -66,7 +71,7 @@
     "source_sha256": "217c9e0d4d74e7517bc288f5f308b73aa0de5ee787976a6dd222412be28ada22",
     "strategy_config_sha256": "482f49180ff58d7957ec8c220f1c7dfa0e2aa1140f6f9ecc5afd21be0d98d431"
   },
-  "run_id": "run-e56cf35670cd7cea5b60",
+  "run_id": "run-604bdf24435cf267a892",
   "schema_version": 1,
   "six_digit_source_categories": 1012,
   "source_nodes": 2125,

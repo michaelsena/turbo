@@ -1,8 +1,10 @@
+import re
 import unittest
 
 from turbo.universe.naics_identity_sources import (
     naics_identity_source_artifacts,
     parse_naics_manual_index,
+    parse_naics_manual_index_cross_references,
 )
 
 
@@ -13,7 +15,7 @@ class NaicsIdentitySourcesTest(unittest.TestCase):
 
     def test_manual_index_is_reconstructed_by_coordinate_and_column(self) -> None:
         entries = parse_naics_manual_index()
-        self.assertEqual(len(entries), 20_317)
+        self.assertEqual(len(entries), 20_373)
         self.assertEqual(len({entry.naics_2022_code for entry in entries}), 1_010)
         self.assertEqual(
             self.summary["manual_index"]["missing_six_digit_codes"],
@@ -24,6 +26,42 @@ class NaicsIdentitySourcesTest(unittest.TestCase):
         self.assertTrue(all(entry.column in {1, 2} for entry in entries))
         self.assertEqual(entries[0].page, 637)
         self.assertEqual(entries[-1].page, 958)
+        split_anchor = next(
+            entry
+            for entry in entries
+            if entry.page == 725 and entry.naics_2022_code == "423830"
+        )
+        self.assertEqual(
+            split_anchor.normalized_label,
+            "Distillery machinery merchant wholesalers",
+        )
+        self.assertFalse(
+            any("423830Distillery" in entry.normalized_label for entry in entries)
+        )
+        self.assertFalse(
+            any(
+                re.search(r"(?<!\d)\d{6}(?!\d)", entry.normalized_label)
+                for entry in entries
+            )
+        )
+
+    def test_uncoded_index_cross_references_are_separate_rows(self) -> None:
+        cross_references = parse_naics_manual_index_cross_references()
+        self.assertEqual(len(cross_references), 25)
+        self.assertEqual(
+            self.summary["manual_index"]["uncoded_cross_reference_rows"],
+            25,
+        )
+        self.assertEqual(
+            len({entry.locator for entry in cross_references}),
+            len(cross_references),
+        )
+        self.assertTrue(
+            any(
+                entry.normalized_label == "Cards, publishing --see specific product"
+                for entry in cross_references
+            )
+        )
 
     def test_full_concordance_directions_are_exact_reverses(self) -> None:
         counts = self.summary["full_concordance"]

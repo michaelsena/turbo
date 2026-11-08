@@ -145,7 +145,8 @@ NAICS–NAPCS relationships. Their 80,111 contributing national six-digit source
 observations remain distinct, each with a governed snapshot and unique row-level
 locator. Every relationship endpoint resolves to a preserved normalized identity.
 The NAICS Manual's two-column alphabetic index is parsed by PDF coordinates into
-20,317 uniquely located entries covering 1,010 of 1,012 six-digit codes. The two
+20,373 coded entries covering 1,010 of 1,012 six-digit codes, plus 25 uncoded
+cross-reference rows kept separate from industry identities. The two
 absent codes (`112130` and `541120`) remain explicit coverage facts rather than
 fabricated index entries. Both full NAICS concordance directions produce the same
 1,150 lineage pairs: 918 unchanged-code pairs and 232 changed-code pairs spanning
@@ -325,7 +326,8 @@ starting lists.
 | Trilateral label source observations | 7,026 |
 | Prior-model market seeds | 978 |
 | Governed source snapshots | 12 |
-| NAICS Manual alphabetic-index entries | 20,317 |
+| NAICS Manual coded alphabetic-index entries | 20,373 |
+| NAICS Manual uncoded cross-reference rows | 25 |
 | Six-digit codes represented in the manual index | 1,010 |
 | Full 2017/2022 NAICS vintage-lineage pairs | 1,150 |
 | Economic Census NAICS bridge observations | 846 |
@@ -380,8 +382,10 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 
 ## Running locally
 
-Turbo V1 requires Python 3.11+ and uses `jsonschema` to execute the same formal
-contracts documented in `schemas/` during local verification.
+Turbo V1 requires Python 3.11+, uses `jsonschema` to execute the same formal
+contracts documented in `schemas/`, and pins `pypdf` because coordinate extraction
+is part of deterministic source replay. The run identity binds both the project
+configuration hash and the installed extraction-library version.
 
 ```bash
 python3 -m venv .venv
