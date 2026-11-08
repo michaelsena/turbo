@@ -12,8 +12,9 @@ Turbo will keep four distinct layers in the universe pipeline:
 3. candidate-market hypotheses proposed for review; and
 4. accepted, versioned canonical markets.
 
-All relationships must resolve between normalized identities and retain their governed
-snapshot and exact source locator. A canonical market can change only through an
+All relationships must resolve between normalized identities. Pair-level edges retain
+every contributing source observation with its governed snapshot and unique row-level
+locator. A canonical market can change only through an
 accepted graph event. Event supersession and market-version supersession are separate:
 the former changes which instructions are active, while the latter preserves the
 history of the market state those instructions produced.
@@ -39,6 +40,8 @@ without sacrificing exact replay or content-addressed auditing.
 
 - Source records may point to normalized identities but never become markets by
   implication.
+- Repeated source observations do not multiply the decision queue: reconciliation
+  emits one review mapping per normalized identity with all supporting records.
 - Candidate hypotheses remain review inputs until an accepted graph event creates or
   changes a canonical market.
 - Unknown snapshot, source-record, identity, or relationship references fail local

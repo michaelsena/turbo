@@ -36,6 +36,36 @@ class IdentitySourceTest(unittest.TestCase):
         self.assertGreater(len(relationships["industry_product_relationships"]), 37_000)
         self.assertGreater(len(relationship_product_records()), 3_000)
 
+    def test_every_contributing_relationship_row_has_exact_lineage(self) -> None:
+        summary, relationships = identity_source_artifacts()
+        observations = [
+            observation
+            for edge in relationships["industry_product_relationships"]
+            for observation in edge["source_observations"]
+        ]
+        self.assertEqual(
+            len(observations),
+            summary["industry_by_products"]["national_six_digit_rows"]
+            + summary["products_by_industry"]["national_six_digit_rows"],
+        )
+        exact_locators = {
+            (observation["snapshot_id"], observation["locator"])
+            for observation in observations
+        }
+        self.assertEqual(len(exact_locators), len(observations))
+        self.assertTrue(
+            all(":row:" in observation["locator"] for observation in observations)
+        )
+        self.assertTrue(
+            all("TYPOP=" in observation["locator"] for observation in observations)
+        )
+        self.assertTrue(
+            any(
+                len(edge["source_observations"]) > len(edge["observed_in"])
+                for edge in relationships["industry_product_relationships"]
+            )
+        )
+
     def test_every_relationship_endpoint_resolves_to_an_identity(self) -> None:
         _, relationships = identity_source_artifacts()
         identity_ids = {

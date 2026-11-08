@@ -146,10 +146,16 @@ def _validate_market_version(
         "mapping_event_ids",
         "candidate_market_ids",
     ):
-        if not isinstance(version[field], list) or any(
-            not isinstance(item, str) for item in version[field]
-        ):
+        values = version[field]
+        if not isinstance(values, list):
             errors.append(f"market version {field} must be an array of strings")
+            continue
+        if any(not isinstance(item, str) or not item.strip() for item in values):
+            errors.append(
+                f"market version {field} must contain non-empty strings"
+            )
+        if len(values) != len(set(values)):
+            errors.append(f"market version {field} contains duplicates")
     return errors
 
 
@@ -216,7 +222,7 @@ def validate_event(event: dict[str, Any]) -> list[str]:
         values = event[field]
         if len(values) != len(set(values)):
             errors.append(f"{field} contains duplicates")
-        if any(not isinstance(value, str) or not value for value in values):
+        if any(not isinstance(value, str) or not value.strip() for value in values):
             errors.append(f"{field} must contain non-empty strings")
     relationship = event.get("relationship_type")
     if relationship is not None and relationship not in RELATIONSHIP_TYPES:
@@ -369,6 +375,9 @@ def project_graph(
     if len(event_ids) != len(set(event_ids)):
         raise ValueError("duplicate reconciliation event IDs")
     by_id = {event["event_id"]: event for event in ordered}
+    event_positions = {
+        event["event_id"]: position for position, event in enumerate(ordered)
+    }
     event_times = {event["event_id"]: _parse_timestamp(event["recorded_at"]) for event in ordered}
     for event in ordered:
         errors = validate_event(event)
@@ -410,9 +419,10 @@ def project_graph(
     active = [event for event in accepted if event["event_id"] in active_ids]
 
     markets: dict[str, dict[str, Any]] = {}
-    definition_events: dict[str, str] = {}
     current_version_ids: dict[str, str] = {}
     version_ids: set[str] = set()
+    installed_versions: list[tuple[dict[str, Any], dict[str, Any]]] = []
+    first_definition_events: dict[str, str] = {}
     mappings: list[dict[str, Any]] = []
     exclusions: list[dict[str, Any]] = []
     lineage: list[dict[str, Any]] = []
@@ -434,7 +444,8 @@ def project_graph(
             )
         version_ids.add(version_id)
         markets[market_id] = version
-        definition_events[market_id] = event["event_id"]
+        installed_versions.append((version, event))
+        first_definition_events.setdefault(market_id, event["event_id"])
         current_version_ids[market_id] = version_id
 
     for event in active:
@@ -484,8 +495,9 @@ def project_graph(
         for mapping in mappings
         if mapping["output_market_ids"][0] in retired_market_ids
     ]
-    for market_id in sorted(effective_market_ids):
-        version = markets[market_id]
+
+    for version, definition_event in installed_versions:
+        market_id = version["market_id"]
         missing_sources = set(version["source_record_ids"]) - known_source_record_ids
         if missing_sources:
             raise ValueError(
@@ -505,7 +517,7 @@ def project_graph(
                 or mapping_id not in active_ids
                 or mapping["decision"] != "accepted"
                 or event_times[mapping_id]
-                >= event_times[definition_events[market_id]]
+                >= event_times[definition_event["event_id"]]
                 or mapping["output_market_ids"] != [market_id]
                 or not set(mapping["input_source_record_ids"]).issubset(
                     set(version["source_record_ids"])
@@ -515,10 +527,24 @@ def project_graph(
                     f"market {market_id} references an invalid mapping event: {mapping_id}"
                 )
         parent_id = version["parent_market_id"]
-        if parent_id is not None and parent_id not in effective_market_ids:
-            raise ValueError(f"market {market_id} references unknown or retired parent: {parent_id}")
+        if parent_id is not None:
+            parent_event_id = first_definition_events.get(parent_id)
+            if (
+                parent_event_id is None
+                or event_positions[parent_event_id]
+                > event_positions[definition_event["event_id"]]
+            ):
+                raise ValueError(
+                    f"market {market_id} references an unknown or future parent: {parent_id}"
+                )
         if parent_id == market_id:
             raise ValueError(f"market {market_id} cannot be its own parent")
+
+    for market_id in sorted(effective_market_ids):
+        version = markets[market_id]
+        parent_id = version["parent_market_id"]
+        if parent_id is not None and parent_id not in effective_market_ids:
+            raise ValueError(f"market {market_id} references unknown or retired parent: {parent_id}")
 
     for market_id in sorted(effective_market_ids):
         visited: set[str] = set()

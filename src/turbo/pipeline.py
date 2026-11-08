@@ -22,7 +22,7 @@ STRATEGY_CONFIG = ROOT / "config/strategy.json"
 GENERATED = ROOT / "data/generated"
 RUNS = ROOT / "data/runs"
 SOURCE_URL = "https://www.census.gov/naics/2022NAICS/2022_NAICS_Structure.xlsx"
-METHOD_VERSION = "identity-source-semantic-reconciliation-v5"
+METHOD_VERSION = "identity-source-semantic-reconciliation-v6"
 
 
 def sha256(path: Path) -> str:
@@ -87,12 +87,18 @@ def validate_identity_references(
         errors.append("duplicate source record IDs")
     if len(identity_ids) != len(known_identities):
         errors.append("duplicate normalized source identity IDs")
+    source_locator_keys: list[tuple[str, str]] = []
     for record in source_records:
         if record["snapshot_id"] not in governed_snapshot_ids:
             errors.append(
                 f"source record {record['record_id']} references unknown snapshot "
                 f"{record['snapshot_id']}"
             )
+        locator = record.get("locator")
+        if not isinstance(locator, str) or not locator.strip():
+            errors.append(f"source record {record['record_id']} has an empty locator")
+        else:
+            source_locator_keys.append((record["snapshot_id"], locator))
         for identity_id in record["normalized_identity_ids"]:
             if identity_id not in known_identities:
                 errors.append(
@@ -104,12 +110,48 @@ def validate_identity_references(
                     f"source relationship references unknown identity "
                     f"{edge['target_identity_id']}"
                 )
+    if len(source_locator_keys) != len(set(source_locator_keys)):
+        errors.append("duplicate source record locators within a governed snapshot")
     for identity in identities:
         missing = set(identity["source_record_ids"]) - known_sources
         if missing:
             errors.append(
                 f"identity {identity['identity_id']} references unknown source records: "
                 f"{sorted(missing)}"
+            )
+    identity_sources = {
+        identity["identity_id"]: set(identity["source_record_ids"])
+        for identity in identities
+    }
+    mappings = reconciliation["mappings"]
+    mapping_identity_ids = [mapping["normalized_identity_id"] for mapping in mappings]
+    if len(mapping_identity_ids) != len(set(mapping_identity_ids)):
+        errors.append("duplicate normalized identity mappings")
+    missing_mappings = known_identities - set(mapping_identity_ids)
+    extra_mappings = set(mapping_identity_ids) - known_identities
+    if missing_mappings:
+        errors.append(
+            f"normalized identities missing reconciliation mappings: {sorted(missing_mappings)}"
+        )
+    if extra_mappings:
+        errors.append(
+            f"reconciliation mappings reference unknown identities: {sorted(extra_mappings)}"
+        )
+    for mapping in mappings:
+        identity_id = mapping["normalized_identity_id"]
+        supporting_sources = set(mapping["supporting_source_record_ids"])
+        missing_sources = supporting_sources - known_sources
+        if missing_sources:
+            errors.append(
+                f"mapping {identity_id} references unknown source records: "
+                f"{sorted(missing_sources)}"
+            )
+        if (
+            identity_id in identity_sources
+            and supporting_sources != identity_sources[identity_id]
+        ):
+            errors.append(
+                f"mapping {identity_id} does not preserve its complete source-record set"
             )
     endpoint_fields = {
         "napcs_concordance_relationships": (
@@ -123,6 +165,7 @@ def validate_identity_references(
         ),
     }
     for collection, fields in endpoint_fields.items():
+        observation_keys: list[tuple[str, str]] = []
         for edge in relationships[collection]:
             for field in fields:
                 if edge[field] not in known_identities:
@@ -135,6 +178,13 @@ def validate_identity_references(
                         f"{collection} references unknown snapshot "
                         f"{observation['snapshot_id']}"
                     )
+                locator = observation.get("locator")
+                if not isinstance(locator, str) or not locator.strip():
+                    errors.append(f"{collection} contains an empty source locator")
+                else:
+                    observation_keys.append((observation["snapshot_id"], locator))
+        if len(observation_keys) != len(set(observation_keys)):
+            errors.append(f"{collection} contains duplicate source observation locators")
     return errors
 
 
@@ -263,7 +313,13 @@ def run() -> dict[str, object]:
             "collection_to_trilateral_rows": identity_summary["collection_to_trilateral"]["rows"],
             "trilateral_to_collection_rows": identity_summary["trilateral_to_collection"]["rows"],
             "industry_by_products_rows": identity_summary["industry_by_products"]["rows"],
+            "industry_by_products_national_six_digit_observations": identity_summary["industry_by_products"]["national_six_digit_rows"],
             "products_by_industry_rows": identity_summary["products_by_industry"]["rows"],
+            "products_by_industry_national_six_digit_observations": identity_summary["products_by_industry"]["national_six_digit_rows"],
+            "industry_product_source_observations": (
+                identity_summary["industry_by_products"]["national_six_digit_rows"]
+                + identity_summary["products_by_industry"]["national_six_digit_rows"]
+            ),
             "products_by_industry_unique_national_six_digit_pairs": identity_summary["products_by_industry"]["unique_national_six_digit_naics_napcs_pairs"],
             "napcs_concordance_relationships": identity_summary["relationship_artifact_counts"]["napcs_concordance_relationships"],
             "napcs_concordance_non_mappings": identity_summary["relationship_artifact_counts"]["napcs_concordance_non_mappings"],
@@ -353,5 +409,18 @@ def validate() -> list[str]:
             errors.append(f"missing parent {node.parent_id} for {node.node_id}")
     if not any(node.level == 6 for node in nodes):
         errors.append("no six-digit source categories")
+    if not errors:
+        try:
+            reconciliation = reconcile()
+            _, relationships = identity_source_artifacts()
+            errors.extend(
+                validate_identity_references(
+                    reconciliation,
+                    relationships,
+                    dataset_ids,
+                )
+            )
+        except Exception as error:
+            errors.append(f"identity/reference validation failed: {error}")
     return errors
 

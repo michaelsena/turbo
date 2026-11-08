@@ -12,7 +12,7 @@ reuse status, and declared role. Validation fails when bytes differ from the man
 
 A stable row or object within one immutable snapshot:
 
-- source-record ID, snapshot ID, source system, and exact source locator
+- source-record ID, snapshot ID, source system, and unique row/object locator
 - raw code, raw label, raw definition, hierarchy path, and source parent IDs
 - row role such as industry, product, service, task, aggregate, residual, survey
   control, or unknown
@@ -26,8 +26,9 @@ distinctions, customer scope, geography, and residual wording remain preserved.
 A typed NAICS or NAPCS code identity is distinct from every immutable row or
 observation that mentions it. Identity nodes use their own namespace and link to one
 or more source-record IDs. Official hierarchy, concordance, and industry-product
-relationships connect identity nodes while retaining the snapshot ID and exact
-locator that observed each edge. Source-row IDs, normalized identities,
+relationships connect identity nodes. Pair-level relationship edges retain every
+contributing source observation separately, including snapshot ID, row number,
+dimensions, and a unique locator. Source-row IDs, normalized identities,
 candidate-market hypotheses, and canonical-market IDs are never interchangeable.
 
 ## Observation and claim
@@ -92,6 +93,10 @@ Split and merge events retire their predecessor market IDs from the effective gr
 while preserving them and their successor lineage in history. Mappings to retired
 markets move to an explicitly historical collection rather than dangling in the
 effective graph.
+
+Every accepted market version installed by an active event remains subject to
+referential validation even if a later split or merge retires it. Retirement changes
+effective state; it does not erase historical validation obligations.
 
 
 ## Factor definition, evaluator result, and score event

@@ -3,7 +3,13 @@ import json
 import unittest
 from unittest.mock import patch
 
-from turbo.pipeline import RUNS, run, validate_manifest_metadata
+from turbo.pipeline import (
+    RUNS,
+    run,
+    validate,
+    validate_identity_references,
+    validate_manifest_metadata,
+)
 
 
 class PipelineTest(unittest.TestCase):
@@ -28,6 +34,68 @@ class PipelineTest(unittest.TestCase):
         with patch("turbo.pipeline.validate", return_value=["tampered NAPCS snapshot"]):
             with self.assertRaisesRegex(ValueError, "tampered NAPCS snapshot"):
                 run()
+
+    def test_standalone_validation_runs_identity_reference_validation(self) -> None:
+        with (
+            patch("turbo.pipeline.reconcile", return_value={"source_records": []}),
+            patch("turbo.pipeline.identity_source_artifacts", return_value=({}, {})),
+            patch(
+                "turbo.pipeline.validate_identity_references",
+                return_value=["dangling normalized identity"],
+            ) as reference_validator,
+        ):
+            errors = validate()
+        self.assertIn("dangling normalized identity", errors)
+        reference_validator.assert_called_once()
+
+    def test_standalone_validation_fails_closed_when_identity_build_fails(self) -> None:
+        with patch(
+            "turbo.pipeline.reconcile",
+            side_effect=ValueError("identity build failed"),
+        ):
+            errors = validate()
+        self.assertIn(
+            "identity/reference validation failed: identity build failed",
+            errors,
+        )
+
+    def test_identity_validation_requires_one_complete_mapping_per_identity(self) -> None:
+        reconciliation = {
+            "source_records": [
+                {
+                    "record_id": "source-row:one",
+                    "snapshot_id": "snapshot:one",
+                    "normalized_identity_ids": ["identity:naics:1"],
+                    "source_relationships": [],
+                }
+            ],
+            "source_identities": [
+                {
+                    "identity_id": "identity:naics:1",
+                    "source_record_ids": ["source-row:one"],
+                }
+            ],
+            "mappings": [
+                {
+                    "normalized_identity_id": "identity:naics:1",
+                    "supporting_source_record_ids": [],
+                }
+            ],
+        }
+        relationships = {
+            "napcs_concordance_relationships": [],
+            "napcs_concordance_non_mappings": [],
+            "industry_product_relationships": [],
+        }
+        errors = validate_identity_references(
+            reconciliation,
+            relationships,
+            {"snapshot:one"},
+        )
+        self.assertIn(
+            "mapping identity:naics:1 does not preserve its complete source-record set",
+            errors,
+        )
 
     def test_replay_reuses_same_immutable_run(self) -> None:
         first = run()

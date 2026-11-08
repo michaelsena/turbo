@@ -188,6 +188,20 @@ class GraphContractTest(unittest.TestCase):
         )
         self.assertEqual(len(projection["markets"]), 1)
 
+        future_invalid_reference = creation(
+            "future-create",
+            "2026-11-09T13:00:00Z",
+        )
+        future_invalid_reference["market_version"]["source_record_ids"] = [
+            "future-unknown-source"
+        ]
+        projection = project_graph(
+            [future_invalid_reference, create],
+            as_of="2026-11-08T14:00:00Z",
+            known_source_record_ids=set(),
+        )
+        self.assertEqual(len(projection["markets"]), 1)
+
     def test_split_retires_predecessor_and_preserves_lineage(self) -> None:
         create = creation("event-create", "2026-11-08T11:00:00Z")
         predecessor = create["output_market_ids"][0]
@@ -217,6 +231,67 @@ class GraphContractTest(unittest.TestCase):
         )
         self.assertEqual(projection["retired_market_ids"], [predecessor])
         self.assertEqual([item["event_id"] for item in projection["lineage"]], [split_id])
+
+    def test_retired_market_versions_retain_referential_integrity(self) -> None:
+        def retired_projection(
+            suffix: str,
+            mutate: object,
+        ) -> None:
+            create = creation(f"create-{suffix}", "2026-11-08T11:00:00Z")
+            mutate(create["market_version"])
+            predecessor = create["output_market_ids"][0]
+            split_id = f"split-{suffix}"
+            successors = [market_id_from_creation(split_id, index) for index in range(2)]
+            split = event(
+                split_id,
+                "2026-11-08T12:00:00Z",
+                event_type="split",
+                input_source_record_ids=[],
+                input_market_ids=[predecessor],
+                output_market_ids=successors,
+                relationship_type=None,
+                market_versions=[
+                    market_version(split_id, market_id, f"Successor {index}")
+                    for index, market_id in enumerate(successors, 1)
+                ],
+            )
+            project_graph(
+                [create, split],
+                as_of="2026-11-08T14:00:00Z",
+                known_source_record_ids=set(),
+                known_candidate_market_ids=set(),
+            )
+
+        cases = (
+            (
+                "source",
+                lambda version: version["source_record_ids"].append("missing-source"),
+                "unknown source records",
+            ),
+            (
+                "candidate",
+                lambda version: version["candidate_market_ids"].append(
+                    "candidate-market:missing"
+                ),
+                "unknown candidate markets",
+            ),
+            (
+                "mapping",
+                lambda version: version["mapping_event_ids"].append("missing-map"),
+                "invalid mapping event",
+            ),
+            (
+                "parent",
+                lambda version: version.__setitem__(
+                    "parent_market_id", "market:000000000000000000000000"
+                ),
+                "unknown or future parent",
+            ),
+        )
+        for suffix, mutate, message in cases:
+            with self.subTest(reference=suffix):
+                with self.assertRaisesRegex(ValueError, message):
+                    retired_projection(suffix, mutate)
 
     def test_replacement_split_does_not_apply_superseded_retirement(self) -> None:
         create = creation("event-create", "2026-11-08T11:00:00Z")

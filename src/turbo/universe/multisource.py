@@ -9,9 +9,10 @@ from dataclasses import asdict, dataclass
 
 from turbo.pipeline_paths import ROOT
 from turbo.universe.identity_sources import (
+    NapcsConcordanceRecord,
     parse_collection_to_trilateral,
     parse_trilateral_to_collection,
-    relationship_product_records,
+    relationship_product_observations,
 )
 from turbo.universe.naics import parse_naics, read_first_sheet
 
@@ -41,10 +42,12 @@ class NamedRecord:
     hierarchy_path: tuple[str, ...] = ()
     parent_ids: tuple[str, ...] = ()
     source_relationships: tuple[dict[str, str], ...] = ()
+    source_indicator: str = ""
+    analysis_label: str = ""
 
     @property
     def name(self) -> str:
-        return self.raw_label
+        return self.analysis_label or self.raw_label
 
     @property
     def candidate_market_id(self) -> str:
@@ -122,14 +125,16 @@ def parse_napcs() -> list[NamedRecord]:
     concordance: dict[str, dict[tuple[str, str], set[str]]] = defaultdict(
         lambda: defaultdict(set)
     )
-    collection_labels: dict[str, str] = {}
+    collection_observations: dict[
+        str, list[tuple[str, NapcsConcordanceRecord]]
+    ] = defaultdict(list)
     for direction, rows in (
         ("collection_to_trilateral", forward_rows),
         ("trilateral_to_collection", reverse_rows),
     ):
         for row in rows:
             if row.collection_code and row.collection_description:
-                collection_labels.setdefault(row.collection_code, row.collection_description)
+                collection_observations[row.collection_code].append((direction, row))
             if row.collection_code and row.trilateral_code not in {"", "NA"}:
                 concordance[row.collection_code][
                     (row.trilateral_code, row.part_indicator)
@@ -176,97 +181,110 @@ def parse_napcs() -> list[NamedRecord]:
             )
         )
     known_codes = {record.source_code for record in result}
-    for code, label in sorted(relationship_product_records().items()):
+    for code, observations in sorted(relationship_product_observations().items()):
         if code in known_codes:
             continue
-        result.append(
-            NamedRecord(
-                record_id=(
-                    "source-observation:census-economic-census-2022-products-by-industry:"
-                    f"napcs:{code}"
-                ),
-                source="economic_census_products_by_industry_2022",
-                source_code=code,
-                raw_label=label,
-                record_kind="relationship_product",
-                locator=(
-                    "EC2200NAPCSPRDIND.dat:GEO_ID=0100000US:"
-                    f"NAPCS2022={code}"
-                ),
-                snapshot_id="census-economic-census-2022-products-by-industry",
-                normalized_identity_ids=(f"identity:napcs-collection:{code}",),
+        for observation in observations:
+            result.append(
+                NamedRecord(
+                    record_id=(
+                        "source-row:census-economic-census-2022-products-by-industry:"
+                        f"{observation['row_number']}"
+                    ),
+                    source="economic_census_products_by_industry_2022",
+                    source_code=code,
+                    raw_label=str(observation["raw_label"]),
+                    record_kind="relationship_product",
+                    locator=str(observation["locator"]),
+                    snapshot_id="census-economic-census-2022-products-by-industry",
+                    normalized_identity_ids=(f"identity:napcs-collection:{code}",),
+                )
             )
-        )
         known_codes.add(code)
-    for code, label in sorted(collection_labels.items()):
+    for code, observations in sorted(collection_observations.items()):
         if code in known_codes:
             continue
-        result.append(
-            NamedRecord(
-                record_id=(
-                    "source-observation:census-napcs-2022-collection-to-trilateral:"
-                    f"collection:{code}"
-                ),
-                source="napcs_collection_to_trilateral_2022",
-                source_code=code,
-                raw_label=label,
-                record_kind="concordance_product",
-                locator=f"data_sheet:collection_code={code}",
-                snapshot_id="census-napcs-2022-collection-to-trilateral",
-                normalized_identity_ids=(f"identity:napcs-collection:{code}",),
-                source_relationships=relationships(code),
+        for direction, row in observations:
+            snapshot_id = (
+                "census-napcs-2022-collection-to-trilateral"
+                if direction == "collection_to_trilateral"
+                else "census-napcs-2022-trilateral-to-collection"
             )
-        )
+            result.append(
+                NamedRecord(
+                    record_id=(
+                        f"source-observation:{snapshot_id}:data-sheet:"
+                        f"{row.row_number}:collection-label"
+                    ),
+                    source=f"napcs_{direction}_2022",
+                    source_code=code,
+                    raw_label=row.collection_description,
+                    record_kind="concordance_product",
+                    locator=(
+                        f"data_sheet:row:{row.row_number}:"
+                        "field:collection_description"
+                    ),
+                    snapshot_id=snapshot_id,
+                    normalized_identity_ids=(f"identity:napcs-collection:{code}",),
+                    source_relationships=(
+                        {
+                            "relationship_type": "collection_to_trilateral",
+                            "target_identity_id": (
+                                f"identity:napcs-trilateral:{row.trilateral_code}"
+                            ),
+                            "part_indicator": row.part_indicator,
+                            "observed_in": direction,
+                        },
+                    ),
+                )
+            )
     return result
 
 
 def parse_trilateral_products() -> list[NamedRecord]:
-    grouped: dict[str, dict[str, object]] = {}
+    records: list[NamedRecord] = []
     for direction, rows in (
         ("collection_to_trilateral", parse_collection_to_trilateral()),
         ("trilateral_to_collection", parse_trilateral_to_collection()),
     ):
+        snapshot_id = (
+            "census-napcs-2022-collection-to-trilateral"
+            if direction == "collection_to_trilateral"
+            else "census-napcs-2022-trilateral-to-collection"
+        )
         for row in rows:
             code = row.trilateral_code
             if code in {"", "NA"}:
                 continue
-            value = grouped.setdefault(
-                code,
-                {"labels": set(), "collections": defaultdict(set)},
+            records.append(
+                NamedRecord(
+                    record_id=(
+                        f"source-observation:{snapshot_id}:data-sheet:"
+                        f"{row.row_number}:trilateral-label"
+                    ),
+                    source=f"napcs_{direction}_2022",
+                    source_code=code,
+                    raw_label=row.trilateral_description,
+                    record_kind="trilateral_product",
+                    locator=(
+                        f"data_sheet:row:{row.row_number}:"
+                        "field:trilateral_description"
+                    ),
+                    snapshot_id=snapshot_id,
+                    normalized_identity_ids=(f"identity:napcs-trilateral:{code}",),
+                    source_relationships=(
+                        {
+                            "relationship_type": "trilateral_to_collection",
+                            "target_identity_id": (
+                                f"identity:napcs-collection:{row.collection_code}"
+                            ),
+                            "part_indicator": row.part_indicator,
+                            "observed_in": direction,
+                        },
+                    ),
+                )
             )
-            if row.trilateral_description:
-                value["labels"].add(row.trilateral_description)
-            value["collections"][(row.collection_code, row.part_indicator)].add(direction)
-    records: list[NamedRecord] = []
-    for code, value in sorted(grouped.items()):
-        labels = sorted(value["labels"])
-        records.append(
-            NamedRecord(
-                record_id=(
-                    "source-observation:census-napcs-2022-trilateral-to-collection:"
-                    f"trilateral:{code}"
-                ),
-                source="napcs_trilateral_concordance_2022",
-                source_code=code,
-                raw_label=labels[0],
-                record_kind="trilateral_product",
-                locator=f"data_sheet:trilateral_code={code}",
-                snapshot_id="census-napcs-2022-trilateral-to-collection",
-                normalized_identity_ids=(f"identity:napcs-trilateral:{code}",),
-                source_relationships=tuple(
-                    {
-                        "relationship_type": "trilateral_to_collection",
-                        "target_identity_id": f"identity:napcs-collection:{collection_code}",
-                        "part_indicator": part_indicator,
-                        "observed_in": ",".join(sorted(directions)),
-                    }
-                    for (collection_code, part_indicator), directions in sorted(
-                        value["collections"].items()
-                    )
-                ),
-            )
-        )
-    return records
+    return sorted(records, key=lambda record: record.record_id)
 
 
 def prior_records(names: list[str]) -> list[NamedRecord]:
@@ -305,10 +323,11 @@ def _similarity(left: frozenset[str], right: frozenset[str]) -> float:
 
 def _source_record(record: NamedRecord) -> dict[str, object]:
     json_compatible = json.loads(json.dumps(asdict(record)))
+    json_compatible.pop("analysis_label")
     return {
         **json_compatible,
-        "normalized_label": normalize_name(record.raw_label),
-        "semantic_flags": semantic_flags(record.raw_label),
+        "normalized_label": normalize_name(record.name),
+        "semantic_flags": semantic_flags(record.name),
     }
 
 
@@ -356,6 +375,8 @@ def reconcile() -> dict[str, object]:
                 hierarchy_path=hierarchy_path(node.node_id),
                 parent_ids=parent_ids,
                 source_relationships=relationships,
+                source_indicator=node.source_indicator or "",
+                analysis_label=node.title,
             )
         )
     napcs = parse_napcs()
@@ -379,56 +400,203 @@ def reconcile() -> dict[str, object]:
     for ids in exact.values():
         ids.sort()
 
-    def candidate(record: NamedRecord, candidate_id: str, score: float) -> dict[str, object]:
+    source_records = [*naics, *napcs, *trilateral, *seeds]
+    identities: dict[str, dict[str, object]] = {}
+    identity_records: dict[str, list[NamedRecord]] = defaultdict(list)
+    for record in source_records:
+        for identity_id in record.normalized_identity_ids:
+            identity_records[identity_id].append(record)
+            value = identities.setdefault(
+                identity_id,
+                {
+                    "identity_id": identity_id,
+                    "identity_type": identity_id.split(":", 2)[1],
+                    "source_code": record.source_code,
+                    "labels": set(),
+                    "analysis_labels": set(),
+                    "source_record_ids": [],
+                },
+            )
+            value["labels"].add(record.raw_label)
+            value["analysis_labels"].add(record.name)
+            value["source_record_ids"].append(record.record_id)
+
+    def label_candidate_evaluation(
+        label: str,
+        candidate_id: str,
+        source_tokens: frozenset[str],
+    ) -> dict[str, object]:
         proposed = seed_by_id[candidate_id]
-        source_tokens = retrieval_tokens(record.name)
         candidate_tokens = seed_tokens[candidate_id]
         return {
-            "candidate_market_id": candidate_id,
-            "candidate_market_name": proposed.name,
-            "similarity": round(score, 4),
-            "component_signals": {
-                "exact_normalized_label": normalize_name(record.name)
-                == normalize_name(proposed.name),
-                "matched_tokens": sorted(source_tokens & candidate_tokens),
-                "source_only_tokens": sorted(source_tokens - candidate_tokens),
-                "candidate_only_tokens": sorted(candidate_tokens - source_tokens),
-                "intersection_count": len(source_tokens & candidate_tokens),
-                "union_count": len(source_tokens | candidate_tokens),
-                "source_semantic_flags": semantic_flags(record.name),
-                "candidate_semantic_flags": semantic_flags(proposed.name),
-            },
-            "relationship_type": "equivalent_label_candidate",
-            "semantic_conflicts": semantic_conflicts(record.name, proposed.name),
+            "analysis_label": label,
+            "similarity": round(_similarity(source_tokens, candidate_tokens), 4),
+            "exact_normalized_label": normalize_name(label)
+            == normalize_name(proposed.name),
+            "matched_tokens": sorted(source_tokens & candidate_tokens),
+            "source_only_tokens": sorted(source_tokens - candidate_tokens),
+            "candidate_only_tokens": sorted(candidate_tokens - source_tokens),
+            "intersection_count": len(source_tokens & candidate_tokens),
+            "union_count": len(source_tokens | candidate_tokens),
+            "source_semantic_flags": semantic_flags(label),
+            "candidate_semantic_flags": semantic_flags(proposed.name),
+            "semantic_conflicts": semantic_conflicts(label, proposed.name),
         }
 
-    def match(record: NamedRecord) -> dict[str, object]:
-        normalized = normalize_name(record.name)
-        exact_ids = exact.get(normalized, [])
-        record_tokens = retrieval_tokens(record.name)
-        candidate_ids: set[str] = set(exact_ids)
-        for token in record_tokens:
-            candidate_ids.update(inverted[token])
-        scored = sorted(
-            (
-                (_similarity(record_tokens, seed_tokens[candidate_id]), candidate_id)
-                for candidate_id in candidate_ids
-            ),
-            key=lambda item: (-item[0], item[1]),
+    def match(identity_id: str, records: list[NamedRecord]) -> dict[str, object]:
+        raw_labels = sorted({record.raw_label for record in records})
+        analysis_labels = sorted(
+            {record.name for record in records},
+            key=lambda label: (normalize_name(label), label),
         )
-        candidates = [candidate(record, candidate_id, score) for score, candidate_id in scored[:TOP_K]]
-        top_score = scored[0][0] if scored else 0.0
-        second_score = scored[1][0] if len(scored) > 1 else 0.0
+        normalized_analysis_labels = sorted(
+            {normalize_name(label) for label in analysis_labels}
+        )
+        label_tokens = {
+            label: retrieval_tokens(label) for label in analysis_labels
+        }
+        per_label_scored: list[tuple[str, list[tuple[float, str]]]] = []
+        candidate_ids: set[str] = set()
+        for label in analysis_labels:
+            normalized = normalize_name(label)
+            label_candidate_ids = set(exact.get(normalized, []))
+            tokens = label_tokens[label]
+            for token in tokens:
+                label_candidate_ids.update(inverted[token])
+            scored = sorted(
+                (
+                    (_similarity(tokens, seed_tokens[candidate_id]), candidate_id)
+                    for candidate_id in label_candidate_ids
+                ),
+                key=lambda item: (-item[0], item[1]),
+            )
+            per_label_scored.append((label, scored))
+            candidate_ids.update(label_candidate_ids)
+
+        aggregate_scored: list[tuple[float, str]] = []
+        for candidate_id in candidate_ids:
+            aggregate_score = sum(
+                _similarity(label_tokens[label], seed_tokens[candidate_id])
+                for label in analysis_labels
+            ) / len(analysis_labels)
+            aggregate_scored.append((aggregate_score, candidate_id))
+        aggregate_scored.sort(key=lambda item: (-item[0], item[1]))
+
+        candidates: list[dict[str, object]] = []
+        for score, candidate_id in aggregate_scored[:TOP_K]:
+            proposed = seed_by_id[candidate_id]
+            evaluations = [
+                label_candidate_evaluation(
+                    label,
+                    candidate_id,
+                    label_tokens[label],
+                )
+                for label in analysis_labels
+            ]
+            matched_tokens = sorted(
+                {
+                    token
+                    for evaluation in evaluations
+                    for token in evaluation["matched_tokens"]
+                }
+            )
+            source_only_tokens = sorted(
+                {
+                    token
+                    for evaluation in evaluations
+                    for token in evaluation["source_only_tokens"]
+                }
+            )
+            candidate_only_tokens = sorted(
+                {
+                    token
+                    for evaluation in evaluations
+                    for token in evaluation["candidate_only_tokens"]
+                }
+            )
+            conflicts = sorted(
+                {
+                    conflict
+                    for evaluation in evaluations
+                    for conflict in evaluation["semantic_conflicts"]
+                }
+            )
+            similarities = [float(evaluation["similarity"]) for evaluation in evaluations]
+            candidates.append(
+                {
+                    "candidate_market_id": candidate_id,
+                    "candidate_market_name": proposed.name,
+                    "similarity": round(score, 4),
+                    "similarity_range": [min(similarities), max(similarities)],
+                    "component_signals": {
+                        "exact_normalized_label": any(
+                            evaluation["exact_normalized_label"]
+                            for evaluation in evaluations
+                        ),
+                        "all_labels_exact_normalized": all(
+                            evaluation["exact_normalized_label"]
+                            for evaluation in evaluations
+                        ),
+                        "matched_tokens": matched_tokens,
+                        "source_only_tokens": source_only_tokens,
+                        "candidate_only_tokens": candidate_only_tokens,
+                        "intersection_count": sum(
+                            int(evaluation["intersection_count"])
+                            for evaluation in evaluations
+                        ),
+                        "union_count": sum(
+                            int(evaluation["union_count"])
+                            for evaluation in evaluations
+                        ),
+                        "source_semantic_flags": [
+                            evaluation["source_semantic_flags"]
+                            for evaluation in evaluations
+                        ],
+                        "candidate_semantic_flags": semantic_flags(proposed.name),
+                        "label_evaluations": evaluations,
+                    },
+                    "relationship_type": "equivalent_label_candidate",
+                    "semantic_conflicts": conflicts,
+                }
+            )
+
+        label_leaders = [
+            {
+                "analysis_label": label,
+                "top_candidate_market_id": scored[0][1] if scored else None,
+                "top_similarity": round(scored[0][0], 4) if scored else 0.0,
+            }
+            for label, scored in per_label_scored
+        ]
+        leader_ids = {leader["top_candidate_market_id"] for leader in label_leaders}
+        analysis_label_conflict = len(normalized_analysis_labels) > 1
+        label_conflict_alters_candidates = analysis_label_conflict and len(leader_ids) > 1
+        top_score = aggregate_scored[0][0] if aggregate_scored else 0.0
+        second_score = aggregate_scored[1][0] if len(aggregate_scored) > 1 else 0.0
         margin = top_score - second_score
-        has_conflict = bool(candidates and candidates[0]["semantic_conflicts"])
-        ambiguous = top_score >= MIN_PROPOSAL_SIMILARITY and margin <= AMBIGUITY_MARGIN
-        if exact_ids:
+        top_has_conflict = bool(candidates and candidates[0]["semantic_conflicts"])
+        ambiguous = (
+            top_score >= MIN_PROPOSAL_SIMILARITY and margin <= AMBIGUITY_MARGIN
+        ) or label_conflict_alters_candidates
+        exact_candidate_sets = [
+            set(exact.get(normalized_label, []))
+            for normalized_label in normalized_analysis_labels
+        ]
+        all_labels_have_exact = bool(exact_candidate_sets) and all(exact_candidate_sets)
+        same_exact_candidate = (
+            all_labels_have_exact
+            and len(set.intersection(*exact_candidate_sets)) > 0
+        )
+        if label_conflict_alters_candidates:
+            status = "ambiguous_or_semantically_conflicted_review"
+            reason = "official_label_conflict_changes_candidate_ordering"
+        elif same_exact_candidate:
             status = "exact_label_candidate"
             reason = "identical_normalized_label_still_requires_operating_identity_review"
         elif top_score >= MIN_PROPOSAL_SIMILARITY:
             status = (
                 "ambiguous_or_semantically_conflicted_review"
-                if ambiguous or has_conflict
+                if ambiguous or top_has_conflict
                 else "proposed_mapping_review"
             )
             reason = "top_k_similarity_requires_operating_identity_review"
@@ -436,7 +604,17 @@ def reconcile() -> dict[str, object]:
             status = "unmatched_requires_add_split_or_exclusion_review"
             reason = "no_sufficient_candidate_match"
         return {
-            "source_record_id": record.record_id,
+            "normalized_identity_id": identity_id,
+            "supporting_source_record_ids": sorted(
+                {record.record_id for record in records}
+            ),
+            "raw_labels": raw_labels,
+            "analysis_labels": analysis_labels,
+            "normalized_analysis_labels": normalized_analysis_labels,
+            "raw_label_conflict": len(raw_labels) > 1,
+            "analysis_label_conflict": analysis_label_conflict,
+            "label_conflict_alters_candidates": label_conflict_alters_candidates,
+            "label_candidate_leaders": label_leaders,
             "status": status,
             "reason": reason,
             "top_similarity": round(top_score, 4),
@@ -445,23 +623,10 @@ def reconcile() -> dict[str, object]:
             "candidates": candidates,
         }
 
-    source_records = [*naics, *napcs, *trilateral, *seeds]
-    mappings = [match(record) for record in [*naics, *napcs, *trilateral]]
-    identities: dict[str, dict[str, object]] = {}
-    for record in source_records:
-        for identity_id in record.normalized_identity_ids:
-            value = identities.setdefault(
-                identity_id,
-                {
-                    "identity_id": identity_id,
-                    "identity_type": identity_id.split(":", 2)[1],
-                    "source_code": record.source_code,
-                    "labels": set(),
-                    "source_record_ids": [],
-                },
-            )
-            value["labels"].add(record.raw_label)
-            value["source_record_ids"].append(record.record_id)
+    mappings = [
+        match(identity_id, records)
+        for identity_id, records in sorted(identity_records.items())
+    ]
     exact_duplicate_groups = [
         source_ids
         for source_ids in duplicate_seed_rows.values()
@@ -475,19 +640,34 @@ def reconcile() -> dict[str, object]:
         "artifact_type": "multisource_universe_reconciliation_worklist",
         "warning": "All mappings are top-k review proposals until operating-identity review; label similarity never establishes a canonical market decision.",
         "source_counts": {
+            "source_records": len(source_records),
+            "reconciliation_mappings": len(mappings),
             "naics_nodes": len(naics),
             "naics_six_digit": sum(item.record_kind == "industry" for item in naics),
-            "napcs_products": len(napcs),
+            "napcs_products": len({item.source_code for item in napcs}),
+            "napcs_source_records": len(napcs),
             "napcs_collection_records": sum(
                 item.source == "napcs_collection_codes_2022" for item in napcs
             ),
-            "napcs_relationship_only_products": sum(
+            "napcs_relationship_only_products": len(
+                {
+                    item.source_code
+                    for item in napcs
+                    if item.record_kind == "relationship_product"
+                }
+            ),
+            "napcs_relationship_product_observations": sum(
                 item.record_kind == "relationship_product" for item in napcs
             ),
-            "napcs_concordance_only_products": sum(
-                item.record_kind == "concordance_product" for item in napcs
+            "napcs_concordance_only_products": len(
+                {
+                    item.source_code
+                    for item in napcs
+                    if item.record_kind == "concordance_product"
+                }
             ),
-            "napcs_trilateral_products": len(trilateral),
+            "napcs_trilateral_products": len({item.source_code for item in trilateral}),
+            "napcs_trilateral_source_records": len(trilateral),
             "prior_seed_records": len(seeds),
             "prior_candidate_markets": len(seed_by_id),
             "normalized_source_identities": len(identities),
@@ -497,6 +677,23 @@ def reconcile() -> dict[str, object]:
             {
                 **value,
                 "labels": sorted(value["labels"]),
+                "analysis_labels": sorted(
+                    value["analysis_labels"],
+                    key=lambda label: (normalize_name(label), label),
+                ),
+                "normalized_analysis_labels": sorted(
+                    {normalize_name(label) for label in value["analysis_labels"]}
+                ),
+                "raw_label_conflict": len(value["labels"]) > 1,
+                "analysis_label_conflict": len(
+                    {normalize_name(label) for label in value["analysis_labels"]}
+                )
+                > 1,
+                "label_conflict": len(value["labels"]) > 1
+                or len(
+                    {normalize_name(label) for label in value["analysis_labels"]}
+                )
+                > 1,
                 "source_record_ids": sorted(set(value["source_record_ids"])),
             }
             for _, value in sorted(identities.items())
@@ -514,9 +711,9 @@ def reconcile() -> dict[str, object]:
         "mappings": mappings,
         "exact_duplicate_seed_groups": exact_duplicate_groups,
         "required_next_actions": [
-            "Ingest official NAICS definitions, full NAPCS hierarchy/concordance, and industry-product relationships.",
+            "Extract official NAICS definitions and complete the six-level NAPCS hierarchy.",
             "Review exact-label and top-k candidates; label similarity does not prove operating-market identity.",
-            "Resolve every source row with a typed relationship or explicit non-market disposition.",
+            "Resolve every normalized identity with a typed relationship or explicit non-market disposition.",
             "Apply buyer/job/delivery/workforce/economics/acquisition/AI identity tests.",
             "Publish append-only canonical market decisions with lineage and independent review.",
         ],

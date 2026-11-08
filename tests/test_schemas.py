@@ -9,10 +9,11 @@ from turbo.universe.graph import (
     IDENTITY_DIMENSIONS,
     MARKET_VERSION_FIELDS,
     RELATIONSHIP_TYPES,
+    market_id_from_creation,
     validate_event,
 )
 from turbo.universe.multisource import reconcile
-from tests.test_graph import creation, event
+from tests.test_graph import creation, event, market_version
 
 
 class SchemaParityTest(unittest.TestCase):
@@ -71,6 +72,98 @@ class SchemaParityTest(unittest.TestCase):
         invalid_review["review"]["proposer"] = 7
         self.assertNotEqual(list(validator.iter_errors(invalid_review)), [])
         self.assertNotEqual(validate_event(invalid_review), [])
+
+    def test_runtime_and_schema_reject_duplicate_or_blank_string_arrays(self) -> None:
+        schema = self.load("reconciliation-event.schema.json")
+        validator = Draft202012Validator(schema)
+        market_fields = (
+            "aliases",
+            "explicit_exclusions",
+            "source_record_ids",
+            "mapping_event_ids",
+            "candidate_market_ids",
+        )
+        for field in market_fields:
+            for invalid_values in (["duplicate", "duplicate"], [" "]):
+                candidate = creation(f"market-{field}-{len(invalid_values)}", "2026-11-08T12:00:00Z")
+                candidate["market_version"][field] = invalid_values
+                with self.subTest(scope="market_version", field=field, values=invalid_values):
+                    self.assertNotEqual(list(validator.iter_errors(candidate)), [])
+                    self.assertNotEqual(validate_event(candidate), [])
+
+        event_fields = (
+            "input_source_record_ids",
+            "input_market_ids",
+            "input_candidate_market_ids",
+            "output_market_ids",
+            "supporting_record_ids",
+            "counterevidence_record_ids",
+            "supersedes",
+            "supersedes_market_version_ids",
+        )
+        for field in event_fields:
+            for invalid_values in (["duplicate", "duplicate"], [" "]):
+                candidate = event(
+                    f"event-{field}-{len(invalid_values)}",
+                    "2026-11-08T12:00:00Z",
+                )
+                candidate[field] = invalid_values
+                with self.subTest(scope="event", field=field, values=invalid_values):
+                    self.assertNotEqual(list(validator.iter_errors(candidate)), [])
+                    self.assertNotEqual(validate_event(candidate), [])
+
+    def test_cross_field_parity_boundary_is_explicit_and_runtime_enforced(self) -> None:
+        schema = self.load("reconciliation-event.schema.json")
+        validator = Draft202012Validator(schema)
+        self.assertIn("Cross-field identity invariants", schema["$comment"])
+
+        split_id = "split-cross-field"
+        outputs = [market_id_from_creation(split_id, index) for index in range(2)]
+        split = event(
+            split_id,
+            "2026-11-08T12:00:00Z",
+            event_type="split",
+            input_source_record_ids=[],
+            input_market_ids=["market:111111111111111111111111"],
+            output_market_ids=outputs,
+            relationship_type=None,
+            market_versions=[
+                market_version(split_id, output, f"Successor {index}")
+                for index, output in enumerate(outputs, 1)
+            ],
+        )
+        split["market_versions"].append(
+            market_version(split_id, outputs[0], "Extra version")
+        )
+        self.assertEqual(list(validator.iter_errors(split)), [])
+        self.assertIn(
+            "split requires one market version per output",
+            validate_event(split),
+        )
+
+        original = creation("rename-source", "2026-11-08T11:00:00Z")
+        input_market_id = original["output_market_ids"][0]
+        output_market_id = market_id_from_creation("rename-different-output")
+        rename = event(
+            "rename-cross-field",
+            "2026-11-08T12:00:00Z",
+            event_type="rename",
+            input_source_record_ids=[],
+            input_market_ids=[input_market_id],
+            output_market_ids=[output_market_id],
+            relationship_type=None,
+            supersedes_market_version_ids=[
+                original["market_version"]["market_version_id"]
+            ],
+            market_version=market_version(
+                "rename-cross-field", output_market_id, "Renamed market"
+            ),
+        )
+        self.assertEqual(list(validator.iter_errors(rename)), [])
+        self.assertIn(
+            "rename must preserve exactly one market ID",
+            validate_event(rename),
+        )
 
 
 if __name__ == "__main__":

@@ -17,6 +17,7 @@
     "hierarchy_path",
     "parent_ids",
     "source_relationships",
+    "source_indicator",
     "normalized_label",
     "semantic_flags"
   ],
@@ -71,6 +72,7 @@
         }
       }
     },
+    "source_indicator": {"type": "string"},
     "normalized_label": {"type": "string"},
     "semantic_flags": {"type": "object"}
   }

@@ -51,7 +51,10 @@ labels and source IDs. Every normalized decision points back to those immutable 
 Automatic normalization is limited to deterministic cleaning, row-role typing,
 hierarchy preservation, semantic flags, and top-k retrieval. Exact and fuzzy matches
 are proposals only. Candidate output currently retains Jaccard similarity, top-two
-margin, exclusions, residual flags, contradictions, and ambiguity. Review applies the seven
+margin, exclusions, residual flags, contradictions, official label conflicts, and
+ambiguity. Structural NAICS markers remain in raw evidence but are excluded from
+normalized labels and retrieval. Pair-level relationship edges preserve every
+contributing row-level locator. Review applies the seven
 operating-identity tests and records rationale, reviewer, cutoff, confidence,
 alternatives, and directed lineage.
 
@@ -103,7 +106,9 @@ flags; and top-k candidates with component signals. Both
 collection/trilateral concordances and both Economic Census industry-product archives
 are preserved and parsed into a summary plus complete many-to-many relationship
 artifact with referentially closed identity endpoints. Seven official `NA`
-concordance rows remain explicit non-mapping dispositions. NAICS Manual definition
+concordance rows remain explicit non-mapping dispositions. The reconciliation layer
+retains 28,668 immutable source rows/observations but produces one review mapping for
+each of 10,433 normalized identities. NAICS Manual definition
 extraction, the complete
 trilateral hierarchy capture, canonical operating-market decisions, SUSB size
 filtering, and enrichment remain incomplete and must precede claims of Target Market

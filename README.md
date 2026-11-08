@@ -140,14 +140,17 @@ bound to the complete eight-snapshot registry. The two concordances and two
 relationship archives are parsed into both a summary and a complete relationship
 artifact containing 3,516 distinct collection/trilateral relationships, 7 explicit
 official no-mapping dispositions, and 37,232 distinct national six-digit
-NAICS–NAPCS relationships. Every relationship endpoint resolves to a preserved
-normalized identity, and every observation retains a governed snapshot and exact
-locator. The NAICS Manual is preserved, but definition extraction remains open.
+NAICS–NAPCS relationships. Their 80,111 contributing national six-digit source
+observations remain distinct, each with a governed snapshot and unique row-level
+locator. Every relationship endpoint resolves to a preserved normalized identity.
+The NAICS Manual is preserved, but definition extraction remains open.
 Parsing is not represented as a canonical market decision.
 
-The reconciliation artifact preserves 11,411 source rows or source observations
-with snapshot IDs, raw labels, definitions where available, exact locators, hierarchy paths, parent
-IDs, source relationships, row roles, and semantic flags. It separately publishes
+The reconciliation artifact preserves 28,668 source rows or source observations
+with snapshot IDs, raw labels, definitions where available, exact locators, hierarchy
+paths, parent IDs, source relationships, row roles, and semantic flags. This includes
+12,247 exact rows supporting the 945 relationship-only collection identities and
+7,026 snapshot-specific trilateral label observations. It separately publishes
 10,433 normalized NAICS/NAPCS identity nodes; source-row IDs, normalized identities,
 candidate-market hypotheses, and future canonical-market IDs use different typed
 namespaces. The 6,290 collection-code
@@ -160,10 +163,12 @@ reordered rows cannot change candidate identity.
 Exact and fuzzy matches remain review proposals. Retrieval retains up to five
 candidates, the top-two margin, ambiguity, and semantic conflicts such as residual
 scope, excluded scope, or hazardous/nonhazardous mismatch. The current worklist has
-233 exact-label candidates, 169 clean top-candidate proposals, 26 ambiguous or
-semantically conflicted proposals, and 10,005 unmatched rows. Each result exposes
+351 exact-label candidates, 146 clean top-candidate proposals, 36 ambiguous or
+semantically conflicted proposals, and 9,900 unmatched identities. Each result exposes
 matched, source-only, and candidate-only tokens, exact-label and semantic-scope
-signals, the top-two margin, and contradictions. The safer method reduced
+signals, the top-two margin, contradictions, all supporting source rows, and every
+official label evaluation. Conflicting labels remain visible and force conflict
+review when they change candidate ordering. The safer method reduced
 unsafe similarity because scope words are no longer discarded. The absolute worklist
 is larger because all hierarchy and trilateral identities are now included. A high unmatched
 count is expected because NAPCS contains products, controls, and aggregates—not one
@@ -258,7 +263,9 @@ starting lists.
 | NAPCS collection identities in reconciliation | 7,236 |
 | NAPCS trilateral identities recovered from concordances | 1,072 |
 | Normalized NAICS/NAPCS identities | 10,433 |
-| Preserved source rows/observations including prior seeds | 11,411 |
+| Preserved source rows/observations including prior seeds | 28,668 |
+| Relationship-only collection source observations | 12,247 |
+| Trilateral label source observations | 7,026 |
 | Prior-model market seeds | 978 |
 | Governed source snapshots | 8 |
 | Collection-to-trilateral concordance rows | 3,520 |
@@ -269,10 +276,11 @@ starting lists.
 | Preserved collection/trilateral relationships | 3,516 |
 | Explicit official no-trilateral-mapping dispositions | 7 |
 | Preserved national six-digit NAICS-NAPCS relationships | 37,232 |
-| Exact-label review candidates | 233 |
-| Clean top-candidate proposals | 169 |
-| Ambiguous/conflicted proposals | 26 |
-| Unmatched reconciliation items | 10,005 |
+| Contributing national six-digit relationship observations | 80,111 |
+| Exact-label review candidates | 351 |
+| Clean top-candidate proposals | 146 |
+| Ambiguous/conflicted proposals | 36 |
+| Unmatched reconciliation items | 9,900 |
 | Canonical markets accepted | 0 |
 | Target markets filtered | 0 |
 | Research scores produced | 0 |
