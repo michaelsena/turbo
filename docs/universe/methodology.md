@@ -48,6 +48,17 @@ For each source, commit the original bytes and a manifest containing dataset ID,
 publisher, URL, retrieval UTC, SHA-256, reuse status, and role. Parsers retain raw
 labels and source IDs. Every normalized decision points back to those immutable rows.
 
+During this acquisition, direct unauthenticated non-browser requests to the legacy
+Census NAPCS hierarchy pages returned Cloudflare errors. Turbo therefore uses a
+pre-registered same-origin public-browser capture that stores
+each HTTP response entity body as base64 inside one immutable envelope, with its
+canonical/final URL, retrieval UTC, visible response metadata, byte length, and
+SHA-256. The envelope contains no login credentials, cookies, or browser storage.
+Validation decodes and re-hashes every page before parsing, rejects gateway/challenge
+content, and requires the exact 24-section source set. This capture layer preserves
+the response entity after normal HTTP content decoding; it does not claim to preserve
+transport-level gzip framing.
+
 Automatic normalization is limited to deterministic cleaning, row-role typing,
 hierarchy preservation, semantic flags, and top-k retrieval. Exact and fuzzy matches
 are proposals only. Candidate output currently retains Jaccard similarity, top-two
@@ -127,7 +138,7 @@ scored market in place.
 
 ## Operating-family review
 
-The 10,433 normalized NAICS/NAPCS identities are partitioned into bounded operating
+The 11,543 normalized NAICS/NAPCS identities are partitioned into bounded operating
 families rather than
 reviewed as one flat list. For each family, one specialist proposes boundaries, a
 second independently tests them and searches for countercases, and adjudication
@@ -152,8 +163,8 @@ universe and operating playbook, not whether their labels sound similar.
 
 The bootstrap ingests all 2,125 official NAICS hierarchy nodes, the 2022 Economic
 Census NAPCS collection-code list, 945 additional product identities observed only
-in the relationship archive, one concordance-only collection identity, 1,072
-trilateral identities, and the prior 978-market seed. Issue #2 upgrades that
+in the relationship archive, one concordance-only collection identity, all 2,182
+published trilateral hierarchy nodes, and the prior 978-market seed. Issue #2 upgrades that
 worklist with separate source-row, normalized-source-identity, stable content-based
 candidate, and opaque canonical-market IDs; preserved lineage, row roles and semantic
 flags; and top-k candidates with component signals. Both
@@ -161,8 +172,8 @@ collection/trilateral concordances and both Economic Census industry-product arc
 are preserved and parsed into a summary plus complete many-to-many relationship
 artifact with referentially closed identity endpoints. Seven official `NA`
 concordance rows remain explicit non-mapping dispositions. The reconciliation layer
-retains 28,668 source rows/observations but produces one review mapping for each of
-10,433 normalized identities. The NAICS Manual identity layer now contains exactly
+retains 30,850 source rows/observations but produces one review mapping for each of
+11,543 normalized identities. The NAICS Manual identity layer now contains exactly
 one definition record for all 2,125 hierarchy identities, including 1,572 substantive
 definitions, 522 delegated definition links, 31 title-only headings, 381 illustrative
 example blocks, and 1,095 cross-reference blocks. Its 20,373 coded alphabetic-index
@@ -171,11 +182,11 @@ and 846 bridge
 observations are published separately as replayable identity evidence so they cannot
 silently alter market-candidate retrieval.
 
-The complete trilateral hierarchy capture remains blocked on preservation of original
-Census bytes. A semantic audit of the 24 live section pages found 2,182 published
-nodes (24 sections, 60 subsections, 169 divisions, 274 groups, 496 subgroups, and
-1,159 products), including 87 products absent from the two concordance workbooks.
-Those transformed audit results are not substituted for original public-source
-snapshots. Canonical operating-market decisions, SUSB size filtering, and enrichment
-remain incomplete and must precede claims of Target Market completeness.
+The complete hierarchy capture now preserves 1,064,705 verified response-entity
+bytes across 24 official pages. Its 2,182 nodes comprise 24 sections, 60 subsections,
+169 divisions, 274 groups, 496 subgroups, and 1,159 products, including 87 products
+absent from both concordance workbooks. The one published missing-parent anomaly is
+kept as an explicit gap rather than repaired. Canonical operating-market decisions,
+SUSB size filtering, and enrichment remain incomplete and must precede claims of
+Target Market completeness.
 

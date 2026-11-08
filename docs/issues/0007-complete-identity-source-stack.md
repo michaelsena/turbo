@@ -12,11 +12,13 @@ attractiveness.
 Can the pinned official public sources deterministically recover:
 
 1. NAICS Manual index terms and, separately, industry definition semantics;
-2. the full six-level 2022 NAPCS hierarchy from original Census bytes; and
+2. the full six-level 2022 NAPCS hierarchy from exact Census response-entity
+   bytes captured after normal HTTP content decoding; and
 3. exact 2017/2022 NAICS lineage plus quantitative bridge observations?
 
-Acceptance requires immutable original bytes, source manifests, exact locators,
-replayable parsers, explicit coverage tests, and no downstream market decisions.
+Acceptance requires immutable source bytes at the documented capture layer, source
+manifests, exact locators, replayable parsers, explicit coverage tests, and no
+downstream market decisions. Transport-level compression and framing are not claimed.
 
 ## Completed increment
 
@@ -53,15 +55,25 @@ replayable parsers, explicit coverage tests, and no downstream market decisions.
 - Re-review then found the recurring comparability footer inside 458 definition
   records. The definition body gate now excludes that y-coordinate band, and a
   full-record regression rejects the footer phrase from every semantic field.
+- Captured all 24 official Census NAPCS hierarchy pages through a same-origin public
+  browser session after unauthenticated non-browser requests returned Cloudflare
+  errors. The immutable capture envelope contains 1,064,705 response-entity bytes,
+  the canonical and final URL, UTC retrieval time, response metadata, byte length,
+  and SHA-256 for every page. No login credentials, cookies, or browser storage are
+  included.
+- Parsed exactly 2,182 published hierarchy nodes: 24 sections, 60 subsections, 169
+  divisions, 274 groups, 496 subgroups, and 1,159 trilateral products. All 1,072
+  concordance products resolve; the 87 hierarchy-only products now enter the source
+  identity worklist.
+- Preserved the published `1110201` / absent-`11102` parent-prefix anomaly explicitly.
+  The parser does not invent the missing division or create a false parent edge.
 
-## Open source gaps
+## Closure gates
 
-- Capture original bytes for all 24 live Census NAPCS section pages (or an official
-  downloadable equivalent). A read-only semantic audit found 2,182 published rows,
-  but the public site blocks automated raw retrieval and the `www2` paths return 404.
-  Transformed text is audit evidence only and cannot satisfy the immutable-source gate.
-- Preserve the single published NAPCS parent-prefix exception (`1110201` without a
-  published `11102` parent) as an explicit source anomaly; do not invent the parent.
+- Recompute all 24 embedded response-body hashes from the immutable envelope.
+- Reproduce exact page, level, hierarchy-only-product, and anomaly counts.
+- Pass full local validation, exact replay, full tests, and independent exact-head
+  review before treating the source-stack issue as complete.
 
 ## Boundaries
 

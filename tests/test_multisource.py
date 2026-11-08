@@ -3,6 +3,7 @@ import unittest
 from turbo.universe.multisource import (
     parse_napcs,
     parse_prior,
+    parse_trilateral_hierarchy,
     parse_trilateral_products,
     prior_records,
     reconcile,
@@ -43,6 +44,16 @@ class MultiSourceUniverseTest(unittest.TestCase):
             len({record.source_code for record in parse_trilateral_products()}),
             1_072,
         )
+        hierarchy = parse_trilateral_hierarchy()
+        self.assertEqual(len(hierarchy), 2_182)
+        self.assertEqual(
+            len({record.source_code for record in hierarchy if len(record.source_code) == 11}),
+            1_159,
+        )
+        self.assertEqual(
+            sum(record.source_indicator.startswith("missing_published_parent:") for record in hierarchy),
+            1,
+        )
         self.assertEqual(len(parse_prior()), 978)
 
     def test_reconciliation_preserves_every_source_row(self) -> None:
@@ -76,6 +87,7 @@ class MultiSourceUniverseTest(unittest.TestCase):
             counts["naics_nodes"]
             + counts["napcs_source_records"]
             + counts["napcs_trilateral_source_records"]
+            + counts["napcs_trilateral_hierarchy_nodes"]
             + counts["prior_seed_records"],
         )
         self.assertEqual(len(result["source_records"]), counts["source_records"])

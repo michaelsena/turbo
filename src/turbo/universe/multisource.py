@@ -15,6 +15,7 @@ from turbo.universe.identity_sources import (
     relationship_product_observations,
 )
 from turbo.universe.naics import parse_naics, read_first_sheet
+from turbo.universe.napcs_hierarchy import parse_napcs_hierarchy
 
 NAICS = ROOT / "data/source_snapshots/2022-naics-structure.xlsx"
 NAPCS = ROOT / "data/source_snapshots/2022-economic-census-napcs-codes.xlsx"
@@ -287,6 +288,70 @@ def parse_trilateral_products() -> list[NamedRecord]:
     return sorted(records, key=lambda record: record.record_id)
 
 
+def parse_trilateral_hierarchy() -> list[NamedRecord]:
+    nodes = parse_napcs_hierarchy()
+    node_by_code = {node.code: node for node in nodes}
+
+    def hierarchy_path(code: str) -> tuple[str, ...]:
+        path: list[str] = []
+        current = node_by_code[code]
+        while True:
+            path.append(f"identity:napcs-trilateral:{current.code}")
+            if current.parent_code is None:
+                break
+            current = node_by_code[current.parent_code]
+        return tuple(reversed(path))
+
+    records: list[NamedRecord] = []
+    for node in nodes:
+        parent_ids = (
+            (f"identity:napcs-trilateral:{node.parent_code}",)
+            if node.parent_code is not None
+            else ()
+        )
+        source_relationships = (
+            (
+                {
+                    "relationship_type": "source_parent",
+                    "target_identity_id": parent_ids[0],
+                },
+            )
+            if parent_ids
+            else ()
+        )
+        source_indicator = (
+            f"missing_published_parent:{node.expected_parent_code}"
+            if node.parent_status == "missing_published_parent"
+            else ""
+        )
+        records.append(
+            NamedRecord(
+                record_id=(
+                    "source-row:census-napcs-2022-trilateral-hierarchy:"
+                    f"{node.code}"
+                ),
+                source="napcs_trilateral_hierarchy_2022",
+                source_code=node.code,
+                raw_label=node.raw_title,
+                record_kind=(
+                    "napcs_trilateral_product"
+                    if node.level_name == "trilateral_product"
+                    else f"napcs_trilateral_{node.level_name}"
+                ),
+                locator=node.locator,
+                snapshot_id=node.snapshot_id,
+                normalized_identity_ids=(
+                    f"identity:napcs-trilateral:{node.code}",
+                ),
+                hierarchy_path=hierarchy_path(node.code),
+                parent_ids=parent_ids,
+                source_relationships=source_relationships,
+                source_indicator=source_indicator,
+            )
+        )
+    return records
+
+
 def prior_records(names: list[str]) -> list[NamedRecord]:
     totals = Counter(names)
     seen: Counter[str] = Counter()
@@ -381,6 +446,7 @@ def reconcile() -> dict[str, object]:
         )
     napcs = parse_napcs()
     trilateral = parse_trilateral_products()
+    trilateral_hierarchy = parse_trilateral_hierarchy()
     seeds = parse_prior()
     seed_by_id: dict[str, NamedRecord] = {}
     duplicate_seed_rows: dict[str, list[str]] = defaultdict(list)
@@ -400,7 +466,13 @@ def reconcile() -> dict[str, object]:
     for ids in exact.values():
         ids.sort()
 
-    source_records = [*naics, *napcs, *trilateral, *seeds]
+    source_records = [
+        *naics,
+        *napcs,
+        *trilateral,
+        *trilateral_hierarchy,
+        *seeds,
+    ]
     identities: dict[str, dict[str, object]] = {}
     identity_records: dict[str, list[NamedRecord]] = defaultdict(list)
     for record in source_records:
@@ -666,8 +738,29 @@ def reconcile() -> dict[str, object]:
                     if item.record_kind == "concordance_product"
                 }
             ),
-            "napcs_trilateral_products": len({item.source_code for item in trilateral}),
+            "napcs_trilateral_products": len(
+                {item.source_code for item in trilateral_hierarchy if len(item.source_code) == 11}
+            ),
+            "napcs_trilateral_concordance_products": len(
+                {item.source_code for item in trilateral}
+            ),
             "napcs_trilateral_source_records": len(trilateral),
+            "napcs_trilateral_hierarchy_nodes": len(trilateral_hierarchy),
+            "napcs_trilateral_hierarchy_products": sum(
+                len(item.source_code) == 11 for item in trilateral_hierarchy
+            ),
+            "napcs_trilateral_hierarchy_only_products": len(
+                {
+                    item.source_code
+                    for item in trilateral_hierarchy
+                    if len(item.source_code) == 11
+                }
+                - {item.source_code for item in trilateral}
+            ),
+            "napcs_trilateral_published_parent_anomalies": sum(
+                item.source_indicator.startswith("missing_published_parent:")
+                for item in trilateral_hierarchy
+            ),
             "prior_seed_records": len(seeds),
             "prior_candidate_markets": len(seed_by_id),
             "normalized_source_identities": len(identities),

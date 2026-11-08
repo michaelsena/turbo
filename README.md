@@ -129,15 +129,17 @@ The repository now preserves all three initial lists:
 - 6,290 rows from the 2022 Economic Census NAPCS code/description workbook
 - 945 additional NAPCS product identities observed in the official
   product-by-industry archive but absent from that collection-code workbook
-- 1 collection identity found only in the official concordance and 1,072
-  distinct trilateral product identities recovered from both concordance directions
+- 1 collection identity found only in the official concordance and all 1,159
+  distinct trilateral product identities from the complete six-level hierarchy;
+  1,072 appear in the concordances and 87 are hierarchy-only
 - all 978 markets from the prior normalized model
 
-It also preserves nine official identity-supporting snapshots: the 2022 NAICS Manual,
+It also preserves the official identity-supporting snapshots: the 2022 NAICS Manual,
 both 2017/2022 NAICS full concordance directions, both 2022 Economic Census NAICS
 bridge directions, both 2022 NAPCS collection/trilateral concordances, and both Economic Census
-industry-by-product/product-by-industry relationship datasets. The run receipt is
-bound to the complete twelve-snapshot registry. The NAPCS concordances and two
+industry-by-product/product-by-industry relationship datasets, plus a 24-page
+same-origin browser capture of the complete 2022 NAPCS trilateral hierarchy. The run
+receipt is bound to the complete thirteen-snapshot registry. The NAPCS concordances and two
 relationship archives are parsed into both a summary and a complete relationship
 artifact containing 3,516 distinct collection/trilateral relationships, 7 explicit
 official no-mapping dispositions, and 37,232 distinct national six-digit
@@ -159,27 +161,32 @@ level-four headings are title-only. It also preserves 381 illustrative-example
 blocks and 1,095 cross-reference blocks. Every block retains its original coordinate
 fragments, exact physical-page locator, and current identity endpoint. These semantic
 records enrich identity review; parsing is not represented as a canonical market
-decision.
+decision. The NAPCS hierarchy capture preserves 1,064,705 response-entity bytes with
+an independently verified hash for every page. Its deterministic parser closes 2,182
+published nodes: 24 sections, 60 subsections, 169 divisions, 274 groups, 496
+subgroups, and 1,159 trilateral products. The source's single missing-parent anomaly
+(`1110201` without a published `11102`) remains explicit and is not silently repaired.
 
-The reconciliation artifact preserves 28,668 source rows or source observations
+The reconciliation artifact preserves 30,850 source rows or source observations
 with snapshot IDs, raw labels, definitions where available, exact locators, hierarchy
 paths, parent IDs, source relationships, row roles, and semantic flags. This includes
 12,247 exact rows supporting the 945 relationship-only collection identities and
 7,026 snapshot-specific trilateral label observations. It separately publishes
-10,433 normalized NAICS/NAPCS identity nodes; source-row IDs, normalized identities,
+11,543 normalized NAICS/NAPCS identity nodes; source-row IDs, normalized identities,
 candidate-market hypotheses, and future canonical-market IDs use different typed
 namespaces. The 6,290 collection-code
 rows are typed as 2,574 broad lines, 3,710 detail lines, and 6 survey controls; the
 945 relationship-only and 1 concordance-only collection products retain neutral row
-roles, while 1,072 trilateral products remain distinct. Prior source rows
+roles, while all 1,159 trilateral products and their five published aggregate levels
+remain distinct. Prior source rows
 remain distinct from content-derived candidate-market hypotheses, so duplicate or
 reordered rows cannot change candidate identity.
 
 Exact and fuzzy matches remain review proposals. Retrieval retains up to five
 candidates, the top-two margin, ambiguity, and semantic conflicts such as residual
 scope, excluded scope, or hazardous/nonhazardous mismatch. The current worklist has
-351 exact-label candidates, 146 clean top-candidate proposals, 36 ambiguous or
-semantically conflicted proposals, and 9,900 unmatched identities. Each result exposes
+352 exact-label candidates, 167 clean top-candidate proposals, 44 ambiguous or
+semantically conflicted proposals, and 10,980 unmatched identities. Each result exposes
 matched, source-only, and candidate-only tokens, exact-label and semantic-scope
 signals, the top-two margin, contradictions, all supporting source rows, and every
 official label evaluation. Conflicting labels remain visible and force conflict
@@ -319,19 +326,24 @@ starting lists.
 
 | Result | Count |
 | --- | ---: |
-| Official hierarchy nodes | 2,125 |
+| Official NAICS hierarchy nodes | 2,125 |
 | Six-digit NAICS source categories | 1,012 |
 | NAPCS collection-code rows | 6,290 |
 | Additional relationship-only NAPCS products | 945 |
 | Concordance-only collection products | 1 |
 | NAPCS collection identities in reconciliation | 7,236 |
-| NAPCS trilateral identities recovered from concordances | 1,072 |
-| Normalized NAICS/NAPCS identities | 10,433 |
-| Preserved source rows/observations including prior seeds | 28,668 |
+| NAPCS hierarchy pages | 24 |
+| NAPCS hierarchy response-entity bytes | 1,064,705 |
+| NAPCS six-level hierarchy nodes | 2,182 |
+| NAPCS trilateral products | 1,159 |
+| NAPCS hierarchy-only products beyond concordances | 87 |
+| Published NAPCS missing-parent anomalies | 1 |
+| Normalized NAICS/NAPCS identities | 11,543 |
+| Preserved source rows/observations including prior seeds | 30,850 |
 | Relationship-only collection source observations | 12,247 |
 | Trilateral label source observations | 7,026 |
 | Prior-model market seeds | 978 |
-| Governed source snapshots | 12 |
+| Governed source snapshots | 13 |
 | NAICS Manual coded alphabetic-index entries | 20,373 |
 | NAICS Manual uncoded cross-reference rows | 25 |
 | Six-digit codes represented in the manual index | 1,010 |
@@ -352,10 +364,10 @@ starting lists.
 | Explicit official no-trilateral-mapping dispositions | 7 |
 | Preserved national six-digit NAICS-NAPCS relationships | 37,232 |
 | Contributing national six-digit relationship observations | 80,111 |
-| Exact-label review candidates | 351 |
-| Clean top-candidate proposals | 146 |
-| Ambiguous/conflicted proposals | 36 |
-| Unmatched reconciliation items | 9,900 |
+| Exact-label review candidates | 352 |
+| Clean top-candidate proposals | 167 |
+| Ambiguous/conflicted proposals | 44 |
+| Unmatched reconciliation items | 10,980 |
 | Canonical markets accepted | 0 |
 | Target markets filtered | 0 |
 | Research scores produced | 0 |
@@ -378,6 +390,7 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | --- | --- |
 | `src/turbo/universe/naics.py` | Deterministic parser for the official NAICS workbook |
 | `src/turbo/universe/naics_identity_sources.py` | Coordinate-aware NAICS index and definition, vintage-lineage, and bridge parsers |
+| `src/turbo/universe/napcs_hierarchy.py` | Fail-closed parser for the 24-page official six-level NAPCS hierarchy capture |
 | `src/turbo/universe/multisource.py` | Multi-list normalization and reconciliation worklist |
 | `src/turbo/pipeline.py` | Replayable source-universe and reconciliation generation |
 | `src/turbo/cli.py` | Local run, validation, and context commands |
@@ -457,19 +470,17 @@ results coherent. See [the local operating runbook](docs/operations/runbook.md).
 
 ## Near-term roadmap
 
-1. Capture original bytes for the complete six-level NAPCS hierarchy; the official
-   NAICS Manual definition layer is complete and replayable.
-2. Run AI operating-family review and append accepted split, merge, map, exclusion,
+1. Run AI operating-family review and append accepted split, merge, map, exclusion,
    and market-creation events.
-3. Complete the cross-family coverage audit and publish the first canonical graph.
-4. Add SUSB and QCEW evidence and publish the separately versioned Target Market
+2. Complete the cross-family coverage audit and publish the first canonical graph.
+3. Add SUSB and QCEW evidence and publish the separately versioned Target Market
    Universe.
-5. Implement the first production evaluation submodel only after target eligibility
+4. Implement the first production evaluation submodel only after target eligibility
    is available.
-6. Implement specialist independence, mandatory adjudication, submodel pairwise
+5. Implement specialist independence, mandatory adjudication, submodel pairwise
    comparators, gap priority, and versioned score events.
-7. Build the read API and initial universe/ranking dashboard.
-8. Continuously research, compare, and rerank markets while preserving every version.
+6. Build the read API and initial universe/ranking dashboard.
+7. Continuously research, compare, and rerank markets while preserving every version.
 
 ## Important limitations
 

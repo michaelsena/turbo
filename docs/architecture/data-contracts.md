@@ -7,6 +7,11 @@ unreviewable source of truth.
 
 Immutable bytes plus dataset ID, publisher, canonical URL, retrieval UTC, SHA-256,
 reuse status, and declared role. Validation fails when bytes differ from the manifest.
+For a governed multi-page browser capture, the immutable envelope additionally stores
+each canonical/final URL, response status and content type, retrieval UTC, byte length,
+body SHA-256, and base64 response entity. Capture metadata states whether ordinary
+HTTP content decoding occurred; transport framing is never implied. Cookies,
+credentials, and browser storage are excluded from the source snapshot.
 
 ## Source record
 

@@ -1,0 +1,12 @@
+{
+  "acquired_at": "2026-11-08T22:51:36Z",
+  "capture_layer": "same_origin_browser_fetch_response_entity_bytes_after_http_content_decoding",
+  "dataset_id": "census-napcs-2022-trilateral-hierarchy",
+  "file": "2022-napcs-trilateral-hierarchy-browser-capture.json",
+  "page_count": 24,
+  "publisher": "United States Census Bureau",
+  "reuse": "public_official_source",
+  "role": "complete_six_level_trilateral_product_hierarchy",
+  "sha256": "2141c9d7e48de2b70e7f600d36af3503dc6342fc75fc26d381872471ab76de94",
+  "source_url": "https://www.census.gov/naics/napcs/"
+}
