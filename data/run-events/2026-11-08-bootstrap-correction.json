@@ -1,0 +1,12 @@
+{
+  "event_id": "run-event-2026-11-08-bootstrap-correction",
+  "event_type": "supersedes",
+  "new_run_id": "run-d49a5798afc8fb3e2635",
+  "old_run_id": "run-6ee0fdaf54913e16aa27",
+  "reasons": [
+    "Exact normalized labels are candidates requiring operating-identity review, not accepted mappings.",
+    "The corrected run ID includes source-manifest, strategy-config, and factor-config hashes."
+  ],
+  "recorded_at": "2026-11-08T18:30:00Z"
+}
+

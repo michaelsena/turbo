@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "turbo-market-engine"
+version = "0.1.0"
+description = "Auditable, continuously improving market research and ranking for an AI-enabled LMM roll-up strategy"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+turbo = "turbo.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+

@@ -1,0 +1,28 @@
+{
+  "company_research_authorized": false,
+  "currency": "USD",
+  "evidence_boundaries": {
+    "allow_outreach": false,
+    "allow_paid_sources": false,
+    "allow_public_sources": true
+  },
+  "excluded_exposures": [
+    "healthcare_delivery",
+    "government_dependent_revenue",
+    "heavy_equipment_ownership",
+    "significant_inventory",
+    "insurance_or_credit_risk",
+    "unionized_workforces",
+    "reimbursement_exposure"
+  ],
+  "geography": "United States",
+  "ownership_models": ["permanent_holdco", "build_and_exit_platform"],
+  "purchase_multiple": {
+    "hard_ceiling_ebitda": 9.0,
+    "preferred_max_ebitda": 8.0,
+    "preferred_min_ebitda": 7.0
+  },
+  "target_enterprise_value": {"maximum": 50000000, "minimum": 10000000},
+  "version": 1
+}
+
