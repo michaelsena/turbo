@@ -1,0 +1,10 @@
+{
+  "acquired_at": "2026-11-08T18:54:36Z",
+  "dataset_id": "census-economic-census-2022-industry-by-products",
+  "file": "2022-ecn-industry-by-products.zip",
+  "publisher": "United States Census Bureau",
+  "reuse": "public_official_source",
+  "role": "observed_many_to_many_naics_industry_to_napcs_product_relationships",
+  "sha256": "371b91cb3f84313f9e95023c1aa488b4cf129777e9f347a1dd34c4d60bd4388d",
+  "source_url": "https://www2.census.gov/programs-surveys/economic-census/data/2022/sector00/EC2200NAPCSINDPRD.zip"
+}

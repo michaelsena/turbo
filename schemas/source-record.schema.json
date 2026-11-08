@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelsena/turbo/schemas/source-record.schema.json",
+  "title": "Turbo source record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "source",
+    "source_code",
+    "raw_label",
+    "record_kind",
+    "locator",
+    "normalized_label",
+    "semantic_flags"
+  ],
+  "properties": {
+    "record_id": {"type": "string", "minLength": 1},
+    "source": {"type": "string", "minLength": 1},
+    "source_code": {"type": "string"},
+    "raw_label": {"type": "string", "minLength": 1},
+    "record_kind": {
+      "enum": [
+        "industry",
+        "napcs_broad_line",
+        "napcs_detail_line",
+        "survey_control",
+        "market_hypothesis",
+        "aggregate",
+        "residual",
+        "task",
+        "unknown"
+      ]
+    },
+    "locator": {"type": "string", "minLength": 1},
+    "normalized_label": {"type": "string"},
+    "semantic_flags": {"type": "object"}
+  }
+}

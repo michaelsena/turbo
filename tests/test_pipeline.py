@@ -20,6 +20,7 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(before, after)
         self.assertEqual(first["canonical_markets"], 0)
         self.assertEqual(first["research_scores"], 0)
+        self.assertGreaterEqual(first["governed_source_snapshots"], 8)
 
 
 if __name__ == "__main__":

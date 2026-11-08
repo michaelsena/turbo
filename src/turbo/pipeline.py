@@ -10,6 +10,7 @@ from turbo.universe.multisource import NAPCS, PRIOR, reconcile
 from turbo.universe.naics import parse_naics
 
 SOURCE = ROOT / "data/source_snapshots/2022-naics-structure.xlsx"
+SOURCE_SNAPSHOT_DIR = ROOT / "data/source_snapshots"
 SOURCE_MANIFEST = ROOT / "data/source_snapshots/census-naics-2022.snapshot.json"
 NAPCS_MANIFEST = ROOT / "data/source_snapshots/census-napcs-2022.snapshot.json"
 PRIOR_MANIFEST = ROOT / "data/source_snapshots/prior-model-normalized-markets-2026-11-05.snapshot.json"
@@ -17,7 +18,7 @@ STRATEGY_CONFIG = ROOT / "config/strategy.json"
 GENERATED = ROOT / "data/generated"
 RUNS = ROOT / "data/runs"
 SOURCE_URL = "https://www.census.gov/naics/2022NAICS/2022_NAICS_Structure.xlsx"
-METHOD_VERSION = "multisource-universe-bootstrap-v2"
+METHOD_VERSION = "semantic-reconciliation-worklist-v1"
 
 
 def sha256(path: Path) -> str:
@@ -31,6 +32,22 @@ def sha256(path: Path) -> str:
 def _write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def source_registry() -> list[dict[str, object]]:
+    registry: list[dict[str, object]] = []
+    for manifest_path in sorted(SOURCE_SNAPSHOT_DIR.glob("*.snapshot.json")):
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        registry.append(
+            {
+                "dataset_id": manifest["dataset_id"],
+                "file": manifest["file"],
+                "manifest_file": manifest_path.name,
+                "manifest_sha256": sha256(manifest_path),
+                "sha256": manifest["sha256"],
+            }
+        )
+    return registry
 
 
 def _canonical_bytes(value: object) -> bytes:
@@ -68,6 +85,7 @@ def run() -> dict[str, object]:
     if source_hash != source_manifest["sha256"]:
         raise ValueError("source snapshot hash does not match pinned manifest")
     code_fingerprint = _code_fingerprint()
+    registry = source_registry()
     run_config = {
         "code_fingerprint": code_fingerprint,
         "method_version": METHOD_VERSION,
@@ -79,6 +97,7 @@ def run() -> dict[str, object]:
         "napcs_manifest_sha256": sha256(NAPCS_MANIFEST),
         "prior_seed_manifest_sha256": sha256(PRIOR_MANIFEST),
         "strategy_config_sha256": sha256(STRATEGY_CONFIG),
+        "source_registry_sha256": hashlib.sha256(_canonical_bytes(registry)).hexdigest(),
     }
     run_id = "run-" + hashlib.sha256(_canonical_bytes(run_config)).hexdigest()[:20]
     run_dir = RUNS / run_id
@@ -96,6 +115,7 @@ def run() -> dict[str, object]:
         "run_config": run_config,
         "source_sha256": source_hash,
         "source_nodes": len(nodes),
+        "governed_source_snapshots": len(registry),
         "multisource_counts": reconciliation["source_counts"],
         "reconciliation_mapping_counts": reconciliation["mapping_counts"],
         "six_digit_source_categories": len(leaf_nodes),
@@ -122,18 +142,36 @@ def run() -> dict[str, object]:
 
 def validate() -> list[str]:
     errors: list[str] = []
-    for snapshot, manifest_path in (
-        (SOURCE, SOURCE_MANIFEST),
-        (NAPCS, NAPCS_MANIFEST),
-        (PRIOR, PRIOR_MANIFEST),
-    ):
+    manifests = sorted(SOURCE_SNAPSHOT_DIR.glob("*.snapshot.json"))
+    if not manifests:
+        errors.append("no source snapshot manifests")
+    dataset_ids: set[str] = set()
+    governed_files: set[str] = set()
+    for manifest_path in manifests:
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError) as error:
+            errors.append(f"invalid source manifest {manifest_path.name}: {error}")
+            continue
+        missing = sorted({"dataset_id", "file", "sha256"} - set(manifest))
+        if missing:
+            errors.append(f"source manifest {manifest_path.name} missing: {', '.join(missing)}")
+            continue
+        dataset_id = str(manifest["dataset_id"])
+        file_name = str(manifest["file"])
+        if dataset_id in dataset_ids:
+            errors.append(f"duplicate source dataset_id: {dataset_id}")
+        dataset_ids.add(dataset_id)
+        if file_name in governed_files:
+            errors.append(f"duplicate governed source file: {file_name}")
+        governed_files.add(file_name)
+        if Path(file_name).name != file_name:
+            errors.append(f"source manifest file must be a basename: {manifest_path.name}")
+            continue
+        snapshot = SOURCE_SNAPSHOT_DIR / file_name
         if not snapshot.exists():
             errors.append(f"missing source snapshot: {snapshot}")
             continue
-        if not manifest_path.exists():
-            errors.append(f"missing source manifest: {manifest_path}")
-            continue
-        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         if manifest.get("sha256") != sha256(snapshot):
             errors.append(f"source snapshot hash does not match manifest: {snapshot.name}")
     if not SOURCE.exists():

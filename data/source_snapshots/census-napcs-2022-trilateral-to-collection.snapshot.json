@@ -1,0 +1,10 @@
+{
+  "acquired_at": "2026-11-08T18:54:36Z",
+  "dataset_id": "census-napcs-2022-trilateral-to-collection",
+  "file": "2022-napcs-trilateral-to-collection.xlsx",
+  "publisher": "United States Census Bureau",
+  "reuse": "public_official_source",
+  "role": "identity_concordance_from_trilateral_products_to_economic_census_collection_codes",
+  "sha256": "fcb26f1cf66edf041e7f76d7bef034f900366018b5176d597f9a35bda07457c0",
+  "source_url": "https://www2.census.gov/programs-surveys/economic-census/technical-documentation/napcs/2022_NAPCS_Trilateral_Product_Code_to_NAPCS-Based_Collection_Code_FINAL_050.xlsx"
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelsena/turbo/schemas/reconciliation-event.schema.json",
+  "title": "Turbo reconciliation event",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "event_id",
+    "event_type",
+    "decision",
+    "recorded_at",
+    "input_source_record_ids",
+    "input_market_ids",
+    "output_market_ids",
+    "operating_identity",
+    "supporting_record_ids",
+    "counterevidence_record_ids",
+    "alternatives_considered",
+    "review",
+    "supersedes"
+  ],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 1},
+    "event_type": {
+      "enum": [
+        "create_market",
+        "map",
+        "split",
+        "merge",
+        "rename",
+        "reparent",
+        "exclude_source_record",
+        "reject_candidate",
+        "supersede_decision"
+      ]
+    },
+    "decision": {"enum": ["accepted", "rejected", "deferred"]},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "input_source_record_ids": {"type": "array", "items": {"type": "string"}},
+    "input_market_ids": {"type": "array", "items": {"type": "string"}},
+    "output_market_ids": {"type": "array", "items": {"type": "string"}},
+    "relationship_type": {
+      "enum": [
+        "equivalent_label_candidate",
+        "broader_than_market",
+        "narrower_than_market",
+        "product_sold_by_market",
+        "industry_containing_market",
+        "task_performed_by_market",
+        "partial_overlap",
+        "residual_bucket",
+        "duplicate_source_record",
+        "non_market_product",
+        "out_of_scope_for_canonicalization",
+        "unresolved"
+      ]
+    },
+    "operating_identity": {
+      "type": "object",
+      "required": [
+        "buyer",
+        "job",
+        "delivery",
+        "workforce",
+        "economics_risk",
+        "acquisition_universe",
+        "ambient_ai_workflow"
+      ]
+    },
+    "supporting_record_ids": {"type": "array", "items": {"type": "string"}},
+    "counterevidence_record_ids": {"type": "array", "items": {"type": "string"}},
+    "alternatives_considered": {"type": "array"},
+    "review": {
+      "type": "object",
+      "required": ["proposer", "independent_reviewer", "result"]
+    },
+    "supersedes": {"type": "array", "items": {"type": "string"}},
+    "market_version": {"type": "object"}
+  }
+}

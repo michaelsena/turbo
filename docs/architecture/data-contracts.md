@@ -8,6 +8,19 @@ unreviewable source of truth.
 Immutable bytes plus dataset ID, publisher, canonical URL, retrieval UTC, SHA-256,
 reuse status, and declared role. Validation fails when bytes differ from the manifest.
 
+## Source record
+
+A stable row or object within one immutable snapshot:
+
+- source-record ID, snapshot ID, source system, and exact source locator
+- raw code, raw label, raw definition, hierarchy path, and source parent IDs
+- row role such as industry, product, service, task, aggregate, residual, survey
+  control, or unknown
+- immutable source relationships and semantic flags
+
+Retrieval normalization is never authoritative. Raw exclusions, negations, regulated
+distinctions, customer scope, geography, and residual wording remain preserved.
+
 ## Observation and claim
 
 An observation is a narrow, directly located source statement. A claim is an
@@ -16,9 +29,51 @@ and contradicting observations and directed version edges.
 
 ## Market and market version
 
-`market_id` is stable identity. A market version contains boundary, buyer, job,
-delivery model, workforce, economics, acquisition universe, Ambient AI workflow,
-aliases, source mappings, and split/merge lineage.
+The market ID is an opaque stable identity and is never derived from a label, NAICS
+code, or list position. A market version contains:
+
+- canonical name, definition, boundary, parent, aliases, and explicit exclusions
+- buyer, buyer role, budget owner, purchase trigger, and job-to-be-done
+- deliverable, delivery model, work location, workforce, and revenue model
+- capital, inventory, regulation, economics, and risk
+- acquisition universe and operating playbook
+- Ambient AI workflow and bounded context sources
+- source mappings, split/merge lineage, evidence labels, and confidence by dimension
+
+Dimension-level confidence is required because buyer identity may be well supported
+while acquisition-universe equivalence remains uncertain.
+
+## Mapping relationship
+
+Source records relate to markets through typed, many-to-many edges:
+
+- equivalent-label candidate
+- broader-than-market / narrower-than-market
+- industry-containing-market
+- product-sold-by-market
+- task-performed-by-market
+- partial overlap
+- residual bucket
+- duplicate source record
+- non-market product
+- out of scope for canonicalization
+- unresolved
+
+NAICS usually supplies industry-containing-market edges. NAPCS usually supplies
+product-sold-by-market edges. Neither source becomes a market one-for-one.
+
+## Reconciliation event and graph version
+
+Accepted decisions are append-only create, map, split, merge, rename, reparent,
+exclude-source-record, reject-candidate, or supersede-decision events. Each event
+preserves inputs, outputs, typed relationship, seven operating-identity results,
+supporting and contrary records, alternatives, proposer, independent review,
+adjudication, cutoff, and supersession.
+
+A graph version is the deterministic projection of accepted events through a cutoff.
+Its identity includes the ordered-event hash plus governed source, configuration, and
+code hashes. Corrections add a superseding event; they never rewrite the prior event.
+
 
 ## Factor definition, evaluator result, and score event
 
@@ -41,6 +96,5 @@ Contains immutable run ID, input/configuration hashes, code fingerprint, output
 hashes, and validation results. Exact Git head and wall-clock local verification are
 posted as GitHub issue/PR receipts so deterministic replay never dirties the worktree.
 
-Formal JSON Schemas will precede external API stability. V1 dataclasses are an
-executable prototype of these contracts.
+Formal JSON Schemas and executable projection tests precede external API stability.
 

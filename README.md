@@ -129,17 +129,26 @@ The repository now preserves all three initial lists:
 - 6,290 rows from the 2022 Economic Census NAPCS code/description workbook
 - all 978 markets from the prior normalized model
 
-The current reconciliation artifact identifies normalized exact-label candidates but
-does not accept them as operating-market mappings. Exact and fuzzy matches are review
-proposals, while unmatched rows form the add/split/
-merge/exclude review queue. This is intentionally conservative: normalization quality
-is more important than making the unresolved count look small.
+It also preserves five official identity-supporting snapshots: the 2022 NAICS Manual,
+both 2022 NAPCS collection/trilateral concordances, and both Economic Census
+industry-by-product/product-by-industry relationship datasets. The run receipt is
+bound to the complete eight-snapshot registry. Parsing and integrating those five
+new inputs is the next source-ingestion work package; preservation is not represented
+as completed normalization.
 
-The first reconciliation worklist contains 207 exact normalized-label candidates,
-99 fuzzy mapping proposals, and 6,996 unmatched source rows requiring add/split/
-merge/exclude review. A high unmatched count is expected because NAPCS contains
-detailed products, not one row per investable operating market. It is published as
-the work to do, not hidden as an error.
+The reconciliation artifact preserves all 8,280 source records with raw labels,
+locators, source roles, and semantic flags. The 6,290 NAPCS rows are typed as 2,574
+broad lines, 3,710 detail lines, and 6 survey controls. Prior-seed IDs are derived
+from their content instead of their list position.
+
+Exact and fuzzy matches remain review proposals. Retrieval retains up to five
+candidates, the top-two margin, ambiguity, and semantic conflicts such as residual
+scope, excluded scope, or hazardous/nonhazardous mismatch. The current worklist has
+207 exact-label candidates, 75 clean top-candidate proposals, 5 ambiguous or
+semantically conflicted proposals, and 7,015 unmatched rows. The safer method reduced
+the earlier fuzzy count because scope words are no longer discarded. A high unmatched
+count is expected because NAPCS contains products, controls, and aggregates—not one
+row per investable operating market.
 
 The current V1 run stops at this reconciliation worklist. It intentionally produces
 no market rankings. Research and scoring begin only after reviewed canonical markets
@@ -226,9 +235,11 @@ starting lists.
 | Six-digit NAICS source categories | 1,012 |
 | NAPCS product/service rows | 6,290 |
 | Prior-model market seeds | 978 |
+| Governed source snapshots | 8 |
 | Exact-label review candidates | 207 |
-| Fuzzy mapping proposals | 99 |
-| Unmatched reconciliation items | 6,996 |
+| Clean top-candidate proposals | 75 |
+| Ambiguous/conflicted proposals | 5 |
+| Unmatched reconciliation items | 7,015 |
 | Canonical markets accepted | 0 |
 | Target markets filtered | 0 |
 | Research scores produced | 0 |
