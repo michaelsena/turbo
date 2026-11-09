@@ -428,6 +428,15 @@ for the operating model and horizontal-versus-vertical boundary. The durable run
 It is still not activated and requires a fresh independent review against the prior
 P0/P1/P2 conditions.
 
+That successor review now passes all five checks with **zero P0/P1/P2 findings** and
+an `approve_activation` verdict. It confirms that the corrected proposal is safe for
+a later deterministic graph-activation increment while preserving provisional status
+for the medical and dental inputs, family-local semantics for rejected seeds, and both
+open research gaps. The exact review is
+[`independent-review-b95c0d39bef8bffa9c00`](data/agent_reviews/independent-review-b95c0d39bef8bffa9c00/).
+The review itself did not mutate the Market Graph, so accepted canonical markets are
+still zero until the separate activation compiler is implemented and replayed.
+
 These counts and every reconciliation proposal are in the deterministic
 `multisource-reconciliation.json.gz` artifact inside the immutable run directory.
 Large derived views are compressed with a fixed timestamp so replay produces

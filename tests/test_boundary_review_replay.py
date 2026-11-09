@@ -16,6 +16,16 @@ REVIEW_CONFIG = (
 REVIEW_DIR = (
     ROOT / "data/agent_reviews/independent-review-e6058823bd1c604ffb36"
 )
+CORRECTION_BOUNDARY_CONFIG = (
+    ROOT / "config/universe/families/office-administrative-services-v2.json"
+)
+CORRECTION_REVIEW_CONFIG = (
+    ROOT
+    / "config/universe/reviews/office-administrative-services-v2-boundary-review-gemini.json"
+)
+CORRECTION_REVIEW_DIR = (
+    ROOT / "data/agent_reviews/independent-review-b95c0d39bef8bffa9c00"
+)
 
 
 class BoundaryReviewReplayTest(unittest.TestCase):
@@ -45,6 +55,17 @@ class BoundaryReviewReplayTest(unittest.TestCase):
 
         self.assertFalse(result["valid"])
         self.assertIn("review receipt output_sha256 mismatch", result["errors"])
+
+    def test_corrected_run_approval_replays_exactly(self) -> None:
+        result = validate_independent_review_run(
+            CORRECTION_REVIEW_DIR,
+            CORRECTION_REVIEW_CONFIG,
+            CORRECTION_BOUNDARY_CONFIG,
+        )
+        self.assertTrue(result["valid"], result["errors"])
+        self.assertEqual(result["errors"], [])
+        self.assertEqual(result["verdict"], "approve_activation")
+        self.assertEqual(result["finding_counts"], {"P0": 0, "P1": 0, "P2": 0})
 
 
 if __name__ == "__main__":

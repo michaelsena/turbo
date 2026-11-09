@@ -290,3 +290,27 @@ re-test family-local semantics, seed reconciliation, all 13 index entries, expli
 exclusions, preserved gaps, NAPCS evidence sufficiency, and evidence-label accuracy.
 Approval still requires all five registered checks to pass with zero findings; the
 review cannot activate the graph directly.
+
+### Correction review result
+
+At exact head `e1f7592a0662610eec2d0309fd0cf0c160309702`, independent run
+`independent-review-b95c0d39bef8bffa9c00` completed through Google on
+`google/gemini-4-argon`. The verdict is **approve activation** with all five checks
+passing and zero P0/P1/P2 findings. Output SHA-256 is
+`3f0b3e668e2f5050fc2a3afb0d10c6b2b869b81e604c786668ff3f6d497e3c43`.
+The call ran from `2026-11-09T02:24:57Z` to `2026-11-09T02:29:06Z`, reported
+372,620 total tokens, and cost `$0.907288`. Dedicated-key cumulative usage is
+`$8.0115775`, with `$41.9884225` remaining.
+
+The review confirms that all candidates are reconciled with family-local rejection
+semantics, the horizontal and provisional vertical seeds do not create unsupported
+duplicates, all 13 index entries and 10 manual exclusions are substantively covered,
+all 65 NAPCS identities have paired identity/relationship evidence, and the two gaps
+correctly preserve uncertainty. Its continuing activation conditions are contractual:
+medical and dental proposals plus the NAICS mapping remain provisional until the
+vertical-boundary gap is resolved; rejected seeds remain globally intact; and the
+horizontal operating-model gap remains open for later enrichment.
+
+This review authorizes a later deterministic graph-activation increment. The review
+itself did not create graph events, apply the Target Market filter, score markets, or
+start company work.

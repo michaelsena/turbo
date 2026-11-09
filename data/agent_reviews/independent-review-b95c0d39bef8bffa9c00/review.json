@@ -1,0 +1,90 @@
+{
+  "activation_conditions": [
+    "Preserve the provisional status of proposal:medical-practice-administration and proposal:dental-practice-administration and the provisional_map_to_proposal disposition on identity:naics:561110 until gap:vertical-administration-boundary is resolved.",
+    "Enforce family-local non-mapping semantics on all 126 rejected prior candidate seeds so that none are deleted or invalidated in the global candidate catalog.",
+    "Retain gap:horizontal-office-admin-operating-tests for downstream enrichment of buyer role, commercial pricing/risk model, acquisition universe, and Ambient AI workflow before treating those dimensions as factual."
+  ],
+  "alternatives_considered": [
+    "Requesting changes over merging candidate-market:cc5c2b663ea4dd50e2186369 (Hotel administration and management services) into the horizontal proposal while keeping medical and dental practice administration as separate provisional proposals; rejected as unnecessary because hotel administration is explicitly constrained to non-complete-operation office administration and governed by gap:vertical-administration-boundary, whereas medical and dental seeds are required prior candidate anchors.",
+    "Requesting changes to require explicit citations of all 13 manual index entry IDs in supporting_evidence_ids; rejected because all 13 index labels are substantively covered across the horizontal aliases/evidence and the vertical boundary gap."
+  ],
+  "checks": [
+    {
+      "check_id": "check:activation-safety",
+      "evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:source-identity:8e55efba8cb7eedfad823673",
+        "evidence:vintage-lineage-relationship:afae60fba4e1ba82964adae9"
+      ],
+      "rationale": "The adjudicator output introduces no invented IDs, respects context-only NAICS hierarchy nodes, includes counterevidence across all proposals and research gaps, and marks NAICS 561110 as provisional_map_to_proposal linked to gap:vertical-administration-boundary so downstream consumers do not treat unresolved vertical splits or unknown operating dimensions as settled facts.",
+      "status": "pass"
+    },
+    {
+      "check_id": "check:boundary-evidence",
+      "evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:manual-index-entry:00174f72fbfeb127e64bfc48",
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad",
+        "evidence:manual-index-entry:14adf7145d9c89c953d90b2f",
+        "evidence:manual-index-entry:15776425a2957b9d8556207a",
+        "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+        "evidence:manual-index-entry:29f4cc882996521b02075f4f",
+        "evidence:manual-index-entry:4135fb564eddde5555720e17",
+        "evidence:manual-index-entry:4f36a492ecfb9071554fa8fc",
+        "evidence:manual-index-entry:5345528a627722e2c82fe981",
+        "evidence:manual-index-entry:7488d67950855508d8266a0f",
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+        "evidence:manual-index-entry:ba9f06dc45c764a58e117b43"
+      ],
+      "rationale": "The horizontal market definition and explicit exclusions faithfully reflect the NAICS 561110 manual narrative and all 10 cross-reference exclusions (complete business operation with operating staff, holding companies, corporate managing offices, computer facilities management, construction management, farm management, real property management, food-service contracting, management consulting without day-to-day management, and single-service specialists). The 13 manual index entries are coherently partitioned between the horizontal core and the provisional vertical boundary gap, and dimension-level evidence labels (fact for job, delivery, and workforce exclusion on the horizontal core; inference or unknown elsewhere) strictly match the frozen pack.",
+      "status": "pass"
+    },
+    {
+      "check_id": "check:candidate-scope",
+      "evidence_ids": [
+        "evidence:required-prior-candidate-anchor:6e0993298caa6d8e9892e220",
+        "evidence:required-prior-candidate-anchor:76428eb7805cae57234486ff",
+        "evidence:required-prior-candidate-anchor:ef46d0e861fa5ef17c1b50e6",
+        "evidence:reconciliation-candidate-retrieval:ae4ef079e7ea0bc71ed0eea4"
+      ],
+      "rationale": "All 130 retrieved prior candidates are accounted for. Every one of the 126 reject dispositions includes a candidate-specific operating rationale and explicitly states that it is a family-local non-mapping only that does not delete or invalidate the candidate globally. The three required prior candidate anchors (83c901691f2d7e1f17cf8604, a1b56327512348614f589ebc, ecd0f6e0ed43d167e2c16afb) and the hotel-administration candidate (cc5c2b663ea4dd50e2186369) are cleanly reconciled across the horizontal core and provisional vertical inputs without duplication.",
+      "status": "pass"
+    },
+    {
+      "check_id": "check:gap-calibration",
+      "evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+        "evidence:manual-index-entry:5345528a627722e2c82fe981",
+        "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+        "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad"
+      ],
+      "rationale": "Rather than returning zero gaps, the adjudicator preserves two explicit research gaps (gap:horizontal-office-admin-operating-tests and gap:vertical-administration-boundary) with unknown evidence labels and conservative confidence (0.41 and 0.34). These gaps cover the unresolved separateness of named vertical administration models (medical, dental, hotel, motel, industrial, professional-office) and the absence of direct pack evidence for buyer roles, pricing/economics, risk allocation, acquisition universe, and Ambient AI workflows.",
+      "status": "pass"
+    },
+    {
+      "check_id": "check:identity-dispositions",
+      "evidence_ids": [
+        "evidence:source-identity:2a67da0aa554c22c09967bde",
+        "evidence:industry-product-relationship:b4ffd0a227c121682d34fdd8",
+        "evidence:source-identity:5ef98268217cf38de7322b5a",
+        "evidence:industry-product-relationship:016b1d6c5681aa52dd079b94",
+        "evidence:source-identity:3fec0fb50b3e272634fd4c3d",
+        "evidence:industry-product-relationship:6dfd1d32abf8fcd918528660",
+        "evidence:collection-trilateral-no-mapping:6a88d51f5483193c3346e156"
+      ],
+      "rationale": "All 66 required disposition identities (1 NAICS and 65 NAPCS collection codes) are dispositioned. Each of the 65 NAPCS dispositions is supported by both its source-identity record and its industry-product-relationship record (plus manual-definition evidence for cross-referenced exclusions and collection-trilateral-no-mapping evidence for residual code 9000000000), with inference labels applied to borderline broad/vertical product lines (7004955000 and 7014300000).",
+      "status": "pass"
+    }
+  ],
+  "confidence": 0.94,
+  "findings": [],
+  "review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+  "schema_version": 1,
+  "summary": "The v2 correction-cycle adjudication resolves all prior review defects and is safe for graph activation. All 130 retrieved prior candidates are reconciled: 126 are rejected with explicit candidate-specific rationales and family-local non-mapping scope statements that prevent global seed deletion, while the horizontal office-administration seed is adopted and the hotel-administration, medical-practice-administration, and dental-practice-administration seeds are reconciled without duplicate or unsupported nodes. All 10 explicit NAICS 561110 cross-reference exclusions and the 13 manual index entries are properly accounted for with calibrated fact/inference/unknown labels. All 65 NAPCS product identities are dispositioned as non_market_source_identity with paired source-identity and industry-product relationship evidence (plus manual-definition and explicit no-mapping evidence where applicable). Two well-calibrated research gaps preserve uncertainty over the horizontal-versus-vertical administration boundary and unobservable operating dimensions (buyer role, pricing/economics, risk allocation, acquisition universe, and Ambient AI workflow).",
+  "target_adjudication_sha256": "c560ac7d565f163eee92a4ee839a38e6322258352f1170555085b90b87d87e73",
+  "target_pack_sha256": "eccc87570dc259f3cea6449a5a87455ccba4e690ccb82851e28822c3a64346e5",
+  "target_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+  "verdict": "approve_activation"
+}
