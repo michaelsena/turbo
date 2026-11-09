@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from turbo.agents.boundary_runner import run_boundary_pilot, validate_boundary_run
+from turbo.agents.boundary_review import run_independent_review
 from turbo.pipeline import GENERATED, run, validate
 from turbo.pipeline_paths import ROOT
 from turbo.universe.boundary_pack import (
@@ -44,6 +45,14 @@ def _parser() -> argparse.ArgumentParser:
     )
     boundary_validate.add_argument("run_dir", type=Path)
     boundary_validate.add_argument("--config", type=Path, default=DEFAULT_BOUNDARY_CONFIG)
+    boundary_review = commands.add_parser(
+        "boundary-review",
+        help="Run a preregistered independent review of a persisted boundary run",
+    )
+    boundary_review.add_argument("review_config", type=Path)
+    boundary_review.add_argument("--config", type=Path, default=DEFAULT_BOUNDARY_CONFIG)
+    boundary_review.add_argument("--output-root", type=Path)
+    boundary_review.add_argument("--timeout-seconds", type=int, default=1800)
     return parser
 
 
@@ -108,6 +117,20 @@ def main() -> int:
         result = validate_boundary_run(args.run_dir, args.config)
         print(json.dumps(result, indent=2, sort_keys=True))
         return 0 if result["valid"] else 1
+    if args.command == "boundary-review":
+        print(
+            json.dumps(
+                run_independent_review(
+                    args.review_config,
+                    args.config,
+                    output_root=args.output_root,
+                    timeout_seconds=args.timeout_seconds,
+                ),
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 0
     return 2
 
 

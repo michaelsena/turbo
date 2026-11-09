@@ -145,3 +145,20 @@ This is still `validated_proposal_not_activated`. Independent review must determ
 whether the zero-gap result is appropriately cautious and whether `reject` means only
 “not part of this bounded family” rather than global deletion of unrelated prior
 seeds. Until then, no Market Graph event may be compiled.
+
+### Independent review preregistration
+
+The activation review extends immutable run `boundary-run-1d9b04b683a3544c2644`,
+pack `32634f119b454bbae964cab7ed1c40a2f5eb09285fa3c254191422246f33bbed`,
+and adjudication
+`270b95ab18257bb24a464f47d3bf0f7ca7d33e7b3b48259ebf5adbb15223d685`.
+Its versioned configuration is
+`config/universe/reviews/office-administrative-services-v1-boundary-review.json`.
+
+To avoid self-review, the preregistered reviewer is
+`anthropic/claude-opus-5.5`, a different model family that the current OpenRouter
+catalog reports as supporting structured output and a one-million-token context. The
+review must test boundary evidence, all identity dispositions, zero-gap calibration,
+family-local candidate semantics, and activation safety. Approval requires every
+registered check to pass with zero P0/P1/P2 findings. A non-approval must state
+concrete activation conditions; no review output may directly activate the graph.

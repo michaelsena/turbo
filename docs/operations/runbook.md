@@ -51,6 +51,7 @@ source .env
 set +a
 turbo boundary-run
 turbo boundary-validate-run data/agent_runs/<boundary-run-id>
+turbo boundary-review config/universe/reviews/<review-config>.json
 ```
 
 `boundary-run` makes two concurrent specialist calls and, only after both validate,

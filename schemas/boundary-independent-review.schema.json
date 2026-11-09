@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelsena/turbo/schemas/boundary-independent-review.schema.json",
+  "title": "Turbo independent boundary review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "review_id", "target_run_id", "target_pack_sha256",
+    "target_adjudication_sha256", "verdict", "summary", "confidence",
+    "checks", "findings", "activation_conditions", "alternatives_considered"
+  ],
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "review_id": {"type": "string", "pattern": "^boundary-review:"},
+    "target_run_id": {"type": "string", "pattern": "^boundary-run-"},
+    "target_pack_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "target_adjudication_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "verdict": {"type": "string", "enum": ["approve_activation", "request_changes", "block_activation"]},
+    "summary": {"type": "string", "pattern": "\\S"},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "checks": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["check_id", "status", "rationale", "evidence_ids"],
+        "properties": {
+          "check_id": {"type": "string", "pattern": "^check:[a-z0-9-]+$"},
+          "status": {"type": "string", "enum": ["pass", "fail", "uncertain"]},
+          "rationale": {"type": "string", "pattern": "\\S"},
+          "evidence_ids": {"type": "array", "items": {"type": "string", "pattern": "^evidence:"}}
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_id", "severity", "category", "summary", "detail",
+          "affected_output_paths", "evidence_ids", "recommendation"
+        ],
+        "properties": {
+          "finding_id": {"type": "string", "pattern": "^review-finding:[a-z0-9-]+$"},
+          "severity": {"type": "string", "enum": ["P0", "P1", "P2"]},
+          "category": {"type": "string", "enum": ["evidence", "semantics", "scope", "confidence", "completeness", "governance"]},
+          "summary": {"type": "string", "pattern": "\\S"},
+          "detail": {"type": "string", "pattern": "\\S"},
+          "affected_output_paths": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "\\S"}},
+          "evidence_ids": {"type": "array", "items": {"type": "string", "pattern": "^evidence:"}},
+          "recommendation": {"type": "string", "pattern": "\\S"}
+        }
+      }
+    },
+    "activation_conditions": {"type": "array", "items": {"type": "string", "pattern": "\\S"}},
+    "alternatives_considered": {"type": "array", "items": {"type": "string", "pattern": "\\S"}}
+  }
+}

@@ -147,6 +147,13 @@ pack hash, both specialist output hashes, adjudication hash, and non-activation
 status. `boundary-validate-run` rebuilds the exact pack, reruns all three local
 validators, and checks every receipt binding before review.
 
+An independent boundary-review record binds one exact run, pack, and adjudication
+hash. It contains the registered check results, P0/P1/P2 findings, evidence IDs,
+affected output paths, activation conditions, alternatives, verdict, and confidence.
+The validator requires the exact check set, closed-world evidence references, and
+zero findings plus all-pass checks for an approval verdict. Review is advisory until
+a separate deterministic activation step exists.
+
 
 ## Factor definition, evaluator result, and score event
 

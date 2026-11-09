@@ -124,8 +124,9 @@ def openrouter_request_body(
     invocation_id: str,
     max_completion_tokens: int,
     allow_fallbacks: bool,
+    schema_name: str | None = None,
 ) -> dict[str, Any]:
-    schema_name = (
+    schema_name = schema_name or (
         "turbo_boundary_adjudication"
         if role_id == "adjudicator"
         else "turbo_boundary_specialist"

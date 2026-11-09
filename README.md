@@ -420,6 +420,7 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | `src/turbo/agents/boundary_runner.py` | Provider-neutral two-specialist/one-adjudicator orchestration and durable outputs |
 | `src/turbo/agents/openrouter_runner.py` | Metered OpenRouter requests, structured-output enforcement, retries, and redacted receipts |
 | `src/turbo/agents/codex_runner.py` | Isolated local Codex CLI provider fallback |
+| `src/turbo/agents/boundary_review.py` | Cross-model independent activation review and closed-world review validation |
 | `src/turbo/pipeline.py` | Replayable source-universe and reconciliation generation |
 | `src/turbo/cli.py` | Local run, validation, and context commands |
 | `data/source_snapshots/` | Immutable official source captures and manifests |
