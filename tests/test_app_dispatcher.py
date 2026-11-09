@@ -6,6 +6,9 @@ import fcntl
 import importlib.util
 import json
 import multiprocessing
+import os
+import signal
+import time
 import subprocess
 import sys
 import tempfile
@@ -422,6 +425,38 @@ class AppDispatcherTest(unittest.TestCase):
                                             timeout=10, lock_fd=descriptor)
             self.assertEqual(result.returncode, 0)
             self.assertEqual(int(result.stdout.strip()), lock.stat().st_ino)
+
+    def test_timeout_kills_descendant_even_after_process_group_leader_exits(self):
+        pid_file = self.base / "descendant.pid"
+        held_lock = self.base / "descendant.lock"
+        child = ("import fcntl,os,signal,sys,time; from pathlib import Path; "
+                 "signal.signal(signal.SIGTERM, signal.SIG_IGN); "
+                 "handle=open(sys.argv[2], 'a+b'); fcntl.flock(handle.fileno(), fcntl.LOCK_EX); "
+                 "Path(sys.argv[1]).write_text(str(os.getpid())); time.sleep(30)")
+        leader = ("import subprocess,sys,time; from pathlib import Path; "
+                  "subprocess.Popen([sys.executable, '-c', sys.argv[1], sys.argv[2], sys.argv[3]]); "
+                  "p=Path(sys.argv[2]); exec('while not p.exists(): time.sleep(0.01)')")
+        with self.assertRaises(subprocess.TimeoutExpired):
+            dispatcher.run_command([sys.executable, "-c", leader, child, str(pid_file), str(held_lock)], timeout=1)
+        self.assertTrue(pid_file.exists())
+        pid = int(pid_file.read_text())
+        # A terminated descendant releases descriptors even if its PID briefly
+        # remains a zombie. This avoids platform-specific process-table access.
+        with held_lock.open("a+b") as handle:
+            deadline = time.monotonic() + 1
+            while True:
+                try:
+                    fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+                    break
+                except BlockingIOError:
+                    if time.monotonic() < deadline:
+                        time.sleep(0.01)
+                        continue
+                    try:
+                        os.kill(pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+                    self.fail("worker descendant retained its lock after timeout cleanup")
 
     def test_status_is_read_only_and_does_not_expose_task_content(self):
         absent = self.base / "missing-state"
