@@ -5,7 +5,9 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from turbo.agents.boundary_harness import canonical_sha256
 from turbo.pipeline_paths import ROOT
+from turbo.universe.boundary_pack import build_boundary_pack
 from turbo.universe.family_scheduler import compile_family_plan, run_family_plan
 
 
@@ -40,9 +42,44 @@ class FamilySchedulerTest(unittest.TestCase):
 
     def test_candidate_ledger_is_complete_and_keeps_unretrieved_challengers(self) -> None:
         ledger = self.compiled["artifacts"]["candidate-collision-ledger.json.gz"]
+        manifest = self.compiled["artifacts"]["family-manifest.json.gz"]
+        families = {item["family_id"]: item for item in manifest["families"]}
         self.assertEqual(ledger["counts"]["prior_candidates"], 978)
         self.assertEqual(ledger["counts"]["retrieved_candidates"], 920)
         self.assertEqual(ledger["counts"]["unretrieved_candidates"], 58)
+        self.assertEqual(ledger["counts"]["context_only_collision_candidates"], 0)
+        self.assertEqual(
+            sum(
+                item["coverage_status"] == "context_only_collision_challenger"
+                for item in ledger["candidates"]
+            ),
+            0,
+        )
+        self.assertTrue(
+            all(
+                families[item["primary_family_id"]]["schedulable"]
+                or families[item["primary_family_id"]]["status"]
+                == "completed_regression_fixture"
+                for item in ledger["candidates"]
+            )
+        )
+        repaired_candidate_ids = {
+            "candidate-market:e007e822bf1951d24dacbd13",
+            "candidate-market:ef502835138bdd6a5f88bd59",
+        }
+        repaired = {
+            item["candidate_market_id"]: item
+            for item in ledger["candidates"]
+            if item["candidate_market_id"] in repaired_candidate_ids
+        }
+        self.assertEqual(set(repaired), repaired_candidate_ids)
+        self.assertTrue(
+            all(
+                repaired[item_id]["coverage_status"] == "retrieved_collision"
+                and families[repaired[item_id]["primary_family_id"]]["schedulable"]
+                for item_id in repaired_candidate_ids
+            )
+        )
 
     def test_pilot_surface_is_pinned_and_completed(self) -> None:
         manifest = self.compiled["artifacts"]["family-manifest.json.gz"]
@@ -54,6 +91,58 @@ class FamilySchedulerTest(unittest.TestCase):
         self.assertEqual(family["status"], "completed_regression_fixture")
         self.assertFalse(family["schedulable"])
         self.assertEqual(family["counts"]["required_identities"], 66)
+        config = json.loads(CONFIG.read_text(encoding="utf-8"))
+        pilot = config["pilot_regression"]
+        pack = build_boundary_pack(ROOT / pilot["source_family_config"])
+        expected_required = set(pack["scope"]["required_disposition_identity_ids"])
+        expected_context = set(pack["scope"]["context_only_identity_ids"])
+        expected_context.update(pack["scope"]["linked_trilateral_product_identity_ids"])
+        expected_context.update(
+            subject_id
+            for evidence in pack["evidence_catalog"]
+            if evidence["context_only"]
+            for subject_id in evidence["subject_ids"]
+            if subject_id not in expected_required
+        )
+        self.assertEqual(pack["metadata"]["pack_sha256"], pilot["source_pack_sha256"])
+        self.assertEqual(
+            set(family["required_disposition_identity_ids"]), expected_required
+        )
+        self.assertEqual(set(family["context_only_identity_ids"]), expected_context)
+        receipt = self.compiled["receipt"]["pilot_regression"]
+        self.assertEqual(receipt["required_identities"], 66)
+        self.assertEqual(receipt["context_identities"], 162)
+        self.assertEqual(
+            receipt["required_identity_set_sha256"],
+            canonical_sha256(sorted(expected_required)),
+        )
+        self.assertEqual(
+            receipt["context_identity_set_sha256"],
+            canonical_sha256(sorted(expected_context)),
+        )
+
+    def test_context_edge_ledger_is_complete_and_resolves_assignment_edges(self) -> None:
+        ledger = self.compiled["artifacts"]["context-edge-ledger.json.gz"]
+        coverage = self.compiled["artifacts"]["coverage-ledger.json.gz"]
+        self.assertEqual(ledger["counts"]["industry_product_relationships"], 37_232)
+        self.assertEqual(ledger["counts"]["napcs_concordance_relationships"], 3_516)
+        self.assertEqual(ledger["counts"]["napcs_concordance_non_mappings"], 7)
+        relationship_ids = {
+            item["relationship_id"]
+            for collection in (
+                "industry_product_relationships",
+                "napcs_concordance_relationships",
+                "napcs_concordance_non_mappings",
+            )
+            for item in ledger[collection]
+        }
+        referenced_ids = {
+            relationship_id
+            for assignment in coverage["assignments"]
+            for relationship_id in assignment["supporting_relationship_ids"]
+        }
+        self.assertTrue(referenced_ids)
+        self.assertEqual(referenced_ids - relationship_ids, set())
 
     def test_compilation_is_independent_of_source_record_order(self) -> None:
         baseline = self.compiled["receipt"]["output_hashes"]

@@ -14,7 +14,7 @@ from jsonschema import Draft202012Validator
 
 from turbo.agents.boundary_harness import canonical_sha256
 from turbo.pipeline_paths import ROOT
-from turbo.universe.boundary_pack import _load_verified_run_artifact
+from turbo.universe.boundary_pack import build_boundary_pack, _load_verified_run_artifact
 
 
 FULL_GIT_COMMIT = re.compile(r"[0-9a-f]{40}")
@@ -149,6 +149,10 @@ def _relationship_id(kind: str, *parts: str) -> str:
     return f"relationship:{kind}:" + canonical_sha256(parts)[:24]
 
 
+def _sorted_observations(values: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
+    return sorted(values, key=canonical_sha256)
+
+
 def _validate_config(config: dict[str, Any]) -> None:
     schema = _object(ROOT / "schemas" / "family-partition-config.schema.json")
     schema_errors = sorted(
@@ -265,13 +269,42 @@ def compile_family_plan(
     pilot = config["pilot_regression"]
     pilot_seed_id = pilot["seed_identity_id"]
     pilot_family_id = leaf_family[pilot_seed_id]
-    pilot_products = {
+    pilot_config_path = root / pilot["source_family_config"]
+    pilot_pack = build_boundary_pack(pilot_config_path, root=root)
+    if pilot_pack["metadata"]["pack_sha256"] != pilot["source_pack_sha256"]:
+        raise ValueError("pilot regression pack hash mismatch")
+    pilot_required_ids = set(
+        pilot_pack["scope"]["required_disposition_identity_ids"]
+    )
+    pilot_context_ids = set(pilot_pack["scope"]["context_only_identity_ids"])
+    pilot_context_ids.update(
+        pilot_pack["scope"]["linked_trilateral_product_identity_ids"]
+    )
+    pilot_context_ids.update(
+        subject_id
+        for evidence in pilot_pack["evidence_catalog"]
+        if evidence["context_only"]
+        for subject_id in evidence["subject_ids"]
+        if subject_id in identities and subject_id not in pilot_required_ids
+    )
+    if pilot_seed_id not in pilot_required_ids:
+        raise ValueError("pilot regression pack does not contain its configured seed")
+    pilot_products = pilot_required_ids - {pilot_seed_id}
+    topology_pilot_products = {
         product_id
         for product_id in appearances
         if pilot_family_id in appearances[product_id]
     }
-    if len(pilot_products) + 1 != pilot["expected_required_identities"]:
+    if pilot_products != topology_pilot_products:
+        raise ValueError("pilot regression required identity set drifted from frozen pack")
+    if len(pilot_required_ids) != pilot["expected_required_identities"]:
         raise ValueError("pilot regression required-identity count mismatch")
+
+    for edge in relationships["napcs_concordance_non_mappings"]:
+        collection_id = edge["collection_identity_id"]
+        relationship_ids[collection_id].add(
+            _relationship_id("napcs-non-mapping", collection_id, edge["disposition"])
+        )
 
     assignments: dict[str, dict[str, Any]] = {}
     for identity_id in sorted(leaf_ids):
@@ -307,6 +340,7 @@ def compile_family_plan(
             owner=unlinked_owner[identity_id],
             appearances=[unlinked_owner[identity_id]],
             reason="unlinked_collection_coverage_challenge",
+            supporting_relationship_ids=relationship_ids[identity_id],
         )
 
     descendant_families: dict[str, set[str]] = defaultdict(set)
@@ -386,6 +420,19 @@ def compile_family_plan(
             supporting_relationship_ids=relationship_ids[identity_id],
         )
 
+    for identity_id in sorted(pilot_context_ids):
+        if identity_id not in assignments:
+            raise ValueError(f"pilot context identity is absent from coverage: {identity_id}")
+        assignment = assignments[identity_id]
+        assignments[identity_id] = _assignment(
+            identity=identities[identity_id],
+            role=assignment["assignment_role"],
+            owner=assignment["owner_family_id"],
+            appearances=[*assignment["appearance_family_ids"], pilot_family_id],
+            reason=assignment["reason_code"],
+            supporting_relationship_ids=assignment["supporting_relationship_ids"],
+        )
+
     if set(assignments) != set(identities):
         missing = sorted(set(identities) - set(assignments))
         extra = sorted(set(assignments) - set(identities))
@@ -460,6 +507,16 @@ def compile_family_plan(
             },
         }
 
+    if set(
+        family_records[pilot_family_id]["required_disposition_identity_ids"]
+    ) != pilot_required_ids:
+        raise ValueError("pilot family required identities do not match frozen pack")
+    if (
+        set(family_records[pilot_family_id]["context_only_identity_ids"])
+        != pilot_context_ids
+    ):
+        raise ValueError("pilot family context identities do not match frozen pack")
+
     candidate_occurrences: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for identity_id, mapping in sorted(mappings.items()):
         assignment = assignments[identity_id]
@@ -483,15 +540,33 @@ def compile_family_plan(
         for item in reconciliation["candidate_markets"]
     }
     unretrieved_ids = sorted(set(candidate_catalog) - set(candidate_occurrences))
+    review_capable_family_ids = {
+        family_id
+        for family_id, family in family_records.items()
+        if family["schedulable"] or family["status"] == "completed_regression_fixture"
+    }
+    context_only_collision_ids = sorted(
+        candidate_id
+        for candidate_id, occurrences in candidate_occurrences.items()
+        if not {
+            family_id
+            for occurrence in occurrences
+            for family_id in occurrence["appearance_family_ids"]
+        }
+        & review_capable_family_ids
+    )
+    global_challenger_ids = sorted(
+        set(unretrieved_ids) | set(context_only_collision_ids)
+    )
     challenger_family_ids: list[str] = []
     for ordinal, shard in enumerate(
-        _chunked(unretrieved_ids, limits["max_required_identities_per_family"]), 1
+        _chunked(global_challenger_ids, limits["max_required_identities_per_family"]), 1
     ):
-        family_id = _coverage_family_id("prior-candidate", "unretrieved", ordinal)
+        family_id = _coverage_family_id("prior-candidate", "global-challenger", ordinal)
         challenger_family_ids.append(family_id)
         family_records[family_id] = {
             "family_id": family_id,
-            "family_kind": "unretrieved_prior_candidate_challenge",
+            "family_kind": "global_prior_candidate_challenge",
             "status": "ready_for_boundary_review",
             "schedulable": True,
             "required_disposition_identity_ids": [],
@@ -513,7 +588,6 @@ def compile_family_plan(
         )
         if occurrences:
             exact = [item for item in occurrences if item["exact_normalized_label"]]
-            owner_pool = exact or occurrences
             collision_families = sorted(
                 {
                     family_id
@@ -521,10 +595,24 @@ def compile_family_plan(
                     for family_id in item["appearance_family_ids"]
                 }
             )
-            primary_family = _rendezvous_owner(
-                candidate_id, {item["owner_family_id"] for item in owner_pool}
-            )
-            status = "exact_collision" if exact else "retrieved_collision"
+            eligible_families = set(collision_families) & review_capable_family_ids
+            exact_eligible_families = {
+                family_id
+                for item in exact
+                for family_id in item["appearance_family_ids"]
+                if family_id in review_capable_family_ids
+            }
+            if eligible_families:
+                primary_family = _rendezvous_owner(
+                    candidate_id, exact_eligible_families or eligible_families
+                )
+                status = "exact_collision" if exact else "retrieved_collision"
+            else:
+                primary_family = challenger_family_ids[
+                    int(hashlib.sha256(candidate_id.encode()).hexdigest(), 16)
+                    % len(challenger_family_ids)
+                ]
+                status = "context_only_collision_challenger"
         else:
             primary_family = challenger_family_ids[
                 int(hashlib.sha256(candidate_id.encode()).hexdigest(), 16)
@@ -573,7 +661,7 @@ def compile_family_plan(
             if family["family_kind"]
             in {
                 "unlinked_collection_coverage_challenge",
-                "unretrieved_prior_candidate_challenge",
+                "global_prior_candidate_challenge",
             }
             else 1
             if unresolved or shared
@@ -668,6 +756,10 @@ def compile_family_plan(
         item["coverage_status"] != "unretrieved_global_challenger"
         for item in candidate_ledger
     )
+    context_only_collision_candidates = sum(
+        item["coverage_status"] == "context_only_collision_challenger"
+        for item in candidate_ledger
+    )
     count_gates = {
         "normalized_identities": len(assignment_list),
         "naics_leaves": len(leaf_ids),
@@ -689,11 +781,15 @@ def compile_family_plan(
         "prior_candidates": len(candidate_ledger),
         "retrieved_candidates": retrieved_candidates,
         "unretrieved_candidates": len(candidate_ledger) - retrieved_candidates,
+        "context_only_collision_candidates": context_only_collision_candidates,
         "families": len(family_records),
         "schedulable_families": len(ordered_families),
         "batches": len(batches),
         "pilot_required_identities": len(
             family_records[pilot_family_id]["required_disposition_identity_ids"]
+        ),
+        "pilot_context_identities": len(
+            family_records[pilot_family_id]["context_only_identity_ids"]
         ),
     }
     for field, expected in config["expected_counts"].items():
@@ -708,6 +804,98 @@ def compile_family_plan(
         for assignment in assignment_list
     ):
         raise ValueError("identity owner is absent from its family appearances")
+    if any(
+        family_records[item["primary_family_id"]]["status"]
+        not in {"ready_for_boundary_review", "completed_regression_fixture"}
+        for item in candidate_ledger
+    ):
+        raise ValueError("candidate work is owned by a non-reviewable family")
+
+    industry_edge_ledger = sorted(
+        (
+            {
+                "relationship_id": _relationship_id(
+                    "industry-product",
+                    edge["industry_identity_id"],
+                    edge["product_identity_id"],
+                ),
+                "relationship_type": "industry_product",
+                "industry_identity_id": edge["industry_identity_id"],
+                "product_identity_id": edge["product_identity_id"],
+                "product_owner_family_id": assignments[edge["product_identity_id"]][
+                    "owner_family_id"
+                ],
+                "product_appearance_family_ids": assignments[
+                    edge["product_identity_id"]
+                ]["appearance_family_ids"],
+                "observed_in": sorted(edge["observed_in"]),
+                "source_observations": _sorted_observations(
+                    edge["source_observations"]
+                ),
+            }
+            for edge in relationships["industry_product_relationships"]
+        ),
+        key=lambda item: item["relationship_id"],
+    )
+    concordance_edge_ledger = sorted(
+        (
+            {
+                "relationship_id": _relationship_id(
+                    "napcs-concordance",
+                    edge["collection_identity_id"],
+                    edge["trilateral_identity_id"],
+                ),
+                "relationship_type": "napcs_collection_to_trilateral",
+                "collection_identity_id": edge["collection_identity_id"],
+                "trilateral_identity_id": edge["trilateral_identity_id"],
+                "collection_owner_family_id": assignments[
+                    edge["collection_identity_id"]
+                ]["owner_family_id"],
+                "collection_appearance_family_ids": assignments[
+                    edge["collection_identity_id"]
+                ]["appearance_family_ids"],
+                "trilateral_owner_family_id": assignments[
+                    edge["trilateral_identity_id"]
+                ]["owner_family_id"],
+                "trilateral_appearance_family_ids": assignments[
+                    edge["trilateral_identity_id"]
+                ]["appearance_family_ids"],
+                "observed_in": sorted(edge["observed_in"]),
+                "part_indicators": sorted(edge["part_indicators"]),
+                "source_observations": _sorted_observations(
+                    edge["source_observations"]
+                ),
+            }
+            for edge in relationships["napcs_concordance_relationships"]
+        ),
+        key=lambda item: item["relationship_id"],
+    )
+    non_mapping_ledger = sorted(
+        (
+            {
+                "relationship_id": _relationship_id(
+                    "napcs-non-mapping",
+                    edge["collection_identity_id"],
+                    edge["disposition"],
+                ),
+                "relationship_type": "napcs_explicit_non_mapping",
+                "collection_identity_id": edge["collection_identity_id"],
+                "owner_family_id": assignments[edge["collection_identity_id"]][
+                    "owner_family_id"
+                ],
+                "appearance_family_ids": assignments[
+                    edge["collection_identity_id"]
+                ]["appearance_family_ids"],
+                "disposition": edge["disposition"],
+                "observed_in": sorted(edge["observed_in"]),
+                "source_observations": _sorted_observations(
+                    edge["source_observations"]
+                ),
+            }
+            for edge in relationships["napcs_concordance_non_mappings"]
+        ),
+        key=lambda item: item["relationship_id"],
+    )
 
     config_sha256 = canonical_sha256(config)
     source_hashes = {
@@ -743,6 +931,7 @@ def compile_family_plan(
             "prior_candidates": len(candidate_ledger),
             "retrieved_candidates": retrieved_candidates,
             "unretrieved_candidates": len(candidate_ledger) - retrieved_candidates,
+            "context_only_collision_candidates": context_only_collision_candidates,
             "retrieval_occurrences": sum(
                 len(item["retrieval_occurrences"]) for item in candidate_ledger
             ),
@@ -773,8 +962,26 @@ def compile_family_plan(
             "scheduled_families": sum(len(batch["family_ids"]) for batch in batches),
         },
     }
+    relationship_artifact = {
+        "schema_version": 1,
+        "partition_id": partition_id,
+        "source_run_id": run_id,
+        "industry_product_relationships": industry_edge_ledger,
+        "napcs_concordance_relationships": concordance_edge_ledger,
+        "napcs_concordance_non_mappings": non_mapping_ledger,
+        "counts": {
+            "industry_product_relationships": len(industry_edge_ledger),
+            "napcs_concordance_relationships": len(concordance_edge_ledger),
+            "napcs_concordance_non_mappings": len(non_mapping_ledger),
+        },
+        "interpretation_boundary": (
+            "Official source relationship topology and administrative family routing only; "
+            "not accepted canonical market mappings."
+        ),
+    }
     artifacts = {
         "coverage-ledger.json.gz": coverage,
+        "context-edge-ledger.json.gz": relationship_artifact,
         "candidate-collision-ledger.json.gz": candidates_artifact,
         "family-manifest.json.gz": families_artifact,
         "batch-manifest.json": batches_artifact,
@@ -801,6 +1008,13 @@ def compile_family_plan(
             "source_family_config": pilot["source_family_config"],
             "source_pack_sha256": pilot["source_pack_sha256"],
             "required_identities": count_gates["pilot_required_identities"],
+            "context_identities": count_gates["pilot_context_identities"],
+            "required_identity_set_sha256": canonical_sha256(
+                sorted(pilot_required_ids)
+            ),
+            "context_identity_set_sha256": canonical_sha256(
+                sorted(pilot_context_ids)
+            ),
             "status": "completed_regression_fixture",
         },
         "model_invoked": False,

@@ -39,7 +39,18 @@ eligibility decision, score, or company conclusion.
 - maximum required identities in one family: 81 (limit: 96)
 - retrieved prior candidates: 920
 - unretrieved global challengers: 58
+- retrieved candidates stranded in context-only ownership: 0
+- context edges: 37,232 industry-product, 3,516 collection/trilateral, and 7
+  explicit non-mappings
+- pinned pilot surface: 66 required identities and 162 exact context identities
 - model calls: 0
+
+The successor schedule closes four audit defects in the first projection: candidate
+owners must be reviewable, the pilot surface is rebuilt and compared as exact identity
+sets rather than counts, every source relationship is represented in an explicit
+edge ledger, and composed system context rehashes every declared source-run artifact.
+The previously published schedule remains immutable and replayable; the corrected
+schedule is a new version.
 
 ## Publication sequence
 

@@ -61,10 +61,12 @@ collection products and prior candidates with no retrieval collision enter expli
 coverage-challenge families. The completed 561110 pilot is a pinned regression
 override.
 
-The planner publishes separate ledgers for identity coverage and prior-candidate
-collisions, plus a family manifest and batch manifest. Batch order uses only source-
-reconciliation burden and coverage risk. Administrative ownership must never be
-consumed as an accepted market mapping, semantic primacy, strategy fit, or score.
+The planner publishes separate ledgers for identity coverage, source relationship
+context, and prior-candidate collisions, plus a family manifest and batch manifest.
+Every candidate owner must be reviewable; context-only families may provide collision
+evidence but cannot own work. Batch order uses only source-reconciliation burden and
+coverage risk. Administrative ownership must never be consumed as an accepted market
+mapping, semantic primacy, strategy fit, or score.
 
 ## Agent-native execution
 

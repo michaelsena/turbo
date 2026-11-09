@@ -38,10 +38,12 @@
     "prior_candidates": 978,
     "retrieved_candidates": 920,
     "unretrieved_candidates": 58,
+    "context_only_collision_candidates": 0,
     "families": 1026,
     "schedulable_families": 1018,
     "batches": 129,
-    "pilot_required_identities": 66
+    "pilot_required_identities": 66,
+    "pilot_context_identities": 162
   },
   "prohibited_actions": [
     "target-universe filtering",

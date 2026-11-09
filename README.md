@@ -481,11 +481,20 @@ The plan accounts for every identity exactly once:
 - all 978 prior-market candidates have a separate collision record; 920 collide with
   at least one current source identity and 58 remain explicit global challengers.
 
+The schedule also publishes a complete context-edge ledger: all 37,232 official
+industry-product relationships, all 3,516 collection/trilateral relationships, and
+all 7 explicit concordance non-mappings resolve to their preserved endpoints and
+administrative family appearances. These edges are context and routing evidence, not
+accepted canonical-market mappings. Candidate challenge ownership is restricted to a
+reviewable family or an explicit global challenge family; a context-only family can
+never silently own work.
+
 The first compiled topology has 1,026 administrative families, of which 1,018 remain
-queued for review after excluding the completed pilot, and 129 bounded batches. The largest family has 81 required identities,
-below the preregistered limit of 96. Context is paged into deterministic shards rather
-than duplicated as required work. The reviewed 561110 pilot remains pinned at its
-exact 66-identity surface and is labeled a completed regression fixture. The queue is
+queued for review after excluding the completed pilot, and 129 bounded batches. The
+largest family has 81 required identities, below the preregistered limit of 96.
+Context is paged into deterministic shards rather than duplicated as required work.
+The reviewed 561110 pilot remains pinned at its exact 66-required-identity and
+162-context-identity surface and is labeled a completed regression fixture. The queue is
 ordered only by coverage exceptions, unresolved source burden, cross-family sharing,
 workload, and a lexical tie-break—never by demand, AI potential, buyability, multiples,
 Target eligibility, or company evidence.
@@ -511,7 +520,7 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | `src/turbo/universe/naics_identity_sources.py` | Coordinate-aware NAICS index and definition, vintage-lineage, and bridge parsers |
 | `src/turbo/universe/napcs_hierarchy.py` | Fail-closed parser for the 24-page official six-level NAPCS hierarchy capture |
 | `src/turbo/universe/multisource.py` | Multi-list normalization and reconciliation worklist |
-| `src/turbo/universe/family_scheduler.py` | Deterministic identity ownership, candidate collision, family, and batch planner |
+| `src/turbo/universe/family_scheduler.py` | Deterministic identity ownership, relationship routing, candidate collision, family, and batch planner |
 | `src/turbo/universe/boundary_pack.py` | Hash-verified frozen evidence-pack compiler for bounded operating families |
 | `src/turbo/universe/boundary_activation.py` | Exact-run/review gate and deterministic approved-event compiler/replay validator |
 | `src/turbo/universe/graph_release.py` | Cumulative replay and publication of accepted Market Graph activations |
@@ -527,7 +536,7 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | `data/agent_runs/` | Immutable model outputs and per-call receipts awaiting activation review |
 | `data/market_graph/activations/` | Immutable accepted graph events, projections, and exact execution receipts |
 | `data/market_graph/versions/` | Immutable cumulative graph releases and receipts |
-| `data/family_schedules/` | Immutable coverage, collision, family, batch, and schedule artifacts |
+| `data/family_schedules/` | Immutable coverage, relationship-context, collision, family, batch, and schedule artifacts |
 | `data/runs/` | Immutable, content-addressed universe artifacts |
 | `data/generated/` | Mutable pointer to the most recent immutable run |
 | `docs/universe/` | Universe sources, identity rules, normalization, and roadmap |

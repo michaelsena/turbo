@@ -22,10 +22,17 @@ class SystemContextTest(unittest.TestCase):
         latest = json.loads(
             (ROOT / "data/generated/latest-run.json").read_text(encoding="utf-8")
         )
-        source = ROOT / latest["immutable_run_path"] / "run-receipt.json"
-        target = root / latest["immutable_run_path"] / "run-receipt.json"
-        target.parent.mkdir(parents=True)
-        target.write_bytes(source.read_bytes())
+        source_dir = ROOT / latest["immutable_run_path"]
+        target_dir = root / latest["immutable_run_path"]
+        target_dir.mkdir(parents=True)
+        receipt = json.loads(
+            (source_dir / "run-receipt.json").read_text(encoding="utf-8")
+        )
+        (target_dir / "run-receipt.json").write_bytes(
+            (source_dir / "run-receipt.json").read_bytes()
+        )
+        for name in receipt["output_hashes"]:
+            (target_dir / name).write_bytes((source_dir / name).read_bytes())
         (generated / "latest-run.json").write_text(
             json.dumps(latest), encoding="utf-8"
         )
@@ -37,6 +44,21 @@ class SystemContextTest(unittest.TestCase):
             context = compile_system_context(root=root)
         self.assertEqual(context["canonical_markets"], 0)
         self.assertEqual(context["current_stage"], "source_reconciliation_complete")
+
+    def test_source_context_rehashes_every_declared_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as raw_temp:
+            root = Path(raw_temp)
+            self._copy_source_pointer(root)
+            latest = json.loads(
+                (root / "data/generated/latest-run.json").read_text(encoding="utf-8")
+            )
+            receipt_path = root / latest["immutable_run_path"] / "run-receipt.json"
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            artifact_name = sorted(receipt["output_hashes"])[0]
+            artifact_path = receipt_path.parent / artifact_name
+            artifact_path.write_bytes(artifact_path.read_bytes() + b"tamper")
+            with self.assertRaisesRegex(ValueError, "source-run artifact hash mismatch"):
+                compile_system_context(root=root)
 
     def test_composed_context_reads_hash_verified_cumulative_graph(self) -> None:
         compiled = compile_graph_release(CONFIG, execution_commit=EXECUTION_COMMIT)

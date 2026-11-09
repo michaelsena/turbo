@@ -195,13 +195,21 @@ The first full partition is intentionally mechanical and neutral:
    appearances through collection concordances and hierarchy descendants. Nodes with
    no inherited operating family remain in explicit section-level context buckets;
    the published missing-parent anomaly is not repaired.
-6. The exact 561110 pilot required surface is pinned before general assignment so a
-   method upgrade cannot silently invalidate the completed review.
+6. The exact 561110 pilot surface is rebuilt from its frozen pack and compared by
+   identity set before general assignment: 66 required identities and 162 context
+   identities. A method upgrade therefore cannot silently invalidate the completed
+   review while preserving only its count.
 
 This produces 8,248 required-review and 3,295 context-only identities, exactly the
 11,543-node source universe. A separate collision ledger routes all 978 prior-market
 hypotheses, including 58 with no retrieval collision. These are coverage and workload
 facts, not canonical-market decisions.
+
+A separate context-edge ledger preserves all 37,232 industry-product relationships,
+3,516 collection/trilateral relationships, and 7 explicit non-mappings with source
+observations, endpoints, administrative owners, and family appearances. Candidate
+ownership is constrained to a schedulable family or the completed pilot; an explicit
+global challenger family is used only when no reviewable collision exists.
 
 The queue favors integrity exceptions, unresolved or unmatched source burden, and
 cross-family collision risk. It cannot inspect strategy configuration, market demand,

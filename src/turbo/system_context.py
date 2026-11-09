@@ -33,6 +33,10 @@ def _source_context(root: Path) -> dict[str, Any]:
     comparable.pop("immutable_run_path", None)
     if comparable != receipt:
         raise ValueError("latest source-run pointer does not match immutable receipt")
+    immutable_run_dir = receipt_path.parent
+    for name, expected in receipt["output_hashes"].items():
+        if _sha256_path(immutable_run_dir / name) != expected:
+            raise ValueError(f"source-run artifact hash mismatch: {name}")
     return {
         "status": "source_reconciliation_complete",
         "run_id": receipt["run_id"],
