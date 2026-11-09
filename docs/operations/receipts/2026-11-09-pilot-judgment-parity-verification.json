@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "issue": 48,
+  "pull_request": 50,
+  "completed_at_utc": "2026-11-09T18:51:11.677459Z",
+  "scope": "Prompt and documentation parity with successful pilot; no runtime/schema/validator changes",
+  "tested_local_commit": "ff76d803c6a79df9d645727ce061b45bcfb6322e",
+  "equivalent_published_commit": "4e73a317b11a0830de0a0f111db5b0e9efd37307",
+  "tested_tree": "f43af9e98651cf573db267435d556ce86b472683",
+  "full_suite": {
+    "tests": 384,
+    "seconds": 1163.059,
+    "exit_code": 0,
+    "log_sha256": "40234a7500b93725aae4b420762f0a5021b204e1f6f825113dcec5844cb773c8"
+  },
+  "focused": {
+    "tests": 22,
+    "seconds": 69.567,
+    "exit_code": 0,
+    "log_sha256": "70dedffde8d95592afcbc7ca423d63fe4af023737ca0ab0ec0451aa217a6162f"
+  },
+  "repository_validation": {
+    "valid": true,
+    "exit_code": 0,
+    "log_sha256": "655823ac7f996b259837b1279f4757264aac1ab82808d9b562c06a9f640f36af"
+  },
+  "independent_review": "Platform GM reviewed full three-file diff; no blocking findings",
+  "paid_calls": 0,
+  "graph_changes": false,
+  "limitation": "Regression tests establish compatibility, not research quality; corrected prompt must be frozen in input_root for a future explicitly authorized run."
+}

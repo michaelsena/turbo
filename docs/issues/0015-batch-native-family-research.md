@@ -292,3 +292,5 @@ This is a prompt clarification, not permission to manufacture proposals or weake
 validation. The failed outputs remain immutable. A future execution needs a new
 frozen input root containing the corrected prompt and fresh workflow/authorization
 bindings; changing only the process checkout does not change the loaded B3 prompt.
+
+Exact-tree verification for the pilot-judgment prompt clarification passed 384 full-suite tests, 22 focused tests, and repository validation. Independent GM review found no blocking issues; see the [verification receipt](../operations/receipts/2026-11-09-pilot-judgment-parity-verification.json). This does not establish research quality or authorize a new paid run.
