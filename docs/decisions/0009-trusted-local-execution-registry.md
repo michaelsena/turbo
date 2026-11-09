@@ -2,9 +2,10 @@
 
 ## Status
 
-Proposed for Issue #15 Track B2. This extends the simulation foundation in
-[ADR 0008](0008-batch-authorization-execution-ledger.md). Acceptance requires local
-replay and independent review; B1 verification does not establish B2 acceptance.
+Implemented and locally verified in [PR #23](https://github.com/michaelsena/turbo/pull/23),
+which remains unmerged. This extends [ADR 0008](0008-batch-authorization-execution-ledger.md).
+The [B2 receipt](../operations/receipts/2026-11-09-shared-registry-verification.json) records
+its own replay, independent review, and exact input/output hashes.
 
 ## Context
 

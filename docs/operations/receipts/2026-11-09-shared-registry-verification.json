@@ -1,0 +1,331 @@
+{
+  "verified_at_utc": "2026-11-09T07:04:51.330723+00:00",
+  "local_execution_commit": "5fc0b2efde3039601ae5ba7527d3b5e74a21c3f7",
+  "published_execution_commit": "56a601f6879fdf3f105242ca68ca70489f7dd598",
+  "execution_tree_sha": "263d7f633b2068173465972afa95e809c2d2951f",
+  "scope": "Track B2 shared exact-document authorization tracking under one explicitly initialized trusted local registry; simulation only.",
+  "runtime": {
+    "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+    "platform": "darwin",
+    "jsonschema": "4.26.0"
+  },
+  "input_bindings": {
+    "source_binding": {
+      "artifact_hashes": {
+        "identity-relationships.json.gz": "e3753b2902723245369fa01aae42b23b95ac641b3f8194d43b36f3421e9f06b7",
+        "identity-source-summary.json.gz": "b7b4fa9685b98f292b9c1365df1577a3bf221e21dfe2591992284c5955e4f6ee",
+        "multisource-reconciliation.json.gz": "80eef412e9f48388c6f50c03faee2d75ebba382c560175f5ed1241fc0c5ac02b",
+        "naics-identity-evidence.json.gz": "c2ad398ce33457b9486df665222b4700889b6b8e924b03b4619b04c0cd3eeaf5",
+        "naics-identity-source-summary.json.gz": "cf4c3c746481974e320c52aee18456dc3860105e9509eafa85a2f5ab9411a9c4",
+        "napcs-hierarchy-evidence.json.gz": "e35bebe1fc3979393bd946f205f316b49f6c0561785e8417db19ddb5686c9f77",
+        "napcs-hierarchy-source-summary.json.gz": "3f514ac4301ce04f733dcd3b61dd2128ca3b2c213b95d9460acceb168dcea8e1",
+        "raw-source-hierarchy.json.gz": "6ae20ad5f11574bad02aafcaa6a530f461cfc278d82dec5d1b5821a65343db52"
+      },
+      "receipt_sha256": "e0ea7bf16b4a55488d9cfad5da90bc4e58e7b18f1b6ef667aeb4dd971fa375de",
+      "run_id": "run-2ea0f00db84148de663f"
+    },
+    "schedule_binding": {
+      "artifact_hashes": {
+        "batch-manifest.json": "0fed1a507344eeafecd06bb9c7806fbb434bd6b7e52557af303f05c94586b6b0",
+        "candidate-collision-ledger.json.gz": "6c9c805392c910a64a797c525f234ce8c2bd54601d9f296775b0d75f80725f92",
+        "context-edge-ledger.json.gz": "9af74b8379fc004c7c6e49fc8aca40cea27f4e720ba89eb304c7573819163db5",
+        "coverage-ledger.json.gz": "aa3629fb6974673253013d531dfe703f826355d849ef5001c93cdf4c0b789efc",
+        "family-manifest.json.gz": "f960d7f49e5755e63ceafa8abd5704fbc2acde72355ee5677ee305a1689cb5dd"
+      },
+      "partition_id": "family-partition:60517981ab96e7f243c7033e",
+      "receipt_sha256": "e162e3bf258d77b87f9ccb3bd323562499fc0261f68fa508ea5096bfd5667b91",
+      "source_run_id": "run-2ea0f00db84148de663f"
+    },
+    "graph_binding": {
+      "graph_version_id": "graph-e674a77fbfd5939c25c9e9a1",
+      "projection_sha256": "a22336b3711ba1095607aa03850607cb50a801c49abcd3e3cd0b3d914b87b8ca",
+      "receipt_sha256": "60000766e22dd07dd63aa865618d92774d7f4d0d5eb89d95c2353a659fff48d3",
+      "release_id": "graph-release-aa5b6f83e7a06e073d3a",
+      "source_universe_run_id": "run-2ea0f00db84148de663f"
+    }
+  },
+  "checks": {
+    "focused": {
+      "passed": 25,
+      "seconds": 100.265,
+      "output_sha256": "cd2822517d4fa93dd59a16e801961dc1ecbcf55e2fe032a9bc6eb616d643d7c5",
+      "command": "PYTHONPATH=src /tmp/turbo-resume-venv/bin/python -m unittest discover -s tests -p test_batch_registry.py -v",
+      "isolation": "Three real two-family preparation-replay integrations; remaining registry unit cases isolate only expensive scope replay. Registry locks, binding, file integrity and ledger transitions are real."
+    },
+    "full": {
+      "passed": 215,
+      "seconds": 616.542,
+      "output_sha256": "87d10b8819af961191eaeb1cfe2d3d0d6eb544dc2b6918843979a53f42ed32dc",
+      "command": "PYTHONPATH=src /tmp/turbo-resume-venv/bin/python -m unittest discover -s tests -v"
+    },
+    "validate": {
+      "valid": true,
+      "errors": []
+    },
+    "context_sha256": "0300ce2cd11139c85bb49578f025831d59171b1ef9d12a0dbe6941b5f9950962",
+    "diff_check": "passed"
+  },
+  "independent_review": {
+    "p0": 0,
+    "p1": 0,
+    "p2": 0,
+    "reviewed_sha256": {
+      "src/turbo/agents/batch_registry.py": "9bde238f1c9ed952c4e1a8a7077f542c5063718c5a7b4bb3734a7c8b2764a692",
+      "schemas/batch-registry.schema.json": "9e8dd5168c5aea474e00e6a3060f23a3c7e179d4403d22727b913f254f628fb6",
+      "src/turbo/cli.py": "c1277a6512c8639c709c1dcbc2e84308aeacd94595ee6003e51a09630b3e5aba"
+    },
+    "correction": "Public managed-wrapper miswiring is rejected by canonical journal path, authorization digest, and repository-root checks before delegation. Independent re-review and regression coverage verified the fix."
+  },
+  "canary": {
+    "executed_at_utc": "2026-11-09T06:55:18.399195Z",
+    "local_code_commit": "5fc0b2efde3039601ae5ba7527d3b5e74a21c3f7",
+    "mode": "simulation_only",
+    "model_invoked": false,
+    "families": [
+      "family:coverage:napcs-collection:10:001",
+      "family:coverage:prior-candidate:global-challenger:001"
+    ],
+    "managed_clients": 2,
+    "simulation_transport_calls": 1,
+    "registry_metadata": {
+      "schema_version": 1,
+      "kind": "registry",
+      "mode": "simulation_only",
+      "registry_id": "batch-registry:6949bd5db86a4be8ad48566cb29b6c36",
+      "registry_path": "/private/var/folders/k6/10c0v0154_vcgrhqcpyfkhm80000gn/T/turbo-registry-canary-gyrsvtdt/registry",
+      "created_at_utc": "2026-11-09T06:54:19.810598Z",
+      "schema_sha256": "9e8dd5168c5aea474e00e6a3060f23a3c7e179d4403d22727b913f254f628fb6",
+      "implementation_sha256": "9bde238f1c9ed952c4e1a8a7077f542c5063718c5a7b4bb3734a7c8b2764a692"
+    },
+    "authorization": {
+      "schema_version": 1,
+      "mode": "simulation_only",
+      "provider": "simulation",
+      "budget_scope": "single_journal_simulation",
+      "role": "batch_primary",
+      "authorized_by": "registry-simulation-no-spend",
+      "valid_from_utc": "2026-11-09T06:53:19.810598Z",
+      "expires_at_utc": "2026-11-09T07:54:19.810598Z",
+      "model": "simulation",
+      "prompt_sha256": "26a87bbb42badc56c41babee2efa6a0aa73abc1c3b209a51eb0453e5d5ca156c",
+      "pricing": {
+        "input_microusd_per_token": 1,
+        "output_microusd_per_token": 2
+      },
+      "pricing_sha256": "ff7a6e3381bd4769d0ee4bc80c930c7ea8510a4c63cf49da27ebaf16f6162883",
+      "max_cost_microusd": 300,
+      "max_calls": 3,
+      "max_retries": 1,
+      "max_concurrency": 1,
+      "lease_seconds": 60,
+      "max_input_tokens": 100,
+      "max_output_tokens": 100,
+      "batch_id": "family-batch:9bbf36774d5f274bd1bb1b36",
+      "families": [
+        {
+          "family_id": "family:coverage:napcs-collection:10:001",
+          "preparation_id": "family-preparation:d26eb48915ba153ebfe50f19",
+          "config_sha256": "5f8e97c905db76eac1244e5960a6daea9c9c819cbd43a1340f8cc96a30494ecc",
+          "pack_file_sha256": "57474acb586b8b2327c7b081d2e8201394ada0b261b65fdaf39a0f6e6a5e6d72",
+          "receipt_sha256": "e1706d0914ed29feec312799b709908063e26b9be590a149505e4051631f2090"
+        },
+        {
+          "family_id": "family:coverage:prior-candidate:global-challenger:001",
+          "preparation_id": "family-preparation:1a5aad602895a1bbf7c8d774",
+          "config_sha256": "d0f8b008ef0ac97d5c77ad6f1a2a4eab1fadb6e9bc30a2d2e0fbc104b36c418b",
+          "pack_file_sha256": "1f631687a34f1a2108ddbdcbcc76930a265f7058ec03d136a4b756600204e207",
+          "receipt_sha256": "d0033cb8ba33af4e7be5931b480848b23c5c095c4a111c943658698d9fe1a38c"
+        }
+      ],
+      "execution_schema_hashes": {
+        "batch-authorization.schema.json": "69483d526794ed4d39dca0c20ee8b4e809f54ca95f325bb722fd69f4aad9484e",
+        "batch-execution-event.schema.json": "1d6d193bc418b9dae20f306245e504c346c43c810079999911e1726e2bb64d8f"
+      }
+    },
+    "authorization_sha256": "98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f",
+    "replay": {
+      "valid": true,
+      "errors": [],
+      "requests": {
+        "initial": {
+          "lease_until_utc": "2026-11-09T06:55:19.810598Z",
+          "request_id": "initial",
+          "reserved_microusd": 300,
+          "retry_of": null,
+          "worker_id": "worker-1",
+          "status": "failed",
+          "response": {
+            "outcome": "failed",
+            "output": {
+              "simulation": true
+            },
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 5
+            }
+          },
+          "cost_microusd": 20
+        }
+      },
+      "committed_microusd": 20,
+      "outstanding_microusd": 0,
+      "calls_reserved": 1,
+      "retries_reserved": 0,
+      "active_requests": 0,
+      "events_count": 4,
+      "last_event_sha256": "fc2b86d2b4e9a1f2557f922d8c74b2d8df363064eb3372224246f26375850ce9",
+      "authorization_sha256": "98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f",
+      "mode": "simulation_only",
+      "budget_scope": "single_journal_simulation",
+      "model_invoked": false,
+      "preparations_verified": true,
+      "registry_id": "batch-registry:6949bd5db86a4be8ad48566cb29b6c36",
+      "managed_budget_scope": "single_registry_exact_authorization",
+      "journal_path": "journals/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f"
+    },
+    "registry_status": {
+      "registry_id": "batch-registry:6949bd5db86a4be8ad48566cb29b6c36",
+      "registry_sha256": "5f503d5a04f03ea8c4b98f3c066278e26fd88a3a994964af1d0bbb5b5a3add9d",
+      "registry_path": "/private/var/folders/k6/10c0v0154_vcgrhqcpyfkhm80000gn/T/turbo-registry-canary-gyrsvtdt/registry",
+      "mode": "simulation_only",
+      "managed_budget_scope": "single_registry_exact_authorization",
+      "claims": [
+        {
+          "authorization_sha256": "98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f",
+          "journal_path": "journals/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f",
+          "calls_reserved": 1,
+          "committed_microusd": 20,
+          "outstanding_microusd": 0,
+          "events_count": 4
+        }
+      ],
+      "model_invoked": false
+    },
+    "reopen_and_denied_retry_byte_identical": true,
+    "budget_reset_attempt_denied": true,
+    "preparation_file_sha256": {
+      "family-preparation:d26eb48915ba153ebfe50f19": {
+        "family-config-v2.json": "5f8e97c905db76eac1244e5960a6daea9c9c819cbd43a1340f8cc96a30494ecc",
+        "family-evidence-pack-v2.json": "57474acb586b8b2327c7b081d2e8201394ada0b261b65fdaf39a0f6e6a5e6d72",
+        "preparation-receipt.json": "e1706d0914ed29feec312799b709908063e26b9be590a149505e4051631f2090"
+      },
+      "family-preparation:1a5aad602895a1bbf7c8d774": {
+        "family-config-v2.json": "d0f8b008ef0ac97d5c77ad6f1a2a4eab1fadb6e9bc30a2d2e0fbc104b36c418b",
+        "family-evidence-pack-v2.json": "1f631687a34f1a2108ddbdcbcc76930a265f7058ec03d136a4b756600204e207",
+        "preparation-receipt.json": "d0033cb8ba33af4e7be5931b480848b23c5c095c4a111c943658698d9fe1a38c"
+      }
+    },
+    "registry_file_sha256": {
+      ".lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "registry.json": "5f503d5a04f03ea8c4b98f3c066278e26fd88a3a994964af1d0bbb5b5a3add9d",
+      "claims/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f.json": "5a2ef740bb1a72296057040cb2fbfa750fc5b645aba9d9e9c004757473d69eca",
+      "claims/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f.ready.json": "249aa99113c04024a71daae0207ebbdb937ad0daa3d5e00d3135ab9556eb0127",
+      "journals/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f/.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "journals/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f/authorization.json": "98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f",
+      "journals/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f/events.jsonl": "addda76a02ad91dc48e826141f956d618215a5d4c82cf37e96be7718f98390a7"
+    },
+    "registry_files_utf8": {
+      ".lock": "",
+      "registry.json": "{\"created_at_utc\":\"2026-11-09T06:54:19.810598Z\",\"implementation_sha256\":\"9bde238f1c9ed952c4e1a8a7077f542c5063718c5a7b4bb3734a7c8b2764a692\",\"kind\":\"registry\",\"mode\":\"simulation_only\",\"registry_id\":\"batch-registry:6949bd5db86a4be8ad48566cb29b6c36\",\"registry_path\":\"/private/var/folders/k6/10c0v0154_vcgrhqcpyfkhm80000gn/T/turbo-registry-canary-gyrsvtdt/registry\",\"schema_sha256\":\"9e8dd5168c5aea474e00e6a3060f23a3c7e179d4403d22727b913f254f628fb6\",\"schema_version\":1}\n",
+      "claims/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f.json": "{\"authorization_sha256\":\"98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f\",\"claimed_at_utc\":\"2026-11-09T06:54:19.810598Z\",\"journal_path\":\"journals/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f\",\"kind\":\"claim\",\"mode\":\"simulation_only\",\"registry_id\":\"batch-registry:6949bd5db86a4be8ad48566cb29b6c36\",\"registry_sha256\":\"5f503d5a04f03ea8c4b98f3c066278e26fd88a3a994964af1d0bbb5b5a3add9d\",\"schema_version\":1}\n",
+      "claims/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f.ready.json": "{\"authorization_sha256\":\"98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f\",\"claim_sha256\":\"5a2ef740bb1a72296057040cb2fbfa750fc5b645aba9d9e9c004757473d69eca\",\"kind\":\"ready\",\"mode\":\"simulation_only\",\"opened_event_sha256\":\"79ededa7b17fb06986e8d62b1c5ce3a17f16078a799bb717fca14fe8d5525f1e\",\"ready_at_utc\":\"2026-11-09T06:54:19.810598Z\",\"registry_id\":\"batch-registry:6949bd5db86a4be8ad48566cb29b6c36\",\"registry_sha256\":\"5f503d5a04f03ea8c4b98f3c066278e26fd88a3a994964af1d0bbb5b5a3add9d\",\"schema_version\":1}\n",
+      "journals/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f/.lock": "",
+      "journals/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f/authorization.json": "{\"authorized_by\":\"registry-simulation-no-spend\",\"batch_id\":\"family-batch:9bbf36774d5f274bd1bb1b36\",\"budget_scope\":\"single_journal_simulation\",\"execution_schema_hashes\":{\"batch-authorization.schema.json\":\"69483d526794ed4d39dca0c20ee8b4e809f54ca95f325bb722fd69f4aad9484e\",\"batch-execution-event.schema.json\":\"1d6d193bc418b9dae20f306245e504c346c43c810079999911e1726e2bb64d8f\"},\"expires_at_utc\":\"2026-11-09T07:54:19.810598Z\",\"families\":[{\"config_sha256\":\"5f8e97c905db76eac1244e5960a6daea9c9c819cbd43a1340f8cc96a30494ecc\",\"family_id\":\"family:coverage:napcs-collection:10:001\",\"pack_file_sha256\":\"57474acb586b8b2327c7b081d2e8201394ada0b261b65fdaf39a0f6e6a5e6d72\",\"preparation_id\":\"family-preparation:d26eb48915ba153ebfe50f19\",\"receipt_sha256\":\"e1706d0914ed29feec312799b709908063e26b9be590a149505e4051631f2090\"},{\"config_sha256\":\"d0f8b008ef0ac97d5c77ad6f1a2a4eab1fadb6e9bc30a2d2e0fbc104b36c418b\",\"family_id\":\"family:coverage:prior-candidate:global-challenger:001\",\"pack_file_sha256\":\"1f631687a34f1a2108ddbdcbcc76930a265f7058ec03d136a4b756600204e207\",\"preparation_id\":\"family-preparation:1a5aad602895a1bbf7c8d774\",\"receipt_sha256\":\"d0033cb8ba33af4e7be5931b480848b23c5c095c4a111c943658698d9fe1a38c\"}],\"lease_seconds\":60,\"max_calls\":3,\"max_concurrency\":1,\"max_cost_microusd\":300,\"max_input_tokens\":100,\"max_output_tokens\":100,\"max_retries\":1,\"mode\":\"simulation_only\",\"model\":\"simulation\",\"pricing\":{\"input_microusd_per_token\":1,\"output_microusd_per_token\":2},\"pricing_sha256\":\"ff7a6e3381bd4769d0ee4bc80c930c7ea8510a4c63cf49da27ebaf16f6162883\",\"prompt_sha256\":\"26a87bbb42badc56c41babee2efa6a0aa73abc1c3b209a51eb0453e5d5ca156c\",\"provider\":\"simulation\",\"role\":\"batch_primary\",\"schema_version\":1,\"valid_from_utc\":\"2026-11-09T06:53:19.810598Z\"}\n",
+      "journals/98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f/events.jsonl": "{\"at_utc\":\"2026-11-09T06:54:19.810598Z\",\"authorization_sha256\":\"98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f\",\"data\":{},\"kind\":\"opened\",\"previous_sha256\":null,\"schema_version\":1,\"sequence\":0,\"sha256\":\"79ededa7b17fb06986e8d62b1c5ce3a17f16078a799bb717fca14fe8d5525f1e\"}\n{\"at_utc\":\"2026-11-09T06:54:19.810598Z\",\"authorization_sha256\":\"98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f\",\"data\":{\"lease_until_utc\":\"2026-11-09T06:55:19.810598Z\",\"request_id\":\"initial\",\"reserved_microusd\":300,\"retry_of\":null,\"worker_id\":\"worker-1\"},\"kind\":\"reserved\",\"previous_sha256\":\"79ededa7b17fb06986e8d62b1c5ce3a17f16078a799bb717fca14fe8d5525f1e\",\"schema_version\":1,\"sequence\":1,\"sha256\":\"98a72ac04740d2823bfacc1225833633b2fa7038f2d3bcd0da3804ae0c0a3032\"}\n{\"at_utc\":\"2026-11-09T06:54:19.810598Z\",\"authorization_sha256\":\"98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f\",\"data\":{\"request_id\":\"initial\",\"worker_id\":\"worker-1\"},\"kind\":\"dispatched\",\"previous_sha256\":\"98a72ac04740d2823bfacc1225833633b2fa7038f2d3bcd0da3804ae0c0a3032\",\"schema_version\":1,\"sequence\":2,\"sha256\":\"4fd62d01e25403bfa00ac0486bf6c3953316ba7ccf7ea2e3fbe808a150669d98\"}\n{\"at_utc\":\"2026-11-09T06:54:19.810598Z\",\"authorization_sha256\":\"98745ce0c85135cf1f92cd5595a27f7920ba0158d524e38020d419a4b98e9a1f\",\"data\":{\"cost_microusd\":20,\"request_id\":\"initial\",\"response\":{\"outcome\":\"failed\",\"output\":{\"simulation\":true},\"usage\":{\"input_tokens\":10,\"output_tokens\":5}},\"worker_id\":\"worker-1\"},\"kind\":\"settled\",\"previous_sha256\":\"4fd62d01e25403bfa00ac0486bf6c3953316ba7ccf7ea2e3fbe808a150669d98\",\"schema_version\":1,\"sequence\":3,\"sha256\":\"fc2b86d2b4e9a1f2557f922d8c74b2d8df363064eb3372224246f26375850ce9\"}\n"
+    }
+  },
+  "canary_reproducer": "import hashlib,json,subprocess,tempfile\nfrom datetime import datetime,timedelta,timezone\nfrom pathlib import Path\nfrom turbo.agents.batch_authorization import build_authorization\nfrom turbo.agents.batch_registry import initialize_registry,BatchRegistry,inspect_registry,validate_registry_execution\nfrom turbo.agents.boundary_harness import canonical_sha256\nfrom turbo.universe.family_pack_v2 import prepare_family_v2\nroot=Path.cwd(); sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\nnow=datetime.now(timezone.utc); stamp=lambda d:d.isoformat().replace('+00:00','Z'); clock=lambda:stamp(now)\nfamilies=['family:coverage:napcs-collection:10:001','family:coverage:prior-candidate:global-challenger:001']\nwith tempfile.TemporaryDirectory(prefix='turbo-registry-canary-') as raw:\n base=Path(raw).resolve(); path=base/'registry'\n preps=[Path(prepare_family_v2(fid,root=root,output_root=base/'preparations')['preparation_path']) for fid in families]\n auth=build_authorization(preps,root=root,authorized_by='registry-simulation-no-spend',valid_from_utc=stamp(now-timedelta(minutes=1)),expires_at_utc=stamp(now+timedelta(hours=1)),prompt_sha256=hashlib.sha256(b'registry simulation only').hexdigest(),pricing={'input_microusd_per_token':1,'output_microusd_per_token':2},max_cost_microusd=300,max_calls=3,max_retries=1,max_input_tokens=100,max_output_tokens=100)\n metadata=initialize_registry(path,root=root,clock=clock); digest=canonical_sha256(auth)\n first=BatchRegistry(path,root=root).open(auth,preps,clock=clock); calls=[]\n def transport(envelope):\n  calls.append([f['family_id'] for f in envelope['families']])\n  assert first.status()['requests']['initial']['status']=='dispatched'\n  assert len(inspect_registry(path,root=root)['claims'])==1\n  return {'outcome':'failed','output':{'simulation':True},'usage':{'input_tokens':10,'output_tokens':5}}\n first.reserve('initial','worker-1'); first.dispatch('initial','worker-1',transport)\n before={str(p.relative_to(path)):p.read_bytes() for p in path.rglob('*') if p.is_file()}\n second=BatchRegistry(path,root=root).open(auth,preps,clock=clock)\n assert second.status()==first.status()\n denied=False\n try:second.reserve('retry','worker-2',retry_of='initial')\n except ValueError:denied=True\n assert denied and calls==[families]\n after={str(p.relative_to(path)):p.read_bytes() for p in path.rglob('*') if p.is_file()}\n assert before==after\n result=validate_registry_execution(path,digest,preps,root=root)\n assert result['valid'] and result['committed_microusd']==20 and result['calls_reserved']==1\n summary=inspect_registry(path,root=root); assert len(summary['claims'])==1\n receipt={'executed_at_utc':stamp(datetime.now(timezone.utc)),'local_code_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'mode':'simulation_only','model_invoked':False,'families':families,'managed_clients':2,'simulation_transport_calls':len(calls),'registry_metadata':metadata,'authorization':auth,'authorization_sha256':digest,'replay':result,'registry_status':summary,'reopen_and_denied_retry_byte_identical':True,'budget_reset_attempt_denied':True,'preparation_file_sha256':{p.name:{f.name:sha(f) for f in p.iterdir()} for p in preps},'registry_file_sha256':{p:hashlib.sha256(data).hexdigest() for p,data in after.items()},'registry_files_utf8':{p:data.decode() for p,data in after.items()}}\n Path('/tmp/turbo-registry-canary-result.json').write_text(json.dumps(receipt,indent=2)+'\\n')\n print(json.dumps({'valid':True,'families':2,'managed_clients':2,'claims':1,'simulation_transport_calls':len(calls),'simulated_cost_microusd':20,'budget_reset_denied':True,'bytes_unchanged':True}))\n",
+  "exact_replay_instructions": "Use the pinned code checkout. Restore registry_files_utf8 only into a new directory at the recorded registry_metadata.registry_path, preserving relative paths and canonical bytes. Regenerate the two named V2 preparations under the same code, then run batch-registry-validate with the recorded authorization_sha256 and preparation paths. This historical replay does not dispatch and does not require current authorization validity. Never overwrite an existing registry to replay this fixture.",
+  "full_field_inspection": {
+    "projection_file_sha256": "6216f81ab6b3011c095fa3086581e6a05b05d9d3f11e56d4b90816173d230469",
+    "projection_content_sha256": "a22336b3711ba1095607aa03850607cb50a801c49abcd3e3cd0b3d914b87b8ca",
+    "projection_exclusions": [],
+    "markets": [
+      {
+        "market_id": "market:8230a0616ef5332c9c156ed2",
+        "canonical_name": "Dental practice administration",
+        "activation_status": "provisional",
+        "explicit_exclusions": [
+          "Clinical dental care",
+          "Dental insurance billing alone",
+          "Complete operation of a client dental practice"
+        ],
+        "confidence_by_dimension": {
+          "acquisition_universe": 0.32,
+          "ambient_ai_workflow": 0.1,
+          "buyer": 0.38,
+          "delivery": 0.48,
+          "economics_risk": 0.15,
+          "job": 0.58,
+          "workforce": 0.45
+        },
+        "research_gap_ids": [
+          "gap:vertical-administration-boundary"
+        ]
+      },
+      {
+        "market_id": "market:930fb681a7db796a46677c8c",
+        "canonical_name": "Integrated outsourced office administration",
+        "activation_status": "accepted_with_open_gaps",
+        "explicit_exclusions": [
+          "Complete operation of a client's business",
+          "Holding-company offices",
+          "Corporate, subsidiary, and regional managing offices",
+          "Computer facilities management",
+          "Construction management",
+          "Farm management",
+          "Real property management",
+          "Food-service contracting",
+          "Management advice without day-to-day management",
+          "Single support services supplied alone"
+        ],
+        "confidence_by_dimension": {
+          "acquisition_universe": 0.7,
+          "ambient_ai_workflow": 0.1,
+          "buyer": 0.65,
+          "delivery": 0.85,
+          "economics_risk": 0.3,
+          "job": 0.88,
+          "workforce": 0.84
+        },
+        "research_gap_ids": [
+          "gap:horizontal-office-admin-operating-tests",
+          "gap:vertical-administration-boundary"
+        ]
+      },
+      {
+        "market_id": "market:a4e5f08d253256b2a0c8ca05",
+        "canonical_name": "Medical practice administration",
+        "activation_status": "provisional",
+        "explicit_exclusions": [
+          "Clinical care delivery",
+          "Medical care management as a product category",
+          "Complete operation of a client medical practice or hospital"
+        ],
+        "confidence_by_dimension": {
+          "acquisition_universe": 0.32,
+          "ambient_ai_workflow": 0.1,
+          "buyer": 0.38,
+          "delivery": 0.48,
+          "economics_risk": 0.15,
+          "job": 0.58,
+          "workforce": 0.45
+        },
+        "research_gap_ids": [
+          "gap:vertical-administration-boundary"
+        ]
+      }
+    ],
+    "data_diff_from_parent": "empty",
+    "target_market_count": 0,
+    "score_count": 0
+  },
+  "limitations": [
+    "Guarantees cover one trusted same-host POSIX registry and exact authorization document digest. Modified unsigned documents and independently initialized registries are separate scenarios, not authenticated approval.",
+    "Partial initialization remains blocked; no automatic repair, reset, migration, or claim deletion API.",
+    "Registry identity is bound to its resolved path, schema and registry implementation. Replay or restoration requires those original bindings.",
+    "Privileged filesystem mutation, entire-state deletion or rollback, and hash-chain completeness against valid-prefix truncation remain outside the guarantee.",
+    "No real provider adapter, production output contract, approval authentication or paid canary is enabled."
+  ],
+  "model_invoked": false
+}

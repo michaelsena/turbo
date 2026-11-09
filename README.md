@@ -158,22 +158,28 @@ Budgets and idempotency cover one trusted simulation journal only; copying an
 authorization to another directory does not share counters. Shared authorization
 consumption is required before a live adapter or paid canary.
 See [ADR 0008](docs/decisions/0008-batch-authorization-execution-ledger.md) and the
-[verification receipt](docs/operations/receipts/2026-11-09-batch-ledger-verification.json):
-190 Python tests pass, including 28 focused checks; the two-family simulation
-replays exactly. Independent review found no remaining code issues within this
-limited scope. Those results describe the pinned B1 code, not later increments.
+[B1 verification receipt](docs/operations/receipts/2026-11-09-batch-ledger-verification.json)
+for that increment's pinned results.
 
-Track B2 is now developing a trusted local registry that binds an authorization to
-one canonical journal for repeated managed clients. Its scope is one registry:
-separate registries, newly minted unsigned authorizations, and deletion of the entire
-trusted state are outside the guarantee. B1 standalone journals remain per-journal.
-See [ADR 0009](docs/decisions/0009-trusted-local-execution-registry.md); B2 remains
-simulation-only and has not yet completed acceptance.
+[PR #23](https://github.com/michaelsena/turbo/pull/23) adds Track B2: a trusted local
+registry that binds the same exact authorization to one canonical journal across
+managed clients. Reopening preserves prior costs, attempts, and unresolved work;
+missing or partial claimed state fails closed. Separate registries, new unsigned
+authorizations, and privileged deletion or rollback of trusted state remain outside
+its guarantee. Standalone B1 journals remain per-journal.
+
+B2 passed 215 Python tests, including 25 focused registry checks, and a two-client,
+two-family simulation proving that reopening cannot reset the journal's budget.
+Independent code and closeout review passed. See
+[ADR 0009](docs/decisions/0009-trusted-local-execution-registry.md) and the
+[verification receipt](docs/operations/receipts/2026-11-09-shared-registry-verification.json).
+PR #23 remains unmerged; this is still simulation-only.
 
 Real model dispatch, validated output contracts, selective independent verification,
 disagreement escalation, and deterministic family closure remain later work. Approve
 and evaluate one neutral metered canary before authorizing broad execution. Then
-complete cross-family coverage, publish the canonical universe, add Target filtering, and begin production scoring.
+complete cross-family coverage, publish the canonical universe, add Target filtering,
+and begin production scoring.
 The read product can expand only as those durable projections become available.
 
 ## Working protocol and navigation

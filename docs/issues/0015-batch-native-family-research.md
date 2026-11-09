@@ -159,3 +159,12 @@ Standalone B1 remains per-journal. Real providers, spending authority, and resea
 execution remain outside B2; production authorization and state governance require
 separate review before any paid canary. See
 [ADR 0009](../decisions/0009-trusted-local-execution-registry.md).
+
+## Track B2 verification
+
+[PR #23](https://github.com/michaelsena/turbo/pull/23) remains unmerged. Its
+[verification receipt](../operations/receipts/2026-11-09-shared-registry-verification.json)
+records 215 passing Python tests (25 focused registry checks), independent review,
+and a two-family simulation in which two managed clients share one journal and
+cannot reset its cost/call state. The public-wrapper binding regression is covered.
+No real provider call, approval authentication, or research activation is included.

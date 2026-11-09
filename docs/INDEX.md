@@ -24,6 +24,7 @@ the README and the relevant document whenever behavior or architecture changes.
 - [Family-preparation correction audit](operations/receipts/2026-11-09-family-pack-corrections.json)
 - [Dashboard verification](operations/receipts/2026-11-09-dashboard-corrections.json)
 - [Batch-ledger simulation verification](operations/receipts/2026-11-09-batch-ledger-verification.json)
+- [Shared-registry simulation verification](operations/receipts/2026-11-09-shared-registry-verification.json)
 
 ## Architecture decisions
 
