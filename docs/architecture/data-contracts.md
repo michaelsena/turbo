@@ -1,5 +1,44 @@
 # Data contracts
 
+## Verified read snapshot and API envelope
+
+A read snapshot is an immutable in-memory join of one compatible source run, family
+partition, and cumulative graph version. Its identity binds their exact receipts and
+artifact hashes plus the read-model version. Loading fails if a pointer, receipt,
+projection, output hash, partition ID, or source lineage disagrees. All declared
+source artifacts are rehashed when loading a snapshot; the selected source receipt
+must also agree with the schedule's frozen source hashes. Historical source context
+is built from that selected receipt. Published graph status, graph version, and
+recomputed activation/event/market/mapping counts must match the graph receipt.
+Schedule artifact headers must agree with its receipt; published totals and family/
+batch workloads must agree with the hash-verified collections. Legacy four-artifact
+plans remain inspectable, while the corrected five-artifact format enforces its added
+count fields and relationship ledger.
+
+Successful JSON resource responses contain `data` plus exact provenance: source run, partition,
+graph version, release, as-of time, read-model version, and context fingerprint.
+Market, mapping, family, batch, and candidate lists are deterministically sorted
+and paginated; nested family context is separately bounded. Search has a bounded
+result limit, while versions returns a catalog. Errors use `detail`; `304` responses
+have no body. The context fingerprint includes all three exact receipt
+hashes; each HTTP ETag hashes its complete response envelope, and `If-None-Match` may
+return 304 only for that equivalent representation. Receipt resources resolve only
+an enumerated kind and safe ID beneath a fixed repository root, then recursively remove secret, credential, authorization,
+and private-reasoning fields.
+
+One shared request dependency applies `source_run_id`, `partition_id`, and
+`graph_version_id` to every snapshot-backed endpoint. The version catalog lists
+complete compatible tuples only after loading and verifying each join. The browser
+may select and propagate one of those tuples, but compatibility remains a backend
+contract and is never reimplemented in TypeScript. Partial and empty explicit URL
+parameters reach backend validation unchanged; snapshot-load errors use a sanitized
+409 response. Active Audit provenance comes from the selected response, not the
+version catalog's current-pointer entry.
+
+The API is a projection of repository truth, not new truth. UI state, administrative
+ordering, source titles, and client-side filters never create market, Target, or
+evaluation facts.
+
 Turbo separates durable objects so one convenient JSON blob never becomes an
 unreviewable source of truth.
 
@@ -212,9 +251,10 @@ content-addressed and replayed by regenerating the config and pack. Replay also
 requires each persisted config, pack, and receipt file to equal its canonical JSON
 bytes exactly; parsing to the same object is insufficient.
 
-Pack compilation requires two independent bindings for every consumed source artifact:
-the source-run receipt hash and the family schedule receipt's frozen source hash must
-be identical before the file is read. Graph context likewise requires the latest
+Pack compilation verifies the full source-run receipt and all declared artifact bytes.
+Artifacts frozen by the family schedule must additionally match its source hashes.
+The Manual artifact is separately bound through the verified full source run because
+the historical schedule did not consume it; the schedule is never retroactively changed. Graph context likewise requires the latest
 pointer, immutable graph receipt, and projection to agree on the release, graph
 version, source run, projection hash, and recomputed counts. Standalone validation
 recompiles the full expected pack and compares every top-level evidence and lineage

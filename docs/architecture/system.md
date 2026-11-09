@@ -24,6 +24,24 @@ projection, and evaluation projection also have separate receipts and pointers.
 `turbo context` verifies and composes them; it does not treat a source-run-local count
 or the most recently written activation directory as current system truth.
 
+The first read product keeps the same boundary. A Python read model composes one
+hash-verified source/schedule/graph tuple in memory and exposes deterministic FastAPI
+resources. The React/TypeScript/Vite client consumes only that API; it cannot scan
+artifact directories or recreate research decisions. FastAPI also serves the compiled
+SPA locally, so there is no second backend, write surface, or application database.
+Snapshot provenance binds exact receipt and artifact hashes plus a versioned
+read-model contract. HTTP ETags bind the complete selected response representation.
+Atomic reload occurs only after changed pointers and all referenced receipts and
+artifacts validate. One shared FastAPI dependency applies an explicit source-run,
+partition, and graph tuple to every snapshot-backed route. The UI selector consumes
+the backend's verified compatible-tuple catalog and propagates the three IDs through
+queries and navigation without recreating version compatibility in the client.
+Partial explicit URL selections remain explicit until backend validation. The selected
+source receipt supplies historical source context; it is never relabeled latest data.
+Snapshot loading rehashes all declared source artifacts, checks schedule-pinned source
+hashes, and requires graph publication/version/count coherence. Failures produce a
+sanitized response; the Audit view displays the selected response provenance.
+
 ## Core durable identities
 
 - `source_snapshot_id`: immutable bytes plus publisher/URL/time/hash.
@@ -42,7 +60,8 @@ an append-only event. A graph version is the deterministic projection of all acc
 events through a cutoff. Stable market IDs survive ordinary score changes. Splits and
 merges create successor market IDs with explicit edges; prior versions remain queryable.
 
-The API will support both `latest` and explicit `as_of`/`graph_version` requests.
+The API supports both verified current pointers and explicit immutable
+source-run/partition/graph tuples. Incompatible joins fail closed.
 
 An activation is deliberately local to one reviewed family. Publication therefore
 uses a cumulative graph-release config that enumerates exact activation directories,
