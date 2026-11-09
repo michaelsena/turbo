@@ -79,6 +79,10 @@ change requires new baselines. Commit the deterministic files under
 The route loop explicitly restores `window.scrollY` to zero before axe and viewport
 capture. This keeps the separate Overview market-panel element screenshot—which
 scrolls its subject into view—from shifting the next route's viewport baseline.
+Market identity acceptance also captures the operating-dimension, exclusion, and
+evidence panels directly at both viewports. The harness temporarily disables sticky
+positioning without removing the header's layout space so tall element screenshots
+remain unobstructed, and it expands both evidence disclosures before capture.
 
 If the test executor cannot bind a server, start the compiled product from a shell
 that can bind loopback. From the repository root:
