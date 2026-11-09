@@ -13,17 +13,18 @@ CONFIG = ROOT / "config/universe/families/office-administrative-services-v1.json
 
 class CodexRunnerContractTest(unittest.TestCase):
     def test_model_schemas_use_the_supported_structured_output_subset(self) -> None:
-        def assert_no_one_of(value: object) -> None:
+        def assert_supported(value: object) -> None:
             if isinstance(value, dict):
                 self.assertNotIn("oneOf", value)
+                self.assertNotIn("uniqueItems", value)
                 for child in value.values():
-                    assert_no_one_of(child)
+                    assert_supported(child)
             elif isinstance(value, list):
                 for child in value:
-                    assert_no_one_of(child)
+                    assert_supported(child)
 
-        assert_no_one_of(load_specialist_schema())
-        assert_no_one_of(load_adjudication_schema())
+        assert_supported(load_specialist_schema())
+        assert_supported(load_adjudication_schema())
 
     def test_command_is_ephemeral_isolated_read_only_and_schema_bound(self) -> None:
         with tempfile.TemporaryDirectory() as raw_temp:

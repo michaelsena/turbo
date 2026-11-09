@@ -104,6 +104,17 @@ def validate_boundary_output(
     if len(gap_ids) != len(gap_id_set):
         errors.append("research_gaps contains duplicate gap IDs")
 
+    def check_unique_strings(owner: str, item: dict[str, Any], fields: tuple[str, ...]) -> None:
+        for field in fields:
+            values = item[field]
+            if len(values) != len(set(values)):
+                errors.append(f"{owner} contains duplicate {field}")
+
+    if len(output["alternatives_considered"]) != len(
+        set(output["alternatives_considered"])
+    ):
+        errors.append("alternatives_considered contains duplicates")
+
     dispositions = output["identity_dispositions"]
     disposition_ids = [item["identity_id"] for item in dispositions]
     if len(disposition_ids) != len(set(disposition_ids)):
@@ -133,6 +144,17 @@ def validate_boundary_output(
                 errors.append(f"{owner} cites unknown {field}: {sorted(unknown)}")
 
     for proposal in output["proposed_markets"]:
+        check_unique_strings(
+            f"proposal {proposal['proposal_id']}",
+            proposal,
+            (
+                "aliases",
+                "explicit_exclusions",
+                "candidate_market_ids",
+                "supporting_evidence_ids",
+                "counterevidence_ids",
+            ),
+        )
         check_evidence(f"proposal {proposal['proposal_id']}", proposal)
         unknown_candidates = set(proposal["candidate_market_ids"]) - known_candidate_ids
         if unknown_candidates:
@@ -143,6 +165,11 @@ def validate_boundary_output(
 
     for disposition in dispositions:
         identity_id = disposition["identity_id"]
+        check_unique_strings(
+            f"identity disposition {identity_id}",
+            disposition,
+            ("supporting_evidence_ids", "counterevidence_ids"),
+        )
         check_evidence(f"identity disposition {identity_id}", disposition)
         proposal_id = disposition["proposal_id"]
         disposition_name = disposition["disposition"]
@@ -171,6 +198,11 @@ def validate_boundary_output(
             )
 
     for candidate in candidate_dispositions:
+        check_unique_strings(
+            f"candidate disposition {candidate['candidate_market_id']}",
+            candidate,
+            ("proposal_ids", "supporting_evidence_ids", "counterevidence_ids"),
+        )
         check_evidence(
             f"candidate disposition {candidate['candidate_market_id']}", candidate
         )
@@ -182,6 +214,15 @@ def validate_boundary_output(
             )
 
     for gap in output["research_gaps"]:
+        check_unique_strings(
+            f"research gap {gap['gap_id']}",
+            gap,
+            (
+                "affected_identity_ids",
+                "supporting_evidence_ids",
+                "counterevidence_ids",
+            ),
+        )
         check_evidence(f"research gap {gap['gap_id']}", gap)
         unknown_identities = set(gap["affected_identity_ids"]) - known_identity_ids
         if unknown_identities:

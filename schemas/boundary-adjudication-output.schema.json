@@ -17,7 +17,7 @@
     "invocation_id": {"type": "string", "pattern": "^invocation:[0-9a-f]{24}$"},
     "input_pack_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "specialist_output_sha256": {
-      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+      "type": "array", "minItems": 2, "maxItems": 2,
       "items": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
     },
     "analysis_summary": {"type": "string", "pattern": "\\S"},

@@ -43,14 +43,12 @@
   "$defs": {
     "uniqueStrings": {
       "type": "array",
-      "items": {"type": "string", "pattern": "\\S"},
-      "uniqueItems": true
+      "items": {"type": "string", "pattern": "\\S"}
     },
     "nonEmptyUniqueStrings": {
       "type": "array",
       "minItems": 1,
-      "items": {"type": "string", "pattern": "\\S"},
-      "uniqueItems": true
+      "items": {"type": "string", "pattern": "\\S"}
     },
     "evidenceLabel": {"enum": ["fact", "inference", "assumption", "unknown"]},
     "dimensions": {
