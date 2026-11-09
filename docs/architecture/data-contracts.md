@@ -1,5 +1,24 @@
 # Data contracts
 
+## Verified read snapshot and API envelope
+
+A read snapshot is an immutable in-memory join of one compatible source run, family
+partition, and cumulative graph version. Its identity binds their exact receipts and
+artifact hashes plus the read-model version. Loading fails if a pointer, receipt,
+projection, output hash, partition ID, or source lineage disagrees.
+
+Every API response contains `data` plus exact provenance: source run, partition,
+graph version, release, as-of time, read-model version, and context fingerprint.
+Collection fields are deterministically sorted and paginated; nested family context
+is separately bounded. ETags use the snapshot fingerprint and `If-None-Match` may
+return 304. Receipt resources resolve only an enumerated kind and safe ID beneath a
+fixed repository root, then recursively remove secret, credential, authorization,
+and private-reasoning fields.
+
+The API is a projection of repository truth, not new truth. UI state, administrative
+ordering, source titles, and client-side filters never create market, Target, or
+evaluation facts.
+
 Turbo separates durable objects so one convenient JSON blob never becomes an
 unreviewable source of truth.
 

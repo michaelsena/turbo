@@ -7,6 +7,7 @@
 - [Scoring model](scoring/model.md)
 - [Ambient AI thesis](ambient-ai/thesis.md)
 - [Local operating runbook](operations/runbook.md)
+- [Read API and React research console](application/read-api-dashboard.md)
 - [AI-first autonomous operation](governance/ai-first.md)
 - [Public and interview communication](governance/public-communication.md)
 - [ADR 0001: Architecture and operating model](decisions/0001-architecture-and-operating-model.md)

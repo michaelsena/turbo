@@ -531,6 +531,8 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | `src/turbo/universe/boundary_activation.py` | Exact-run/review gate and deterministic approved-event compiler/replay validator |
 | `src/turbo/universe/graph_release.py` | Cumulative replay and publication of accepted Market Graph activations |
 | `src/turbo/system_context.py` | Hash-verified composed source, schedule, graph, Target, and evaluation view |
+| `src/turbo/web/read_model.py` | Version-compatible, hash-verified read snapshot and deterministic queries |
+| `src/turbo/web/app.py` | Local read-only FastAPI surface and compiled-SPA host |
 | `src/turbo/agents/boundary_harness.py` | Schema and closed-world validation for specialists and adjudication |
 | `src/turbo/agents/boundary_runner.py` | Provider-neutral two-specialist/one-adjudicator orchestration and durable outputs |
 | `src/turbo/agents/openrouter_runner.py` | Metered OpenRouter requests, structured-output enforcement, retries, and redacted receipts |
@@ -550,6 +552,7 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | `docs/ambient-ai/` | Ambient AI thesis and market-specific evaluation |
 | `docs/architecture/` | System components, graph, event flow, and boundaries |
 | `docs/operations/` | Local verification, issue/branch/PR process, and runbooks |
+| `frontend/` | React/TypeScript/Vite research console consuming only the read API |
 | `docs/decisions/` | Append-only architecture decision records |
 | `tests/` | Local source, parser, hierarchy, reconciliation, and replay tests |
 
@@ -634,9 +637,47 @@ must precede the Target Market filter, which must precede evaluation.
 
 ## The application and API
 
-The planned application is a clean, white, information-dense research interface:
+The first application slice is now a local, read-only research console over the
+current verified source run, corrected family schedule, and cumulative Market Graph.
+It deliberately exposes universe construction before Target filtering or evaluation:
 
-- Universe explorer with hierarchy, lineage, and normalization history.
+- overview with exact source, schedule, graph, and gap counts
+- canonical-universe table and evidence-rich market detail
+- deterministic operating-family schedule and paginated family context
+- batch manifest, version catalog, provenance footer, and audit IDs
+- JSON API for context, versions, markets, mappings, families, batches, identities,
+  prior candidates, bounded search, and allowlisted sanitized receipts
+
+The backend is FastAPI. The frontend is React + TypeScript + Vite with React Router,
+TanStack Query, and TanStack Table. The API is the only data contract: the frontend
+does not reproduce research, boundary, scheduling, or version-selection logic. A
+production frontend build is served by the same local FastAPI process; Vite is used
+only for frontend development. There is no application database, hosted deployment,
+telemetry, write route, or second server-side application layer.
+
+Every response carries a provenance envelope and ETag derived from the exact source
+run, partition, graph version, artifact hashes, and read-model version. A request for
+an incompatible tuple fails closed. Receipt routes resolve only fixed repository
+directories and remove credential/private-reasoning fields recursively.
+
+Run the integrated local product:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -e .
+python3 -m pip install -r requirements-web.txt
+cd frontend && npm install && npm run build && cd ..
+PYTHONPATH=src uvicorn turbo.web.app:app --host 127.0.0.1 --port 8000
+# Open http://127.0.0.1:8000 (API docs: http://127.0.0.1:8000/docs)
+```
+
+For frontend development, run FastAPI on port 8000 and `npm run dev` in
+`frontend/`; Vite proxies `/api` to the local backend. No model or network research
+call occurs while serving, searching, testing, or building this interface.
+
+The later application will extend this same contract with:
+
 - Global ranking and submodel/factor rankings.
 - Raw, confidence-adjusted, and downside-adjusted views.
 - Market detail pages with claims, evidence, workflow maps, comparisons, score
@@ -644,8 +685,9 @@ The planned application is a clean, white, information-dense research interface:
 - Ambient AI concept cards showing context sources, actions, failure modes,
   implementation feasibility, and expected output bottleneck relief.
 - Research queue, challenger intake, shortlist, exceptions, and recent changes.
-- Version/as-of selector and exact-run audit receipt.
-- Read API for the same graph, scores, evidence, and version history.
+- Full historical as-of selectors and diff views.
+- Target, score, comparison, and ranking projections only after those durable layers
+  exist and have their own receipts.
 
 The UI must never hide uncertainty behind a single composite number. Users should
 be able to move from global rank to the assumptions and source locators that made
@@ -680,7 +722,8 @@ results coherent. See [the local operating runbook](docs/operations/runbook.md).
    is available.
 5. Implement specialist independence, mandatory adjudication, submodel pairwise
    comparators, gap priority, and versioned score events.
-6. Build the read API and initial universe/ranking dashboard.
+6. Extend the shipped read API and universe console with historical diffs and later,
+   separately versioned Target/ranking projections.
 7. Continuously research, compare, and rerank markets while preserving every version.
 
 ## Important limitations

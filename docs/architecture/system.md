@@ -24,6 +24,15 @@ projection, and evaluation projection also have separate receipts and pointers.
 `turbo context` verifies and composes them; it does not treat a source-run-local count
 or the most recently written activation directory as current system truth.
 
+The first read product keeps the same boundary. A Python read model composes one
+hash-verified source/schedule/graph tuple in memory and exposes deterministic FastAPI
+resources. The React/TypeScript/Vite client consumes only that API; it cannot scan
+artifact directories or recreate research decisions. FastAPI also serves the compiled
+SPA locally, so there is no second backend, write surface, or application database.
+Snapshot ETags bind exact artifact hashes plus a versioned read-model contract.
+Atomic reload occurs only after changed pointers and all referenced receipts and
+artifacts validate.
+
 ## Core durable identities
 
 - `source_snapshot_id`: immutable bytes plus publisher/URL/time/hash.
