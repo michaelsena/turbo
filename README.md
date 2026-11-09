@@ -372,14 +372,28 @@ starting lists.
 | Target markets filtered | 0 |
 | Research scores produced | 0 |
 
-Issue #12 has also compiled the first bounded AI-review pilot without yet accepting a
-market decision. The neutral Office Administrative Services family contains 66
+Issue #12 has also completed the first bounded AI-review pilot without yet activating
+a market decision. The neutral Office Administrative Services family contains 66
 required source identities, 65 industry-product relationships backed by 121 exact
 source observations, 547 citable evidence items, 127 retrieved prior-candidate
 hypotheses, and the full lightweight 978-candidate catalog. Its frozen canonical pack
 hash is `32634f119b454bbae964cab7ed1c40a2f5eb09285fa3c254191422246f33bbed`.
 This is an execution input—not a market conclusion, Target Market admission, or
-attractiveness score. The first model run remains pending.
+attractiveness score.
+
+At exact execution head `acb4354f77a5bd5ba5e27982545f61d765a303fa`, two blind
+specialists and one adjudicator independently converged on one proposed operating
+market, **Integrated outsourced office administration**. All three outputs covered
+all 66 required identities and 127 prior-candidate dispositions and passed the
+deterministic closed-world validator. The durable run is
+[`boundary-run-1d9b04b683a3544c2644`](data/agent_runs/boundary-run-1d9b04b683a3544c2644/),
+and `turbo boundary-validate-run` replays it exactly.
+
+This remains a **validated proposal, not an accepted canonical market**. Independent
+review must resolve whether the zero-gap result and 127 `reject` dispositions are
+appropriately scoped to this family rather than accidentally implying global removal
+of unrelated prior seeds. No Target Market filter, attractiveness score, shortlist,
+or company work has begun.
 
 These counts and every reconciliation proposal are in the deterministic
 `multisource-reconciliation.json.gz` artifact inside the immutable run directory.
@@ -409,6 +423,7 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | `src/turbo/pipeline.py` | Replayable source-universe and reconciliation generation |
 | `src/turbo/cli.py` | Local run, validation, and context commands |
 | `data/source_snapshots/` | Immutable official source captures and manifests |
+| `data/agent_runs/` | Immutable model outputs and per-call receipts awaiting activation review |
 | `data/runs/` | Immutable, content-addressed universe artifacts |
 | `data/generated/` | Mutable pointer to the most recent immutable run |
 | `docs/universe/` | Universe sources, identity rules, normalization, and roadmap |

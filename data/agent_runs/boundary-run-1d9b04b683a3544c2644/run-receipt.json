@@ -1,0 +1,17 @@
+{
+  "adjudication_output_sha256": "270b95ab18257bb24a464f47d3bf0f7ca7d33e7b3b48259ebf5adbb15223d685",
+  "boundary_run_id": "boundary-run-1d9b04b683a3544c2644",
+  "config_sha256": "dbc77e0ea09cc8e2d04e187df99d6717d4fa0a43cbc8543631a04ba09cab8d30",
+  "family_id": "office-administrative-services-v1",
+  "git_commit": "acb4354f77a5bd5ba5e27982545f61d765a303fa",
+  "input_pack_sha256": "32634f119b454bbae964cab7ed1c40a2f5eb09285fa3c254191422246f33bbed",
+  "provider": "openrouter",
+  "raw_reasoning_persisted": false,
+  "schema_version": 1,
+  "source_run_id": "run-2ea0f00db84148de663f",
+  "specialist_output_sha256": [
+    "b7024b0e5471a1723d8db03492fd6bccbb335979e77e487482dfd5319df17166",
+    "e8255073c1bacd2f13f161c3ce80b46f887c8dab23ca4fcb12b57d3a4f379565"
+  ],
+  "status": "validated_proposal_not_activated"
+}

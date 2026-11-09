@@ -142,6 +142,11 @@ to a model provider. A bounded correction sequence retains one nested call recei
 per model call plus the number of validation repairs used. Receipts explicitly state
 that credentials and raw model reasoning were not persisted.
 
+A boundary run receipt also records the exact execution commit, config hash, frozen
+pack hash, both specialist output hashes, adjudication hash, and non-activation
+status. `boundary-validate-run` rebuilds the exact pack, reruns all three local
+validators, and checks every receipt binding before review.
+
 
 ## Factor definition, evaluator result, and score event
 

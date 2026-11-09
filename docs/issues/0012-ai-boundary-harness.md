@@ -63,8 +63,9 @@ exclusivity, or a core workflow.
 ## Current status
 
 The parser gate, pack compiler, schemas, closed-world validator, isolated runner, and
-focused contract tests are implemented. No model output, canonical market, Target
-Market admission, company work, or attractiveness score has yet been accepted.
+focused contract tests are implemented. A validated model proposal now exists, but no
+canonical market, Target Market admission, company work, or attractiveness score has
+yet been accepted.
 
 The original `gpt-6.1-sol` local-CLI baseline was rejected before inference because
 that model was not exposed through the local ChatGPT-authenticated Codex CLI. No
@@ -112,3 +113,35 @@ are restated, and provisional judgments must bind a known gap. A role may now us
 most two fully receipted correction calls after local validation failures. Corrections
 receive validator errors and the prior output hash but must regenerate a complete
 object; exhausted correction rounds still fail closed.
+
+### First validated proposal run
+
+At exact execution head `acb4354f77a5bd5ba5e27982545f61d765a303fa`, run
+`boundary-run-1d9b04b683a3544c2644` completed with three first-pass model calls and no
+correction rounds. Both blind specialists and the adjudicator used
+`openai/gpt-5.6-terra`, served by OpenAI through OpenRouter. Each output contains all
+66 required identity dispositions and all 127 prior-candidate dispositions.
+
+The adjudicator proposed one operating market, **Integrated outsourced office
+administration**, supported directly by the Manual definition and source identity.
+It mapped the one NAICS industry identity to that proposal, classified the 65 NAPCS
+product identities as non-market source identities, and marked all 127 retrieved
+prior candidates `reject` within the bounded family. No research gaps were returned.
+
+Canonical output hashes:
+
+- specialist A: `b7024b0e5471a1723d8db03492fd6bccbb335979e77e487482dfd5319df17166`
+- specialist B: `e8255073c1bacd2f13f161c3ce80b46f887c8dab23ca4fcb12b57d3a4f379565`
+- adjudication: `270b95ab18257bb24a464f47d3bf0f7ca7d33e7b3b48259ebf5adbb15223d685`
+
+The run used 695,858 total reported tokens and cost `$2.292360`. At
+`2026-11-09T00:46:03Z`, the dedicated key reported cumulative usage of `$3.538212`
+and `$46.461788` remaining. Raw private reasoning and the API credential were not
+persisted.
+
+The persisted replay validates with zero errors against pack
+`32634f119b454bbae964cab7ed1c40a2f5eb09285fa3c254191422246f33bbed`.
+This is still `validated_proposal_not_activated`. Independent review must determine
+whether the zero-gap result is appropriately cautious and whether `reject` means only
+“not part of this bounded family” rather than global deletion of unrelated prior
+seeds. Until then, no Market Graph event may be compiled.
