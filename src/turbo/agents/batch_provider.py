@@ -22,7 +22,7 @@ from turbo.agents.openrouter_runner import openrouter_schema
 from turbo.pipeline_paths import ROOT
 
 SUPPORTED_ROLES = workflow.ROLES
-EXECUTION_FILES = ('src/turbo/agents/batch_provider.py', 'src/turbo/agents/openrouter_attempt.py',
+EXECUTION_FILES = ('src/turbo/agents/batch_recovery.py', 'src/turbo/agents/batch_provider.py', 'src/turbo/agents/openrouter_attempt.py',
                    'src/turbo/agents/openrouter_runner.py', 'src/turbo/agents/batch_output.py',
                    'src/turbo/agents/batch_authorization.py', 'src/turbo/agents/runtime.py',
                    'src/turbo/agents/boundary_harness.py', 'src/turbo/universe/batch_closure.py',
@@ -147,24 +147,25 @@ def _verify_upstream(execution: BatchExecutionV2, role: str, previous: dict,
                      authorization: dict) -> dict:
     """Coordinator-only provenance. Never add these conclusions to blind prompts."""
     required = _upstream_hashes(role, previous)
-    requests = execution.status()['requests']
     for name in required:
+        origin, origin_authorization = execution.upstream_origin(name) if hasattr(execution, 'upstream_origin') else (execution, authorization)
+        requests = origin.status()['requests']
         matches = [row for row in requests.values()
                    if row['role'] == name and row['status'] == 'succeeded']
         if len(matches) != 1:
             raise ValueError('upstream submission lacks one settled provider attempt')
         attempt = matches[0]
-        artifact = _load_artifact(execution.journal_path, attempt['response']['output'])
+        artifact = _load_artifact(origin.journal_path, attempt['response']['output'])
         provider = artifact['provider']
-        if (artifact['authorization_sha256'] != execution.authorization_sha256
+        if (artifact['authorization_sha256'] != origin.authorization_sha256
                 or artifact['attempt_id'] != attempt['attempt_id']
                 or artifact['role'] != name or artifact['input_sha256'] != attempt['input_sha256']
                 or artifact['upstream_submission_hashes'] != _upstream_hashes(name, previous)
                 or artifact['valid'] is not True
                 or artifact['document'] != previous[name]['document']
                 or provider['status'] != 'valid'
-                or provider['requested_model'] != authorization['roles'][name]['model']
-                or provider['served_model'] != authorization['roles'][name]['model']
+                or provider['requested_model'] != origin_authorization['roles'][name]['model']
+                or provider['served_model'] != origin_authorization['roles'][name]['model']
                 or provider['usage'] != attempt['response']['usage']
                 or provider['provider_cost_microusd'] != attempt['response']['provider_cost_microusd']):
             raise ValueError('upstream provider artifact does not substantiate submission')
@@ -191,7 +192,7 @@ def _replay_preview(directory: Path, *, input_root: Path, preparation_dirs=None)
 def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, role: str,
                    attempt_id: str, *, input_root: Path, preparation_dirs=None,
                    retry_of: str | None = None, api_key: str | None = None,
-                   transport=None, clock=None) -> dict:
+                   transport=None, clock=None, recovery_checkpoint: Path | None = None) -> dict:
     """Execute at most one managed attempt; repeat calls replay without HTTP.
 
     Eligibility comes from frozen workflow dependencies. This function never chooses
@@ -204,7 +205,12 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
     input_root = Path(input_root).resolve()
     task = workflow.assignment(directory, role, input_root=input_root,
                                preparation_dirs=preparation_dirs)
-    if authorization['execution_contract_hashes'] != execution_contract_hashes():
+    expected_contracts = execution_contract_hashes()
+    if recovery_checkpoint is not None:
+        from turbo.agents.batch_recovery import checkpoint_binding
+        from turbo.agents.batch_execution_v2 import _read
+        expected_contracts['recovery/checkpoint-v1'] = checkpoint_binding(_read(Path(recovery_checkpoint)))
+    if authorization['execution_contract_hashes'] != expected_contracts:
         raise ValueError('execution implementation changed')
     if authorization['workflow_plan_sha256'] != task['plan_sha256']:
         raise ValueError('authorization does not bind workflow plan')
@@ -235,7 +241,14 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         raise ValueError('conservative request token bound exceeds authorization')
     if not (api_key or os.environ.get('OPENROUTER_API_KEY')):
         raise ValueError('OpenRouter credential required before managed admission')
-    execution = BatchExecutionV2(registry_dir, authorization, **({'clock': clock} if clock else {}))
+    if recovery_checkpoint is None:
+        execution = BatchExecutionV2(registry_dir, authorization, **({'clock': clock} if clock else {}))
+    else:
+        from turbo.agents.batch_recovery import RecoveryExecution
+        execution = RecoveryExecution(registry_dir, authorization, recovery_checkpoint, **({'clock': clock} if clock else {}))
+        if (execution.checkpoint['workflow_path'] != str(directory)
+                or execution.checkpoint['input_root'] != str(input_root)):
+            raise ValueError('recovery workflow or input root changed')
     previous = _snapshot(directory, input_root=input_root, preparation_dirs=preparation_dirs)
     upstream = _verify_upstream(execution, role, previous, authorization)
     input_digest = _hash({'assignment': task, 'runtime_prompt': runtime, 'schema': schema,
