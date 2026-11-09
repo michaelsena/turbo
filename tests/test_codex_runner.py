@@ -2,6 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from turbo.agents.boundary_harness import load_adjudication_schema, load_specialist_schema
 from turbo.agents.codex_runner import _runtime_prompt, codex_command
 from turbo.pipeline_paths import ROOT
 from turbo.universe.boundary_pack import build_boundary_pack
@@ -11,6 +12,19 @@ CONFIG = ROOT / "config/universe/families/office-administrative-services-v1.json
 
 
 class CodexRunnerContractTest(unittest.TestCase):
+    def test_model_schemas_use_the_supported_structured_output_subset(self) -> None:
+        def assert_no_one_of(value: object) -> None:
+            if isinstance(value, dict):
+                self.assertNotIn("oneOf", value)
+                for child in value.values():
+                    assert_no_one_of(child)
+            elif isinstance(value, list):
+                for child in value:
+                    assert_no_one_of(child)
+
+        assert_no_one_of(load_specialist_schema())
+        assert_no_one_of(load_adjudication_schema())
+
     def test_command_is_ephemeral_isolated_read_only_and_schema_bound(self) -> None:
         with tempfile.TemporaryDirectory() as raw_temp:
             work_dir = Path(raw_temp)

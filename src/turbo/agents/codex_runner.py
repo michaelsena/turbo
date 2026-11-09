@@ -184,8 +184,10 @@ def invoke_codex_role(
             "status": "failed",
         }
         if completed.returncode != 0:
+            stderr_tail = completed.stderr[-2_000:].strip()
             raise RuntimeError(
                 f"{role_id} invocation failed with exit code {completed.returncode}; "
+                f"stderr_tail={stderr_tail!r}; "
                 f"receipt={json.dumps(receipt, sort_keys=True)}"
             )
         if not output_path.exists():

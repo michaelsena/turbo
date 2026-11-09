@@ -130,19 +130,16 @@
             "non_market_source_identity", "provisional_non_market_source_identity"
           ]
         },
-        "proposal_id": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^proposal:"}]},
+        "proposal_id": {"type": ["string", "null"], "pattern": "^proposal:"},
         "relationship_type": {
-          "oneOf": [
-            {"type": "null"},
-            {"enum": ["equivalent_label_candidate", "broader_than_market", "narrower_than_market", "product_sold_by_market", "industry_containing_market", "task_performed_by_market", "partial_overlap", "residual_bucket", "non_market_product"]}
-          ]
+          "enum": [null, "equivalent_label_candidate", "broader_than_market", "narrower_than_market", "product_sold_by_market", "industry_containing_market", "task_performed_by_market", "partial_overlap", "residual_bucket", "non_market_product"]
         },
         "rationale": {"type": "string", "pattern": "\\S"},
         "evidence_label": {"$ref": "#/$defs/evidenceLabel"},
         "confidence": {"type": "number", "minimum": 0, "maximum": 1},
         "supporting_evidence_ids": {"$ref": "#/$defs/nonEmptyUniqueStrings"},
         "counterevidence_ids": {"$ref": "#/$defs/uniqueStrings"},
-        "gap_id": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^gap:"}]}
+        "gap_id": {"type": ["string", "null"], "pattern": "^gap:"}
       }
     },
     "candidateDisposition": {
