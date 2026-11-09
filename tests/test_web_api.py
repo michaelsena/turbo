@@ -1,0 +1,91 @@
+import tempfile
+import unittest
+from pathlib import Path
+
+from fastapi.testclient import TestClient
+
+from turbo.web.app import create_app
+
+
+class WebApiTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.client = TestClient(create_app(frontend_dist=Path("/nonexistent")))
+
+    def test_context_has_provenance_and_etag(self) -> None:
+        response = self.client.get("/api/v1/context")
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertEqual(
+            payload["provenance"]["partition_id"],
+            "family-partition:60517981ab96e7f243c7033e",
+        )
+        self.assertEqual(response.headers["x-turbo-source-run"], "run-2ea0f00db84148de663f")
+        self.assertTrue(response.headers["etag"].startswith('"'))
+
+    def test_etag_returns_not_modified(self) -> None:
+        first = self.client.get("/api/v1/markets")
+        replay = self.client.get(
+            "/api/v1/markets", headers={"If-None-Match": first.headers["etag"]}
+        )
+        self.assertEqual(replay.status_code, 304)
+        self.assertEqual(replay.content, b"")
+
+    def test_markets_are_deterministic_and_not_ranked(self) -> None:
+        first = self.client.get("/api/v1/markets?page_size=100")
+        replay = self.client.get("/api/v1/markets?page_size=100")
+        self.assertEqual(first.json(), replay.json())
+        data = first.json()["data"]
+        self.assertEqual(data["total"], 3)
+        serialized = first.text.casefold()
+        self.assertNotIn('"score"', serialized)
+        self.assertNotIn('"rank"', serialized)
+
+    def test_family_detail_bounds_context_collection(self) -> None:
+        listing = self.client.get("/api/v1/families?page_size=1").json()["data"]
+        family_id = listing["items"][0]["family_id"]
+        detail = self.client.get(
+            f"/api/v1/families/{family_id}?context_page_size=5"
+        )
+        self.assertEqual(detail.status_code, 200)
+        context = detail.json()["data"]["context_identities"]
+        self.assertLessEqual(len(context["items"]), 5)
+        self.assertIn("ownership_notice", detail.text)
+
+    def test_search_requires_bounded_query(self) -> None:
+        response = self.client.get("/api/v1/search?q=x")
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("at least 2", response.json()["detail"])
+
+    def test_receipt_paths_are_allowlisted(self) -> None:
+        valid = self.client.get(
+            "/api/v1/receipts/graph-release/graph-release-aa5b6f83e7a06e073d3a"
+        )
+        self.assertEqual(valid.status_code, 200)
+        self.assertEqual(valid.json()["data"]["kind"], "graph-release")
+        unknown = self.client.get("/api/v1/receipts/arbitrary/value")
+        self.assertEqual(unknown.status_code, 404)
+
+    def test_incompatible_version_tuple_fails_closed(self) -> None:
+        response = self.client.get(
+            "/api/v1/context?source_run_id=run-1f039950ed1e4e3192c7"
+        )
+        self.assertEqual(response.status_code, 409)
+        self.assertIn("incompatible", response.json()["detail"])
+
+    def test_page_size_is_bounded_at_http_boundary(self) -> None:
+        response = self.client.get("/api/v1/families?page_size=101")
+        self.assertEqual(response.status_code, 422)
+
+    def test_compiled_spa_is_served_without_second_application_server(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            dist = Path(temporary)
+            (dist / "index.html").write_text("<title>Turbo</title>", encoding="utf-8")
+            client = TestClient(create_app(frontend_dist=dist))
+            response = client.get("/families/example")
+            self.assertEqual(response.status_code, 200)
+            self.assertIn("Turbo", response.text)
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -1,0 +1,6 @@
+# The read-only application is intentionally isolated from the source-universe
+# package manifest. Changing pyproject.toml changes the immutable universe-run
+# fingerprint; product-surface dependencies must not create a new research run.
+fastapi>=0.115,<1
+httpx>=0.27,<1
+uvicorn[standard]>=0.32,<1
