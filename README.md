@@ -1,5 +1,10 @@
 # Turbo
 
+Payment-rejected verifier attempts have an explicit, bounded
+[successor recovery procedure](docs/operations/payment-rejection-recovery.md).
+It preserves accepted primary research and all prior accounting; it never treats
+unknown billing as zero or automatically retries a call.
+
 Turbo is an auditable research system for finding U.S. markets suited to an
 AI-enabled lower-middle-market acquisition strategy. It asks where an owner can buy
 a good business at a disciplined price, improve its production bottleneck with
