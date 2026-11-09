@@ -197,5 +197,6 @@ Metered model runs have separate explicit configuration and spending gates.
 | Current verified pointers | `data/generated/latest-run.json`, `latest-family-schedule.json`, `latest-graph.json` |
 | Model execution and review | `src/turbo/agents/`, `data/agent_runs/`, `data/agent_reviews/` |
 | Read API and UI | `src/turbo/web/`, `frontend/`, [application guide](docs/application/read-api-dashboard.md) |
+| App worker and local issue intake | [Worker charter](docs/operations/app-gm-worker.md), [dispatcher guide](docs/operations/app-dispatcher.md) |
 | Commands and acceptance | `src/turbo/cli.py`, `tests/`, [runbook](docs/operations/runbook.md) |
 | Consequential design choices | [Architecture decisions](docs/INDEX.md#architecture-decisions) |
