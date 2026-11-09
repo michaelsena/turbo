@@ -11,6 +11,7 @@ from jsonschema import Draft202012Validator
 
 from turbo.agents.boundary_harness import canonical_sha256
 from turbo.pipeline_paths import ROOT
+from turbo.system_context import _source_context
 
 
 DEFAULT_LIMITS = {
@@ -227,6 +228,23 @@ def _family_edges(
     return sorted(edges, key=lambda item: item["relationship_id"])
 
 
+def _source_binding(root: Path, run_id: str) -> dict[str, Any]:
+    source = _source_context(root)
+    if source["run_id"] != run_id:
+        raise ValueError("family schedule and verified source run disagree")
+    receipt = _object(root / source["immutable_run_path"] / "run-receipt.json")
+    return {"run_id": run_id, "receipt_sha256": canonical_sha256(receipt),
+            "artifact_hashes": source["output_hashes"]}
+
+
+def _implementation_hashes(root: Path) -> dict[str, str]:
+    paths = sorted((root / "src/turbo").rglob("*.py")) + [
+        root / "schemas/family-config-v2.schema.json",
+        root / "schemas/family-evidence-pack-v2.schema.json",
+    ]
+    return {str(path.relative_to(root)): _sha256_path(path) for path in paths}
+
+
 def generate_family_config_v2(
     family_id: str,
     *,
@@ -257,6 +275,8 @@ def generate_family_config_v2(
     config = {
         "schema_version": 2,
         "method_version": "schedule-driven-family-v2",
+        "source_binding": _source_binding(root, pointer["source_run_id"]),
+        "implementation_hashes": _implementation_hashes(root),
         "family_id": family_id,
         "family_kind": family["family_kind"],
         "status": "prepared_no_model_call",
@@ -362,6 +382,10 @@ def _assemble_family_evidence_pack_v2(
         receipt["source_hashes"],
         "multisource-reconciliation.json.gz",
     )
+    naics_evidence = _load_run_artifact(
+        root, run_id, run_receipt, config["source_binding"]["artifact_hashes"],
+        "naics-identity-evidence.json.gz",
+    )
     identities = {item["identity_id"]: item for item in reconciliation["source_identities"]}
     records = {item["record_id"]: item for item in reconciliation["source_records"]}
     mappings = {item["normalized_identity_id"]: item for item in reconciliation["mappings"]}
@@ -380,8 +404,25 @@ def _assemble_family_evidence_pack_v2(
         for shard in config["scope"]["context_shards"]
         for identity_id in shard["identity_ids"]
     ]
+    required_naics = {identity_id for identity_id in required_ids
+                      if identity_id.startswith("identity:naics:")}
+    manual_definitions = [item for item in naics_evidence["manual_definitions"]
+                          if item["identity_id"] in required_naics]
+    if {item["identity_id"] for item in manual_definitions} != required_naics:
+        raise ValueError("required NAICS identity missing official Manual definition")
+    manual_index_entries = [item for item in naics_evidence["manual_index_entries"]
+                            if item["identity_id"] in required_naics]
+    # Two official codes have no index entry; absence remains an explicit source fact.
+    manual_index_missing_identity_ids = sorted(required_naics - {
+        item["identity_id"] for item in manual_index_entries})
     selected_ids = required_ids + context_ids
     required_candidate_ids = config["scope"]["required_prior_candidate_ids"]
+    context_candidate_ids = sorted({
+        candidate["candidate_market_id"]
+        for identity_id in required_ids
+        for candidate in mappings[identity_id]["candidates"]
+    } - set(required_candidate_ids))
+    all_candidate_ids = required_candidate_ids + context_candidate_ids
     # Context is orientation, not a second primary research obligation. Keep its
     # labels and exact relationship edges, but include full source/mapping cards
     # only for required identities.
@@ -391,7 +432,7 @@ def _assemble_family_evidence_pack_v2(
         for record_id in identities[identity_id]["source_record_ids"]
     } | {
         record_id
-        for candidate_id in required_candidate_ids
+        for candidate_id in all_candidate_ids
         for record_id in candidates[candidate_id]["source_record_ids"]
     })
     identity_cards = [
@@ -429,10 +470,13 @@ def _assemble_family_evidence_pack_v2(
         for identity_id in required_ids
     ]
     required_candidate_cards = []
-    for candidate_id in required_candidate_ids:
+    context_candidate_cards = []
+    for candidate_id in all_candidate_ids:
         catalog = candidates[candidate_id]
         ledger = candidate_ledger[candidate_id]
-        required_candidate_cards.append({
+        target = (required_candidate_cards if candidate_id in required_candidate_ids
+                  else context_candidate_cards)
+        target.append({
             "candidate_market_id": candidate_id,
             "name": catalog["name"],
             "status": catalog["status"],
@@ -458,10 +502,13 @@ def _assemble_family_evidence_pack_v2(
         "context_identities": len(context_ids),
         "context_shards": len(config["scope"]["context_shards"]),
         "required_candidates": len(required_candidate_cards),
+        "context_candidates": len(context_candidate_cards),
         "context_edges": len(context_edges),
         "identity_cards": len(identity_cards),
         "source_record_cards": len(source_record_cards),
         "mapping_cards": len(mapping_cards),
+        "manual_definitions": len(manual_definitions),
+        "manual_index_entries": len(manual_index_entries),
         "graph_mappings": len(graph_mappings),
         "graph_markets": len(graph_markets),
     }
@@ -471,7 +518,8 @@ def _assemble_family_evidence_pack_v2(
             raise ValueError(f"family pack count gate {key}: {counts[key]} != {expected[key]}")
     evidence_items = sum(counts[key] for key in (
         "identity_cards", "source_record_cards", "mapping_cards", "required_candidates",
-        "context_edges", "graph_mappings", "graph_markets"
+        "context_edges", "graph_mappings", "graph_markets",
+        "manual_definitions", "manual_index_entries", "context_candidates"
     ))
     if evidence_items > config["limits"]["max_evidence_items"]:
         raise ValueError("family pack evidence-item limit exceeded")
@@ -486,7 +534,9 @@ def _assemble_family_evidence_pack_v2(
             "schedule_receipt_sha256": pointer["receipt_sha256"],
             "graph_receipt_sha256": graph_pointer["receipt_sha256"],
             "graph_projection_sha256": graph_pointer["projection_sha256"],
-            "source_artifact_hashes": receipt["source_hashes"],
+            "source_artifact_hashes": config["source_binding"]["artifact_hashes"],
+            "source_receipt_sha256": config["source_binding"]["receipt_sha256"],
+            "implementation_hashes": config["implementation_hashes"],
             "config_sha256": canonical_sha256(config),
             "pack_sha256": "",
             "model_invoked": False,
@@ -498,10 +548,14 @@ def _assemble_family_evidence_pack_v2(
             "prohibited_actions": config["prohibited_actions"],
         },
         "counts": {**counts, "evidence_items": evidence_items},
+        "manual_definitions": manual_definitions,
+        "manual_index_entries": manual_index_entries,
+        "manual_index_missing_identity_ids": manual_index_missing_identity_ids,
         "identity_cards": identity_cards,
         "source_record_cards": source_record_cards,
         "mapping_cards": mapping_cards,
         "required_candidate_cards": required_candidate_cards,
+        "context_candidate_cards": context_candidate_cards,
         "context_edges": context_edges,
         "graph_context": {
             "graph_version_id": graph_pointer["graph_version_id"],
@@ -563,9 +617,13 @@ def _validate_family_evidence_pack_v2(
         "scope",
         "counts",
         "identity_cards",
+        "manual_definitions",
+        "manual_index_entries",
+        "manual_index_missing_identity_ids",
         "source_record_cards",
         "mapping_cards",
         "required_candidate_cards",
+        "context_candidate_cards",
         "context_edges",
         "graph_context",
     ):

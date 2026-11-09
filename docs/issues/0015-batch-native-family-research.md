@@ -71,3 +71,20 @@ There is no silent truncation, inferred substitution, activation, or graph mutat
   cumulative graph-release integration.
 - Metered canary: only after exact local replay, independent review, and separate
   chairman spend authorization.
+
+## Second independent-review correction
+
+The second review found evidence omissions despite successful integrity checks.
+Preparations now include required NAICS Manual definitions, examples, cross-references,
+coordinate fragments, and index entries with their original snapshot/page locators.
+Official index absence is explicit. A separate source binding verifies the complete
+source-run receipt and artifact bytes; it adds the Manual artifact without rewriting
+the historical schedule or its frozen inputs.
+
+Retrieved prior candidates owned by another family are retained as context-only cards
+with labels and source records. They never enter this family's required dispositions.
+All semantic and candidate evidence participates in item/byte gates and exact replay.
+Configs and packs bind every Turbo Python source file and both executable V2 schemas.
+Any implementation/schema change creates a new preparation identity; replay of an old
+preparation requires its original checkout. Model prompt binding remains a runner
+responsibility because Track A invokes no model.

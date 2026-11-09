@@ -246,3 +246,9 @@ posted as GitHub issue/PR receipts so deterministic replay never dirties the wor
 
 Formal JSON Schemas and executable projection tests precede external API stability.
 
+
+V2 preparations additionally bind the full verified source-run receipt/artifact map
+and exact Turbo Python/executable-schema bytes. Packs retain required NAICS Manual
+records and index-absence facts, plus non-owned retrieved candidates as context-only
+cards with source records. These fields participate in content identity, size gates,
+and deterministic regeneration; they do not alter administrative ownership.

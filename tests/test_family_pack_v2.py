@@ -33,6 +33,50 @@ class FamilyPackV2Test(unittest.TestCase):
         cls.config = generate_family_config_v2(UNLINKED_FAMILY)
         cls.pack = compile_family_evidence_pack_v2(cls.config)
 
+    def test_required_naics_retains_manual_boundary_and_index_evidence(self) -> None:
+        config = generate_family_config_v2(NAICS_FAMILY)
+        pack = compile_family_evidence_pack_v2(config)
+        definitions = pack["manual_definitions"]
+        self.assertEqual(len(definitions), 1)
+        self.assertEqual(definitions[0]["identity_id"], "identity:naics:111110")
+        self.assertIn("soybeans", definitions[0]["narrative_text"].lower())
+        self.assertIn("111191", definitions[0]["cross_references_text"])
+        self.assertTrue(definitions[0]["snapshot_id"])
+        self.assertTrue(definitions[0]["locator"])
+        self.assertEqual(pack["counts"]["manual_index_entries"], 1)
+        self.assertIn("naics-identity-evidence.json.gz", pack["metadata"]["source_artifact_hashes"])
+        tampered = copy.deepcopy(pack)
+        tampered["manual_definitions"][0]["cross_references_text"] = ""
+        tampered["metadata"]["pack_sha256"] = _pack_hash(tampered)
+        self.assertTrue(validate_family_evidence_pack_v2(tampered, config))
+
+    def test_retrieved_nonowned_candidates_remain_context_only(self) -> None:
+        required = self.pack["scope"]["required_prior_candidate_ids"]
+        context = self.pack["context_candidate_cards"]
+        self.assertEqual(required, [])
+        self.assertEqual(len(context), 5)
+        retrieved = {candidate_id for card in self.pack["mapping_cards"]
+                     for candidate_id in card["retrieved_candidate_ids"]}
+        self.assertEqual(retrieved, {card["candidate_market_id"] for card in context})
+        records = {card["record_id"] for card in self.pack["source_record_cards"]}
+        self.assertTrue(all(set(card["source_record_ids"]) <= records for card in context))
+        tampered = copy.deepcopy(self.pack)
+        tampered["context_candidate_cards"] = []
+        tampered["metadata"]["pack_sha256"] = _pack_hash(tampered)
+        self.assertTrue(validate_family_evidence_pack_v2(tampered, self.config))
+
+    def test_implementation_and_schema_bytes_are_bound(self) -> None:
+        hashes = self.config["implementation_hashes"]
+        for path in ("src/turbo/universe/family_pack_v2.py",
+                     "schemas/family-config-v2.schema.json",
+                     "schemas/family-evidence-pack-v2.schema.json"):
+            self.assertEqual(hashes[path], hashlib.sha256((ROOT / path).read_bytes()).hexdigest())
+        self.assertEqual(self.pack["metadata"]["implementation_hashes"], hashes)
+        tampered = copy.deepcopy(self.config)
+        tampered["implementation_hashes"]["src/turbo/universe/family_pack_v2.py"] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "exact schedule entry"):
+            compile_family_evidence_pack_v2(tampered)
+
     def test_config_binds_exact_corrected_schedule_and_graph(self) -> None:
         self.assertEqual(
             self.config["schedule_binding"]["partition_id"],

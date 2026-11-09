@@ -45,3 +45,13 @@ a separately versioned deterministic policy; it may not weaken this preparation.
   preregistered limit.
 - This ADR authorizes no model call, spend, activation, Target filtering, evaluation,
   ranking, or company work.
+
+## Evidence-completeness amendment
+
+Integrity is insufficient when the compiler omits boundary evidence. Required NAICS
+identities retain full source-located Manual definition/index records, including
+exclusions and original fragments. Non-owned retrieved candidates remain inspectable
+context with source lineage, without creating duplicate review obligations. A separate
+verified source-run binding supplies Manual provenance without changing the immutable
+schedule. Code and executable-schema hashes now bind each preparation; replay across
+implementation versions requires the matching historical checkout.

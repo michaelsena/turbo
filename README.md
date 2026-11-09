@@ -531,6 +531,12 @@ The current machine-readable pointer and receipt is
 nodes, reconciliation worklists, and immutable receipts live in content-addressed directories under
 `data/runs/`.
 
+V2 family preparations now preserve required NAICS Manual definitions, exclusions,
+and index evidence, and expose retrieved candidates owned elsewhere as context only.
+Source-receipt, artifact, compiler, and executable-schema hashes bind the pack;
+older preparations require their matching checkout for replay. The historical family
+schedule and canonical graph remain unchanged.
+
 ## Repository map
 
 | Path | Purpose |
