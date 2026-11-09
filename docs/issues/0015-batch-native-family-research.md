@@ -273,3 +273,22 @@ separated by subject. Validation and the failed artifact remain unchanged.
 This prompt clarification does not establish evidence sufficiency, authorize a
 paid retry, or convert the rejected output into accepted research. Compare the
 frozen evidence with the successful corrected pilot before further dispatch.
+
+## Anchored qualification and pilot judgment parity
+
+The subsequent collection10 / NAICS333415 primary also returned no proposals.
+It used the same evidence IDs as support and counterevidence in two dispositions,
+so existing validation rejected it before downstream calls. Its rationale treated
+insufficient operating-boundary evidence as factual family non-mapping rather than
+an unresolved judgment with a gap. Neither failed run produced accepted markets.
+
+Issue 48 restores explicit guidance already present in
+[the pilot specialist](../../prompts/universe/boundary-specialist-v2.md) and
+[adjudicator](../../prompts/universe/boundary-adjudicator-v2.md): thin dimensions can
+support a defensible provisional judgment with labeled inference and gaps; lack
+of evidence does not establish non-market status; fact labels require direct
+support. The batch prompt also states the existing disjoint-citation rule.
+This is a prompt clarification, not permission to manufacture proposals or weaken
+validation. The failed outputs remain immutable. A future execution needs a new
+frozen input root containing the corrected prompt and fresh workflow/authorization
+bindings; changing only the process checkout does not change the loaded B3 prompt.
