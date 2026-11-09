@@ -417,7 +417,16 @@ the required candidate set from 127 to 130, and makes family-local rejection sco
 all 13 index entries, explicit research gaps, complete exclusions, and stronger NAPCS
 citations part of the model completion contract. Its frozen pack hash is
 `eccc87570dc259f3cea6449a5a87455ccba4e690ccb82851e28822c3a64346e5`; it has not yet
-produced or activated a replacement proposal.
+activated a replacement proposal.
+
+The V2 run has now produced a validated replacement proposal with three linked
+inputs: horizontal integrated office administration plus provisional medical- and
+dental-practice administration boundaries. It reconciles the missed prior seeds,
+marks all 126 remaining rejections as family-local, and preserves two explicit gaps
+for the operating model and horizontal-versus-vertical boundary. The durable run is
+[`boundary-run-1a88e9a3acdf15d63b09`](data/agent_runs/boundary-run-1a88e9a3acdf15d63b09/).
+It is still not activated and requires a fresh independent review against the prior
+P0/P1/P2 conditions.
 
 These counts and every reconciliation proposal are in the deterministic
 `multisource-reconciliation.json.gz` artifact inside the immutable run directory.

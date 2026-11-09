@@ -1,0 +1,2847 @@
+{
+  "alternatives_considered": [
+    "A single all-industry office-administration market was rejected as overbroad because the manual expressly includes named medical, dental, hotel, and motel administration labels while excluding complete-operation models.",
+    "A vertical-operator boundary was rejected because the manual definition excludes providing operating staff for complete business operations.",
+    "Product-line identities were not treated as markets solely because they were reported as products sold by NAICS 561110."
+  ],
+  "analysis_summary": "The frozen manual defines NAICS 561110 as contracted day-to-day office administrative services for others and expressly excludes complete-operation staffing. The evidence supports a horizontal outsourced-office-administration market, with medical and dental administration retained as provisional vertical boundary candidates because the index names them. Hotel and motel administration remain inside the horizontal service boundary only when they do not provide complete operation of the client business. All listed NAPCS identities are source product identities rather than equivalent operating-market identities in this family.",
+  "candidate_dispositions": [
+    {
+      "candidate_market_id": "candidate-market:00095b7c27b7c679b4303c28",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:ae4ef079e7ea0bc71ed0eea4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:007b2d3661bb4eaa6f78d638",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:a548911775e320b93335bfc2"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0149cb1f23b6c0fdcee1d68e",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:bc44ec3ecfa186cab68f7af0"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0220a26a8f39cc99c6f80d79",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:a548911775e320b93335bfc2"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:04c7d46701ae1dcd03015d74",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:5c6487888b403a2a6f4d898d"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:072030972a077ba627c6dbfd",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:43b947d20cf0b0342862d265"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:086bac7b09fbc3f54a7d7bd4",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:3e32bc402fb37eeedef20b54"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0a029ecc18f4807b4c01770e",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:ae4ef079e7ea0bc71ed0eea4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0b7e3eb71e58765476c6285c",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:2c754790f6e87a08ad7d2c0a"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0c18f6607af933ca8432686f",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:c672582186b1dcac3d692d1d"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0c275f55a03a6956219d316d",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:766532efd25deeb11a79bcf1"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:143be21b6989c55dc5a84fed",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:b308d44989e7ffbb6effab11"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:1480a724ba58b5d5f128cce4",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:47b1f0851b814d9790eca960"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:15e240367d707e62e441deb6",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:5d6b009e692f7136ff9f5bb2"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:17057f00f350dbf892c8f27c",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:43b947d20cf0b0342862d265"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:177699c95565599564670a22",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:474338fe4494427d6acfdc5b"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:1c8b0adcff1ef7467e309620",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:b0eb1602bdf198a3e76b2420"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:1f5dc416c4cd112172aebd85",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:7234b70636191dedad0c37f8"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:20d043d440539d3fd61b6719",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:eae1d2dbc82f3903088389c5"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2118c1b964a8d177fcb7b461",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:db783a4ea53260db39b67067"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:233c03efa0c9bc950cc548da",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:71997f36d1770ae117b3682f"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:26306d42f3067db3d573d9d8",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:3aa4c3bed14f4b3ba6007386"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:274afebd1474a99e58c712e9",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:38baed507800f634b3c805a4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2b5bf7917ca64940e540352d",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:7771d809fd0943d14abd4220"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2c736ff785f142bbc6e3bb99",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:13445aaf2c25599ca1ffb576"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2c8608f5ebb6f1a7c7b8dcc9",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:d9b68a7c8a515e43d0c58cc4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2efc806090544b10c7bbe4e2",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:f6933074ec2d805dd4bf3f08"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:31a8be271ce7dcc26ba2177a",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:5c6487888b403a2a6f4d898d"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:374df39ea8dcab70439fb738",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:71997f36d1770ae117b3682f"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:3fb47e68c79ba2ddcd554f95",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:9766a6f544c8a11ab492392d"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:404ed85c65f9b35c56b96ddd",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:f6933074ec2d805dd4bf3f08"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:41f1904f971ef4af453afbfe",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:3aa4c3bed14f4b3ba6007386"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:4405d750cc679bfe1280520e",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:2c754790f6e87a08ad7d2c0a"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:45334d728adf272076854946",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:73b05c4e71786393fdeb86fc"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:466c6c191bf5e28d0419ba0b",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:d9b68a7c8a515e43d0c58cc4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:47ab6392ed72aef7967dd71c",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:2d5b7b441e107ec3e2c7309f"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:4857beb93a522839a9ef5cb3",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:2c754790f6e87a08ad7d2c0a"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:4870ae961ee618140727f76a",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:ae4ef079e7ea0bc71ed0eea4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:490ec0dc65f068019eba9aba",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:ae4ef079e7ea0bc71ed0eea4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:49148114f3d02c6f1682e6d1",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:817b30df551a63e706a0954a"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:4dae82ea274a2a67780d6c30",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:817b30df551a63e706a0954a"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:51c132ad21f52e923d1ef819",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:43b947d20cf0b0342862d265"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:52ae777f3da71972d5eecb5a",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:f6933074ec2d805dd4bf3f08"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:57dac7780a62d6b35700dd3e",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:3aa4c3bed14f4b3ba6007386"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:57f01b2eb45e93d01d9bdf66",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:9e501b7e09608f82a01d17c7"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:590501d8a94f5b2cf74c7bd4",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:43b947d20cf0b0342862d265"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:5f3daef53d424d46d8e9858d",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:eae1d2dbc82f3903088389c5"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:64782526f6372bed5d1d6ddc",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:47b1f0851b814d9790eca960"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:6a2d79f21fe516e3557f2ff1",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:38baed507800f634b3c805a4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:705d6a292d77a7a99510415d",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:2b2ab0204d434ff1069f6a08"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:707b66399aa66923b045b867",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:3e32bc402fb37eeedef20b54"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7091390bf8c23bf53716ded5",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:5d1008e50c85e569d125c543"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:72fe70f94c65299acfadb880",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:6570d75a93f8c5f0c68cdd96"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:77e1259f6f4a5dc6743feb73",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:9803f73e060e86e9a88e322b"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7aa463165d5b0c85f3f3516b",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:47b1f0851b814d9790eca960"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7adb16106172a2f29eb35ee9",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:3e32bc402fb37eeedef20b54"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7b94a5af8df9c83048cb92cd",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:38baed507800f634b3c805a4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7bfe7bb6084f75cc36146ad2",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:5c6487888b403a2a6f4d898d"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7d7687f9a4389f3a5d384e4c",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:9e501b7e09608f82a01d17c7"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:80de45a7c1a8411c9e3256c3",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:c672582186b1dcac3d692d1d"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8215b70383952a7f95d608a0",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:3e32bc402fb37eeedef20b54"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:82806428882f6ea8fdf544ac",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:71997f36d1770ae117b3682f"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:83c901691f2d7e1f17cf8604",
+      "confidence": 0.72,
+      "counterevidence_ids": [],
+      "disposition": "merge_input",
+      "evidence_label": "inference",
+      "proposal_ids": [
+        "proposal:outsourced-office-administration"
+      ],
+      "rationale": "Merged into the horizontal proposal; the manual definition supports contracted day-to-day office administration and the seed supplies the aligned prior label.",
+      "supporting_evidence_ids": [
+        "evidence:required-prior-candidate-anchor:6e0993298caa6d8e9892e220",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8602b66ec08457109662b617",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:38baed507800f634b3c805a4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8954ffe252dffbca8dea63bf",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:ae4ef079e7ea0bc71ed0eea4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8c80137625413d7a0cd7ab27",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:508871095f4d33497394613f"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8e80554b86b540e5fc9f0763",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:2c754790f6e87a08ad7d2c0a"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8ec81c3c408c6e5029d48d88",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:7771d809fd0943d14abd4220"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8ef4eeab88443720c9f3e8ea",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:7bb57cd98bb050df025a3381"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:905913e88df68e9277b30089",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:7234b70636191dedad0c37f8"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:90819988665f00b67a77894a",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:531db54435290533677c4e2e"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:951ad44e618860beb1c6807f",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:bc44ec3ecfa186cab68f7af0"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:95f2e15a23f82c272a53c93b",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:4875c4eb705c4affabc34034"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:98fc545d539bc3610b4e661e",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:73b05c4e71786393fdeb86fc"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:9a5f3e12237cfc35b5d4fece",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:5d1008e50c85e569d125c543"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:9a74b72a45ab4549a1c282f4",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:54d5ec02c78cb4982df058ef"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:9f4ba3d8fd05b52e9e450370",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:4875c4eb705c4affabc34034"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a157567f7d558f502a9d20a6",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:817b30df551a63e706a0954a"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a16caf87ccdccd9515746910",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:5c6487888b403a2a6f4d898d"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a1b56327512348614f589ebc",
+      "confidence": 0.48,
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "disposition": "split_input",
+      "evidence_label": "inference",
+      "proposal_ids": [
+        "proposal:medical-practice-administration"
+      ],
+      "rationale": "Provisionally separated as a named medical administration model; the scope versus horizontal office administration remains unresolved and does not validate the seed globally.",
+      "supporting_evidence_ids": [
+        "evidence:required-prior-candidate-anchor:76428eb7805cae57234486ff",
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a228a7e6c3b976cafb060250",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:ae4ef079e7ea0bc71ed0eea4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a51ce8f59ea8e69213df6f38",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:4875c4eb705c4affabc34034"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a5bed6b4c178b47f3cb3cf86",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:9803f73e060e86e9a88e322b"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a700b93fadefe3102a797e3d",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:4875c4eb705c4affabc34034"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a808e050b06d3e48840ac1dc",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:5d6b009e692f7136ff9f5bb2"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:abe2231a1265dfa9442ada12",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:531db54435290533677c4e2e"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ae7c2c8ec3c988dfc7a37197",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:3e32bc402fb37eeedef20b54"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:b208ae36081a29f8115bef0a",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:5d6b009e692f7136ff9f5bb2"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ba14ea1d7f7250e92c254818",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:6570d75a93f8c5f0c68cdd96"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:bc371b534805e498bd65748a",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:d0d870b2c901c9c5095136aa"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:bc671578ed6c8ac86e579dae",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:67762e6cc85a508a75bc6442"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:bdffae11b3d5b58911a9fe3a",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:d08d1d044a1f50abf914b44c"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:bf994d8adf9126be46a9d487",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:9e501b7e09608f82a01d17c7"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:c1a9137c708b815abf514639",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:3be421a8497a6fb9c0ed1e2b"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:c7ef2c664629455f45054398",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:0b7ea9d09aeadc47b55626c4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:c9bc2b5dcd00d064ed2137a5",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:d9b68a7c8a515e43d0c58cc4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:caa212ece802fe6fffe00608",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:474338fe4494427d6acfdc5b"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cbf2fc3a80c6da4531dd143b",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:eae1d2dbc82f3903088389c5"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cc4eb7571be86e23bfaca940",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:c672582186b1dcac3d692d1d"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cc5c2b663ea4dd50e2186369",
+      "confidence": 0.38,
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "disposition": "merge_input",
+      "evidence_label": "inference",
+      "proposal_ids": [
+        "proposal:outsourced-office-administration"
+      ],
+      "rationale": "Hotel administration is included only as non-complete-operation office administration; family-local result does not validate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cf0500f84b010f42bb58e499",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:508871095f4d33497394613f"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cf060693786866c832fa1d44",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:43b947d20cf0b0342862d265"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d0a7feead2a8ee4ffea7afc5",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:3aa4c3bed14f4b3ba6007386"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d2bfadc84b4fff9d36fbff57",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:2b2ab0204d434ff1069f6a08"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d5a727a29368e643cd159439",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:7bb57cd98bb050df025a3381"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d699f1b75955b0231547ceea",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:3aa4c3bed14f4b3ba6007386"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d929827c3a5c08dc27f39265",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:a548911775e320b93335bfc2"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:dae8ed82893a50c798edf5d3",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:4d3ac8aeae5101442b09e10e"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:dd362bcd5c61840e9197ff40",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:05d9f604f2c2b74400a4db8a"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:de707741045d401cc1c5acd6",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:5d6b009e692f7136ff9f5bb2"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e1b2ccf8bb19dfc2d57ccc08",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:437263ca9d4659d4f2b2e9cb"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e24adfa895e0fd39ad1087a0",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:0b7ea9d09aeadc47b55626c4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e403e131940a27b5430512e5",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:2c754790f6e87a08ad7d2c0a"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e640c645982e326ab30a8edd",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:bc44ec3ecfa186cab68f7af0"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e68435171d112228418755ca",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:ae4ef079e7ea0bc71ed0eea4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e9e0eb597f1c09664430d69a",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:531db54435290533677c4e2e"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ea24fa67b5fdc79ca93ab3ab",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:4740885d540485798bb7bedd"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ecd0f6e0ed43d167e2c16afb",
+      "confidence": 0.48,
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "disposition": "split_input",
+      "evidence_label": "inference",
+      "proposal_ids": [
+        "proposal:dental-practice-administration"
+      ],
+      "rationale": "Provisionally separated as a named dental administration model; family-local result does not validate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:required-prior-candidate-anchor:ef46d0e861fa5ef17c1b50e6",
+        "evidence:manual-index-entry:5345528a627722e2c82fe981"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ed4805d33ad2109875a6ef33",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:0b7ea9d09aeadc47b55626c4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:edcfbfe448e631a166cf9872",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:bc44ec3ecfa186cab68f7af0"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ef0487a6470e4ada0e85d520",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:a548911775e320b93335bfc2"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ef051f628282ef235dec3edb",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:f6933074ec2d805dd4bf3f08"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f03413b44d1ea1114967030a",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:2b2ab0204d434ff1069f6a08"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f3ceb8241e205094081d2e48",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:47b1f0851b814d9790eca960"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f50891bf2e5a7d4edfe56058",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:d9b68a7c8a515e43d0c58cc4"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f655fb660b1bc4595a804d8c",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:eae1d2dbc82f3903088389c5"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f713aa7201868b482386d8fe",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:2b2ab0204d434ff1069f6a08"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f9753ba56afe540a0eeb5e34",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:b277ed2fef4bcd037f472a6f"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:fb494cca1c3ab48d968a8f34",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:508871095f4d33497394613f"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:fb6f65200317750c23dc8b7a",
+      "confidence": 0.2,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family-local non-mapping only; this does not delete or invalidate the candidate globally.",
+      "supporting_evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:5d1008e50c85e569d125c543"
+      ]
+    }
+  ],
+  "family_id": "office-administrative-services-v2",
+  "identity_dispositions": [
+    {
+      "confidence": 0.79,
+      "counterevidence_ids": [],
+      "disposition": "provisional_map_to_proposal",
+      "evidence_label": "inference",
+      "gap_id": "gap:vertical-administration-boundary",
+      "identity_id": "identity:naics:561110",
+      "proposal_id": "proposal:outsourced-office-administration",
+      "rationale": "The manual directly defines contracted day-to-day office administrative services and excludes complete operation staffing; named vertical labels require a preserved boundary gap.",
+      "relationship_type": "broader_than_market",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad",
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+        "evidence:manual-index-entry:5345528a627722e2c82fe981"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:2052875000",
+      "proposal_id": null,
+      "rationale": "Quick printing is a product identity, not an office-administration operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:84533703a96037681905879a",
+        "evidence:industry-product-relationship:616d14da21c87c6a4f0e3453",
+        "evidence:collection-trilateral-relationship:671b8016197f1d31a4cd1ba1"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3001050000",
+      "proposal_id": null,
+      "rationale": "Construction services are a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:a46d2bbcf5a0db60108537d4",
+        "evidence:industry-product-relationship:9a286235b835de25dcd8fa7c",
+        "evidence:collection-trilateral-relationship:cc51d1e8c68c2119a6c71ea8"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3001410000",
+      "proposal_id": null,
+      "rationale": "Construction services are a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:744ccb7b655f88b535821b44",
+        "evidence:industry-product-relationship:f5984a9b565e6d26ebf9a71e",
+        "evidence:collection-trilateral-relationship:248ad2c2476fc941469f2bcc"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3001500000",
+      "proposal_id": null,
+      "rationale": "Construction services are a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:b9706a8567735bede31c7c35",
+        "evidence:industry-product-relationship:d347d7ccb9a1f2a70c565216",
+        "evidence:collection-trilateral-relationship:d11dd7fc75949bb65e12a6e7"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3002050000",
+      "proposal_id": null,
+      "rationale": "Construction maintenance is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:0ce97b791e680d593b33d58a",
+        "evidence:industry-product-relationship:78214b1bcba505ce31f72ff7",
+        "evidence:collection-trilateral-relationship:dd17897c76057951304b1405"
+      ]
+    },
+    {
+      "confidence": 0.9,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3004800000",
+      "proposal_id": null,
+      "rationale": "Construction project management is a product identity and manual cross-reference exclusion.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:4dc50dcf6a2da4ca834a75d9",
+        "evidence:industry-product-relationship:460f5f1cfa4b0dcd890d31f6",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:6000175000",
+      "proposal_id": null,
+      "rationale": "Water supply and sewage treatment is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:ddee9949fe973632f99fbad9",
+        "evidence:industry-product-relationship:0750fa9c6330e187ea7ef0ca",
+        "evidence:collection-trilateral-relationship:fe262cd5a55a530706c7d687"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7001300000",
+      "proposal_id": null,
+      "rationale": "Textbooks are a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:64d0cd84933ccbd25da49fcc",
+        "evidence:industry-product-relationship:f47efa6b5dbf507d8af429ff",
+        "evidence:collection-trilateral-relationship:ae2188fb3852f0537be5e40e"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7002545000",
+      "proposal_id": null,
+      "rationale": "Social event planning is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:4756f33875254163103421e8",
+        "evidence:industry-product-relationship:b712dc57d1df9a44011866ee",
+        "evidence:collection-trilateral-relationship:6be0c2496eaeb9ac2ffa5972"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7003925000",
+      "proposal_id": null,
+      "rationale": "Basic education programs are a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:333ad7752bf3208b3a7ac904",
+        "evidence:industry-product-relationship:357f41887939a9289cf0c410",
+        "evidence:collection-trilateral-relationship:38598f620b4830e554014308"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7004125000",
+      "proposal_id": null,
+      "rationale": "Patient care is a health-care product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:46cf4114381e07b5c7af1918",
+        "evidence:industry-product-relationship:0c9dae7e51df30eb1a88c439",
+        "evidence:collection-trilateral-relationship:f1e50308a36209b108b66a0c"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7004650000",
+      "proposal_id": null,
+      "rationale": "Assisted daily living is a health-care product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:8bcd462c15012ccdcbccb412",
+        "evidence:industry-product-relationship:b3e04688aa813bc1d07b5c8d",
+        "evidence:collection-trilateral-relationship:d4bef4bda9de7e283bdff1b8"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7004955000",
+      "proposal_id": null,
+      "rationale": "Medical care management is a product identity; it does not itself establish the medical office-administration boundary.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:2a67da0aa554c22c09967bde",
+        "evidence:industry-product-relationship:b4ffd0a227c121682d34fdd8",
+        "evidence:collection-trilateral-relationship:445c7f422ad8a615f4708f6c"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005450000",
+      "proposal_id": null,
+      "rationale": "Personal financial planning is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:648d4bb146ef39940bf58d25",
+        "evidence:industry-product-relationship:c62d71ae6f967d83ecc7553b",
+        "evidence:collection-trilateral-relationship:852291e4f6f209dd2ebe0ed2"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005562000",
+      "proposal_id": null,
+      "rationale": "Insurance consulting is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:ef9d1a258aa5147dbd56ae83",
+        "evidence:industry-product-relationship:711a3373d1207abe20aabbb3",
+        "evidence:collection-trilateral-relationship:c76e9c9ead753d5a695bd4e3"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005563000",
+      "proposal_id": null,
+      "rationale": "Insurance support is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:11d66e5028ddc588fa3561a3",
+        "evidence:industry-product-relationship:bbaca0581cda860a974c85ea",
+        "evidence:collection-trilateral-relationship:adff308194e46e1c42646597"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005700000",
+      "proposal_id": null,
+      "rationale": "Business and commercial legal services are a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:4fc21d134fbcb972f461e2a5",
+        "evidence:industry-product-relationship:7abbe8aa7bfa3d8f8a4cfb22",
+        "evidence:collection-trilateral-relationship:02cb9b72e0ba6b76fc0c304b"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005950000",
+      "proposal_id": null,
+      "rationale": "Legal and patent filing and search is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:a7239fac99b8d130260529c4",
+        "evidence:industry-product-relationship:9dd3c235dfc7afbd470847a8",
+        "evidence:collection-trilateral-relationship:36474f1967ad6a194dc888dd"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7006300000",
+      "proposal_id": null,
+      "rationale": "Nonresidential land rental is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:530c031b1c8a32940589eb77",
+        "evidence:industry-product-relationship:d86709c71d7b37231af3c849",
+        "evidence:collection-trilateral-relationship:2ec9e070bb543d47e9fe5ab7"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7008550000",
+      "proposal_id": null,
+      "rationale": "Property management is a product identity and is expressly excluded by the manual cross-reference.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:d76b9ed75cddcb5f9fe32952",
+        "evidence:industry-product-relationship:ddeef1935407632b229ef1bd",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7010350000",
+      "proposal_id": null,
+      "rationale": "Temporary staffing is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:8240831852a12a0fe49ee389",
+        "evidence:industry-product-relationship:a944ead791e0c0cd9497bd1a",
+        "evidence:collection-trilateral-relationship:309d32746f03509def03a500"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7010450000",
+      "proposal_id": null,
+      "rationale": "Co-employment is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:dd5502904bfa373972bb8f11",
+        "evidence:industry-product-relationship:3cb325f5ec773501da373171",
+        "evidence:collection-trilateral-relationship:61324297fcf093d5b42752ff"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012028000",
+      "proposal_id": null,
+      "rationale": "Web site design and development is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:7af1d42207475ae2d33c7500",
+        "evidence:industry-product-relationship:2639ddcf5e1e97d90ae49333",
+        "evidence:collection-trilateral-relationship:12f5a8da25b543b519a79f60"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012045000",
+      "proposal_id": null,
+      "rationale": "Computer systems design and development is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:31a33cb0b3f1c78b1d18b7c8",
+        "evidence:industry-product-relationship:2123d24702f6b0f2c315ed2b",
+        "evidence:collection-trilateral-relationship:6b8335c0cb1c0941f3bb302b"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012270000",
+      "proposal_id": null,
+      "rationale": "Scientific and technical consulting is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:0c70b9646bf1764e77adf60f",
+        "evidence:industry-product-relationship:b945e74c78a8c489b650af3c",
+        "evidence:collection-trilateral-relationship:a564dc9499aefe294a62cb43"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012450000",
+      "proposal_id": null,
+      "rationale": "Direct marketing is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:1545a7d08b9c6cecb64f1949",
+        "evidence:industry-product-relationship:13261c7331cf2d6ce0f0b8a7",
+        "evidence:collection-trilateral-relationship:26eed8dd334cd9d040c7b432"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012475000",
+      "proposal_id": null,
+      "rationale": "Advertising creative services are a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:25b673cedc71dac187d959ca",
+        "evidence:industry-product-relationship:26245cf222b5987dd8263cc1",
+        "evidence:collection-trilateral-relationship:dc90c36e1efbcba05c5e59e1"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014150000",
+      "proposal_id": null,
+      "rationale": "Telephone answering is a product identity rather than the integrated office-administration market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:bd8ca6179a254a78a7533cef",
+        "evidence:industry-product-relationship:7878bb0546eb4f01e86048f6",
+        "evidence:collection-trilateral-relationship:5dfe54aa7207b5093bcd1f72"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014225000",
+      "proposal_id": null,
+      "rationale": "IT technical consulting is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:1341bed39cd6ee8283d1f8e1",
+        "evidence:industry-product-relationship:6962fbe86c877dbcb98a35c7",
+        "evidence:collection-trilateral-relationship:2487efa0906763e5296b90ca"
+      ]
+    },
+    {
+      "confidence": 0.88,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "inference",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014300000",
+      "proposal_id": null,
+      "rationale": "Business process management is a product identity and is broader than the evidence-supported day-to-day office-administration boundary.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:5ef98268217cf38de7322b5a",
+        "evidence:industry-product-relationship:016b1d6c5681aa52dd079b94",
+        "evidence:collection-trilateral-relationship:6466a06b3cb6e15872019fc4"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014410000",
+      "proposal_id": null,
+      "rationale": "IT infrastructure provisioning is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:c1cabd07429f124252adf0ff",
+        "evidence:industry-product-relationship:486a54dabda9da353efb6cc6",
+        "evidence:collection-trilateral-relationship:4cf964744c3fb4c3239bdd43"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014450000",
+      "proposal_id": null,
+      "rationale": "IT infrastructure and network management is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:355ebae24a0f216287892984",
+        "evidence:industry-product-relationship:fb755eedf8bc3e5a6d4b45b4",
+        "evidence:collection-trilateral-relationship:c7e93b5cd47ac8d3c3fdd221"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014450003",
+      "proposal_id": null,
+      "rationale": "Network management is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:8d1a3c33a2b247da9d4c56a7",
+        "evidence:industry-product-relationship:e8b9bb96cdcdb87f29493e7b"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014450006",
+      "proposal_id": null,
+      "rationale": "Computer systems management is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:5cb859c564094f9e11512c4a",
+        "evidence:industry-product-relationship:b31a93c256e3995b6f345db3"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014530000",
+      "proposal_id": null,
+      "rationale": "Translation and interpretation is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:685a7b6784fbb72ef87c0c13",
+        "evidence:industry-product-relationship:091c3d68330abae8ca5af904",
+        "evidence:collection-trilateral-relationship:34bb1541e69e7e203138ce53"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014550000",
+      "proposal_id": null,
+      "rationale": "Strategic management consulting is a product identity and the manual assigns advice without day-to-day management elsewhere.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:2e955d01b883f2f0bc873129",
+        "evidence:industry-product-relationship:bbc545d3fcdecea0a1b75cde",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014550003",
+      "proposal_id": null,
+      "rationale": "Business strategy consulting is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:28fbd532187d16b87d2b0af6",
+        "evidence:industry-product-relationship:f0a1a0c9928a0b68c0b8c907"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014550006",
+      "proposal_id": null,
+      "rationale": "Corporate development consulting is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:4ae0fae47c66c4c8e3984f77",
+        "evidence:industry-product-relationship:dab5905d9f8985e24a12e7c3"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014550009",
+      "proposal_id": null,
+      "rationale": "Residual strategic consulting is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:6eeb096cc64ce005d824e632",
+        "evidence:industry-product-relationship:4ac8cae0455d50b737c159c1"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014575000",
+      "proposal_id": null,
+      "rationale": "Financial management consulting is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:116215961725ba8fe9756f80",
+        "evidence:industry-product-relationship:e477b1f224550a3c29e6d306",
+        "evidence:collection-trilateral-relationship:8eec66210998311da3d0b82c"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014600000",
+      "proposal_id": null,
+      "rationale": "Marketing management consulting is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:686c6087ff6db39dd49a3865",
+        "evidence:industry-product-relationship:338c242b67b0185e0745b08e",
+        "evidence:collection-trilateral-relationship:be61fe7cc56f2aae8c8a79be"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014625000",
+      "proposal_id": null,
+      "rationale": "Human resources management consulting is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:62e5d078ed5786d7f3ab9169",
+        "evidence:industry-product-relationship:4fb1996cc23898e5fec65528",
+        "evidence:collection-trilateral-relationship:9532723922f6d27c7811665f"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014650000",
+      "proposal_id": null,
+      "rationale": "Operations and supply-chain consulting is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:dd0472d9ec029b36ef5961ee",
+        "evidence:industry-product-relationship:7e866af3316015432b50a42e",
+        "evidence:collection-trilateral-relationship:b08482d332894d2c01fcf74b"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014670000",
+      "proposal_id": null,
+      "rationale": "Correctional-facility contract operation is a product identity and complete-operation model outside the manual boundary.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:51f67e0d587e71630c067a6e",
+        "evidence:industry-product-relationship:63b765d9f5b7c5669d3d3de0",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014675000",
+      "proposal_id": null,
+      "rationale": "Other facility support is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:5207f52a8c86cf0218bdc956",
+        "evidence:industry-product-relationship:52fbe41bab7e5c7e9b4b66b0",
+        "evidence:collection-trilateral-relationship:9cef42cb16e0f1856c4d260f"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014725000",
+      "proposal_id": null,
+      "rationale": "Typing and transcription are a product identity, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:ab6fd57211eb549ad5695f22",
+        "evidence:industry-product-relationship:7c16b0aaae91603165af18b6",
+        "evidence:collection-trilateral-relationship:54b74346edddfdf9ffc81d3c"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014750000",
+      "proposal_id": null,
+      "rationale": "Document processing and editing are a product identity, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:c9cf12a3422aef5e5bfd4c3b",
+        "evidence:industry-product-relationship:cca171015999e1c4bc3be592",
+        "evidence:collection-trilateral-relationship:bbecf30ceadcf865d20bd283"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014775000",
+      "proposal_id": null,
+      "rationale": "Copying and reproduction are a product identity, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:a58211c15434d71f9a0965d8",
+        "evidence:industry-product-relationship:eb672cafea35ed15d15bfec4",
+        "evidence:collection-trilateral-relationship:a5457c1434b8f17c6875ccfc"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014800000",
+      "proposal_id": null,
+      "rationale": "Fax transmission is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:29ce095ebb07843c2e688c92",
+        "evidence:industry-product-relationship:b73eeb74f6bd17518bcda59c",
+        "evidence:collection-trilateral-relationship:799c707e94132b2928eb4cd1"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014825000",
+      "proposal_id": null,
+      "rationale": "Document finishing is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:111060de52453d183022e7fd",
+        "evidence:industry-product-relationship:e4a7304c45468d6b18050005",
+        "evidence:collection-trilateral-relationship:cad2e12fe0816e697c40bff9"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014850000",
+      "proposal_id": null,
+      "rationale": "Mailroom services are a product identity, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:295d157d927ae203946ae248",
+        "evidence:industry-product-relationship:aae59dd2f05e6a049e5dcce2",
+        "evidence:collection-trilateral-relationship:11907dcf62b07d21de54522d"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014875000",
+      "proposal_id": null,
+      "rationale": "Mail presorting is a product identity, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:3aafd501419cb408ab29ff44",
+        "evidence:industry-product-relationship:46b19d8aa779bf6ba586e38b",
+        "evidence:collection-trilateral-relationship:ee103607206f162f9d8f3b66"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014925000",
+      "proposal_id": null,
+      "rationale": "Nonconstruction project management is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:1240d48112f9f1d3119e233e",
+        "evidence:industry-product-relationship:a8ac18520cd6d77d377f1f64",
+        "evidence:collection-trilateral-relationship:832cf37a495c4df413c5df2a"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016325000",
+      "proposal_id": null,
+      "rationale": "Financial auditing is a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:8a2ef81d27ae0ceb4fc45450",
+        "evidence:industry-product-relationship:b40696df37cd0aca1303fdb8",
+        "evidence:collection-trilateral-relationship:406b25203ee37f8dc6db3574"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016375000",
+      "proposal_id": null,
+      "rationale": "Financial-statement review engagements are a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:45db92403895691d20466c09",
+        "evidence:industry-product-relationship:9cdedb0569fb91c7f843dae6",
+        "evidence:collection-trilateral-relationship:d437cdcbbaed4e5cac8c1cd4"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016450000",
+      "proposal_id": null,
+      "rationale": "General accounting is a product identity, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:66e8e72ce6f52a99da85f522",
+        "evidence:industry-product-relationship:4189bd24c89c4edc9d62301c",
+        "evidence:collection-trilateral-relationship:d7bbd1d040ab9e7e241653ce"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016475000",
+      "proposal_id": null,
+      "rationale": "Bookkeeping and compilation are product identities, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:0a9cb8e4495de3e0858daae7",
+        "evidence:industry-product-relationship:a8b4229507ca1a8c36c3ad7c",
+        "evidence:collection-trilateral-relationship:0a8ce291141a8a4a4de2014f"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016500000",
+      "proposal_id": null,
+      "rationale": "Payroll services are product identities, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:befef7f25d01f598ed5e69cc",
+        "evidence:industry-product-relationship:fcd2ed641a7e8ce03bfdb62e",
+        "evidence:collection-trilateral-relationship:a4131d7a3b68a8dec5b06741"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016500003",
+      "proposal_id": null,
+      "rationale": "Full-service payroll is a product identity, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:5f408555c9724a3861f21a9d",
+        "evidence:industry-product-relationship:dd3827702c52bd074162a295"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016500006",
+      "proposal_id": null,
+      "rationale": "Payroll sold separately is a product identity, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:128821f7d416db8634ac92ea",
+        "evidence:industry-product-relationship:cec428dda2d8794b59c7c919"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016550000",
+      "proposal_id": null,
+      "rationale": "Tax preparation and representation are product identities, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:e8ce3bfa2b7d0d3601a0d4c7",
+        "evidence:industry-product-relationship:0132451e8e16379c21883bcf",
+        "evidence:collection-trilateral-relationship:b8f8108890869392414888fa"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016550003",
+      "proposal_id": null,
+      "rationale": "Individual tax preparation is a product identity, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:41e0fd17833c2fb23d3b6d50",
+        "evidence:industry-product-relationship:7bbdb7c2ef86f68b5c186219"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016550006",
+      "proposal_id": null,
+      "rationale": "Corporate tax preparation is a product identity, not this family\u2019s integrated operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:f47680f73917d03dda75eac0",
+        "evidence:industry-product-relationship:27ca5204e5b8854e522e572a"
+      ]
+    },
+    {
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7017150000",
+      "proposal_id": null,
+      "rationale": "Association membership services are a product identity, not this family\u2019s operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:94a101770fa5086dc2fc0098",
+        "evidence:industry-product-relationship:679c9eed166f1333319fa530",
+        "evidence:collection-trilateral-relationship:4a564d087fe5199b9e5caf50"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:9000000000",
+      "proposal_id": null,
+      "rationale": "This is the residual all-other-products-and-services bucket and has an explicit no-trilateral-mapping record; it is not a market identity.",
+      "relationship_type": "residual_bucket",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:3fec0fb50b3e272634fd4c3d",
+        "evidence:industry-product-relationship:6dfd1d32abf8fcd918528660",
+        "evidence:collection-trilateral-no-mapping:6a88d51f5483193c3346e156"
+      ]
+    }
+  ],
+  "input_pack_sha256": "eccc87570dc259f3cea6449a5a87455ccba4e690ccb82851e28822c3a64346e5",
+  "invocation_id": "invocation:b413775e6cfb3720c3da1b43",
+  "proposed_markets": [
+    {
+      "acquisition_universe": "Providers selling outsourced, contract or fee-based multi-function office administration to client organizations.",
+      "aliases": [
+        "Integrated outsourced office administration",
+        "Office administration services",
+        "Business management services except complete operation"
+      ],
+      "ambient_ai_workflow": "AI may automate billing, recordkeeping, scheduling, personnel administration, workflow routing, document handling and client-service coordination; specific adoption is not evidenced.",
+      "boundary": "Includes providers delivering a range of day-to-day office administrative services for others on contract or fee. Excludes complete operation of a client business with operating staff, holding-company functions, corporate managing offices, computer facilities management, construction and farm management, real-estate property management, food-service contracting, and advisory-only management consulting.",
+      "buyer": "Organizations outsourcing ongoing back-office administration.",
+      "candidate_market_ids": [
+        "candidate-market:83c901691f2d7e1f17cf8604",
+        "candidate-market:cc5c2b663ea4dd50e2186369"
+      ],
+      "canonical_name": "Outsourced office administration",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.7,
+        "ambient_ai_workflow": 0.2,
+        "buyer": 0.75,
+        "delivery": 0.88,
+        "economics_risk": 0.35,
+        "job": 0.9,
+        "workforce": 0.7
+      },
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "definition": "Contracted provision of a range of day-to-day office administrative services, including financial planning, billing and recordkeeping, personnel, and physical distribution and logistics, without operating staff for complete client-business operations.",
+      "delivery_model": "Ongoing contract or fee-based outsourced administration.",
+      "economics_risk": "Commercial model and allocation of client-operating risk are not directly stated; complete-operation staffing is expressly outside boundary.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "inference",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "inference",
+        "delivery": "fact",
+        "economics_risk": "inference",
+        "job": "fact",
+        "workforce": "inference"
+      },
+      "explicit_exclusions": [
+        "Complete operation of a client business with operating staff",
+        "Holding companies and corporate managing offices",
+        "Computer facilities management",
+        "Construction management",
+        "Farm management",
+        "Real-estate property management",
+        "Food-service contracting",
+        "Management consulting without day-to-day management"
+      ],
+      "job_to_be_done": "Run recurring client office administration without assuming complete operation of the client business.",
+      "proposal_id": "proposal:outsourced-office-administration",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:manual-index-entry:14adf7145d9c89c953d90b2f",
+        "evidence:manual-index-entry:4135fb564eddde5555720e17",
+        "evidence:manual-index-entry:4f36a492ecfb9071554fa8fc",
+        "evidence:required-prior-candidate-anchor:6e0993298caa6d8e9892e220"
+      ],
+      "workforce_model": "Administrative-service personnel; not operating staff for complete client-business operation."
+    },
+    {
+      "acquisition_universe": "Medical offices seeking outsourced office-administration services; separate acquisition-universe evidence is absent.",
+      "aliases": [
+        "Medical office management services",
+        "Managing offices of physicians and surgeons"
+      ],
+      "ambient_ai_workflow": "Likely administrative AI workflow, but no direct evidence of medical-specific workflow.",
+      "boundary": "Provisional vertical boundary covering office administration for medical offices, excluding clinical care and complete operation of a client medical business.",
+      "buyer": "Medical offices or professional practices; inferred from the named index label.",
+      "candidate_market_ids": [
+        "candidate-market:a1b56327512348614f589ebc"
+      ],
+      "canonical_name": "Medical practice administration",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.35,
+        "ambient_ai_workflow": 0.15,
+        "buyer": 0.45,
+        "delivery": 0.45,
+        "economics_risk": 0.2,
+        "job": 0.5,
+        "workforce": 0.35
+      },
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "definition": "Provisional named-vertical subset of outsourced office administration for medical offices, not clinical care or complete business operation.",
+      "delivery_model": "Contract or fee-based administration is inferred from the NAICS definition.",
+      "economics_risk": "Unknown beyond exclusion of complete-operation staffing.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "unknown",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "inference",
+        "delivery": "inference",
+        "economics_risk": "unknown",
+        "job": "inference",
+        "workforce": "inference"
+      },
+      "explicit_exclusions": [
+        "Clinical care",
+        "Complete operation of client business with operating staff"
+      ],
+      "job_to_be_done": "Administer a medical office\u2019s recurring office functions without assuming complete operation.",
+      "proposal_id": "proposal:medical-practice-administration",
+      "supporting_evidence_ids": [
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+        "evidence:manual-index-entry:ba9f06dc45c764a58e117b43",
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:required-prior-candidate-anchor:76428eb7805cae57234486ff"
+      ],
+      "workforce_model": "Administrative personnel; clinical and complete-operation staffing are outside the provisional boundary."
+    },
+    {
+      "acquisition_universe": "Dental offices seeking outsourced office-administration services; separate acquisition-universe evidence is absent.",
+      "aliases": [
+        "Managing offices of dentists",
+        "Dental office management"
+      ],
+      "ambient_ai_workflow": "Likely administrative AI workflow, but no direct evidence of dental-specific workflow.",
+      "boundary": "Provisional vertical boundary covering office administration for dental offices, excluding clinical care and complete operation of a client dental business.",
+      "buyer": "Dental offices or dental professionals; inferred from the named index label.",
+      "candidate_market_ids": [
+        "candidate-market:ecd0f6e0ed43d167e2c16afb"
+      ],
+      "canonical_name": "Dental practice administration",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.35,
+        "ambient_ai_workflow": 0.15,
+        "buyer": 0.45,
+        "delivery": 0.45,
+        "economics_risk": 0.2,
+        "job": 0.5,
+        "workforce": 0.35
+      },
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "definition": "Provisional named-vertical subset of outsourced office administration for dental offices, not clinical care or complete business operation.",
+      "delivery_model": "Contract or fee-based administration is inferred from the NAICS definition.",
+      "economics_risk": "Unknown beyond exclusion of complete-operation staffing.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "unknown",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "inference",
+        "delivery": "inference",
+        "economics_risk": "unknown",
+        "job": "inference",
+        "workforce": "inference"
+      },
+      "explicit_exclusions": [
+        "Clinical care",
+        "Complete operation of client business with operating staff"
+      ],
+      "job_to_be_done": "Administer a dental office\u2019s recurring office functions without assuming complete operation.",
+      "proposal_id": "proposal:dental-practice-administration",
+      "supporting_evidence_ids": [
+        "evidence:manual-index-entry:5345528a627722e2c82fe981",
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:required-prior-candidate-anchor:ef46d0e861fa5ef17c1b50e6"
+      ],
+      "workforce_model": "Administrative personnel; clinical and complete-operation staffing are outside the provisional boundary."
+    }
+  ],
+  "research_gaps": [
+    {
+      "affected_identity_ids": [
+        "identity:naics:561110"
+      ],
+      "confidence": 0.82,
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "current_judgment": "Medical and dental labels support provisional vertical candidates, while hotel and motel labels remain included only where services do not constitute complete operation. The frozen evidence does not establish whether these vertical labels represent distinct buyer, workflow, workforce, or economic markets rather than vertical sales segments of horizontal office administration.",
+      "evidence_label": "inference",
+      "gap_id": "gap:vertical-administration-boundary",
+      "question": "Do medical, dental, hotel, motel, and other named administration models have sufficiently distinct buyers, jobs, delivery models, workforce, risk allocation, acquisition universes, and AI workflows to split from horizontal outsourced office administration?",
+      "retry_trigger": "Obtain frozen evidence directly describing scope of work, buyer, contracting, workforce, and whether each named model provides only administration or complete operation.",
+      "supporting_evidence_ids": [
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad",
+        "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+        "evidence:manual-index-entry:5345528a627722e2c82fe981",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "affected_identity_ids": [
+        "identity:naics:561110"
+      ],
+      "confidence": 0.9,
+      "counterevidence_ids": [],
+      "current_judgment": "The frozen pack contains no direct evidence for Ambient AI workflow, pricing, client-risk allocation, or workforce composition beyond exclusion of operating staff.",
+      "evidence_label": "unknown",
+      "gap_id": "gap:operating-model-economics-and-ai",
+      "question": "What workforce mix, risk allocation, commercial model, and AI-enabled workflow characterize outsourced office administration and its provisional medical and dental variants?",
+      "retry_trigger": "Obtain frozen operating-model evidence addressing staffing, contractual responsibility, pricing, workflow systems, and AI use.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    }
+  ],
+  "role_id": "specialist-b",
+  "schema_version": 1
+}

@@ -256,3 +256,29 @@ all seed manual-index entries to be audited, weak dimensions and unresolved spli
 create research gaps, each NAPCS disposition to cite interpretation evidence beyond a
 product link, and direct manual cross-reference exclusions to be preserved. These are
 completion-contract changes for a new run, not edits to the reviewed V1 result.
+
+### Correction proposal run
+
+At exact head `7991201b187729aecc0c80d2a43050c43dfedb34`, V2 run
+`boundary-run-1a88e9a3acdf15d63b09` completed with three first-pass calls and no
+validation repairs. All outputs contain 66 identity and 130 candidate dispositions.
+The adjudicator output SHA-256 is
+`c560ac7d565f163eee92a4ee839a38e6322258352f1170555085b90b87d87e73`.
+
+The new adjudication proposes three linked operating-market inputs:
+
+- **Integrated outsourced office administration**, adopting the existing horizontal
+  prior seed and provisionally retaining the hotel-administration seed as a merge
+  input;
+- **Medical practice administration**, bound to the missed medical prior seed; and
+- **Dental practice administration**, bound to the missed dental prior seed.
+
+All 126 remaining `reject` rationales explicitly state family-local non-mapping
+semantics. The output now preserves two active gaps: horizontal buyer/contracting/
+economics/workforce/acquisition/AI evidence, and the horizontal-versus-named-vertical
+boundary. It also includes the manual farm-management and holding-company exclusions.
+
+The three calls reported 737,944 total tokens and `$2.6181175` cost. Dedicated-key
+cumulative usage is `$7.1042895`, with `$42.8957105` remaining. This is still a
+`validated_proposal_not_activated`; an independent successor review must test every
+original activation condition before any graph event can be considered.

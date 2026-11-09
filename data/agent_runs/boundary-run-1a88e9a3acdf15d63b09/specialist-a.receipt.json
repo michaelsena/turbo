@@ -1,0 +1,115 @@
+{
+  "api_surface": "chat_completions",
+  "attempts": 1,
+  "completed_at_utc": "2026-11-09T02:13:45Z",
+  "credential_persisted": false,
+  "elapsed_ms": 141187,
+  "family_id": "office-administrative-services-v2",
+  "generation_id": "gen-1794190286-QkMlOENeb1bs82C4jNZN",
+  "http_status": 200,
+  "input_pack_sha256": "eccc87570dc259f3cea6449a5a87455ccba4e690ccb82851e28822c3a64346e5",
+  "invocation_id": "invocation:d98bd9c79e1c90cf88580bc0",
+  "model_calls": [
+    {
+      "api_surface": "chat_completions",
+      "attempts": 1,
+      "completed_at_utc": "2026-11-09T02:13:45Z",
+      "credential_persisted": false,
+      "elapsed_ms": 141187,
+      "family_id": "office-administrative-services-v2",
+      "generation_id": "gen-1794190286-QkMlOENeb1bs82C4jNZN",
+      "http_status": 200,
+      "input_pack_sha256": "eccc87570dc259f3cea6449a5a87455ccba4e690ccb82851e28822c3a64346e5",
+      "invocation_id": "invocation:d98bd9c79e1c90cf88580bc0",
+      "output_sha256": "bb21e503147f6a8ac2352ab6f68c9f66bb5a781f4cb15c79ac10405a5e5fd21c",
+      "prompt_sha256": "ca2f092d539c164842513d5d5847a67e308ee55af8ea4653bd86799cb88e7e5f",
+      "provider": "openrouter",
+      "provider_schema_sha256": "d0ea8bd4b7057a37142b1b34f6c2dd7a2424f0383a5babc750d723e08c982f01",
+      "raw_reasoning_persisted": false,
+      "reasoning_effort": "high",
+      "request_sha256": "12ae82e4eb7ae130c71b96aa30b507802306623c4c80c245b209fb22d24b5f49",
+      "requested_model": "openai/gpt-5.6-terra",
+      "response_sha256": "4fa8ffc41a9c8d9a769d0fdbab4e3343d86416fe4d03dbd7a3424373a4e1bcdd",
+      "role_id": "specialist-a",
+      "runtime_prompt_sha256": "a775380cf495431e4890ca6c6b4f900a191c4b119670e44332439ab0cee580a0",
+      "schema_sha256": "b7341a89044eb123a6458100c3b2f60e938f289ea0bb66498f40718e007fa7cd",
+      "schema_version": 1,
+      "served_model": "openai/gpt-5.6-terra",
+      "served_provider": "OpenAI",
+      "service_tier": "default",
+      "started_at_utc": "2026-11-09T02:11:24Z",
+      "status": "valid",
+      "system_fingerprint": null,
+      "usage": {
+        "completion_tokens": 27299,
+        "completion_tokens_details": {
+          "audio_tokens": 0,
+          "image_tokens": 0,
+          "reasoning_tokens": 1131
+        },
+        "cost": 0.831424,
+        "cost_details": {
+          "upstream_inference_completions_cost": 0.327588,
+          "upstream_inference_cost": 0.831424,
+          "upstream_inference_prompt_cost": 0.503836
+        },
+        "is_byok": false,
+        "prompt_tokens": 201535,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cache_write_tokens": 201532,
+          "cached_tokens": 0,
+          "video_tokens": 0
+        },
+        "total_tokens": 228834
+      },
+      "validation_errors": [],
+      "validation_round": 0
+    }
+  ],
+  "output_sha256": "bb21e503147f6a8ac2352ab6f68c9f66bb5a781f4cb15c79ac10405a5e5fd21c",
+  "prompt_sha256": "ca2f092d539c164842513d5d5847a67e308ee55af8ea4653bd86799cb88e7e5f",
+  "provider": "openrouter",
+  "provider_schema_sha256": "d0ea8bd4b7057a37142b1b34f6c2dd7a2424f0383a5babc750d723e08c982f01",
+  "raw_reasoning_persisted": false,
+  "reasoning_effort": "high",
+  "request_sha256": "12ae82e4eb7ae130c71b96aa30b507802306623c4c80c245b209fb22d24b5f49",
+  "requested_model": "openai/gpt-5.6-terra",
+  "response_sha256": "4fa8ffc41a9c8d9a769d0fdbab4e3343d86416fe4d03dbd7a3424373a4e1bcdd",
+  "role_id": "specialist-a",
+  "runtime_prompt_sha256": "a775380cf495431e4890ca6c6b4f900a191c4b119670e44332439ab0cee580a0",
+  "schema_sha256": "b7341a89044eb123a6458100c3b2f60e938f289ea0bb66498f40718e007fa7cd",
+  "schema_version": 1,
+  "served_model": "openai/gpt-5.6-terra",
+  "served_provider": "OpenAI",
+  "service_tier": "default",
+  "started_at_utc": "2026-11-09T02:11:24Z",
+  "status": "valid",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 27299,
+    "completion_tokens_details": {
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "reasoning_tokens": 1131
+    },
+    "cost": 0.831424,
+    "cost_details": {
+      "upstream_inference_completions_cost": 0.327588,
+      "upstream_inference_cost": 0.831424,
+      "upstream_inference_prompt_cost": 0.503836
+    },
+    "is_byok": false,
+    "prompt_tokens": 201535,
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": 201532,
+      "cached_tokens": 0,
+      "video_tokens": 0
+    },
+    "total_tokens": 228834
+  },
+  "validation_errors": [],
+  "validation_repairs_used": 0,
+  "validation_round": 0
+}
