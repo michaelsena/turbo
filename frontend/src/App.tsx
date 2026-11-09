@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, Route, Routes, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import type { ColumnDef } from "@tanstack/react-table";
 import { getJson } from "./api";
+import { MarketIdentity } from "./MarketIdentity";
 import { DataTable, ErrorState, Eyebrow, JsonDetails, Layout, Loading, Pager, Status } from "./components";
 import type { Batch, FamilyDetail, FamilySummary, MarketDetail, MarketSummary, Page, SystemContext, Versions } from "./types";
 import { useVersioning, VersionProvider } from "./versioning";
@@ -88,6 +89,7 @@ function Market() {
   const market = query.data.data;
   return <><Link className="back" to={versionedPath("/universe")}>← Market universe</Link><header className="page-head"><div><Eyebrow>Canonical market</Eyebrow><h1>{market.canonical_name}</h1><p>{market.definition}</p></div><Status value={market.activation_status} /></header>
     <section className="detail-grid"><article className="panel"><Eyebrow>Boundary</Eyebrow><h2>Inspect definition</h2><JsonDetails label="Included and excluded scope" value={market.boundary} /></article><article className="panel"><Eyebrow>Identity</Eyebrow><h2>Versioned record</h2><dl><dt>Market ID</dt><dd><code>{market.market_id}</code></dd><dt>Version</dt><dd><code>{market.market_version_id}</code></dd><dt>Parent</dt><dd>{market.parent_market_id || "None"}</dd><dt>Aliases</dt><dd>{market.aliases?.join(", ") || "None"}</dd></dl></article></section>
+    <MarketIdentity market={market} />
     <section className="panel"><div className="section-head"><div><Eyebrow>Open questions</Eyebrow><h2>Research gaps</h2></div><span>{market.research_gaps.length}</span></div>{market.research_gaps.map((gap, index) => <JsonDetails key={index} label={String(gap.gap_id ?? `Gap ${index + 1}`)} value={gap} />)}</section>
     <section className="two-column"><article className="panel"><Eyebrow>Source lineage</Eyebrow><h2>Evidence records</h2>{market.source_records.map((record, index) => <JsonDetails key={index} label={String(record.record_id ?? `Record ${index + 1}`)} value={record} />)}</article><article className="panel"><Eyebrow>Audit chain</Eyebrow><h2>Review receipts</h2><dl>{Object.entries(market.audit_chain).map(([key, value]) => <><dt key={`${key}-dt`}>{key.replaceAll("_", " ")}</dt><dd key={`${key}-dd`}><code>{value || "—"}</code></dd></>)}</dl></article></section>
   </>;

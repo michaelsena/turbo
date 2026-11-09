@@ -98,7 +98,10 @@ weak evidence requires a documented low-confidence score rather than a blank cel
 
 The console includes an overview, accepted-market explorer and detail pages, neutral
 family queue and detail pages, batch plan, and audit view. Historical inspection uses
-verified source/schedule/graph tuples. Responses carry exact provenance; ETags identify
+verified source/schedule/graph tuples. Market detail exposes all seven operating
+identity dimensions, original boundary confidence and evidence classes, explicit
+exclusions, and supporting/counterevidence IDs. Boundary confidence is distinct from
+investment scoring. Responses carry exact provenance; ETags identify
 the complete response envelope. The client does not decide version compatibility or
 reimplement research logic.
 

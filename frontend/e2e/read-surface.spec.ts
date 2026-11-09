@@ -7,6 +7,7 @@ test("required read surfaces remain accessible and visually stable", async ({ pa
   const versionPayload = await (await request.get("/api/v1/versions")).json();
   const marketId = marketPayload.data.items[0].market_id;
   const familyId = familyPayload.data.items[0].family_id;
+  const marketDetail = (await (await request.get(`/api/v1/markets/${marketId}`)).json()).data;
   const routes = [
     ["overview", "/", /see the market universe/i],
     ["universe", "/universe", /market universe/i],
@@ -21,6 +22,17 @@ test("required read surfaces remain accessible and visually stable", async ({ pa
     await test.step(name, async () => {
       await page.goto(route);
       await expect(page.getByText(readyText).first()).toBeVisible();
+      if (name === "market-detail") {
+        await expect(page.getByRole("heading", { name: "Why this boundary exists", exact: true })).toBeVisible();
+        const fields = ["buyer", "job_to_be_done", "delivery_model", "workforce_model", "economics_risk", "acquisition_universe", "ambient_ai_workflow"];
+        const cards = page.locator(".market-identity-dimension");
+        await expect(cards).toHaveCount(7);
+        for (const [index, field] of fields.entries()) {
+          await expect(cards.nth(index).locator(".market-identity-narrative")).toHaveText(marketDetail[field] || "Not recorded in this snapshot");
+        }
+        await expect(page.getByRole("heading", { name: "Explicit exclusions", exact: true })).toBeVisible();
+        await expect(page.getByText(/it is not an investment score/i)).toBeVisible();
+      }
       if (name === "family-detail") {
         await expect(page.locator(".metric-grid.small .metric strong").nth(0)).toHaveText("80");
         await expect(page.locator(".metric-grid.small .metric strong").nth(2)).toHaveText("1");

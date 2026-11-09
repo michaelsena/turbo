@@ -118,7 +118,7 @@ Pages:
 
 - `/` verified overview and explicit “not a ranking” boundary
 - `/universe` accepted market table
-- `/markets/{market_id}` boundary, gaps, source lineage, and audit chain
+- `/markets/{market_id}` boundary, seven identity dimensions with confidence/evidence class, exclusions, gaps, source lineage, and audit chain
 - `/families` neutral schedule
 - `/families/{family_id}` required work, paginated context, and candidates
 - `/batches` deterministic batch manifest
@@ -170,3 +170,24 @@ Chrome restrictions were handled with the runbook's external-server path. See th
 [exact verification receipt](../operations/receipts/2026-11-09-dashboard-corrections.json).
 One minor visual follow-up remains: the desktop Overview clips a long market-status
 badge; full statuses remain available in list/detail views. PR #19 is merged at `a9aef2befbc61208431ce4b546d6bed15d6edef1`.
+
+## Market identity inspection
+
+The market detail page renders the selected API response's seven dimensions: buyer,
+job-to-be-done, delivery, workforce, economics/risk, acquisition universe, and Ambient
+AI workflow. Each narrative stays verbatim beside its original numeric confidence
+on the 0–1 scale and its evidence-class label. These are boundary judgments, not
+investment scores. The client does not infer a confidence threshold or upgrade
+unknown or inferred evidence.
+
+Explicit exclusions are visible as a list. Supporting and counterevidence IDs appear
+in separate disclosures and remain plain identifiers; the API does not supply a
+per-dimension citation mapping or a resolvable URL for each ID, so the UI invents
+neither. Missing/null fields say “Not recorded in this snapshot”; explicitly empty
+lists say “None recorded.” All reads and navigation retain the existing selected
+source/partition/graph tuple.
+
+Unit coverage includes a fixture copied from the committed provisional dental market,
+with its graph-projection hash, plus missing/null, empty-list and zero-confidence
+cases. Browser acceptance and intentional market-detail screenshot refresh remain
+pending a permitted runner (#34); this documentation is not a current browser pass.
