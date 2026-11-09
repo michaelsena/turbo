@@ -22,6 +22,8 @@ the README and the relevant document whenever behavior or architecture changes.
 - [Issue 14: deterministic family partition and scheduler](issues/0014-family-partition-scheduler.md)
 - [Issue 15: batch-native family research](issues/0015-batch-native-family-research.md)
 - [Family-preparation correction audit](operations/receipts/2026-11-09-family-pack-corrections.json)
+- [Dashboard verification](operations/receipts/2026-11-09-dashboard-corrections.json)
+- [Batch-ledger simulation verification](operations/receipts/2026-11-09-batch-ledger-verification.json)
 
 ## Architecture decisions
 

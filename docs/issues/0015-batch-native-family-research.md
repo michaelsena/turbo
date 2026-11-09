@@ -133,3 +133,12 @@ and inspection commands; none dispatches a transport.
 
 See [ADR 0008](../decisions/0008-batch-authorization-execution-ledger.md) for the decision
 and the [runbook](../operations/runbook.md) for the implemented inspection commands.
+
+## Track B1 verification
+
+[PR #21](https://github.com/michaelsena/turbo/pull/21) implements the scoped
+single-journal simulation foundation and remains unmerged. The
+[verification receipt](../operations/receipts/2026-11-09-batch-ledger-verification.json)
+records 190 passing Python tests (28 focused), exact two-family simulation replay,
+independent review, code/input/output hashes, and unchanged research state.
+No live provider call or production spend authority is included.

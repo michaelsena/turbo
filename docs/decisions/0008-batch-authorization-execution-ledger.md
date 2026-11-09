@@ -2,8 +2,9 @@
 
 ## Status
 
-Proposed for Issue #15 Track B1; acceptance depends on local replay and independent
-review. This increment exercises a fake transport only. It authorizes no live model
+Implemented and locally verified in [PR #21](https://github.com/michaelsena/turbo/pull/21),
+which remains unmerged. The [verification receipt](../operations/receipts/2026-11-09-batch-ledger-verification.json)
+records exact replay and independent review. This increment exercises a fake transport only. It authorizes no live model
 call, research spend, market decision, or graph activation.
 
 ## Context
