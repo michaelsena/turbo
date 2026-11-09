@@ -1,0 +1,253 @@
+{
+  "verified_at_utc": "2026-11-09T06:07:57.750788+00:00",
+  "local_execution_commit": "72164ecdcc4ed86b05c22e417296744ac09b444b",
+  "published_code_commit": "80f0fd9271ec25008d10d5df4bb0d626f129368e",
+  "code_tree_sha": "8919d715957d7d543a77a2bd9c21af2b7cb33452",
+  "scope": "Read-only dashboard and provenance integrity; no research, scoring, or model calls. Screenshot and documentation closeout follows tested code tree.",
+  "input_bindings": {
+    "source_binding": {
+      "artifact_hashes": {
+        "identity-relationships.json.gz": "e3753b2902723245369fa01aae42b23b95ac641b3f8194d43b36f3421e9f06b7",
+        "identity-source-summary.json.gz": "b7b4fa9685b98f292b9c1365df1577a3bf221e21dfe2591992284c5955e4f6ee",
+        "multisource-reconciliation.json.gz": "80eef412e9f48388c6f50c03faee2d75ebba382c560175f5ed1241fc0c5ac02b",
+        "naics-identity-evidence.json.gz": "c2ad398ce33457b9486df665222b4700889b6b8e924b03b4619b04c0cd3eeaf5",
+        "naics-identity-source-summary.json.gz": "cf4c3c746481974e320c52aee18456dc3860105e9509eafa85a2f5ab9411a9c4",
+        "napcs-hierarchy-evidence.json.gz": "e35bebe1fc3979393bd946f205f316b49f6c0561785e8417db19ddb5686c9f77",
+        "napcs-hierarchy-source-summary.json.gz": "3f514ac4301ce04f733dcd3b61dd2128ca3b2c213b95d9460acceb168dcea8e1",
+        "raw-source-hierarchy.json.gz": "6ae20ad5f11574bad02aafcaa6a530f461cfc278d82dec5d1b5821a65343db52"
+      },
+      "receipt_sha256": "e0ea7bf16b4a55488d9cfad5da90bc4e58e7b18f1b6ef667aeb4dd971fa375de",
+      "run_id": "run-2ea0f00db84148de663f"
+    },
+    "schedule_binding": {
+      "artifact_hashes": {
+        "batch-manifest.json": "0fed1a507344eeafecd06bb9c7806fbb434bd6b7e52557af303f05c94586b6b0",
+        "candidate-collision-ledger.json.gz": "6c9c805392c910a64a797c525f234ce8c2bd54601d9f296775b0d75f80725f92",
+        "context-edge-ledger.json.gz": "9af74b8379fc004c7c6e49fc8aca40cea27f4e720ba89eb304c7573819163db5",
+        "coverage-ledger.json.gz": "aa3629fb6974673253013d531dfe703f826355d849ef5001c93cdf4c0b789efc",
+        "family-manifest.json.gz": "f960d7f49e5755e63ceafa8abd5704fbc2acde72355ee5677ee305a1689cb5dd"
+      },
+      "partition_id": "family-partition:60517981ab96e7f243c7033e",
+      "receipt_sha256": "e162e3bf258d77b87f9ccb3bd323562499fc0261f68fa508ea5096bfd5667b91",
+      "source_run_id": "run-2ea0f00db84148de663f"
+    },
+    "graph_binding": {
+      "graph_version_id": "graph-e674a77fbfd5939c25c9e9a1",
+      "projection_sha256": "a22336b3711ba1095607aa03850607cb50a801c49abcd3e3cd0b3d914b87b8ca",
+      "receipt_sha256": "60000766e22dd07dd63aa865618d92774d7f4d0d5eb89d95c2353a659fff48d3",
+      "release_id": "graph-release-aa5b6f83e7a06e073d3a",
+      "source_universe_run_id": "run-2ea0f00db84148de663f"
+    }
+  },
+  "replays": [
+    {
+      "receipt": {
+        "schema_version": 1,
+        "preparation_id": "family-preparation:e1b1a1465147557338880359",
+        "family_id": "family:naics-2022:111110",
+        "partition_id": "family-partition:60517981ab96e7f243c7033e",
+        "graph_release_id": "graph-release-aa5b6f83e7a06e073d3a",
+        "config_sha256": "48f68e3c81e1829fa2e0ed1d1ec38dd95fada508f2a59971290caee3f4fb6c5f",
+        "pack_sha256": "867a2bafdd1b08dbacf040798bffee975a20091b0690d411269018f31528d0ab",
+        "pack_bytes": 11342,
+        "counts": {
+          "required_identities": 1,
+          "context_identities": 4,
+          "context_shards": 1,
+          "required_candidates": 0,
+          "context_candidates": 0,
+          "context_edges": 0,
+          "identity_cards": 5,
+          "source_record_cards": 1,
+          "mapping_cards": 1,
+          "manual_definitions": 1,
+          "manual_index_entries": 1,
+          "graph_mappings": 0,
+          "graph_markets": 0,
+          "evidence_items": 9
+        },
+        "model_invoked": false,
+        "status": "prepared_no_model_call"
+      },
+      "replay": {
+        "valid": true,
+        "errors": [],
+        "preparation_id": "family-preparation:e1b1a1465147557338880359",
+        "family_id": "family:naics-2022:111110"
+      },
+      "output_sha256": {
+        "family-config-v2.json": "48f68e3c81e1829fa2e0ed1d1ec38dd95fada508f2a59971290caee3f4fb6c5f",
+        "family-evidence-pack-v2.json": "c4bd9e247dae34cb6790e0bc92a45993c769837898a584010eea0117841a86ba",
+        "preparation-receipt.json": "72780353976c51f834ac441c7cf4196f9782ea0fccf3ec3ca75d8ba89edff912"
+      }
+    },
+    {
+      "receipt": {
+        "schema_version": 1,
+        "preparation_id": "family-preparation:6bc6501af6afc734a0b377f7",
+        "family_id": "family:coverage:napcs-collection:10:001",
+        "partition_id": "family-partition:60517981ab96e7f243c7033e",
+        "graph_release_id": "graph-release-aa5b6f83e7a06e073d3a",
+        "config_sha256": "8c2b41fea5c7c60c445b90bec613a44c64477fdbcefb8a8343e2dd9008845845",
+        "pack_sha256": "398918172401ddfd4622f8b3f4197abbb662ca69961a5be87c02590c8353f7e7",
+        "pack_bytes": 23824,
+        "counts": {
+          "required_identities": 1,
+          "context_identities": 6,
+          "context_shards": 1,
+          "required_candidates": 0,
+          "context_candidates": 5,
+          "context_edges": 11,
+          "identity_cards": 7,
+          "source_record_cards": 6,
+          "mapping_cards": 1,
+          "manual_definitions": 0,
+          "manual_index_entries": 0,
+          "graph_mappings": 0,
+          "graph_markets": 0,
+          "evidence_items": 30
+        },
+        "model_invoked": false,
+        "status": "prepared_no_model_call"
+      },
+      "replay": {
+        "valid": true,
+        "errors": [],
+        "preparation_id": "family-preparation:6bc6501af6afc734a0b377f7",
+        "family_id": "family:coverage:napcs-collection:10:001"
+      },
+      "output_sha256": {
+        "family-config-v2.json": "8c2b41fea5c7c60c445b90bec613a44c64477fdbcefb8a8343e2dd9008845845",
+        "family-evidence-pack-v2.json": "964ecd71a1b9fd245f50e5cacd04e316e2794ac7eefc9812a35ed42571759c6b",
+        "preparation-receipt.json": "e1e534f9680528a14180f7d047daf92204de9f6ff8e778629b47ad7fb0f8565c"
+      }
+    },
+    {
+      "receipt": {
+        "schema_version": 1,
+        "preparation_id": "family-preparation:6c1c01320bd58ac34c625bf9",
+        "family_id": "family:coverage:prior-candidate:global-challenger:001",
+        "partition_id": "family-partition:60517981ab96e7f243c7033e",
+        "graph_release_id": "graph-release-aa5b6f83e7a06e073d3a",
+        "config_sha256": "e32a7ec5aabfdc7ff96330d6ea2227d3007c280a18e04ae330a18124190775e3",
+        "pack_sha256": "da30db8575d5bc3aeea49e6dc5aadf44ea2977344f5b4a8e3c717bbcb2621ab0",
+        "pack_bytes": 49399,
+        "counts": {
+          "required_identities": 0,
+          "context_identities": 0,
+          "context_shards": 0,
+          "required_candidates": 58,
+          "context_candidates": 0,
+          "context_edges": 0,
+          "identity_cards": 0,
+          "source_record_cards": 58,
+          "mapping_cards": 0,
+          "manual_definitions": 0,
+          "manual_index_entries": 0,
+          "graph_mappings": 0,
+          "graph_markets": 0,
+          "evidence_items": 116
+        },
+        "model_invoked": false,
+        "status": "prepared_no_model_call"
+      },
+      "replay": {
+        "valid": true,
+        "errors": [],
+        "preparation_id": "family-preparation:6c1c01320bd58ac34c625bf9",
+        "family_id": "family:coverage:prior-candidate:global-challenger:001"
+      },
+      "output_sha256": {
+        "family-config-v2.json": "e32a7ec5aabfdc7ff96330d6ea2227d3007c280a18e04ae330a18124190775e3",
+        "family-evidence-pack-v2.json": "4c89216170f32082e3d4c8f99cc9e87af99ea2318fdf6c6234704121029142ae",
+        "preparation-receipt.json": "78f991e6907cd90ee9aa6130646015d50f2becb3ef6321004bad41495e6a01c6"
+      }
+    }
+  ],
+  "checks": {
+    "full_python": {
+      "passed": 162,
+      "seconds": 374.604,
+      "command": "PYTHONPATH=src /tmp/turbo-resume-venv/bin/python -m unittest discover -s tests -v"
+    },
+    "focused_read_model": 17,
+    "focused_api": 14,
+    "frontend_unit": 7,
+    "typecheck": "passed",
+    "production_build": "passed",
+    "validate": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  "verification_output_sha256": {
+    "turbo-dashboard-final-full.log": "4ac7fdb7aea9f4213a5fbc9a9146a23cbc263a3e5104725cf3ccfca5860b24b5",
+    "turbo-dashboard-final-validate.json": "655823ac7f996b259837b1279f4757264aac1ab82808d9b562c06a9f640f36af",
+    "turbo-dashboard-final-context.json": "0300ce2cd11139c85bb49578f025831d59171b1ef9d12a0dbe6941b5f9950962"
+  },
+  "browser": {
+    "evidence": "User executed host Terminal commands against running loopback server. Assistant inspected artifacts; executor cannot launch Chrome or bind server.",
+    "commands": [
+      "TURBO_TEST_BASE_URL=http://127.0.0.1:8017 npm run test:visual:update -- --update-snapshots=all",
+      "TURBO_TEST_BASE_URL=http://127.0.0.1:8017 npm run test:visual"
+    ],
+    "result": {
+      "status": "passed",
+      "failedTests": []
+    },
+    "result_mtime_utc": "2026-11-09T06:05:39.113902+00:00",
+    "result_sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903",
+    "screenshots_reviewed": 14,
+    "changed_screenshots": 6,
+    "axe_checks": 14,
+    "runtime": {
+      "node": "24.22.0",
+      "playwright": "1.65.0",
+      "chrome": "157.0.8103.38",
+      "macOS": "14.6.1 (23G93)"
+    },
+    "screenshot_sha256": {
+      "frontend/e2e/__screenshots__/desktop/audit.png": "ea409dfd7f1c1fe287c6c4566d2612a66eb07371f89ac5199aa1ef7667bb3e2c",
+      "frontend/e2e/__screenshots__/desktop/batches.png": "6c0d74939d620f8cccc3310c5abcfcc07844a63487c6eb49dd1a7b5018761fbb",
+      "frontend/e2e/__screenshots__/desktop/families.png": "ec69d131640e41876072745b1b0eab76fd89eb52b5bb6d14a25711c75ec4c5af",
+      "frontend/e2e/__screenshots__/desktop/family-detail.png": "2cd351a628db83134798dd05de8a99f0505106f327e258a829766295676e9be4",
+      "frontend/e2e/__screenshots__/desktop/market-detail.png": "c7b67e90033e8fe66612b2aed21b7c5ac96f8d83eb9f61f5dcba79535bbd7f44",
+      "frontend/e2e/__screenshots__/desktop/overview.png": "b976e09177227883eb6a46c93ac7b39e05b0f73c4146b8a002177c192574e938",
+      "frontend/e2e/__screenshots__/desktop/universe.png": "89202d9a58c86b5818e8d233b0e93c9c6ba45552f229a675f59b1cbc76853877",
+      "frontend/e2e/__screenshots__/mobile/audit.png": "1fadfc9cd1483df096a7654ed32500f6390694b797fc60b052b3704749e75b6c",
+      "frontend/e2e/__screenshots__/mobile/batches.png": "7ef8cc89a2deaedabad6216647f146e7b228d14acc63b11c45ab631565e48a93",
+      "frontend/e2e/__screenshots__/mobile/families.png": "caeb12b42efb72e4115515b8c59ff839aabb316b4cd0753777514e6dce23df99",
+      "frontend/e2e/__screenshots__/mobile/family-detail.png": "6f90e1a1bd47bdfc678266c13bc361010537090e25e3ce4ea9dfe84b0c15c665",
+      "frontend/e2e/__screenshots__/mobile/market-detail.png": "8612e951fc3d9a6fb7882d27e99de8ebfe977ac12568dd173ea58adedeeea035",
+      "frontend/e2e/__screenshots__/mobile/overview.png": "50271b92ce1a9ed35565d8658c596f05af7c0bc95c9c24899e372b189dfb6ff6",
+      "frontend/e2e/__screenshots__/mobile/universe.png": "97f21d17556013b217a0f54e77e7300dc67171a063545f067d654d93f606a781"
+    }
+  },
+  "independent_review": {
+    "code": {
+      "p0": 0,
+      "p1": 0,
+      "p2": 0,
+      "reviewed_commit": "72164ecdcc4ed86b05c22e417296744ac09b444b"
+    },
+    "visual": {
+      "blocking_findings": 0,
+      "known_follow_up": "P2: desktop Overview long market-status badge clips at panel edge; full statuses remain readable in list/detail."
+    }
+  },
+  "full_field_inspection": {
+    "canonical_markets": 3,
+    "provisional_markets": 2,
+    "accepted_with_open_gaps": 1,
+    "open_gap_ids": [
+      "gap:horizontal-office-admin-operating-tests",
+      "gap:vertical-administration-boundary"
+    ],
+    "exclusions_and_dimension_confidence": "inspected; unchanged",
+    "data_diff_from_parent": "empty"
+  },
+  "canonical_markets": 3,
+  "target_markets": 0,
+  "scores": 0,
+  "model_invoked": false
+}

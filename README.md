@@ -140,12 +140,12 @@ exclusions, index evidence, and non-owned candidate context remain available; so
 compiler, and schema hashes bind each preparation. See [Issue 15](docs/issues/0015-batch-native-family-research.md)
 and its [audit receipt](docs/operations/receipts/2026-11-09-family-pack-corrections.json).
 
-[Dashboard PR #19](https://github.com/michaelsena/turbo/pull/19) remains a separate,
-unmerged increment. Its final browser acceptance is still pending: the current
-verification environment cannot bind a local server. Unit/build checks and historical
-screenshot receipts do not substitute for a fresh browser pass at the corrected head.
-The inherited mobile family and Audit screenshots contain stale values and must be
-regenerated and visually reviewed before acceptance. The runbook provides a loopback-only external-server mode for completing that check.
+[Dashboard PR #19](https://github.com/michaelsena/turbo/pull/19) remains unmerged.
+The corrected code passed 162 Python tests, frontend unit/type/build checks, and
+host-run browser screenshot/accessibility checks. All 14 desktop/mobile images were
+reviewed, including corrected family counts and Audit provenance. See the
+[verification receipt](docs/operations/receipts/2026-11-09-dashboard-corrections.json)
+for exact hashes and the minor Overview status-badge clipping follow-up.
 
 The next research milestone is a bounded, resumable batch executor with explicit
 spend authorization, selective independent verification, disagreement escalation,

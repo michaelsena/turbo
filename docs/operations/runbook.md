@@ -99,11 +99,14 @@ process that launched it must stop it after inspection. If the executor also can
 reach loopback or launch Chrome, run acceptance in the shell that can; record the
 actual result rather than marking the gate passed from unit tests alone.
 
-For the current PR #19 correction, inspect and replace the inherited mobile
-family-detail baseline (`0` required identities instead of `80`) and Audit baseline
-(read-model `1.0.0` instead of `1.1.0`) before claiming visual acceptance. The bind
-restriction blocks that check in the current executor; neither those stale images
-nor prior receipts establish a pass for the corrected tree.
+PR #19's corrected browser checks passed on the host on 2026-11-09; see the
+[verification receipt](receipts/2026-11-09-dashboard-corrections.json) for exact hashes,
+runtime, and the minor Overview badge-clipping follow-up. All 14 screenshots were
+reviewed. A plain `--update-snapshots` only updates changed comparisons; tolerance
+can preserve stale small text changes. When deliberately refreshing every reviewed
+baseline, run `npm run test:visual:update -- --update-snapshots=all`, inspect the
+images, then run `npm run test:visual` again. Use the external-server environment
+variable for both commands when the server is managed separately.
 
 Before accepting a UI/API change, run the focused Python tests, frontend tests,
 TypeScript check, production build, full Python suite, repository validation, and

@@ -163,14 +163,10 @@ administrative family order, or graph activation status.
 Acceptance results belong to the exact commit receipt in GitHub. The presence of
 a test or screenshot baseline is not a claim that the current tree has passed it.
 
-The current correction is not yet browser-accepted: this execution environment
-cannot bind a local server. Do not treat prior screenshots or successful unit/build
-checks as a fresh visual/accessibility pass. Complete the external-server path and
-record the exact corrected commit before closing that gate.
-
-Two inherited screenshot baselines also require correction after visual inspection:
-the mobile family-detail image shows `0` required identities where the current
-fixture has `80`, and the Audit image shows read-model version `1.0.0` where the
-current contract is `1.1.0`. They are stale artifacts, not accepted renderings of the
-current head. Inspect the corrected desktop/mobile pages, regenerate only the
-intentional baseline changes, and rerun screenshot comparisons and axe checks.
+The corrected code passed host-run browser comparisons and accessibility checks on
+2026-11-09; all 14 screenshots were visually reviewed. Family detail now shows 80
+required identities and Audit reports read-model 1.1.0. The executor's loopback and
+Chrome restrictions were handled with the runbook's external-server path. See the
+[exact verification receipt](../operations/receipts/2026-11-09-dashboard-corrections.json).
+One minor visual follow-up remains: the desktop Overview clips a long market-status
+badge; full statuses remain available in list/detail views. PR #19 is unmerged.
