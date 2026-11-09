@@ -18,6 +18,11 @@ from turbo.universe.boundary_activation import (
 )
 from turbo.universe.graph_release import run_graph_release, validate_graph_release
 from turbo.universe.family_scheduler import run_family_plan, validate_family_plan
+from turbo.universe.family_pack_v2 import (
+    dry_run_family_preparation_v2,
+    prepare_family_v2,
+    validate_family_preparation_v2,
+)
 from turbo.universe.boundary_pack import (
     build_boundary_pack,
     validate_boundary_pack,
@@ -60,6 +65,22 @@ def _parser() -> argparse.ArgumentParser:
     )
     family_validate.add_argument("schedule_dir", type=Path)
     family_validate.add_argument("config", type=Path)
+    family_prepare = commands.add_parser(
+        "family-prepare",
+        help="Prepare a content-addressed V2 family config and evidence pack without model calls",
+    )
+    family_prepare.add_argument("family_id")
+    family_prepare.add_argument("--output-root", type=Path)
+    family_dry_run = commands.add_parser(
+        "family-dry-run",
+        help="Compile and validate one V2 family preparation without persisting or invoking a model",
+    )
+    family_dry_run.add_argument("family_id")
+    family_validate_preparation = commands.add_parser(
+        "family-validate-preparation",
+        help="Replay a persisted V2 family preparation against exact immutable inputs",
+    )
+    family_validate_preparation.add_argument("preparation_dir", type=Path)
     boundary_pack = commands.add_parser(
         "boundary-pack",
         help="Compile and validate a frozen operating-market family evidence pack",
@@ -155,6 +176,28 @@ def main() -> int:
         return 0
     if args.command == "family-validate-plan":
         result = validate_family_plan(args.schedule_dir, args.config)
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return 0 if result["valid"] else 1
+    if args.command == "family-prepare":
+        print(
+            json.dumps(
+                prepare_family_v2(args.family_id, output_root=args.output_root),
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "family-dry-run":
+        print(
+            json.dumps(
+                dry_run_family_preparation_v2(args.family_id),
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "family-validate-preparation":
+        result = validate_family_preparation_v2(args.preparation_dir)
         print(json.dumps(result, indent=2, sort_keys=True))
         return 0 if result["valid"] else 1
     if args.command == "boundary-pack":

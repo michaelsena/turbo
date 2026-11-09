@@ -216,6 +216,15 @@ cross-family collision risk. It cannot inspect strategy configuration, market de
 AI potential, valuation, Target eligibility, or companies. Any future change to the
 partition method creates a new plan and receipt; it does not rewrite this version.
 
+Issue #15's deterministic V2 preparation layer consumes that plan without choosing a
+family by attractiveness. Given an exact family ID, it retains the schedule-authored
+required identities, context shards, and required candidates, then assembles evidence
+from the context-edge ledger. Full source and retrieval evidence is attached to
+required identities. Context remains compact orientation and never creates another
+disposition obligation. The config and pack bind the exact source run, schedule,
+cumulative graph, counts, and byte limits. Any mismatch or oversize pack fails before
+a model can run; no truncation is allowed.
+
 Completeness requires both 100% typed source-row disposition and a coverage challenge.
 Disposition alone does not prove that no American operating market is missing.
 

@@ -195,6 +195,31 @@ the resulting cumulative projection hash. `latest-graph.json` and
 `latest-family-schedule.json` are verification pointers only; their referenced
 receipts and artifacts must rehash before they enter composed context.
 
+### Schedule-driven family config and evidence pack V2
+
+A family config V2 resolves to exactly one schedulable family-manifest entry. It binds
+the schedule receipt and artifact hashes, cumulative graph receipt and projection,
+exact required identities, authored context shards, exact required candidates,
+expected context-edge count, and fail-closed limits. The config is a deterministic
+research-input declaration, not a decision or execution authorization.
+
+A family evidence pack V2 is a disposable, frozen view over those immutable inputs.
+It includes complete cards for required source identities, compact cards for context,
+exact ledger relationship IDs and locators, required candidate cards, and relevant
+existing graph context. Context-only identities cannot become primary obligations.
+The content hash excludes only its own hash field. Persisted preparations are
+content-addressed and replayed by regenerating the config and pack. Replay also
+requires each persisted config, pack, and receipt file to equal its canonical JSON
+bytes exactly; parsing to the same object is insufficient.
+
+Pack compilation requires two independent bindings for every consumed source artifact:
+the source-run receipt hash and the family schedule receipt's frozen source hash must
+be identical before the file is read. Graph context likewise requires the latest
+pointer, immutable graph receipt, and projection to agree on the release, graph
+version, source run, projection hash, and recomputed counts. Standalone validation
+recompiles the full expected pack and compares every top-level evidence and lineage
+collection, rather than treating a recomputed pack self-hash as proof of completeness.
+
 
 ## Factor definition, evaluator result, and score event
 
@@ -221,3 +246,9 @@ posted as GitHub issue/PR receipts so deterministic replay never dirties the wor
 
 Formal JSON Schemas and executable projection tests precede external API stability.
 
+
+V2 preparations additionally bind the full verified source-run receipt/artifact map
+and exact Turbo Python/executable-schema bytes. Packs retain required NAICS Manual
+records and index-absence facts, plus non-owned retrieved candidates as context-only
+cards with source records. These fields participate in content identity, size gates,
+and deterministic regeneration; they do not alter administrative ownership.

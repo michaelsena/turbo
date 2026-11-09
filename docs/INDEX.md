@@ -11,9 +11,11 @@
 - [Public and interview communication](governance/public-communication.md)
 - [ADR 0001: Architecture and operating model](decisions/0001-architecture-and-operating-model.md)
 - [ADR 0005: Model-agnostic boundary harness](decisions/0005-model-agnostic-boundary-harness.md)
+- [ADR 0007: Schedule-driven family preparations](decisions/0007-schedule-driven-family-preparations.md)
 - [ADR 0006: OpenRouter model-provider layer](decisions/0006-openrouter-model-provider.md)
 - [Prior-model crosswalk](decisions/prior-model-crosswalk.md)
 - [Issue 14: deterministic family partition and scheduler](issues/0014-family-partition-scheduler.md)
+- [Issue 15: batch-native family research](issues/0015-batch-native-family-research.md)
 
 `README.md` is the executive guide. These documents contain the durable detail.
 Update both the README and the relevant document when behavior or architecture changes.

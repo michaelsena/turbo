@@ -59,10 +59,19 @@ turbo boundary-validate-activation \
 turbo family-plan config/universe/family-partition-v1.json
 turbo family-validate-plan data/family_schedules/<partition-id> \
   config/universe/family-partition-v1.json
+turbo family-dry-run <family-id>
+turbo family-prepare <family-id> --output-root <directory>
+turbo family-validate-preparation <preparation-directory>
 turbo graph-release config/universe/graph-releases/<release-config>.json
 turbo graph-validate-release data/market_graph/versions/<release-id> \
   config/universe/graph-releases/<release-config>.json
 ```
+
+The three V2 family-preparation commands are deterministic and make no model calls.
+Use `family-dry-run` first. It verifies the corrected schedule and current graph,
+compiles the exact config and pack in memory, enforces all count/size gates, and
+prints hashes and counts without writing an artifact. Preparation fails rather than
+truncating evidence. A persisted preparation is not authorization to execute it.
 
 `boundary-run` makes two concurrent specialist calls and, only after both validate,
 one adjudicator call. It is intentionally explicit and metered; validators and tests
