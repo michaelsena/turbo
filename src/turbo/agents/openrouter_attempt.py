@@ -121,6 +121,84 @@ def _metadata(value: Any, secret: str) -> str | None:
     return value
 
 
+# Provider errors are untrusted and can echo the prompt or credentials. Persist
+# only this fixed vocabulary, never arbitrary messages, nested metadata or paths.
+_ERROR_CODES = frozenset({
+    'invalid_argument', 'invalid_request_error', 'invalid_json_schema',
+    'unsupported_parameter', 'unsupported_value', 'context_length_exceeded',
+    'no_available_endpoints', 'provider_error', 'rate_limit_exceeded',
+    'insufficient_quota', 'permission_denied', 'resource_exhausted',
+})
+_ERROR_SCHEMA_KEYWORDS = (
+    '$ref', '$defs', 'anyOf', 'oneOf', 'allOf', 'additionalProperties',
+    'maxItems', 'minItems', 'maxLength', 'minLength', 'pattern', 'const',
+    'propertyOrdering', 'unevaluatedProperties',
+)
+_ERROR_PARAMETERS = frozenset({
+    'model', 'messages', 'max_tokens', 'max_completion_tokens', 'reasoning',
+    'reasoning_effort', 'response_format', 'response_format.json_schema',
+    'response_format.json_schema.schema', 'provider', 'provider.only',
+    'provider.max_price', 'prompt_cache_options',
+})
+
+
+def _error_diagnostics(value: Any) -> dict:
+    """Bounded provider-reported hints, not a root-cause or billing conclusion.
+
+    OpenRouter may wrap a provider JSON error in metadata.raw. Inspect exactly
+    that one bounded wrapper; never recursively traverse arbitrary metadata.
+    The existing response_sha256 binds the complete response for comparison.
+    """
+    hints, codes, parameters, keywords = set(), set(), set(), set()
+    errors = [value] if isinstance(value, dict) else []
+    if errors:
+        metadata = value.get('metadata')
+        raw = metadata.get('raw') if isinstance(metadata, dict) else None
+        if isinstance(raw, str) and len(raw) <= 8192:
+            try:
+                nested = _response_json(raw.encode('utf-8')).get('error')
+                if isinstance(nested, dict):
+                    errors.append(nested)
+            except (ValueError, UnicodeError, RecursionError):
+                pass
+    for error in errors:
+        for field in ('code', 'type', 'status'):
+            item = error.get(field)
+            if isinstance(item, str) and len(item) <= 64 and item.lower() in _ERROR_CODES:
+                codes.add(item.lower())
+        parameter = error.get('param')
+        if isinstance(parameter, str) and parameter in _ERROR_PARAMETERS:
+            parameters.add(parameter)
+        message = error.get('message')
+        if not isinstance(message, str) or len(message) > 4096:
+            continue
+        message = message.lower()
+        # Only explicit rejection phrases followed by a fixed schema keyword.
+        # Never copy the provider's arbitrary field path or infer rejection from
+        # a bare keyword elsewhere in the (possibly prompt-echoing) message.
+        for keyword in _ERROR_SCHEMA_KEYWORDS:
+            if re.search(r"\b(?:unknown name|unknown field|unsupported (?:schema )?(?:keyword|field)|"
+                         r"unrecognized (?:schema )?(?:keyword|field))\s*:?\s*[\"'`]?"
+                         + re.escape(keyword.lower()) + r"(?=$|[\s\"'`:,.])", message):
+                keywords.add(keyword)
+                hints.add('schema_keyword_rejected')
+        if any(term in message for term in ('invalid schema', 'invalid json schema',
+                'invalid response schema', 'unsupported schema', 'schema is invalid')):
+            hints.add('schema_rejected')
+        if any(term in message for term in ('unsupported parameter', 'unrecognized parameter',
+                'unknown parameter', 'unsupported argument')):
+            hints.add('parameter_rejected')
+        if any(term in message for term in ('context length', 'context window',
+                'too many tokens', 'maximum number of tokens')):
+            hints.add('context_limit_reported')
+        if any(term in message for term in ('no endpoints', 'no available endpoints',
+                'no providers available', 'no eligible providers')):
+            hints.add('route_unavailable_reported')
+    return {'version': 1, 'provider_codes': sorted(codes),
+            'provider_parameters': sorted(parameters), 'provider_schema_keywords': sorted(keywords),
+            'provider_reported_hints': sorted(hints)}
+
+
 def _telemetry(value: Any) -> tuple[dict | None, int | None, str]:
     if not isinstance(value, dict):
         return None, None, 'unknown'
@@ -275,10 +353,12 @@ def invoke_openrouter_once(
                   served_provider=_metadata(response.get('provider'), secret),
                   generation_id=_metadata(response.get('id'), secret))
     if status != 200:
-        result.update(status='invalid', error_stage='http')
+        result.update(status='invalid', error_stage='http',
+                      error_diagnostics=_error_diagnostics(response.get('error')))
         return result
     if response.get('error') is not None:
-        result.update(status='invalid', error_stage='provider_error')
+        result.update(status='invalid', error_stage='provider_error',
+                      error_diagnostics=_error_diagnostics(response.get('error')))
         return result
     try:
         result['error_stage'] = 'content'

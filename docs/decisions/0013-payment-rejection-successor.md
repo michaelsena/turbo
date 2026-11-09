@@ -1,6 +1,6 @@
 # ADR 0013: Preserve research through an explicit payment-rejection successor
 
-Status: implemented, pending verification and merge. Issue #51.
+Status: implemented and merged in PR #53. Issue #51.
 
 The live verifier received HTTP 402 after a successful primary. V2 correctly held
 unknown exposure but had no recovery transition. Editing its immutable authority

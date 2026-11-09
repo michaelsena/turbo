@@ -1,10 +1,5 @@
 # Turbo
 
-Payment-rejected verifier attempts have an explicit, bounded
-[successor recovery procedure](docs/operations/payment-rejection-recovery.md).
-It preserves accepted primary research and all prior accounting; it never treats
-unknown billing as zero or automatically retries a call.
-
 Turbo is an auditable research system for finding U.S. markets suited to an
 AI-enabled lower-middle-market acquisition strategy. It asks where an owner can buy
 a good business at a disciplined price, improve its production bottleneck with
@@ -232,7 +227,9 @@ admission and dispatch. Combined verification passed 384 full-suite tests,
 [verification receipt](docs/operations/receipts/2026-11-09-batch-routing-activation-verification.json).
 Optional [lossless model views](docs/decisions/0014-lossless-model-view.md) preserve
 the complete assignment while reducing repeated JSON structure. An offline anchored
-request measured 41.1% fewer bytes; token savings and research quality remain unqualified.
+request measured 41.1% fewer bytes. Matched plain/encoded Luna calls measured
+28.25% fewer input tokens, but both failed large-batch acceptance; the view remains
+unqualified for rollout.
 The view requires explicit fresh authorization and cannot alter an existing recovery run.
 These controls do not authorize a paid canary. The first authorized selective
 canary returned zero proposed markets and 110 unresolved identities; grouped-gap
@@ -289,3 +286,22 @@ Metered model runs have separate explicit configuration and spending gates.
 | App worker and local issue intake | [Worker charter](docs/operations/app-gm-worker.md), [dispatcher guide](docs/operations/app-dispatcher.md) |
 | Commands and acceptance | `src/turbo/cli.py`, `tests/`, [runbook](docs/operations/runbook.md) |
 | Consequential design choices | [Architecture decisions](docs/INDEX.md#architecture-decisions) |
+
+### Small-workload qualification and current blocker
+
+The eight-identity, two-family plain qualification passed primary and selective
+verification for **$0.033487** combined provider cost. It proposes two provisional
+markets and seven mappings, retaining research gaps. The independent release call
+returned HTTP 400 with unknown usage and cost, so **no new markets were activated**.
+Its $2.270 reservation remains held; it is not reported as actual spend. This compact
+case does not establish universe-wide quality or the targeted 5× cost reduction.
+See the [qualification receipt](docs/operations/receipts/2026-11-09-small-qualification.json)
+and [issue 52](https://github.com/michaelsena/turbo/issues/52).
+
+Explicit recovery is separate from normal retries. The
+[payment-rejection procedure](docs/operations/payment-rejection-recovery.md) preserves
+one accepted primary after a verifier HTTP 402. The
+[release-review procedure](docs/operations/release-review-recovery.md) preserves the
+accepted primary, verifier, and exact preview after the narrowly supported reviewer
+HTTP 400. Both retain prior exposure and physical calls and require an explicit
+successor; neither resets the budget or automatically dispatches.

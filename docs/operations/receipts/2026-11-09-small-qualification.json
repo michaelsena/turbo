@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "paid_qualification_status",
+  "issue": "https://github.com/michaelsena/turbo/issues/52",
+  "workflow_plan_sha256": "fbc00f791a26ba3a6a8958bb710cbfd98e50890f29fbba94a56136c3b5e2fc5e",
+  "required_identities": 8,
+  "required_candidates": 1,
+  "families": ["family:naics-2022:212322", "family:naics-2022:212230"],
+  "primary": {"status": "succeeded", "input_tokens": 67579, "output_tokens": 9178, "provider_cost_microusd": 24530, "ledger_charge_microusd": 85935},
+  "verifier": {"status": "succeeded", "input_tokens": 72177, "output_tokens": 3478, "provider_cost_microusd": 8957, "ledger_charge_microusd": 75655},
+  "release_reviewer": {"status": "unresolved", "http_status": 400, "provider_cost_microusd": null, "held_reservation_microusd": 2270000, "response_sha256": "6e56006288c81fad5e4134b4190648019eeb62e6c13cf8608575ab9507272d00"},
+  "known_provider_cost_microusd": 33487,
+  "original_cap_microusd": 5000000,
+  "original_max_calls": 6,
+  "physical_calls": 3,
+  "preview_sha256": "a2af41b94b6ee59b2f04e88a57cfede8faa6d4aa204f6bb391cd0298c675b438",
+  "proposed_markets": 2,
+  "proposed_mappings": 7,
+  "new_markets_activated": 0,
+  "retry_performed": false,
+  "universe_cost_reduction_qualified": false,
+  "status_at_utc": "2026-11-09T21:49:28Z"
+}
