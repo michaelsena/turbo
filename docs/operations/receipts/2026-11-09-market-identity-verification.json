@@ -1,0 +1,176 @@
+{
+  "browser": {
+    "capability_retry": "Direct Chrome reopened the existing issue29 preview; this Work shell still fails loopback bind with Errno1 and Playwright Chrome launch with TargetClosedError. A separate user-started local session has produced fresh passing artifacts for issue29; those are not evidence for issue31.",
+    "dependency_issue": 34,
+    "issue31_current_build_verified": false,
+    "new_baselines_accepted": false,
+    "packaged_suite_run_for_issue31": false,
+    "remaining": [
+      "Render and inspect this build at desktop/mobile widths",
+      "Run packaged Playwright/axe and detail assertions",
+      "Review intentional market-detail baseline changes, then comparison-only pass"
+    ]
+  },
+  "build_output_sha256": {
+    "frontend/dist/assets/index-B_wrGgCk.css": "4ee6ae8b61104fd468dcd5f102c18455252230911ffe1dea1732cebde788e1f3",
+    "frontend/dist/assets/index-C5MurCcT.js": "c782ab1133b81626edfee81ae3f12adfd6688c819304834006c1f305fb23741c",
+    "frontend/dist/index.html": "58de60d1267642fd6675bdfab09e7becde851ac2dd4a151a0bead943dc3dac57"
+  },
+  "checks": {
+    "build": {
+      "command": "npm run build",
+      "result": "passed"
+    },
+    "context": "passed",
+    "diff_check": "passed",
+    "focused_python": {
+      "command": "PYTHONPATH=src .venv/bin/python -m unittest tests.test_read_model tests.test_web_api -v",
+      "passed": 31,
+      "seconds": 42.512
+    },
+    "frontend_unit": {
+      "command": "npm test",
+      "passed": 12
+    },
+    "full_python": {
+      "command": "PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -v",
+      "passed": 259,
+      "result": "OK",
+      "seconds": 717.517
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "result": "passed"
+    },
+    "validate": {
+      "errors": [],
+      "valid": true
+    }
+  },
+  "full_field_inspection": {
+    "confidence_by_dimension": {
+      "Dental practice administration": {
+        "acquisition_universe": 0.32,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.38,
+        "delivery": 0.48,
+        "economics_risk": 0.15,
+        "job": 0.58,
+        "workforce": 0.45
+      },
+      "Integrated outsourced office administration": {
+        "acquisition_universe": 0.7,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.65,
+        "delivery": 0.85,
+        "economics_risk": 0.3,
+        "job": 0.88,
+        "workforce": 0.84
+      },
+      "Medical practice administration": {
+        "acquisition_universe": 0.32,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.38,
+        "delivery": 0.48,
+        "economics_risk": 0.15,
+        "job": 0.58,
+        "workforce": 0.45
+      }
+    },
+    "evidence_classes": {
+      "Dental practice administration": {
+        "acquisition_universe": "unknown",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "inference",
+        "delivery": "inference",
+        "economics_risk": "unknown",
+        "job": "inference",
+        "workforce": "inference"
+      },
+      "Integrated outsourced office administration": {
+        "acquisition_universe": "inference",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "inference",
+        "delivery": "fact",
+        "economics_risk": "unknown",
+        "job": "fact",
+        "workforce": "fact"
+      },
+      "Medical practice administration": {
+        "acquisition_universe": "unknown",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "inference",
+        "delivery": "inference",
+        "economics_risk": "unknown",
+        "job": "inference",
+        "workforce": "inference"
+      }
+    },
+    "exclusions_and_evidence_ids": "Copied from selected record without research inference; fixture fields/hash independently checked against committed projection",
+    "market_statuses": {
+      "Dental practice administration": "provisional",
+      "Integrated outsourced office administration": "accepted_with_open_gaps",
+      "Medical practice administration": "provisional"
+    },
+    "scores": 0,
+    "target_markets": 0
+  },
+  "independent_review": {
+    "browser_review": false,
+    "local_commit": "4f1977966b7332b35913be0d1141094c27e66b49",
+    "p0": 0,
+    "p1": 0,
+    "p2": 0,
+    "reviewer": "app_audit scoped subagent",
+    "scope": "static implementation/API contract/fixture/tests/docs",
+    "tree": "0f73a938de44b2785ac05e50b972e14273a8f70f"
+  },
+  "input_sha256": {
+    "frontend/e2e/read-surface.spec.ts": "3d728bdf313279a4300eeb4e1a0119b37d51b78fb6920e5b79eda83dc6f54728",
+    "frontend/package-lock.json": "1f184a4517dbfe83d9bf0b9b136c7b09c91628c06ea0b40c236ac5975759da6a",
+    "frontend/src/App.test.tsx": "66c64589b55042ae22a5f875065601ac4539d54b34a3e06581b4ef512dd389ec",
+    "frontend/src/App.tsx": "50316141c1bb0835abb8b2b86fd0b41360519d38417f9532251c460240109982",
+    "frontend/src/MarketIdentity.css": "122614c2419966ef38afe7f4b959ed55e894660a2de15c15e23b79882b48717b",
+    "frontend/src/MarketIdentity.test.tsx": "edadbf268fa2a64ee3421a18fefe0ce16b25ceb3a7c9079bf048cdb226460a4b",
+    "frontend/src/MarketIdentity.tsx": "61c541f1a6545abc43b794c257ac1653b9f1a221501638f8699db81821329ede",
+    "frontend/src/test/fixtures/provisional-market.json": "c6c3ff2b004fbce733d96823461586149ccf1fd4c878c220452331ee0f31a622",
+    "frontend/src/types.ts": "3994ff85bf415706956cf3f1d00bb5df8ea566aaf63ebd454bfa280f9bf9946a"
+  },
+  "merge_authorized": false,
+  "output_sha256": {
+    "turbo-app-31-context.json": "0300ce2cd11139c85bb49578f025831d59171b1ef9d12a0dbe6941b5f9950962",
+    "turbo-app-31-focused.log": "ec17cb841e373f0bf6d576c8d31f07024da77c56fa5a2e6666e9c908e552f995",
+    "turbo-app-31-full.log": "ec91acc4e2ece308c7cf579be3601c2042dca6fcd105d5678ea3df43303a3902",
+    "turbo-app-31-validate.json": "655823ac7f996b259837b1279f4757264aac1ab82808d9b562c06a9f640f36af",
+    "turbo-app-31-view.json": "ee7aa7548143ead63036da19c211663f7973ae5575afe7229afd3f2315b3da96"
+  },
+  "provenance": {
+    "as_of_utc": "2026-11-09T03:30:00Z",
+    "context_fingerprint": "0254f47f2148c024ddee9807c0e2469ee88b0a2d644d22f2f9af11b82bea89cd",
+    "graph_version_id": "graph-e674a77fbfd5939c25c9e9a1",
+    "partition_id": "family-partition:60517981ab96e7f243c7033e",
+    "read_model_version": "1.1.0",
+    "release_id": "graph-release-aa5b6f83e7a06e073d3a",
+    "source_run_id": "run-2ea0f00db84148de663f"
+  },
+  "receipt_hashes": {
+    "graph": "60000766e22dd07dd63aa865618d92774d7f4d0d5eb89d95c2353a659fff48d3",
+    "schedule": "e162e3bf258d77b87f9ccb3bd323562499fc0261f68fa508ea5096bfd5667b91",
+    "source": "e0ea7bf16b4a55488d9cfad5da90bc4e58e7b18f1b6ef667aeb4dd971fa375de"
+  },
+  "runtime": {
+    "node": "24.22.0",
+    "playwright": "1.65.0",
+    "python": "3.14.2",
+    "vite": "7.3.7"
+  },
+  "scope": "Issue31 frontend-only identity inspection from existing API fields; no backend, research, graph, score, or Target changes. Browser verification for this new UI remains pending.",
+  "tested_code": {
+    "clean_unchanged_tree_throughout_full_suite": true,
+    "local_commit": "4f1977966b7332b35913be0d1141094c27e66b49",
+    "main_base": "d9bbf77acb5c6f2f29c6f35eecf96911c023be02",
+    "published_commit": "f220fcb2ab2e18a9b60c20a1a3a75156456bd489",
+    "tree": "0f73a938de44b2785ac05e50b972e14273a8f70f"
+  },
+  "verified_at_utc": "2026-11-09T14:03:55.569096+00:00"
+}

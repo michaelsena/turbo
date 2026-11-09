@@ -190,4 +190,9 @@ source/partition/graph tuple.
 Unit coverage includes a fixture copied from the committed provisional dental market,
 with its graph-projection hash, plus missing/null, empty-list and zero-confidence
 cases. Browser acceptance and intentional market-detail screenshot refresh remain
-pending a permitted runner (#34); this documentation is not a current browser pass.
+pending local browser verification (#34); this documentation is not a current browser pass.
+
+The [identity inspection receipt](../operations/receipts/2026-11-09-market-identity-verification.json)
+records 12 passing frontend tests, typecheck/build, 31 focused read/API tests, 259
+full-suite Python tests, validation/context and zero-finding independent static review
+on the exact code tree. Browser checks for this new detail layout remain pending.
