@@ -52,6 +52,7 @@ def invoke_configured_role(
             max_completion_tokens=openrouter.get("max_completion_tokens", 128_000),
             allow_fallbacks=openrouter.get("allow_fallbacks", True),
             max_attempts=openrouter.get("max_attempts", 3),
+            max_validation_repairs=openrouter.get("max_validation_repairs", 2),
             api_url=openrouter.get(
                 "api_url", "https://openrouter.ai/api/v1/chat/completions"
             ),

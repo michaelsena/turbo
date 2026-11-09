@@ -208,6 +208,7 @@ def invoke_openrouter_role(
     max_completion_tokens: int = 128_000,
     allow_fallbacks: bool = True,
     max_attempts: int = 3,
+    max_validation_repairs: int = 2,
     api_url: str = OPENROUTER_CHAT_COMPLETIONS_URL,
     api_key: str | None = None,
     transport: Transport = _default_transport,
@@ -224,6 +225,8 @@ def invoke_openrouter_role(
         raise ValueError("blind specialists cannot receive specialist outputs")
     if max_attempts < 1:
         raise ValueError("max_attempts must be at least one")
+    if max_validation_repairs < 0:
+        raise ValueError("max_validation_repairs cannot be negative")
 
     secret = api_key or os.environ.get("OPENROUTER_API_KEY")
     if not secret:
@@ -233,7 +236,7 @@ def invoke_openrouter_role(
 
     invocation_id = f"invocation:{secrets.token_hex(12)}"
     base_prompt = prompt_path.read_text(encoding="utf-8")
-    prompt = runtime_prompt(
+    initial_prompt = runtime_prompt(
         base_prompt,
         role_id=role_id,
         invocation_id=invocation_id,
@@ -248,18 +251,6 @@ def invoke_openrouter_role(
     provider_schema = openrouter_schema(schema)
     if not isinstance(provider_schema, dict):
         raise RuntimeError("OpenRouter schema adapter did not return an object")
-    request_payload = openrouter_request_body(
-        role_id=role_id,
-        model=model,
-        reasoning_effort=reasoning_effort,
-        runtime_prompt_text=prompt,
-        schema=provider_schema,
-        invocation_id=invocation_id,
-        max_completion_tokens=max_completion_tokens,
-        allow_fallbacks=allow_fallbacks,
-    )
-    request_text = json.dumps(request_payload, sort_keys=True, separators=(",", ":"))
-    request_bytes = request_text.encode("utf-8")
     headers = {
         "Authorization": f"Bearer {secret}",
         "Content-Type": "application/json",
@@ -267,85 +258,128 @@ def invoke_openrouter_role(
         "X-Title": "Turbo",
         "X-OpenRouter-Metadata": "enabled",
     }
-    started_at = utc_now()
-    started_monotonic = time.monotonic()
-    status_code = 0
-    response_bytes = b""
-    attempts = 0
-    for attempts in range(1, max_attempts + 1):
-        status_code, _, response_bytes = transport(
-            api_url, headers, request_bytes, float(timeout_seconds)
+    model_calls: list[dict[str, Any]] = []
+    prior_errors: list[str] = []
+    prior_output_sha256: str | None = None
+    for validation_round in range(max_validation_repairs + 1):
+        prompt = initial_prompt
+        if validation_round:
+            correction = {
+                "instruction": (
+                    "Regenerate the complete JSON output from the frozen pack. "
+                    "Correct every listed validator error; do not return a patch."
+                ),
+                "prior_output_sha256": prior_output_sha256,
+                "prior_validation_errors": prior_errors,
+                "validation_round": validation_round,
+            }
+            prompt += "\n\n# Required correction round\n\n" + json.dumps(
+                correction, sort_keys=True, separators=(",", ":")
+            )
+        request_payload = openrouter_request_body(
+            role_id=role_id,
+            model=model,
+            reasoning_effort=reasoning_effort,
+            runtime_prompt_text=prompt,
+            schema=provider_schema,
+            invocation_id=invocation_id,
+            max_completion_tokens=max_completion_tokens,
+            allow_fallbacks=allow_fallbacks,
         )
-        if status_code == 200:
-            break
-        if status_code not in RETRYABLE_STATUS_CODES or attempts == max_attempts:
-            break
-        sleeper(min(2 ** (attempts - 1), 8))
-
-    completed_at = utc_now()
-    elapsed_ms = round((time.monotonic() - started_monotonic) * 1000)
-    receipt: dict[str, Any] = {
-        "schema_version": 1,
-        "provider": "openrouter",
-        "api_surface": "chat_completions",
-        "invocation_id": invocation_id,
-        "role_id": role_id,
-        "family_id": pack["metadata"]["family_id"],
-        "requested_model": model,
-        "reasoning_effort": reasoning_effort,
-        "started_at_utc": started_at,
-        "completed_at_utc": completed_at,
-        "elapsed_ms": elapsed_ms,
-        "attempts": attempts,
-        "http_status": status_code,
-        "prompt_sha256": sha256_text(base_prompt),
-        "runtime_prompt_sha256": sha256_text(prompt),
-        "schema_sha256": canonical_sha256(schema),
-        "provider_schema_sha256": canonical_sha256(provider_schema),
-        "request_sha256": sha256_text(request_text),
-        "response_sha256": sha256_text(response_bytes.decode("utf-8", errors="replace")),
-        "input_pack_sha256": pack["metadata"]["pack_sha256"],
-        "raw_reasoning_persisted": False,
-        "credential_persisted": False,
-        "status": "failed",
-    }
-    if status_code != 200:
-        error_summary = _safe_error_summary(response_bytes)
-        raise RuntimeError(
-            f"{role_id} OpenRouter invocation failed with HTTP {status_code}; "
-            f"error={error_summary}; receipt={json.dumps(receipt, sort_keys=True)}"
+        request_text = json.dumps(
+            request_payload, sort_keys=True, separators=(",", ":")
         )
-    try:
-        response = json.loads(response_bytes)
-    except json.JSONDecodeError as error:
-        raise RuntimeError(f"{role_id} OpenRouter response was not JSON: {error}") from error
+        request_bytes = request_text.encode("utf-8")
+        started_at = utc_now()
+        started_monotonic = time.monotonic()
+        status_code = 0
+        response_bytes = b""
+        attempts = 0
+        for attempts in range(1, max_attempts + 1):
+            status_code, _, response_bytes = transport(
+                api_url, headers, request_bytes, float(timeout_seconds)
+            )
+            if status_code == 200:
+                break
+            if status_code not in RETRYABLE_STATUS_CODES or attempts == max_attempts:
+                break
+            sleeper(min(2 ** (attempts - 1), 8))
 
-    receipt.update(
-        {
-            "generation_id": response.get("id"),
-            "served_model": response.get("model"),
-            "served_provider": response.get("provider"),
-            "service_tier": response.get("service_tier"),
-            "system_fingerprint": response.get("system_fingerprint"),
-            "usage": _usage_receipt(response.get("usage")),
+        receipt: dict[str, Any] = {
+            "schema_version": 1,
+            "provider": "openrouter",
+            "api_surface": "chat_completions",
+            "invocation_id": invocation_id,
+            "role_id": role_id,
+            "family_id": pack["metadata"]["family_id"],
+            "requested_model": model,
+            "reasoning_effort": reasoning_effort,
+            "validation_round": validation_round,
+            "started_at_utc": started_at,
+            "completed_at_utc": utc_now(),
+            "elapsed_ms": round((time.monotonic() - started_monotonic) * 1000),
+            "attempts": attempts,
+            "http_status": status_code,
+            "prompt_sha256": sha256_text(base_prompt),
+            "runtime_prompt_sha256": sha256_text(prompt),
+            "schema_sha256": canonical_sha256(schema),
+            "provider_schema_sha256": canonical_sha256(provider_schema),
+            "request_sha256": sha256_text(request_text),
+            "response_sha256": sha256_text(
+                response_bytes.decode("utf-8", errors="replace")
+            ),
+            "input_pack_sha256": pack["metadata"]["pack_sha256"],
+            "raw_reasoning_persisted": False,
+            "credential_persisted": False,
+            "status": "failed",
         }
-    )
-    try:
-        output = json.loads(_message_content(response))
-    except json.JSONDecodeError as error:
-        raise RuntimeError(f"{role_id} final output was not JSON: {error}") from error
-    errors = validate_boundary_output(
-        output,
-        pack,
-        expected_role=role_id,
-        specialist_outputs=specialist_outputs,
-        root=root,
-    )
-    receipt["output_sha256"] = canonical_sha256(output)
-    receipt["validation_errors"] = errors
-    receipt["status"] = "valid" if not errors else "invalid"
-    if errors:
-        raise RuntimeError(
-            f"{role_id} output failed closed-world validation: " + json.dumps(errors)
+        if status_code != 200:
+            error_summary = _safe_error_summary(response_bytes)
+            raise RuntimeError(
+                f"{role_id} OpenRouter invocation failed with HTTP {status_code}; "
+                f"error={error_summary}; receipt={json.dumps(receipt, sort_keys=True)}"
+            )
+        try:
+            response = json.loads(response_bytes)
+        except json.JSONDecodeError as error:
+            raise RuntimeError(
+                f"{role_id} OpenRouter response was not JSON: {error}"
+            ) from error
+
+        receipt.update(
+            {
+                "generation_id": response.get("id"),
+                "served_model": response.get("model"),
+                "served_provider": response.get("provider"),
+                "service_tier": response.get("service_tier"),
+                "system_fingerprint": response.get("system_fingerprint"),
+                "usage": _usage_receipt(response.get("usage")),
+            }
         )
-    return InvocationResult(output=output, receipt=receipt)
+        try:
+            output = json.loads(_message_content(response))
+        except json.JSONDecodeError as error:
+            raise RuntimeError(f"{role_id} final output was not JSON: {error}") from error
+        errors = validate_boundary_output(
+            output,
+            pack,
+            expected_role=role_id,
+            specialist_outputs=specialist_outputs,
+            root=root,
+        )
+        receipt["output_sha256"] = canonical_sha256(output)
+        receipt["validation_errors"] = errors
+        receipt["status"] = "valid" if not errors else "invalid"
+        model_calls.append(receipt)
+        if not errors:
+            final_receipt = dict(receipt)
+            final_receipt["model_calls"] = [dict(item) for item in model_calls]
+            final_receipt["validation_repairs_used"] = validation_round
+            return InvocationResult(output=output, receipt=final_receipt)
+        prior_errors = errors
+        prior_output_sha256 = receipt["output_sha256"]
+
+    raise RuntimeError(
+        f"{role_id} output failed closed-world validation after "
+        f"{max_validation_repairs + 1} model calls: {json.dumps(prior_errors)}"
+    )

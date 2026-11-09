@@ -60,6 +60,9 @@ class CodexRunnerContractTest(unittest.TestCase):
             specialist_outputs=None,
         )
         self.assertIn('"expected_role_id":"specialist-a"', prompt)
+        self.assertIn('"closed_world_completion_contract"', prompt)
+        self.assertIn('"required_candidate_disposition_count":127', prompt)
+        self.assertIn('"required_identity_disposition_count":66', prompt)
         self.assertNotIn("validated_specialist_outputs", prompt)
         self.assertNotIn("expected_specialist_output_sha256", prompt)
 

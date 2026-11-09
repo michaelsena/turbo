@@ -54,7 +54,10 @@ turbo boundary-run
 
 `boundary-run` makes two concurrent specialist calls and, only after both validate,
 one adjudicator call. It is intentionally explicit and metered; validators and tests
-never call OpenRouter. Model slugs are versioned in the family execution config.
+never call OpenRouter. Model slugs are versioned in the family execution config. A
+role whose structured output fails local validation may use the configured bounded
+correction loop, so one boundary run can make more than three paid calls; inspect the
+per-call receipts and remaining key limit after a run.
 
 ```bash
 PYTHONPATH=src python3 -m turbo.cli validate

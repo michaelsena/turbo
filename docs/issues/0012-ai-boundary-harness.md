@@ -97,3 +97,18 @@ types required by their strict-schema subset. No specialist or adjudicator outpu
 persisted and no graph event changed. The corrective increment adds explicit types to
 the canonical schemas, defensively infers them in the provider adapter, and limits
 provider-error exceptions to non-personal diagnostic fields plus response hashes.
+
+The retry at exact head `b3227fc` reached inference but failed the local closed-world
+gate. One specialist returned only one of 127 required prior-candidate dispositions,
+used a candidate ID as a proposal ID, and left a provisional disposition without a
+known research-gap ID. The other concurrent call also completed, but the orchestration
+did not run the adjudicator or persist either output. At `2026-11-09T00:38:03Z`, the
+dedicated key reported cumulative usage of `$1.245852`, including the earlier
+`$0.000256` connectivity handshake. No market conclusion or graph event was accepted.
+
+The corrective design makes the frozen completion contract explicit: all 66 required
+identity IDs and all 127 prior-candidate IDs must be disposed exactly once, ID domains
+are restated, and provisional judgments must bind a known gap. A role may now use at
+most two fully receipted correction calls after local validation failures. Corrections
+receive validator errors and the prior output hash but must regenerate a complete
+object; exhausted correction rounds still fail closed.

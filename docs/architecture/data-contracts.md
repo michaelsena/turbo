@@ -138,8 +138,9 @@ hashes, model-facing provider-schema hash, UTC start/end, latency, attempts,
 generation ID, sanitized token/cost usage, and validation result. Provider-specific
 fields such as CLI version or HTTP status are retained where relevant. The full
 canonical schema remains the acceptance contract even when a portable subset is sent
-to a model provider. Receipts explicitly state that credentials and raw model
-reasoning were not persisted.
+to a model provider. A bounded correction sequence retains one nested call receipt
+per model call plus the number of validation repairs used. Receipts explicitly state
+that credentials and raw model reasoning were not persisted.
 
 
 ## Factor definition, evaluator result, and score event

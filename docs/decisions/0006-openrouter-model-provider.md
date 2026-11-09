@@ -21,6 +21,13 @@ validation before any output can be persisted. The receipt binds both schema has
 Two specialists remain blind and the adjudicator remains bound to their exact
 validated output hashes.
 
+When a syntactically valid model output fails Turbo's deterministic closed-world
+validator, the provider runner may make at most two configured correction calls. Each
+correction receives the frozen pack, exact completion contract, prior-output hash,
+and validator errors and must regenerate the complete object rather than return a
+patch. Every call receives its own hash, usage, cost, and validation receipt. If the
+bounded loop still fails, the role fails and the adjudicator cannot run.
+
 The dedicated Turbo API key is supplied only through `OPENROUTER_API_KEY`. It is not
 stored in configuration, receipts, logs, committed files, prompts, or model output.
 The local `.env` path is ignored by Git. The initial account key has a $50 monthly

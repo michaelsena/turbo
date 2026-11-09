@@ -12,6 +12,14 @@ from turbo.agents.openrouter_runner import (
 )
 
 
+def test_pack() -> dict[str, object]:
+    return {
+        "metadata": {"family_id": "test-family", "pack_sha256": "a" * 64},
+        "scope": {"required_disposition_identity_ids": []},
+        "retrieved_prior_candidate_details": [],
+    }
+
+
 class OpenRouterRunnerTest(unittest.TestCase):
     def test_provider_schema_omits_nonportable_constraints(self) -> None:
         canonical = {
@@ -112,12 +120,7 @@ class OpenRouterRunnerTest(unittest.TestCase):
             self.assertEqual(payload["session_id"].split(":")[0], "invocation")
             return 200, {}, json.dumps(response).encode("utf-8")
 
-        pack = {
-            "metadata": {
-                "family_id": "test-family",
-                "pack_sha256": "a" * 64,
-            }
-        }
+        pack = test_pack()
         with tempfile.TemporaryDirectory() as raw_temp:
             prompt_path = Path(raw_temp) / "prompt.md"
             prompt_path.write_text("System contract.", encoding="utf-8")
@@ -141,18 +144,14 @@ class OpenRouterRunnerTest(unittest.TestCase):
         self.assertNotIn("unsafe_string", result.receipt["usage"])
         self.assertFalse(result.receipt["credential_persisted"])
         self.assertNotIn(secret, json.dumps(result.receipt, sort_keys=True))
+        self.assertEqual(len(result.receipt["model_calls"]), 1)
         self.assertEqual(
             captured["headers"]["Authorization"],  # type: ignore[index]
             f"Bearer {secret}",
         )
 
     def test_missing_api_key_fails_before_network(self) -> None:
-        pack = {
-            "metadata": {
-                "family_id": "test-family",
-                "pack_sha256": "a" * 64,
-            }
-        }
+        pack = test_pack()
         with tempfile.TemporaryDirectory() as raw_temp:
             prompt_path = Path(raw_temp) / "prompt.md"
             prompt_path.write_text("System contract.", encoding="utf-8")
@@ -165,6 +164,64 @@ class OpenRouterRunnerTest(unittest.TestCase):
                         prompt_path=prompt_path,
                         pack=pack,
                     )
+
+    @patch(
+        "turbo.agents.openrouter_runner.validate_boundary_output",
+        side_effect=[["missing required coverage"], []],
+    )
+    @patch(
+        "turbo.agents.openrouter_runner.load_specialist_schema",
+        return_value={"type": "object"},
+    )
+    def test_local_validation_failure_triggers_bounded_correction(
+        self, _schema: object, _validate: object
+    ) -> None:
+        prompts: list[str] = []
+
+        def transport(
+            _url: str,
+            _headers: dict[str, str],
+            body: bytes,
+            _timeout: float,
+        ) -> tuple[int, dict[str, str], bytes]:
+            request = json.loads(body)
+            prompts.append(request["messages"][0]["content"])
+            response = {
+                "id": f"generation-{len(prompts)}",
+                "model": "vendor/model",
+                "provider": "Provider A",
+                "choices": [
+                    {
+                        "message": {
+                            "content": json.dumps({"round": len(prompts)})
+                        }
+                    }
+                ],
+                "usage": {"total_tokens": 10},
+            }
+            return 200, {}, json.dumps(response).encode("utf-8")
+
+        pack = test_pack()
+        with tempfile.TemporaryDirectory() as raw_temp:
+            prompt_path = Path(raw_temp) / "prompt.md"
+            prompt_path.write_text("System contract.", encoding="utf-8")
+            result = invoke_openrouter_role(
+                role_id="specialist-a",
+                model="vendor/model",
+                reasoning_effort="high",
+                prompt_path=prompt_path,
+                pack=pack,
+                api_key="sk-or-test-secret",
+                max_validation_repairs=1,
+                transport=transport,
+            )
+
+        self.assertEqual(result.output, {"round": 2})
+        self.assertEqual(result.receipt["validation_repairs_used"], 1)
+        self.assertEqual(len(result.receipt["model_calls"]), 2)
+        self.assertNotIn("Required correction round", prompts[0])
+        self.assertIn("Required correction round", prompts[1])
+        self.assertIn("missing required coverage", prompts[1])
 
     @patch("turbo.agents.openrouter_runner.load_specialist_schema", return_value={"type": "object"})
     def test_retryable_failure_retries_and_redacts_secret(self, _schema: object) -> None:
@@ -181,12 +238,7 @@ class OpenRouterRunnerTest(unittest.TestCase):
             attempts += 1
             return 502, {}, f"upstream echoed {secret}".encode("utf-8")
 
-        pack = {
-            "metadata": {
-                "family_id": "test-family",
-                "pack_sha256": "a" * 64,
-            }
-        }
+        pack = test_pack()
         with tempfile.TemporaryDirectory() as raw_temp:
             prompt_path = Path(raw_temp) / "prompt.md"
             prompt_path.write_text("System contract.", encoding="utf-8")

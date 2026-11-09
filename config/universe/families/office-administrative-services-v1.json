@@ -49,6 +49,7 @@
       "api_url": "https://openrouter.ai/api/v1/chat/completions",
       "allow_fallbacks": true,
       "max_attempts": 3,
+      "max_validation_repairs": 2,
       "max_completion_tokens": 128000
     },
     "status": "pilot_baseline_not_final_model_selection"

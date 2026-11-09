@@ -474,6 +474,12 @@ and validation status—never the key or raw private reasoning. A valid adjudica
 remains a proposal until deterministic compilation and independent exact-head review
 activate append-only graph events.
 
+The runtime envelope also carries exact required identity and prior-candidate IDs and
+counts. If a model returns a complete JSON object that fails local closed-world
+validation, Turbo may make up to two configured correction calls, each fully
+receipted; it never silently fills missing judgments or lets an invalid partial answer
+reach adjudication.
+
 The V1 bootstrap still performs no market-attractiveness scoring. Universe decisions
 must precede the Target Market filter, which must precede evaluation.
 

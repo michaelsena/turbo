@@ -38,6 +38,24 @@ def runtime_envelope(
         "expected_family_id": pack["metadata"]["family_id"],
         "expected_input_pack_sha256": pack["metadata"]["pack_sha256"],
         "frozen_evidence_pack": pack,
+        "closed_world_completion_contract": {
+            "required_identity_disposition_ids": pack["scope"][
+                "required_disposition_identity_ids"
+            ],
+            "required_candidate_disposition_ids": [
+                item["candidate_market_id"]
+                for item in pack["retrieved_prior_candidate_details"]
+            ],
+            "required_identity_disposition_count": len(
+                pack["scope"]["required_disposition_identity_ids"]
+            ),
+            "required_candidate_disposition_count": len(
+                pack["retrieved_prior_candidate_details"]
+            ),
+            "proposal_id_domain": "proposal:<lowercase-slug>",
+            "candidate_id_domain": "candidate-market:<24-lowercase-hex>",
+            "provisional_dispositions_require_known_gap_id": True,
+        },
     }
     if specialist_outputs is not None:
         envelope["validated_specialist_outputs"] = specialist_outputs
