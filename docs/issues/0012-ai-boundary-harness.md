@@ -203,3 +203,38 @@ It binds the same run, pack, adjudication, questions, and activation rule, but n
 1,048,576-token context, structured-output and high-reasoning support, at least one
 healthy Google endpoint, and sufficient completion capacity. This is an explicit
 successor attempt, not a mutation of the failed Claude preregistration.
+
+### Independent review result
+
+At exact head `26d76dbdc72500f1733340a9b747a75b7da0f209`, successor run
+`independent-review-e6058823bd1c604ffb36` completed through Google on
+`google/gemini-4-argon`. The local closed-world validator accepted the review with
+zero validation errors, and the new replay command reproduces the exact result.
+Canonical review output SHA-256 is
+`fe47954a90aa3d1ee0217c55d802e1df41e4fc4933c126cdc0611326a17f51ea`.
+The call ran from `2026-11-09T01:52:04Z` to `2026-11-09T01:57:51Z`, reported
+355,668 total tokens, and cost `$0.946912`.
+After the run, the dedicated key reported cumulative usage of `$4.486172` and
+`$45.513828` remaining under its `$50` cap.
+
+The verdict is **request changes**, not activation: one P0, two P1, and two P2
+findings. All five registered checks failed. The material conclusions are:
+
+- the 127 `reject` dispositions are not explicitly family-local and could be
+  misread as global deletion of valid prior seeds;
+- lexical retrieval missed directly relevant catalog seeds, including the existing
+  horizontal office-administration seed plus medical and dental practice
+  administration, so the new proposal could duplicate or overlap them;
+- all 13 official NAICS 561110 manual-index entries were omitted, concealing
+  medical, dental, hotel, and motel management scope conflicts;
+- an empty research-gap list is unjustified while the horizontal-versus-vertical
+  boundary, Ambient AI workflow, economics, workforce, acquisition universe, and
+  product revenue mix remain unknown or inferred; and
+- NAPCS dispositions need fuller identity/prevalence evidence, one staffing judgment
+  is mislabeled as fact, and explicit farm-management and holding-company exclusions
+  are missing.
+
+Activation conditions require family-local candidate semantics, direct reconciliation
+of the missed prior seeds, treatment of all 13 index entries, explicit research gaps,
+stronger NAPCS citations, corrected evidence labels, and complete exclusions. No
+Market Graph event was created; accepted canonical markets remain zero.

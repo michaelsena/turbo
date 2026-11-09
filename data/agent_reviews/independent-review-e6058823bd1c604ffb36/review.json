@@ -1,0 +1,226 @@
+{
+  "activation_conditions": [
+    "Scope all 127 candidate_dispositions rejections explicitly to family office-administrative-services-v1 so they cannot be interpreted by downstream consumers as globally deleting valid prior-candidate seeds belonging to other families, and cite the corresponding evidence:reconciliation-candidate-retrieval:* evidence IDs.",
+    "Reconcile proposal:integrated-outsourced-office-administration against the directly relevant seeds in prior_candidate_catalog\u2014specifically candidate-market:83c901691f2d7e1f17cf8604 ('Integrated outsourced office administration (excluding named vertical operators)'), candidate-market:a1b56327512348614f589ebc ('Medical practice administration'), and candidate-market:ecd0f6e0ed43d167e2c16afb ('Dental practice administration')\u2014so activation does not create duplicate or overlapping market nodes.",
+    "Cite and address all 13 NAICS 561110 manual-index-entry evidence records, including adding evidence:manual-index-entry:174f99d76756a1d0bbecd5ae and evidence:manual-index-entry:145b5df284b7906dcd7bb2ad to counterevidence_ids on candidate-market:cc5c2b663ea4dd50e2186369 ('Hotel administration and management services') and clarifying whether vertical office/practice/hotel administration is excluded into vertical markets or retained.",
+    "Populate research_gaps with concrete entries for (a) the horizontal vs. vertical practice/facility administration split within NAICS 561110, (b) empirical validation of the unknown ambient_ai_workflow (0.30) and inferred economics_risk (0.58), workforce (0.76), and acquisition_universe (0.80) dimensions, and (c) revenue-share distribution across the 65 reported NAPCS product codes (including the 9 detail codes absent from trilateral concordance).",
+    "Augment the 65 NAPCS non_market_source_identity dispositions with citations to their source-identity, cross-industry-prevalence, and manual-definition evidence IDs, correct the 'fact' label on candidate-market:c1a9137c708b815abf514639, and include Farm Management Services (115116) and Holding Companies (551111/551112) in explicit_exclusions."
+  ],
+  "alternatives_considered": [
+    "Approving activation on the grounds that NAICS 561110 manual-definition supports the core integrated office administration boundary was rejected because activation requires zero P0/P1/P2 findings, and activating as-is would duplicate prior seed candidate-market:83c901691f2d7e1f17cf8604, leave vertical practice/hotel management index entries unreconciled, omit required research gaps, and risk global misinterpretation of 127 unscoped candidate rejections.",
+    "Requiring the 65 NAPCS product codes to be mapped as operating markets was rejected because Economic Census industry-product relationships and cross-industry prevalence records explicitly state they measure reported product sales across industries rather than operating-market boundaries, and NAICS 561110 expressly excludes single-support-service providers."
+  ],
+  "checks": [
+    {
+      "check_id": "check:boundary-evidence",
+      "evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:manual-index-entry:00174f72fbfeb127e64bfc48",
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad",
+        "evidence:manual-index-entry:14adf7145d9c89c953d90b2f",
+        "evidence:manual-index-entry:15776425a2957b9d8556207a",
+        "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+        "evidence:manual-index-entry:29f4cc882996521b02075f4f",
+        "evidence:manual-index-entry:4135fb564eddde5555720e17",
+        "evidence:manual-index-entry:4f36a492ecfb9071554fa8fc",
+        "evidence:manual-index-entry:5345528a627722e2c82fe981",
+        "evidence:manual-index-entry:7488d67950855508d8266a0f",
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+        "evidence:manual-index-entry:ba9f06dc45c764a58e117b43",
+        "evidence:source-identity:91540b74a5e6da4fc3f5debd",
+        "evidence:source-identity:0cd645cfc43f54d32c2dfc90",
+        "evidence:source-identity:f449e8bdbd8c131531ab6573"
+      ],
+      "rationale": "While evidence:manual-definition:bb8297ad9acd30b748422249 supports a contracted multi-function day-to-day office administration boundary and its core exclusions, both specialists and the adjudicator failed to cite or analyze any of the 13 official NAICS 561110 manual index entries in the frozen pack. Those entries explicitly include vertical management models\u2014Medical office management services, Managing offices of dentists, Managing offices of physicians and surgeons, Managing offices of professionals, and Hotel/Motel management services (except complete operation of client's business)\u2014alongside general office administration. By ignoring these 13 records, the adjudicator left unresolved whether vertical office/practice/hotel administration is included in proposal:integrated-outsourced-office-administration or split into vertical markets, borrowed 'Administrative management services' as an alias without citing evidence:manual-index-entry:7488d67950855508d8266a0f, and omitted explicit NAICS 561110 cross-references for Farm Management Services (115116) and Holding Companies (551111/551112).",
+      "status": "fail"
+    },
+    {
+      "check_id": "check:identity-dispositions",
+      "evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:collection-trilateral-no-mapping:6a88d51f5483193c3346e156",
+        "evidence:cross-industry-prevalence:83a3efdc093dbee7ee06108e",
+        "evidence:cross-industry-prevalence:32278477cf5bda3268d52418",
+        "evidence:cross-industry-prevalence:80be6190e01be366be510d8f",
+        "evidence:reconciliation-candidate-retrieval:766532efd25deeb11a79bcf1",
+        "evidence:reconciliation-candidate-retrieval:9766a6f544c8a11ab492392d",
+        "evidence:source-identity:5ef98268217cf38de7322b5a",
+        "evidence:source-identity:5207f52a8c86cf0218bdc956"
+      ],
+      "rationale": "Classifying the 65 NAPCS collection codes as non_market_source_identity (with 9000000000 as a residual_bucket) is conceptually appropriate because Economic Census NAPCS lines represent reported products sold rather than establishment operating markets. However, the adjudicator's identity dispositions are under-evidenced: (1) each of the 64 non-residual NAPCS dispositions cites only a single evidence:industry-product-relationship:* record (which merely proves NAICS 561110 reported selling the product) without citing the corresponding evidence:source-identity:*, evidence:cross-industry-prevalence:*, or evidence:manual-definition:bb8297ad9acd30b748422249 records that actually justify why those products are non-market-defining or excluded single services; (2) the adjudicator ignores the two reconciliation worklist items flagged as proposed_mapping_review (7014600000 Marketing consulting and 7014625000 HR consulting); and (3) identity:naics:561110 is mapped to a single horizontal proposal with counterevidence_ids: [] despite the 13 uncited manual index entries.",
+      "status": "fail"
+    },
+    {
+      "check_id": "check:candidate-scope",
+      "evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+        "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad",
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+        "evidence:manual-index-entry:5345528a627722e2c82fe981",
+        "evidence:reconciliation-candidate-retrieval:ae4ef079e7ea0bc71ed0eea4",
+        "evidence:reconciliation-candidate-retrieval:13445aaf2c25599ca1ffb576",
+        "evidence:reconciliation-candidate-retrieval:3be421a8497a6fb9c0ed1e2b",
+        "evidence:source-identity:8240831852a12a0fe49ee389",
+        "evidence:trilateral-hierarchy-node:b8614a2f7b1f5306df8c6116"
+      ],
+      "rationale": "The 127 candidate dispositions fail on four counts: (1) all 127 retrieved candidates are assigned disposition 'reject' with generic rationales ('Unrelated operating service outside integrated office administration') that never state the rejection is strictly local to office-administrative-services-v1, creating a serious risk that valid prior seeds for other families (e.g., Landscaping Services, Veterinary services, Full-Service Restaurants, Managed IT services, Commercial property management) could be misread as globally rejected; (2) candidate-market:cc5c2b663ea4dd50e2186369 ('Hotel administration and management services') is rejected with counterevidence_ids: [] despite official NAICS 561110 manual index entries for hotel and motel management services (except complete operation); (3) directly matching prior catalog seeds in the frozen pack\u2014specifically candidate-market:83c901691f2d7e1f17cf8604 ('Integrated outsourced office administration (excluding named vertical operators)'), candidate-market:a1b56327512348614f589ebc ('Medical practice administration'), and candidate-market:ecd0f6e0ed43d167e2c16afb ('Dental practice administration')\u2014were missed by top-5 lexical retrieval on 'Office Administrative Services' and left unreconciled, resulting in proposed_markets[0].candidate_market_ids: [] and a duplicate market proposal; and (4) none of the 127 dispositions cite their retrieval evidence IDs, while candidate-market:c1a9137c708b815abf514639 ('Temporary staffing...') is mislabeled as 'fact' citing only evidence:manual-definition:bb8297ad9acd30b748422249, which does not mention staffing.",
+      "status": "fail"
+    },
+    {
+      "check_id": "check:gap-calibration",
+      "evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+        "evidence:manual-index-entry:5345528a627722e2c82fe981",
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+        "evidence:cross-industry-prevalence:83a3efdc093dbee7ee06108e"
+      ],
+      "rationale": "Returning research_gaps: [] is not justified. Four of the seven market dimensions in the adjudicated proposal are non-factual: ambient_ai_workflow is explicitly marked 'unknown' (confidence 0.30), economics_risk is 'inference' (confidence 0.58), workforce is 'inference' (confidence 0.76), and acquisition_universe is 'inference' (confidence 0.80), because the frozen pack contains only census classification and product-prevalence tables with zero empirical workflow, pricing, or labor evidence. Furthermore, the frozen evidence reveals a major unresolved structural question\u2014whether NAICS 561110 should be split between horizontal office administration and vertical practice/facility administration (medical office management, dental office management, hotel/motel management without operating staff) as reflected in the 13 manual index entries and prior catalog seeds\u2014and lacks revenue-share data across the 65 reported NAPCS products (including 9 detail codes absent from trilateral concordance).",
+      "status": "fail"
+    },
+    {
+      "check_id": "check:activation-safety",
+      "evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:reconciliation-candidate-retrieval:ae4ef079e7ea0bc71ed0eea4",
+        "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+        "evidence:manual-index-entry:5345528a627722e2c82fe981",
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b"
+      ],
+      "rationale": "Activating this adjudication output as persisted is unsafe because: (1) proposed_markets[0] ('Integrated outsourced office administration', candidate_market_ids: []) would create a duplicate node alongside existing prior seed candidate-market:83c901691f2d7e1f17cf8604 ('Integrated outsourced office administration (excluding named vertical operators)'); (2) it silently absorbs or conflicts with vertical NAICS 561110 activities (medical, dental, and hotel/motel office management) that correspond to prior seeds candidate-market:a1b56327512348614f589ebc, candidate-market:ecd0f6e0ed43d167e2c16afb, and candidate-market:cc5c2b663ea4dd50e2186369; and (3) unscoped 'reject' dispositions on 127 cross-family prior candidate seeds risk global seed deletion if consumed without a family-scope guard.",
+      "status": "fail"
+    }
+  ],
+  "confidence": 0.95,
+  "findings": [
+    {
+      "affected_output_paths": [
+        "target_outputs.adjudicator.candidate_dispositions",
+        "target_outputs.adjudicator.proposed_markets[0].candidate_market_ids",
+        "target_outputs.adjudicator.proposed_markets[0].canonical_name",
+        "target_outputs.specialist-a.candidate_dispositions",
+        "target_outputs.specialist-b.candidate_dispositions"
+      ],
+      "category": "scope",
+      "detail": "First, all 127 entries in adjudicator.candidate_dispositions (and both specialists) use disposition 'reject' with rationales such as 'Unrelated operating service outside integrated office administration' without explicitly stating that the rejection means only 'not mapped into family office-administrative-services-v1'. Because most of the 127 retrieved candidates were surfaced via low-similarity lexical retrieval on the 65 secondary NAPCS product codes and represent valid operating markets in other NAICS families (e.g., Landscaping Services, Veterinary services, Full-Service Restaurants, Human Resources Consulting Services, Managed IT services, Commercial property management), an unscoped 'reject' disposition can be misread by downstream reconciliation pipelines as globally deleting those seeds from prior_candidate_catalog. Second, deterministic retrieval on 'Office Administrative Services' (evidence:reconciliation-candidate-retrieval:ae4ef079e7ea0bc71ed0eea4) failed to surface directly relevant seeds present in prior_candidate_catalog\u2014most notably candidate-market:83c901691f2d7e1f17cf8604 ('Integrated outsourced office administration (excluding named vertical operators)'), candidate-market:a1b56327512348614f589ebc ('Medical practice administration'), and candidate-market:ecd0f6e0ed43d167e2c16afb ('Dental practice administration'). Consequently, the adjudicator created proposal:integrated-outsourced-office-administration with candidate_market_ids: [], duplicating 83c901691f2d7e1f17cf8604 without its vertical exclusion.",
+      "evidence_ids": [
+        "evidence:reconciliation-candidate-retrieval:ae4ef079e7ea0bc71ed0eea4",
+        "evidence:reconciliation-candidate-retrieval:13445aaf2c25599ca1ffb576",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "finding_id": "review-finding:unscoped-candidate-rejections-and-missed-prior-seeds",
+      "recommendation": "Explicitly qualify all cross-family candidate rejections in candidate_dispositions as family-local non-mappings (do not globally delete from prior_candidate_catalog), cite the corresponding evidence:reconciliation-candidate-retrieval:* record for each disposition, and reconcile proposal:integrated-outsourced-office-administration against prior_candidate_catalog seeds candidate-market:83c901691f2d7e1f17cf8604, candidate-market:a1b56327512348614f589ebc, and candidate-market:ecd0f6e0ed43d167e2c16afb.",
+      "severity": "P0",
+      "summary": "127 candidate rejections lack explicit family-local scoping and miss direct prior catalog seeds for horizontal and vertical office administration."
+    },
+    {
+      "affected_output_paths": [
+        "target_outputs.adjudicator.proposed_markets[0].supporting_evidence_ids",
+        "target_outputs.adjudicator.proposed_markets[0].counterevidence_ids",
+        "target_outputs.adjudicator.proposed_markets[0].boundary",
+        "target_outputs.adjudicator.proposed_markets[0].aliases",
+        "target_outputs.adjudicator.identity_dispositions[0]",
+        "target_outputs.adjudicator.candidate_dispositions[86]",
+        "target_outputs.specialist-a.proposed_markets[0]",
+        "target_outputs.specialist-b.proposed_markets[0]"
+      ],
+      "category": "evidence",
+      "detail": "The frozen evidence pack contains 13 official NAICS 2022 manual index entries for identity:naics:561110, none of which are cited anywhere in specialist-a, specialist-b, or adjudicator outputs. Several of these index entries define vertical office/facility management activities within 561110: 'Medical office management services' (ac91b98a5ba243d70ddb468b), 'Managing offices of dentists' (5345528a627722e2c82fe981), 'Managing offices of physicians and surgeons' (ba9f06dc45c764a58e117b43), 'Managing offices of professionals (e.g., dentists, physicians, surgeons)' (11757fe5a604f1d67c63d8a9), 'Hotel management services (except complete operation of client's business)' (174f99d76756a1d0bbecd5ae), and 'Motel management services (except complete operation of client's business)' (145b5df284b7906dcd7bb2ad). Ignoring these records caused two material errors: (1) the adjudicator rejected retrieved candidate-market:cc5c2b663ea4dd50e2186369 ('Hotel administration and management services') with counterevidence_ids: [] and rationale 'Vertical management service is not evidenced as equivalent to the general integrated boundary', despite 174f99d76756a1d0bbecd5ae and 145b5df284b7906dcd7bb2ad directly indexing non-operating hotel/motel management in 561110; and (2) the adjudicator mapped all of identity:naics:561110 to a single undifferentiated horizontal market without stating whether vertical practice/hotel management is included or excluded (unlike prior seed 83c901691f2d7e1f17cf8604 which explicitly excludes named vertical operators). Additionally, the adjudicator listed 'Administrative management services' as an alias without citing evidence:manual-index-entry:7488d67950855508d8266a0f.",
+      "evidence_ids": [
+        "evidence:manual-index-entry:00174f72fbfeb127e64bfc48",
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad",
+        "evidence:manual-index-entry:14adf7145d9c89c953d90b2f",
+        "evidence:manual-index-entry:15776425a2957b9d8556207a",
+        "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+        "evidence:manual-index-entry:29f4cc882996521b02075f4f",
+        "evidence:manual-index-entry:4135fb564eddde5555720e17",
+        "evidence:manual-index-entry:4f36a492ecfb9071554fa8fc",
+        "evidence:manual-index-entry:5345528a627722e2c82fe981",
+        "evidence:manual-index-entry:7488d67950855508d8266a0f",
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+        "evidence:manual-index-entry:ba9f06dc45c764a58e117b43"
+      ],
+      "finding_id": "review-finding:omitted-manual-index-entries-vertical-boundary-conflict",
+      "recommendation": "Cite the 13 manual-index-entry evidence IDs on identity:naics:561110 and proposed_markets[0], include 174f99d76756a1d0bbecd5ae and 145b5df284b7906dcd7bb2ad as counterevidence on candidate-market:cc5c2b663ea4dd50e2186369, and explicitly define whether vertical office/practice/hotel administration (medical, dental, hospitality without operating staff) is excluded from the horizontal market into vertical markets or retained pending research.",
+      "severity": "P1",
+      "summary": "All 13 NAICS 561110 manual index entries are omitted, concealing vertical medical, dental, and hotel management scope conflicts."
+    },
+    {
+      "affected_output_paths": [
+        "target_outputs.adjudicator.research_gaps",
+        "target_outputs.adjudicator.proposed_markets[0].evidence_by_dimension",
+        "target_outputs.adjudicator.proposed_markets[0].confidence_by_dimension",
+        "target_outputs.specialist-a.research_gaps",
+        "target_outputs.specialist-b.research_gaps"
+      ],
+      "category": "completeness",
+      "detail": "All three target outputs return research_gaps: []. However, the adjudicator's own proposal marks ambient_ai_workflow as 'unknown' (confidence 0.30) and economics_risk (confidence 0.58), workforce (confidence 0.76), and acquisition_universe (confidence 0.80) as 'inference'. The frozen pack contains only census classification definitions, index entries, concordances, and product-prevalence counts, with zero empirical evidence on AI workflow adoption, pricing/contract economics, workforce structure, or establishment revenue mix. Moreover, the tension between the general horizontal NAICS 561110 definition and the vertical practice/hotel management index entries (medical, dental, hospitality) cannot be resolved purely from census classification text without external operating-model evidence. Returning an empty research_gaps array masks these critical evidentiary limitations.",
+      "evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+        "evidence:manual-index-entry:5345528a627722e2c82fe981",
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+        "evidence:cross-industry-prevalence:83a3efdc093dbee7ee06108e"
+      ],
+      "finding_id": "review-finding:unjustified-zero-research-gaps",
+      "recommendation": "Populate research_gaps with explicit entries covering: (1) whether vertical office administration in NAICS 561110 (medical MSOs, dental DSOs, hotel/motel management without operating staff) warrants separate operating markets from horizontal office administration; (2) empirical validation of ambient_ai_workflow, economics_risk, workforce, and acquisition_universe dimensions; and (3) revenue-share vs. secondary-line interpretation of the 65 reported NAPCS products (including the 9 detail codes absent from trilateral concordance).",
+      "severity": "P1",
+      "summary": "Returning zero research gaps is unjustified given unknown Ambient AI workflow evidence, low-confidence inferred economics, and unresolved vertical splits."
+    },
+    {
+      "affected_output_paths": [
+        "target_outputs.adjudicator.identity_dispositions",
+        "target_outputs.specialist-b.identity_dispositions"
+      ],
+      "category": "semantics",
+      "detail": "For 64 of the 65 NAPCS collection identities, the adjudicator assigns disposition 'non_market_source_identity' (confidence 0.98, evidence_label 'fact') while citing only a single evidence:industry-product-relationship:* record. An industry-product-relationship record only establishes that NAICS 561110 establishments reported selling that product in the Economic Census; it does not by itself establish the product's label, its cross-industry prevalence (and the interpretation boundary that prevalence is not core-workflow proof), or why single-function / cross-referenced services do not form markets in this family. Furthermore, the adjudicator does not cite or address the two reconciliation retrieval records with status 'proposed_mapping_review' (evidence:reconciliation-candidate-retrieval:766532efd25deeb11a79bcf1 for 7014625000 HR consulting and evidence:reconciliation-candidate-retrieval:9766a6f544c8a11ab492392d for 7014600000 Marketing consulting), nor does it differentiate closely related administrative/management NAPCS lines (such as 7014300000 Business process management services, 7014675000 Other facility support services, and 7014925000 Project management services, except construction) from unrelated construction or utility lines.",
+      "evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:source-identity:5ef98268217cf38de7322b5a",
+        "evidence:source-identity:5207f52a8c86cf0218bdc956",
+        "evidence:cross-industry-prevalence:32278477cf5bda3268d52418",
+        "evidence:cross-industry-prevalence:80be6190e01be366be510d8f",
+        "evidence:reconciliation-candidate-retrieval:766532efd25deeb11a79bcf1",
+        "evidence:reconciliation-candidate-retrieval:9766a6f544c8a11ab492392d"
+      ],
+      "finding_id": "review-finding:under-evidenced-napcs-identity-dispositions",
+      "recommendation": "Update the 65 NAPCS identity_dispositions to cite their corresponding evidence:source-identity:*, evidence:cross-industry-prevalence:*, and evidence:manual-definition:bb8297ad9acd30b748422249 (plus evidence:reconciliation-candidate-retrieval:* where proposed_mapping_review was triggered) and provide specific rationales for administrative/management product lines.",
+      "severity": "P2",
+      "summary": "The 65 NAPCS non_market_source_identity dispositions rely solely on industry-product links without citing source-identity, prevalence, or manual-exclusion evidence."
+    },
+    {
+      "affected_output_paths": [
+        "target_outputs.adjudicator.candidate_dispositions[79]",
+        "target_outputs.adjudicator.proposed_markets[0].boundary",
+        "target_outputs.adjudicator.proposed_markets[0].explicit_exclusions"
+      ],
+      "category": "confidence",
+      "detail": "In adjudicator.candidate_dispositions[79], candidate-market:c1a9137c708b815abf514639 ('Temporary staffing (excluding clinical research and special education)') is rejected with evidence_label: 'fact' and confidence: 0.96, citing only evidence:manual-definition:bb8297ad9acd30b748422249 and stating 'Labor supply is distinct from the integrated administrative-service boundary.' However, evidence:manual-definition:bb8297ad9acd30b748422249 does not mention temporary staffing or labor supply in its narrative or cross-references; that distinction comes from the NAPCS trilateral labor-supply hierarchy (evidence:trilateral-hierarchy-node:0b71ff2a741286e05e7585b4, evidence:trilateral-hierarchy-node:b8614a2f7b1f5306df8c6116, evidence:source-identity:8240831852a12a0fe49ee389) and inference from the single-support-service exclusion (as both specialists correctly labeled 'inference'). Conversely, evidence:manual-definition:bb8297ad9acd30b748422249 explicitly cross-references U.S. Industry 115116 (Farm Management Services) and U.S. Industries 551111/551112 (Offices of Bank and Other Holding Companies), which the adjudicator omitted from proposed_markets[0].explicit_exclusions and boundary text.",
+      "evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:source-identity:8240831852a12a0fe49ee389",
+        "evidence:trilateral-hierarchy-node:0b71ff2a741286e05e7585b4",
+        "evidence:trilateral-hierarchy-node:b8614a2f7b1f5306df8c6116",
+        "evidence:source-identity:91540b74a5e6da4fc3f5debd",
+        "evidence:source-identity:0cd645cfc43f54d32c2dfc90",
+        "evidence:source-identity:f449e8bdbd8c131531ab6573"
+      ],
+      "finding_id": "review-finding:overconfident-fact-labels-and-incomplete-exclusions",
+      "recommendation": "Change the evidence_label for candidate-market:c1a9137c708b815abf514639 to 'inference' (or cite the NAPCS Section 57 labor-supply evidence IDs alongside manual-definition), and add Farm Management Services (115116) and Holding Companies (551111/551112) to proposed_markets[0].explicit_exclusions and boundary text for complete fidelity to the NAICS 561110 cross-references.",
+      "severity": "P2",
+      "summary": "Temporary staffing rejection is mislabeled as a manual-definition fact, and explicit NAICS 561110 cross-references (farm management, holding companies) are omitted."
+    }
+  ],
+  "review_id": "boundary-review:office-administrative-services-v1:first-pilot:gemini-successor",
+  "schema_version": 1,
+  "summary": "The core concept of an integrated outsourced day-to-day office administration market is grounded in the NAICS 561110 manual definition, and classifying the 65 reported NAPCS product codes as non-market source identities is structurally sound in principle. However, activation must be withheld until material defects are corrected: (1) all 127 retrieved prior-candidate rejections are recorded without explicit family-local scoping, creating a P0 risk that downstream consumers misread local non-equivalence as global deletion of valid cross-family seeds, while directly relevant prior catalog seeds in the frozen pack (including candidate-market:83c901691f2d7e1f17cf8604 'Integrated outsourced office administration (excluding named vertical operators)', candidate-market:a1b56327512348614f589ebc 'Medical practice administration', and candidate-market:ecd0f6e0ed43d167e2c16afb 'Dental practice administration') were missed by lexical retrieval and left unreconciled; (2) both specialists and the adjudicator omitted all 13 NAICS 561110 manual index entries, which explicitly place medical office management, dental office management, physician office management, and hotel/motel management (except complete operation) inside NAICS 561110, contradicting the unexamined rejection of candidate-market:cc5c2b663ea4dd50e2186369 ('Hotel administration and management services') with empty counterevidence; (3) returning zero research gaps is unjustified when ambient_ai_workflow is marked unknown (0.30 confidence), economics_risk (0.58), workforce (0.76), and acquisition_universe (0.80) are inferred without empirical workflow or revenue-share evidence, and the horizontal-vs-vertical boundary split within 561110 is unresolved; and (4) NAPCS identity dispositions and several candidate dispositions suffer from incomplete evidence citations and overconfident fact labels.",
+  "target_adjudication_sha256": "270b95ab18257bb24a464f47d3bf0f7ca7d33e7b3b48259ebf5adbb15223d685",
+  "target_pack_sha256": "32634f119b454bbae964cab7ed1c40a2f5eb09285fa3c254191422246f33bbed",
+  "target_run_id": "boundary-run-1d9b04b683a3544c2644",
+  "verdict": "request_changes"
+}

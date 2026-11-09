@@ -399,8 +399,17 @@ The first independent reviewer configuration used Claude Opus 5.5. A tiny strict
 diagnostic succeeded, but two full frozen-packet attempts returned HTTP 200 with no
 model choice and zero billed usage; both failed closed and the Claude route is retired
 for this review. The append-only successor configuration uses Gemini 4 Argon against
-the identical frozen run and activation rule. No reviewer result has yet been accepted,
-and the proposal remains outside the Market Graph.
+the identical frozen run and activation rule.
+
+That successor review has now completed with a validated **request changes** verdict:
+one P0, two P1, and two P2 findings. It found that the 127 candidate rejections were
+not safely scoped to this family, directly relevant prior seeds were missed, all 13
+official NAICS 561110 index entries were omitted, and zero research gaps was not
+credible given unresolved vertical boundaries and weak workflow/economic evidence.
+The exact review is
+[`independent-review-e6058823bd1c604ffb36`](data/agent_reviews/independent-review-e6058823bd1c604ffb36/)
+and replays with zero validation errors. The proposal remains outside the Market
+Graph; accepted canonical markets, Target markets, and research scores remain zero.
 
 These counts and every reconciliation proposal are in the deterministic
 `multisource-reconciliation.json.gz` artifact inside the immutable run directory.
@@ -461,6 +470,9 @@ turbo boundary-pack
 cp .env.example .env
 # Add the dedicated key locally, then: set -a; source .env; set +a
 turbo boundary-run
+turbo boundary-validate-review \
+  data/agent_reviews/independent-review-e6058823bd1c604ffb36 \
+  config/universe/reviews/office-administrative-services-v1-boundary-review-gemini.json
 python3 -m unittest discover -s tests -v
 ```
 

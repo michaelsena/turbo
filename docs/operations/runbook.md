@@ -94,6 +94,17 @@ metadata, never the credential, raw private reasoning, or unsanitized exception
 text. Diagnose an interrupted, invalid, or failed receipt before authorizing a
 new metered attempt.
 
+Replay a completed review against its exact preregistered configuration and frozen
+boundary run before accepting its conclusion:
+
+```bash
+turbo boundary-validate-review <review-directory> <review-config> \
+  --config <boundary-family-config>
+```
+
+The replay fails if the structured review, receipt hashes, requested model, target
+envelope, validation status, or credential/reasoning persistence flags differ.
+
 ## Agent coordination
 
 The GM/PM owns decomposition and integration. Parallel agents receive non-overlapping

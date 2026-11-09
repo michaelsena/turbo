@@ -132,6 +132,92 @@ def validate_review_output(
     return sorted(set(errors))
 
 
+def validate_independent_review_run(
+    review_dir: Path,
+    review_config_path: Path,
+    boundary_config_path: Path,
+    *,
+    root: Path = ROOT,
+) -> dict[str, Any]:
+    errors: list[str] = []
+
+    def load(name: str) -> dict[str, Any]:
+        path = review_dir / name
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as error:
+            errors.append(f"{name}: cannot load: {error}")
+            return {}
+        if not isinstance(value, dict):
+            errors.append(f"{name}: root must be an object")
+            return {}
+        return value
+
+    try:
+        envelope = build_review_envelope(
+            review_config_path, boundary_config_path, root=root
+        )
+    except (OSError, RuntimeError, ValueError, json.JSONDecodeError) as error:
+        return {
+            "valid": False,
+            "errors": [f"review envelope cannot replay: {error}"],
+            "review_run_id": review_dir.name,
+        }
+    review = load("review.json")
+    receipt = load("review.receipt.json")
+    if review:
+        errors.extend(validate_review_output(review, envelope, root=root))
+    config = envelope["review_config"]
+    if receipt:
+        expected = {
+            "review_id": config["review_id"],
+            "requested_model": config["review_model"],
+            "review_config_sha256": sha256_text(
+                review_config_path.read_text(encoding="utf-8")
+            ),
+            "review_input_sha256": envelope["review_input_sha256"],
+            "output_sha256": canonical_sha256(review) if review else None,
+            "status": "valid",
+            "http_status": 200,
+            "credential_persisted": False,
+            "raw_reasoning_persisted": False,
+        }
+        for field, expected_value in expected.items():
+            if receipt.get(field) != expected_value:
+                errors.append(f"review receipt {field} mismatch")
+        if receipt.get("validation_errors") != []:
+            errors.append("review receipt validation_errors is not empty")
+        for field in (
+            "git_commit",
+            "request_sha256",
+            "response_sha256",
+            "runtime_prompt_sha256",
+            "schema_sha256",
+            "provider_schema_sha256",
+        ):
+            value = receipt.get(field)
+            if not isinstance(value, str) or len(value) != 64:
+                if field == "git_commit" and isinstance(value, str) and len(value) == 40:
+                    continue
+                errors.append(f"review receipt {field} is not a complete hash")
+    return {
+        "valid": not errors,
+        "errors": sorted(set(errors)),
+        "review_run_id": review_dir.name,
+        "review_id": review.get("review_id") if review else None,
+        "verdict": review.get("verdict") if review else None,
+        "output_sha256": canonical_sha256(review) if review else None,
+        "finding_counts": {
+            severity: sum(
+                1
+                for item in review.get("findings", [])
+                if isinstance(item, dict) and item.get("severity") == severity
+            )
+            for severity in ("P0", "P1", "P2")
+        },
+    }
+
+
 def run_independent_review(
     review_config_path: Path,
     boundary_config_path: Path,
