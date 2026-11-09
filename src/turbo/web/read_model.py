@@ -43,9 +43,9 @@ def _object(path: Path) -> dict[str, Any]:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
-        raise SnapshotError(f"cannot read {path}: {error}") from error
+        raise SnapshotError(f"cannot read JSON artifact {path.name}") from error
     if not isinstance(value, dict):
-        raise SnapshotError(f"{path} must contain a JSON object")
+        raise SnapshotError(f"JSON artifact {path.name} must contain an object")
     return value
 
 
@@ -54,9 +54,9 @@ def _gzip_object(path: Path) -> dict[str, Any]:
         with gzip.open(path, "rt", encoding="utf-8") as handle:
             value = json.load(handle)
     except (OSError, json.JSONDecodeError) as error:
-        raise SnapshotError(f"cannot read {path}: {error}") from error
+        raise SnapshotError(f"cannot read JSON artifact {path.name}") from error
     if not isinstance(value, dict):
-        raise SnapshotError(f"{path} must contain a JSON object")
+        raise SnapshotError(f"JSON artifact {path.name} must contain an object")
     return value
 
 
@@ -67,7 +67,7 @@ def _sha256_path(path: Path) -> str:
             for chunk in iter(lambda: handle.read(1024 * 1024), b""):
                 digest.update(chunk)
     except OSError as error:
-        raise SnapshotError(f"cannot hash {path}: {error}") from error
+        raise SnapshotError(f"cannot hash artifact {path.name}") from error
     return digest.hexdigest()
 
 
@@ -562,7 +562,7 @@ class ReadSnapshot:
                         "id": candidate["candidate_market_id"],
                         "label": candidate["name"],
                         "href": (
-                            "/api/v1/candidates?query="
+                            "/api/v1/candidates?q="
                             + candidate["candidate_market_id"]
                         ),
                     }
@@ -592,15 +592,133 @@ class ReadSnapshot:
         }
 
 
+def _validate_schedule_projection(
+    receipt: dict[str, Any], artifacts: dict[str, dict[str, Any]]
+) -> None:
+    """Check displayed summaries against the collections in the same frozen plan."""
+    legacy_format = "context-edge-ledger.json.gz" not in artifacts
+    coverage = artifacts["coverage-ledger.json.gz"]
+    candidates = artifacts["candidate-collision-ledger.json.gz"]
+    manifest = artifacts["family-manifest.json.gz"]
+    batch_manifest = artifacts["batch-manifest.json"]
+    if receipt.get("counts") != coverage.get("counts"):
+        raise SnapshotError("family-schedule receipt counts disagree with coverage ledger")
+
+    def check_counts(actual: Any, expected: dict[str, int], label: str,
+                     optional: frozenset[str] = frozenset()) -> None:
+        if (not isinstance(actual, dict)
+                or not (set(expected) - optional) <= set(actual)
+                or not set(actual) <= set(expected)
+                or any(type(value) is not int or value != expected[key]
+                       for key, value in actual.items())):
+            raise SnapshotError(f"family-schedule {label} counts disagree with collections")
+
+    assignments = coverage["assignments"]
+    candidate_rows = candidates["candidates"]
+    family_rows = manifest["families"]
+    batches = batch_manifest["batches"]
+    families = {family["family_id"]: family for family in family_rows}
+    if len(families) != len(family_rows):
+        raise SnapshotError("family-schedule contains duplicate family IDs")
+    for family in family_rows:
+        check_counts(family["counts"], {
+            "required_identities": len(family["required_disposition_identity_ids"]),
+            "context_identities": len(family["context_only_identity_ids"]),
+            "context_shards": len(family["context_shards"]),
+            "required_candidates": len(family["required_prior_candidate_ids"]),
+        }, "family")
+    scheduled_ids = [family_id for batch in batches for family_id in batch["family_ids"]]
+    if (len(scheduled_ids) != len(set(scheduled_ids))
+            or set(scheduled_ids) != {key for key, value in families.items() if value["schedulable"]}):
+        raise SnapshotError("family-schedule batches disagree with schedulable families")
+    for batch in batches:
+        for key in ("required_identities", "required_candidates"):
+            if batch[key] != sum(families[family_id]["counts"][key] for family_id in batch["family_ids"]):
+                raise SnapshotError("family-schedule batch workload disagrees with families")
+    retrieved = sum(item["coverage_status"] != "unretrieved_global_challenger"
+                    for item in candidate_rows)
+    collision_count = sum(item["coverage_status"] == "context_only_collision_challenger"
+                          for item in candidate_rows)
+    candidate_counts = {
+        "prior_candidates": len(candidate_rows), "retrieved_candidates": retrieved,
+        "unretrieved_candidates": len(candidate_rows) - retrieved,
+        "context_only_collision_candidates": collision_count,
+        "retrieval_occurrences": sum(len(item["retrieval_occurrences"]) for item in candidate_rows),
+    }
+    check_counts(candidates["counts"], candidate_counts, "candidate",
+                 frozenset({"context_only_collision_candidates"}) if legacy_format else frozenset())
+    family_counts = {
+        "families": len(family_rows),
+        "schedulable_families": sum(bool(item["schedulable"]) for item in family_rows),
+        "context_only_families": sum(not item["schedulable"] for item in family_rows),
+    }
+    check_counts(manifest["counts"], family_counts, "manifest")
+    check_counts(batch_manifest["counts"], {
+        "batches": len(batches), "scheduled_families": len(scheduled_ids),
+    }, "batch manifest")
+    relationship_keys = ("industry_product_relationships", "napcs_concordance_relationships",
+                         "napcs_concordance_non_mappings")
+    if "context-edge-ledger.json.gz" in artifacts:
+        edges = artifacts["context-edge-ledger.json.gz"]
+        relationships = {key: len(edges[key]) for key in relationship_keys}
+        check_counts(edges["counts"], relationships, "context-edge")
+    else:
+        # The original four-artifact format has no edge collection. Retain its
+        # frozen coverage facts rather than reconstructing edges from a later plan.
+        relationships = {key: coverage["counts"][key] for key in relationship_keys}
+    pilot = families[receipt["pilot_regression"]["family_id"]]
+    counts = {
+        "normalized_identities": len(assignments),
+        "naics_leaves": sum(item["identity_type"] == "naics" and len(item["source_code"]) == 6 for item in assignments),
+        "aggregate_naics": sum(item["identity_type"] == "naics" and len(item["source_code"]) != 6 for item in assignments),
+        "trilateral_identities": sum(item["identity_type"] == "napcs-trilateral" for item in assignments),
+        "linked_collection_identities": sum(item["identity_type"] == "napcs-collection" and bool(item["supporting_relationship_ids"]) for item in assignments),
+        "unlinked_collection_identities": sum(item["identity_type"] == "napcs-collection" and not item["supporting_relationship_ids"] for item in assignments),
+        "required_review_identities": sum(item["assignment_role"] == "required_review" for item in assignments),
+        "context_only_identities": sum(item["assignment_role"] == "context_only" for item in assignments),
+        **relationships,
+        **{key: value for key, value in candidate_counts.items() if key != "retrieval_occurrences"},
+        "families": family_counts["families"],
+        "schedulable_families": family_counts["schedulable_families"],
+        "batches": len(batches),
+        "pilot_required_identities": len(pilot["required_disposition_identity_ids"]),
+        "pilot_context_identities": len(pilot["context_only_identity_ids"]),
+    }
+    check_counts(receipt["counts"], counts, "receipt",
+                 frozenset({"context_only_collision_candidates", "pilot_context_identities"})
+                 if legacy_format else frozenset())
+
+
 def _resolve_schedule(root: Path, partition_id: str) -> tuple[Path, dict[str, Any]]:
     _safe_identifier(partition_id, "partition ID")
     schedule_dir = root / "data" / "family_schedules" / partition_id
     receipt = _object(schedule_dir / "schedule-receipt.json")
     if receipt.get("partition_id") != partition_id:
         raise SnapshotError("partition directory and receipt disagree")
+    required_artifacts = {
+        "coverage-ledger.json.gz",
+        "candidate-collision-ledger.json.gz", "family-manifest.json.gz",
+        "batch-manifest.json",
+    }
+    declared_artifacts = set(receipt.get("output_hashes", {}))
+    # The original schedule predates the optional context-edge ledger. Both
+    # published formats must bind every artifact consumed by this read model.
+    if declared_artifacts not in (required_artifacts, required_artifacts | {"context-edge-ledger.json.gz"}):
+        raise SnapshotError("family-schedule artifact set mismatch")
+    if receipt.get("status") != "complete_deterministic_family_plan" or receipt.get("model_invoked") is not False:
+        raise SnapshotError("family schedule is not a completed deterministic plan")
+    artifacts: dict[str, dict[str, Any]] = {}
     for name, expected in receipt["output_hashes"].items():
         if _sha256_path(schedule_dir / name) != expected:
             raise SnapshotError(f"family-schedule artifact hash mismatch: {name}")
+        artifact = _gzip_object(schedule_dir / name) if name.endswith(".gz") else _object(schedule_dir / name)
+        if artifact.get("partition_id") != partition_id or artifact.get("source_run_id") != receipt.get("source_run_id"):
+            raise SnapshotError("family-schedule artifact identity disagrees with receipt")
+        artifacts[name] = artifact
+    try:
+        _validate_schedule_projection(receipt, artifacts)
+    except (KeyError, TypeError) as error:
+        raise SnapshotError("family-schedule projection is malformed") from error
     return schedule_dir, receipt
 
 
@@ -618,6 +736,21 @@ def _resolve_graph(
         projection = _object(receipt_path.parent / "projection.json")
         if canonical_sha256(projection) != receipt.get("projection_sha256"):
             raise SnapshotError("graph release projection hash mismatch")
+        if receipt.get("release_id") != receipt_path.parent.name:
+            raise SnapshotError("graph release directory and receipt disagree")
+        if projection.get("graph_version_id") != graph_version_id:
+            raise SnapshotError("graph receipt and projection version disagree")
+        if receipt.get("status") != "published_cumulative_canonical_graph" or receipt.get("model_invoked") is not False:
+            raise SnapshotError("graph release is not a published deterministic projection")
+        counts = {
+            "activations": len(receipt.get("activation_bindings", [])),
+            "active_events": len(projection.get("active_event_ids", [])),
+            "canonical_markets": len(projection.get("markets", [])),
+            "mappings": len(projection.get("mappings", [])),
+            "retired_markets": len(projection.get("retired_market_ids", [])),
+        }
+        if receipt.get("counts") != counts:
+            raise SnapshotError("graph receipt counts disagree with projection")
         matches.append((receipt_path.parent, receipt, projection))
     if len(matches) != 1:
         raise SnapshotError(
@@ -633,6 +766,10 @@ def load_snapshot(
     partition_id: str | None = None,
     graph_version_id: str | None = None,
 ) -> ReadSnapshot:
+    for value, label in ((source_run_id, "source run ID"), (partition_id, "partition ID"),
+                         (graph_version_id, "graph version ID")):
+        if value is not None:
+            _safe_identifier(value, label)
     latest = compile_system_context(root=root)
     source_run_id = source_run_id or latest["source_universe"]["run_id"]
     partition_id = partition_id or latest["family_schedule"]["partition_id"]
@@ -644,6 +781,9 @@ def load_snapshot(
     source_receipt = _object(source_dir / "run-receipt.json")
     if source_receipt.get("run_id") != source_run_id:
         raise SnapshotError("source-run directory and receipt disagree")
+    for name, expected in source_receipt["output_hashes"].items():
+        if _sha256_path(source_dir / name) != expected:
+            raise SnapshotError(f"source-run artifact hash mismatch: {name}")
     reconciliation = _verified_artifact(
         source_dir,
         "multisource-reconciliation.json.gz",
@@ -658,6 +798,9 @@ def load_snapshot(
         graph_receipt["source_universe_run_id"],
     } != {source_run_id}:
         raise SnapshotError("source, schedule, and graph versions are incompatible")
+    for name, expected in schedule_receipt.get("source_hashes", {}).items():
+        if source_receipt["output_hashes"].get(name) != expected:
+            raise SnapshotError("source run and schedule artifact hashes disagree")
     coverage = _gzip_object(schedule_dir / "coverage-ledger.json.gz")
     candidates = _gzip_object(schedule_dir / "candidate-collision-ledger.json.gz")
     families = _gzip_object(schedule_dir / "family-manifest.json.gz")
@@ -670,8 +813,15 @@ def load_snapshot(
     context = {
         **latest,
         "source_universe": {
-            **latest["source_universe"],
+            "status": "source_reconciliation_complete",
             "run_id": source_run_id,
+            "immutable_run_path": str(source_dir.relative_to(root)),
+            "source_run_local_stage": source_receipt["current_stage"],
+            "normalized_identities": source_receipt["multisource_counts"]["normalized_source_identities"],
+            "source_records": source_receipt["multisource_counts"]["source_records"],
+            "six_digit_naics": source_receipt["six_digit_source_categories"],
+            "prior_candidate_markets": source_receipt["multisource_counts"]["prior_candidate_markets"],
+            "output_hashes": source_receipt["output_hashes"],
         },
         "family_schedule": {
             "status": schedule_receipt["status"],
@@ -731,7 +881,7 @@ class SnapshotStore:
             try:
                 digest.update(path.read_bytes())
             except OSError as error:
-                raise SnapshotError(f"cannot read current pointer {name}: {error}") from error
+                raise SnapshotError(f"cannot read current pointer {name}") from error
         return digest.hexdigest()
 
     def latest(self) -> ReadSnapshot:
@@ -757,6 +907,10 @@ class SnapshotStore:
         partition_id: str | None = None,
         graph_version_id: str | None = None,
     ) -> ReadSnapshot:
+        for value, label in ((source_run_id, "source run ID"), (partition_id, "partition ID"),
+                             (graph_version_id, "graph version ID")):
+            if value is not None:
+                _safe_identifier(value, label)
         if source_run_id is None and partition_id is None and graph_version_id is None:
             return self.latest()
         latest = self.latest()

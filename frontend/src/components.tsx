@@ -19,6 +19,7 @@ export function Layout({ provenance }: { provenance?: Provenance }) {
       </nav>
       <label className="version-selector"><span>Research snapshot</span><select aria-label="Research snapshot" value={selectedKey} disabled={isCatalogPending || !catalog} onChange={event => selectVersion(event.target.value)}>
         <option value="latest">Current snapshot</option>
+        {selectedKey !== "latest" && !catalog?.compatible_snapshots.some(item => !item.current && versionKeyFor(item) === selectedKey) && <option value={selectedKey}>Explicit snapshot selection</option>}
         {catalog?.compatible_snapshots.filter(item => !item.current).map(item => <option key={versionKeyFor(item)} value={versionKeyFor(item)}>Historical · {item.as_of_utc}</option>)}
       </select></label></div>
     </header>

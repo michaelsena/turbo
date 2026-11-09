@@ -1,10 +1,15 @@
 import copy
 import json
+import gzip
+import hashlib
 import tempfile
+import shutil
+from unittest.mock import patch
 import unittest
 from pathlib import Path
 
-from turbo.web.read_model import SnapshotError, SnapshotStore, load_snapshot
+from turbo.web.read_model import (SnapshotError, SnapshotStore, load_snapshot,
+                                  _resolve_graph, _resolve_schedule)
 
 
 class ReadModelTest(unittest.TestCase):
@@ -123,6 +128,115 @@ class ReadModelTest(unittest.TestCase):
     def test_explicit_incompatible_versions_fail_closed(self) -> None:
         with self.assertRaisesRegex(SnapshotError, "incompatible"):
             load_snapshot(source_run_id="run-1f039950ed1e4e3192c7")
+
+    def test_historical_graph_receipt_must_match_projection_and_release(self) -> None:
+        original = (self.snapshot.root / "data/market_graph/versions"
+                    / self.snapshot.version.release_id)
+        mutations = (
+            ("graph version", lambda receipt: receipt.update(graph_version_id="graph-mismatch"), "graph-mismatch"),
+            ("counts", lambda receipt: receipt["counts"].update(canonical_markets=999), self.snapshot.version.graph_version_id),
+            ("release directory", lambda receipt: receipt.update(release_id="graph-release-other"), self.snapshot.version.graph_version_id),
+            ("publication", lambda receipt: receipt.update(status="pending"), self.snapshot.version.graph_version_id),
+        )
+        for label, mutate, selected_version in mutations:
+            with self.subTest(case=label), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                target = root / "data/market_graph/versions" / original.name
+                shutil.copytree(original, target)
+                path = target / "graph-receipt.json"
+                receipt = json.loads(path.read_text())
+                mutate(receipt)
+                path.write_text(json.dumps(receipt))
+                with self.assertRaises(SnapshotError):
+                    _resolve_graph(root, selected_version)
+
+    def test_historical_schedule_cannot_omit_consumed_artifact_hash(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            directory = root / "data/family_schedules" / self.snapshot.version.partition_id
+            directory.mkdir(parents=True)
+            receipt = copy.deepcopy(self.snapshot.schedule_receipt)
+            del receipt["output_hashes"]["family-manifest.json.gz"]
+            (directory / "schedule-receipt.json").write_text(json.dumps(receipt))
+            with self.assertRaisesRegex(SnapshotError, "artifact set mismatch"):
+                _resolve_schedule(root, self.snapshot.version.partition_id)
+
+    def test_historical_schedule_receipt_counts_match_frozen_collections(self) -> None:
+        source = self.snapshot.root / "data/family_schedules" / self.snapshot.version.partition_id
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            directory = root / "data/family_schedules" / source.name
+            shutil.copytree(source, directory)
+            path = directory / "schedule-receipt.json"
+            receipt = json.loads(path.read_text())
+            receipt["counts"]["families"] = 999
+            path.write_text(json.dumps(receipt))
+            with self.assertRaisesRegex(SnapshotError, "receipt counts disagree"):
+                _resolve_schedule(root, source.name)
+
+    def test_corrected_schedule_requires_new_count_fields(self) -> None:
+        source = self.snapshot.root / "data/family_schedules" / self.snapshot.version.partition_id
+        for field in ("pilot_context_identities", "context_only_collision_candidates"):
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                directory = root / "data/family_schedules" / source.name
+                shutil.copytree(source, directory)
+                coverage_path = directory / "coverage-ledger.json.gz"
+                coverage = json.loads(gzip.decompress(coverage_path.read_bytes()))
+                del coverage["counts"][field]
+                coverage_path.write_bytes(gzip.compress(json.dumps(coverage).encode(), mtime=0))
+                receipt_path = directory / "schedule-receipt.json"
+                receipt = json.loads(receipt_path.read_text())
+                del receipt["counts"][field]
+                receipt["output_hashes"][coverage_path.name] = hashlib.sha256(coverage_path.read_bytes()).hexdigest()
+                receipt_path.write_text(json.dumps(receipt))
+                with self.assertRaisesRegex(SnapshotError, "receipt counts disagree"):
+                    _resolve_schedule(root, source.name)
+
+    def test_schedule_rehash_cannot_hide_header_or_count_incoherence(self) -> None:
+        source = self.snapshot.root / "data/family_schedules" / self.snapshot.version.partition_id
+        mutations = (
+            ("header", "family-manifest.json.gz", lambda value: value.update(source_run_id="run-other")),
+            ("manifest count", "family-manifest.json.gz", lambda value: value["counts"].update(families=999)),
+            ("family workload", "family-manifest.json.gz", lambda value: value["families"][0]["counts"].update(required_identities=999)),
+            ("batch workload", "batch-manifest.json", lambda value: value["batches"][0].update(required_identities=999)),
+            ("candidate count", "candidate-collision-ledger.json.gz", lambda value: value["counts"].update(prior_candidates=999)),
+            ("edge count", "context-edge-ledger.json.gz", lambda value: value["counts"].update(industry_product_relationships=999)),
+        )
+        for label, name, mutate in mutations:
+            with self.subTest(case=label), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                directory = root / "data/family_schedules" / source.name
+                shutil.copytree(source, directory)
+                path = directory / name
+                value = json.loads(gzip.decompress(path.read_bytes())) if name.endswith(".gz") else json.loads(path.read_text())
+                mutate(value)
+                raw = json.dumps(value).encode()
+                path.write_bytes(gzip.compress(raw, mtime=0) if name.endswith(".gz") else raw)
+                receipt_path = directory / "schedule-receipt.json"
+                receipt = json.loads(receipt_path.read_text())
+                receipt["output_hashes"][name] = hashlib.sha256(path.read_bytes()).hexdigest()
+                receipt_path.write_text(json.dumps(receipt))
+                with self.assertRaises(SnapshotError):
+                    _resolve_schedule(root, source.name)
+
+    def test_explicit_source_context_does_not_inherit_latest_source_metadata(self) -> None:
+        latest = copy.deepcopy(self.snapshot.context)
+        latest["source_universe"].update(
+            normalized_identities=999, immutable_run_path="data/runs/other",
+            output_hashes={"other.json": "0" * 64},
+        )
+        with patch("turbo.web.read_model.compile_system_context", return_value=latest):
+            selected = load_snapshot(
+                source_run_id=self.snapshot.version.source_run_id,
+                partition_id=self.snapshot.version.partition_id,
+                graph_version_id=self.snapshot.version.graph_version_id,
+            )
+        self.assertEqual(selected.context["source_universe"]["normalized_identities"], 11543)
+        self.assertEqual(selected.context["source_universe"]["immutable_run_path"],
+                         "data/runs/" + self.snapshot.version.source_run_id)
+        self.assertEqual(selected.context["source_universe"]["output_hashes"],
+                         self.snapshot.source_receipt["output_hashes"])
 
     def test_pointer_change_reloads_only_after_complete_validation(self) -> None:
         store = SnapshotStore()

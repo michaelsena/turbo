@@ -43,7 +43,9 @@ def _snapshot(
             graph_version_id=version.graph_version_id,
         )
     except (KeyError, OSError, SnapshotError, ValueError) as error:
-        raise HTTPException(status_code=409, detail=str(error)) from error
+        raise HTTPException(
+            status_code=409, detail="Requested snapshot is unavailable or incompatible"
+        ) from error
 
 
 def _api_response(request: Request, snapshot: ReadSnapshot, data: Any) -> Response:

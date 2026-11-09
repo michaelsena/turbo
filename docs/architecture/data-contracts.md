@@ -5,22 +5,35 @@
 A read snapshot is an immutable in-memory join of one compatible source run, family
 partition, and cumulative graph version. Its identity binds their exact receipts and
 artifact hashes plus the read-model version. Loading fails if a pointer, receipt,
-projection, output hash, partition ID, or source lineage disagrees.
+projection, output hash, partition ID, or source lineage disagrees. All declared
+source artifacts are rehashed when loading a snapshot; the selected source receipt
+must also agree with the schedule's frozen source hashes. Historical source context
+is built from that selected receipt. Published graph status, graph version, and
+recomputed activation/event/market/mapping counts must match the graph receipt.
+Schedule artifact headers must agree with its receipt; published totals and family/
+batch workloads must agree with the hash-verified collections. Legacy four-artifact
+plans remain inspectable, while the corrected five-artifact format enforces its added
+count fields and relationship ledger.
 
-Every API response contains `data` plus exact provenance: source run, partition,
+Successful JSON resource responses contain `data` plus exact provenance: source run, partition,
 graph version, release, as-of time, read-model version, and context fingerprint.
-Collection fields are deterministically sorted and paginated; nested family context
-is separately bounded. The context fingerprint includes all three exact receipt
+Market, mapping, family, batch, and candidate lists are deterministically sorted
+and paginated; nested family context is separately bounded. Search has a bounded
+result limit, while versions returns a catalog. Errors use `detail`; `304` responses
+have no body. The context fingerprint includes all three exact receipt
 hashes; each HTTP ETag hashes its complete response envelope, and `If-None-Match` may
-return 304 only for that equivalent representation. Receipt resources resolve only an enumerated kind and safe ID beneath a
-fixed repository root, then recursively remove secret, credential, authorization,
+return 304 only for that equivalent representation. Receipt resources resolve only
+an enumerated kind and safe ID beneath a fixed repository root, then recursively remove secret, credential, authorization,
 and private-reasoning fields.
 
 One shared request dependency applies `source_run_id`, `partition_id`, and
 `graph_version_id` to every snapshot-backed endpoint. The version catalog lists
 complete compatible tuples only after loading and verifying each join. The browser
 may select and propagate one of those tuples, but compatibility remains a backend
-contract and is never reimplemented in TypeScript.
+contract and is never reimplemented in TypeScript. Partial and empty explicit URL
+parameters reach backend validation unchanged; snapshot-load errors use a sanitized
+409 response. Active Audit provenance comes from the selected response, not the
+version catalog's current-pointer entry.
 
 The API is a projection of repository truth, not new truth. UI state, administrative
 ordering, source titles, and client-side filters never create market, Target, or
@@ -221,6 +234,32 @@ the resulting cumulative projection hash. `latest-graph.json` and
 `latest-family-schedule.json` are verification pointers only; their referenced
 receipts and artifacts must rehash before they enter composed context.
 
+### Schedule-driven family config and evidence pack V2
+
+A family config V2 resolves to exactly one schedulable family-manifest entry. It binds
+the schedule receipt and artifact hashes, cumulative graph receipt and projection,
+exact required identities, authored context shards, exact required candidates,
+expected context-edge count, and fail-closed limits. The config is a deterministic
+research-input declaration, not a decision or execution authorization.
+
+A family evidence pack V2 is a disposable, frozen view over those immutable inputs.
+It includes complete cards for required source identities, compact cards for context,
+exact ledger relationship IDs and locators, required candidate cards, and relevant
+existing graph context. Context-only identities cannot become primary obligations.
+The content hash excludes only its own hash field. Persisted preparations are
+content-addressed and replayed by regenerating the config and pack. Replay also
+requires each persisted config, pack, and receipt file to equal its canonical JSON
+bytes exactly; parsing to the same object is insufficient.
+
+Pack compilation verifies the full source-run receipt and all declared artifact bytes.
+Artifacts frozen by the family schedule must additionally match its source hashes.
+The Manual artifact is separately bound through the verified full source run because
+the historical schedule did not consume it; the schedule is never retroactively changed. Graph context likewise requires the latest
+pointer, immutable graph receipt, and projection to agree on the release, graph
+version, source run, projection hash, and recomputed counts. Standalone validation
+recompiles the full expected pack and compares every top-level evidence and lineage
+collection, rather than treating a recomputed pack self-hash as proof of completeness.
+
 
 ## Factor definition, evaluator result, and score event
 
@@ -247,3 +286,9 @@ posted as GitHub issue/PR receipts so deterministic replay never dirties the wor
 
 Formal JSON Schemas and executable projection tests precede external API stability.
 
+
+V2 preparations additionally bind the full verified source-run receipt/artifact map
+and exact Turbo Python/executable-schema bytes. Packs retain required NAICS Manual
+records and index-absence facts, plus non-owned retrieved candidates as context-only
+cards with source records. These fields participate in content identity, size gates,
+and deterministic regeneration; they do not alter administrative ownership.

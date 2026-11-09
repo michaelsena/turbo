@@ -6,8 +6,8 @@ import type { Provenance, Versions, VersionTuple } from "./types";
 
 const VERSION_KEYS = ["source_run_id", "partition_id", "graph_version_id"] as const;
 
-function keyFor(tuple: VersionTuple | Provenance) {
-  return `${tuple.source_run_id}|${tuple.partition_id}|${tuple.graph_version_id}`;
+function keyFor(tuple: Partial<VersionTuple> | Provenance) {
+  return `${tuple.source_run_id ?? ""}|${tuple.partition_id ?? ""}|${tuple.graph_version_id ?? ""}`;
 }
 
 interface VersioningValue {
@@ -31,8 +31,10 @@ export function VersionProvider({ children }: { children: ReactNode }) {
     staleTime: Number.POSITIVE_INFINITY,
   });
   const explicit = useMemo(() => {
-    const values = Object.fromEntries(VERSION_KEYS.map(key => [key, search.get(key)]));
-    return VERSION_KEYS.every(key => values[key]) ? values as unknown as VersionTuple : undefined;
+    const keys = VERSION_KEYS.filter(key => search.has(key));
+    return keys.length
+      ? Object.fromEntries(keys.map(key => [key, search.get(key)!])) as Partial<VersionTuple>
+      : undefined;
   }, [search]);
   const catalog = catalogQuery.data?.data;
   const selected = explicit
@@ -41,8 +43,14 @@ export function VersionProvider({ children }: { children: ReactNode }) {
   const selectedKey = explicit ? keyFor(explicit) : "latest";
   const versionValues = explicit ?? {};
   const buildUrl = useCallback(
-    (path: string, values: Record<string, string | number | boolean | null | undefined> = {}) =>
-      `${path}${params({ ...values, ...versionValues })}`,
+    (path: string, values: Record<string, string | number | boolean | null | undefined> = {}) => {
+      const query = new URLSearchParams(params(values).slice(1));
+      // Preserve even partial/empty explicit selections for server validation.
+      // The client must never silently replace a requested version with latest.
+      Object.entries(versionValues).forEach(([key, value]) => query.set(key, value));
+      const encoded = query.toString();
+      return `${path}${encoded ? `?${encoded}` : ""}`;
+    },
     [explicit?.source_run_id, explicit?.partition_id, explicit?.graph_version_id],
   );
   const selectVersion = useCallback((key: string) => {

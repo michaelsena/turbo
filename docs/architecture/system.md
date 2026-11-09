@@ -36,6 +36,11 @@ artifacts validate. One shared FastAPI dependency applies an explicit source-run
 partition, and graph tuple to every snapshot-backed route. The UI selector consumes
 the backend's verified compatible-tuple catalog and propagates the three IDs through
 queries and navigation without recreating version compatibility in the client.
+Partial explicit URL selections remain explicit until backend validation. The selected
+source receipt supplies historical source context; it is never relabeled latest data.
+Snapshot loading rehashes all declared source artifacts, checks schedule-pinned source
+hashes, and requires graph publication/version/count coherence. Failures produce a
+sanitized response; the Audit view displays the selected response provenance.
 
 ## Core durable identities
 

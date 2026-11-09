@@ -45,5 +45,17 @@ test("required read surfaces remain accessible and visually stable", async ({ pa
     await page.getByRole("combobox", { name: /research snapshot/i }).selectOption(key);
     await expect(page).toHaveURL(new RegExp(`partition_id=${encodeURIComponent(historical.partition_id)}`));
     await expect(page.getByLabel("Current data version")).toContainText(historical.partition_id);
+    await page.getByRole("link", { name: "Audit", exact: true }).click();
+    const panel = page.locator("section.panel").filter({ has: page.getByRole("heading", { name: "Current provenance" }) });
+    await expect(panel).toContainText(historical.partition_id);
+    await expect(panel).not.toContainText(versionPayload.data.current.partition_id);
+  });
+
+  await test.step("partial version URLs fail closed and recover", async () => {
+    await page.goto("/audit?partition_id=nonexistent");
+    await expect(page.getByText("Unable to load this view.")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Current provenance" })).toHaveCount(0);
+    await page.getByRole("combobox", { name: /research snapshot/i }).selectOption("latest");
+    await expect(page.getByRole("heading", { name: "Current provenance" })).toBeVisible();
   });
 });

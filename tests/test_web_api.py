@@ -63,6 +63,15 @@ class WebApiTest(unittest.TestCase):
         self.assertLessEqual(len(context["items"]), 5)
         self.assertIn("ownership_notice", detail.text)
 
+    def test_candidate_search_link_filters_the_candidate_endpoint(self) -> None:
+        results = self.client.get("/api/v1/search?q=office&limit=100").json()["data"]
+        candidate = next(item for item in results if item["kind"] == "candidate")
+        response = self.client.get(candidate["href"])
+        self.assertEqual(response.status_code, 200)
+        data = response.json()["data"]
+        self.assertEqual(data["total"], 1)
+        self.assertEqual(data["items"][0]["candidate_market_id"], candidate["id"])
+
     def test_search_requires_bounded_query(self) -> None:
         response = self.client.get("/api/v1/search?q=x")
         self.assertEqual(response.status_code, 400)
@@ -87,6 +96,17 @@ class WebApiTest(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 409)
         self.assertIn("incompatible", response.json()["detail"])
+
+    def test_missing_version_errors_are_sanitized(self) -> None:
+        for query in ("source_run_id=nonexistent", "partition_id=nonexistent",
+                      "graph_version_id=nonexistent", "source_run_id=",
+                      "partition_id=", "graph_version_id="):
+            with self.subTest(query=query):
+                response = self.client.get("/api/v1/context?" + query)
+                self.assertEqual(response.status_code, 409)
+                self.assertEqual(response.json()["detail"],
+                                 "Requested snapshot is unavailable or incompatible")
+                self.assertNotIn(str(Path.cwd()), response.text)
 
     def test_every_snapshot_route_uses_the_shared_version_selection(self) -> None:
         market_id = self.client.get("/api/v1/markets?page_size=1").json()["data"][

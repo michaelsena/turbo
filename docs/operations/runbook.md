@@ -41,8 +41,9 @@ truth. Private or unsupported evidence must never leak into publication artifact
 
 ### Read API and React console
 
-Install Python and frontend dependencies, build the client, then run one local product
-process. Serving the console never invokes a model or performs network research.
+Use Python 3.11+ and a Node.js version supported by Vite 7 (20.19+ or 22.12+).
+Install Python and locked frontend dependencies, build the client, then run one local
+product process. Serving the console never invokes a model or performs network research.
 
 ```bash
 python3 -m venv .venv
@@ -50,11 +51,10 @@ source .venv/bin/activate
 python3 -m pip install -e .
 python3 -m pip install -r requirements-web.txt
 cd frontend
-npm install
+npm ci
 npm test
 npm run typecheck
 npm run build
-npm run test:visual
 cd ..
 PYTHONPATH=src uvicorn turbo.web.app:app --host 127.0.0.1 --port 8000
 ```
@@ -64,12 +64,46 @@ Open `http://127.0.0.1:8000`; inspect OpenAPI at
 8000 and run `npm run dev` in `frontend/`; the Vite server proxies `/api` and remains
 only a development tool. Stop both local processes when inspection is complete.
 
-`npm run test:visual` builds the client, starts a temporary FastAPI server on
+After installing Google Chrome, run `npm run test:visual` from `frontend/`.
+The committed Playwright configuration selects the installed `chrome` channel and
+starts Python from the repository-local `.venv/bin/python`; an environment elsewhere
+does not satisfy that path automatically. This command builds the client, starts a
+temporary FastAPI server on
 `127.0.0.1:8017`, runs axe WCAG 2 A/AA checks and screenshot comparisons at fixed
 desktop/mobile viewports, exercises the historical snapshot selector, and stops the
-server. Use `npm run test:visual:update` only when an intentional reviewed visual
+server. Screenshot rasterization can depend on OS, fonts, and Chrome version; record
+those runtime details in the acceptance receipt. Investigate a mismatch before
+changing baselines. Use `npm run test:visual:update` only when an intentional reviewed visual
 change requires new baselines. Commit the deterministic files under
 `frontend/e2e/__screenshots__/`; never commit `test-results` or `playwright-report`.
+
+If the test executor cannot bind a server, start the compiled product from a shell
+that can bind loopback. From the repository root:
+
+```bash
+./scripts/serve-local.sh
+# Optional prepared interpreter: TURBO_PYTHON=/absolute/path/to/python ./scripts/serve-local.sh
+```
+
+The launcher requires `frontend/dist`, uses `TURBO_PORT` (default 8017), and binds
+only `127.0.0.1`. Then run acceptance against that process from `frontend/`:
+
+```bash
+TURBO_TEST_BASE_URL=http://127.0.0.1:8017 npm run test:visual
+```
+
+`TURBO_TEST_BASE_URL` accepts only an HTTP loopback origin (`127.0.0.1` or `localhost`,
+with an optional port); credentials, non-root paths, queries, and fragments are
+rejected. In this mode Playwright does not start or stop the server. The person or
+process that launched it must stop it after inspection. If the executor also cannot
+reach loopback or launch Chrome, run acceptance in the shell that can; record the
+actual result rather than marking the gate passed from unit tests alone.
+
+For the current PR #19 correction, inspect and replace the inherited mobile
+family-detail baseline (`0` required identities instead of `80`) and Audit baseline
+(read-model `1.0.0` instead of `1.1.0`) before claiming visual acceptance. The bind
+restriction blocks that check in the current executor; neither those stale images
+nor prior receipts establish a pass for the corrected tree.
 
 Before accepting a UI/API change, run the focused Python tests, frontend tests,
 TypeScript check, production build, full Python suite, repository validation, and
@@ -97,10 +131,19 @@ turbo boundary-validate-activation \
 turbo family-plan config/universe/family-partition-v1.json
 turbo family-validate-plan data/family_schedules/<partition-id> \
   config/universe/family-partition-v1.json
+turbo family-dry-run <family-id>
+turbo family-prepare <family-id> --output-root <directory>
+turbo family-validate-preparation <preparation-directory>
 turbo graph-release config/universe/graph-releases/<release-config>.json
 turbo graph-validate-release data/market_graph/versions/<release-id> \
   config/universe/graph-releases/<release-config>.json
 ```
+
+The three V2 family-preparation commands are deterministic and make no model calls.
+Use `family-dry-run` first. It verifies the corrected schedule and current graph,
+compiles the exact config and pack in memory, enforces all count/size gates, and
+prints hashes and counts without writing an artifact. Preparation fails rather than
+truncating evidence. A persisted preparation is not authorization to execute it.
 
 `boundary-run` makes two concurrent specialist calls and, only after both validate,
 one adjudicator call. It is intentionally explicit and metered; validators and tests

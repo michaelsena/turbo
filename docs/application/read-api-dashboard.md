@@ -13,7 +13,10 @@ The product has three layers:
 
 1. `ReadSnapshot` resolves exactly one source run, operating-family partition, and
    cumulative graph version. It verifies pointer receipts and every bound artifact
-   hash, then rejects source-lineage mismatches.
+   hash, then rejects source-lineage mismatches. Historical source context comes from
+   the selected receipt, and the schedule's frozen source hashes must agree with it.
+   Graph receipt and projection must agree on version, publication status, and
+   recomputed counts.
 2. FastAPI exposes deterministic JSON resources. Each response has `data` and
    `provenance`, an ETag, private/no-cache semantics, and exact version headers.
 3. The React/TypeScript/Vite client uses only those API resources. React Router owns
@@ -38,8 +41,11 @@ schedulable families, 129 batches, 978 prior candidates, 58 unretrieved candidat
 
 ## API contract
 
-All collection routes use one-based `page`, bounded `page_size` (1–100), stable
-sorting, and an envelope:
+Market, mapping, family, batch, and candidate lists use one-based `page` and
+`page_size` (1–100), with stable sorting. Family detail bounds its context separately
+with `context_page` and `context_page_size`. Search uses `limit` (1–100), while the
+version endpoint returns a catalog rather than a paginated collection. Successful
+JSON responses use this envelope:
 
 ```json
 {
@@ -75,7 +81,9 @@ share one source run and resolve to hash-verified immutable artifacts. A mismatc
 missing artifact, or hash failure returns an error rather than falling back to a
 directory scan or inferred latest version. `/api/v1/versions` publishes only complete
 compatible tuples as `compatible_snapshots`; the current pointer tuple remains
-explicitly labeled.
+explicitly labeled. Missing tuple components use their current pointer values on
+the backend; explicitly empty or invalid IDs are rejected. Snapshot-load failures
+return a sanitized `409` response without exposing local paths.
 
 Receipt kinds are fixed in code. IDs must match a narrow safe-character grammar and
 cannot contain a path separator. Credential, authorization, secret, raw/private
@@ -85,6 +93,9 @@ paths. The route never provides arbitrary file access.
 The provenance fingerprint binds the exact source, schedule, and graph receipt
 hashes. HTTP ETags separately hash the complete response envelope, so a tag from one
 route, filter, or page cannot incorrectly validate a different representation.
+An equivalent cached response may return `304` with no JSON body. Error responses
+use a `detail` field rather than the success envelope. A missing allowlisted receipt
+returns `404 Receipt not found`; malformed stored receipt errors are sanitized.
 
 ## User interface
 
@@ -97,7 +108,11 @@ responsive breakpoints, and reduced-motion behavior.
 The header snapshot selector is sourced from `compatible_snapshots`. Choosing a
 historical tuple writes all three exact IDs into the URL and the client carries those
 parameters into every API query and internal navigation. The client never computes
-compatibility or joins versions itself.
+compatibility or joins versions itself. Partial or empty version parameters entered
+in a URL are preserved for backend validation rather than silently replaced with
+latest. The selector provides recovery to the current snapshot. The Audit page's
+active snapshot comes from the selected response provenance; the catalog's current
+pointer remains a separate concept.
 
 Pages:
 
@@ -111,6 +126,13 @@ Pages:
 - `/docs` generated API reference
 
 ## Local verification
+
+Install the Python environment and locked frontend dependencies using the
+[runbook](../operations/runbook.md#read-api-and-react-console) first. Browser
+acceptance requires Google Chrome. The default managed-server path uses the
+repository-local `.venv`, as configured in `frontend/playwright.config.ts`. An
+optional external loopback server can be supplied through `TURBO_TEST_BASE_URL`;
+see the runbook for setup and lifecycle ownership.
 
 ```bash
 PYTHONPATH=src .venv/bin/python -m unittest \
@@ -127,8 +149,8 @@ ordering, pagination, search, ETags, receipt allowlists, sanitization boundaries
 and compiled-SPA delivery. Frontend tests cover the universe/evaluation boundary,
 visible exact provenance, and tuple propagation. Playwright starts the compiled app
 locally, runs WCAG 2 A/AA axe checks, exercises historical selection, and compares
-deterministic screenshots for overview, universe, market detail, families, family
-detail, batches, and audit at fixed desktop and mobile viewports. Baselines live under
+screenshots for overview, universe, market detail, families, family detail, batches,
+and audit at fixed desktop and mobile viewports. Baselines live under
 `frontend/e2e/__screenshots__/`; transient reports remain ignored.
 
 ## Future extension boundary
@@ -137,3 +159,18 @@ Target eligibility, factor scores, pairwise comparisons, rankings, companies, an
 notifications require their own durable projections and receipts. They must enter
 through new API contracts; the client must never infer them from source titles,
 administrative family order, or graph activation status.
+
+Acceptance results belong to the exact commit receipt in GitHub. The presence of
+a test or screenshot baseline is not a claim that the current tree has passed it.
+
+The current correction is not yet browser-accepted: this execution environment
+cannot bind a local server. Do not treat prior screenshots or successful unit/build
+checks as a fresh visual/accessibility pass. Complete the external-server path and
+record the exact corrected commit before closing that gate.
+
+Two inherited screenshot baselines also require correction after visual inspection:
+the mobile family-detail image shows `0` required identities where the current
+fixture has `80`, and the Audit image shows read-model version `1.0.0` where the
+current contract is `1.1.0`. They are stale artifacts, not accepted renderings of the
+current head. Inspect the corrected desktop/mobile pages, regenerate only the
+intentional baseline changes, and rerun screenshot comparisons and axe checks.
