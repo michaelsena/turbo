@@ -11,7 +11,7 @@
     "alternatives_considered", "research_gaps"
   ],
   "properties": {
-    "schema_version": {"const": 1},
+    "schema_version": {"type": "integer", "const": 1},
     "family_id": {"type": "string", "pattern": "\\S"},
     "role_id": {"type": "string", "pattern": "^specialist-[ab]$"},
     "invocation_id": {"type": "string", "pattern": "^invocation:[0-9a-f]{24}$"},
@@ -50,7 +50,7 @@
       "minItems": 1,
       "items": {"type": "string", "pattern": "\\S"}
     },
-    "evidenceLabel": {"enum": ["fact", "inference", "assumption", "unknown"]},
+    "evidenceLabel": {"type": "string", "enum": ["fact", "inference", "assumption", "unknown"]},
     "dimensions": {
       "type": "object",
       "additionalProperties": false,
@@ -122,6 +122,7 @@
       "properties": {
         "identity_id": {"type": "string", "pattern": "^identity:"},
         "disposition": {
+          "type": "string",
           "enum": [
             "map_to_proposal", "provisional_map_to_proposal",
             "no_mapping_to_family", "provisional_no_mapping_to_family",
@@ -130,6 +131,7 @@
         },
         "proposal_id": {"type": ["string", "null"], "pattern": "^proposal:"},
         "relationship_type": {
+          "type": ["string", "null"],
           "enum": [null, "equivalent_label_candidate", "broader_than_market", "narrower_than_market", "product_sold_by_market", "industry_containing_market", "task_performed_by_market", "partial_overlap", "residual_bucket", "non_market_product"]
         },
         "rationale": {"type": "string", "pattern": "\\S"},
@@ -150,7 +152,7 @@
       ],
       "properties": {
         "candidate_market_id": {"type": "string", "pattern": "^candidate-market:"},
-        "disposition": {"enum": ["adopt", "change", "merge_input", "split_input", "reject", "not_resolved_in_family"]},
+        "disposition": {"type": "string", "enum": ["adopt", "change", "merge_input", "split_input", "reject", "not_resolved_in_family"]},
         "proposal_ids": {"$ref": "#/$defs/uniqueStrings"},
         "rationale": {"type": "string", "pattern": "\\S"},
         "evidence_label": {"$ref": "#/$defs/evidenceLabel"},

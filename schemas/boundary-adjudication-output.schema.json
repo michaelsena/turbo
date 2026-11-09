@@ -11,9 +11,9 @@
     "candidate_dispositions", "alternatives_considered", "research_gaps"
   ],
   "properties": {
-    "schema_version": {"const": 1},
+    "schema_version": {"type": "integer", "const": 1},
     "family_id": {"type": "string", "pattern": "\\S"},
-    "role_id": {"const": "adjudicator"},
+    "role_id": {"type": "string", "const": "adjudicator"},
     "invocation_id": {"type": "string", "pattern": "^invocation:[0-9a-f]{24}$"},
     "input_pack_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "specialist_output_sha256": {

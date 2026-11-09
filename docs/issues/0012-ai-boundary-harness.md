@@ -88,3 +88,12 @@ adjudicator. OpenRouter served `openai/gpt-5.6-terra` through OpenAI, returned e
 `{"ok":true}`, used 53 total tokens, and reported a cost of `$0.000256`. No reasoning
 tokens or research evidence were used, no market conclusion was produced, and no
 result entered the Market Graph. The live key was never written to this receipt.
+
+The first full pilot attempt at exact head
+`5ca991065c0d6c47df330961d765c789aa69565d` failed closed before inference. From
+`2026-11-09T00:30:35Z` to `2026-11-09T00:30:38Z`, both configured endpoints rejected
+the model-facing schema because constant fields did not include the explicit JSON
+types required by their strict-schema subset. No specialist or adjudicator output was
+persisted and no graph event changed. The corrective increment adds explicit types to
+the canonical schemas, defensively infers them in the provider adapter, and limits
+provider-error exceptions to non-personal diagnostic fields plus response hashes.

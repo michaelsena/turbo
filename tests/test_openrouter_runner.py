@@ -30,6 +30,24 @@ class OpenRouterRunnerTest(unittest.TestCase):
         self.assertNotIn("uniqueItems", adapted["properties"]["ids"])
         self.assertEqual(canonical["properties"]["score"]["minimum"], 0)
 
+    def test_provider_schema_adds_types_required_by_strict_endpoints(self) -> None:
+        adapted = openrouter_schema(
+            {
+                "type": "object",
+                "properties": {
+                    "version": {"const": 1},
+                    "role": {"const": "adjudicator"},
+                    "label": {"enum": ["fact", "inference"]},
+                    "nullable": {"enum": [None, "known"]},
+                },
+            }
+        )
+        properties = adapted["properties"]
+        self.assertEqual(properties["version"]["type"], "integer")
+        self.assertEqual(properties["role"]["type"], "string")
+        self.assertEqual(properties["label"]["type"], "string")
+        self.assertEqual(properties["nullable"]["type"], ["null", "string"])
+
     def test_request_requires_structured_output_and_excludes_reasoning(self) -> None:
         body = openrouter_request_body(
             role_id="specialist-a",
@@ -187,7 +205,7 @@ class OpenRouterRunnerTest(unittest.TestCase):
 
         self.assertEqual(attempts, 2)
         self.assertNotIn(secret, str(raised.exception))
-        self.assertIn("[REDACTED]", str(raised.exception))
+        self.assertIn("provider error response omitted", str(raised.exception))
 
 
 if __name__ == "__main__":

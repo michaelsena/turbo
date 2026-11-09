@@ -40,14 +40,64 @@ PROVIDER_UNSAFE_SCHEMA_KEYWORDS = {
 
 def openrouter_schema(value: object) -> object:
     if isinstance(value, dict):
-        return {
+        adapted = {
             key: openrouter_schema(child)
             for key, child in value.items()
             if key not in PROVIDER_UNSAFE_SCHEMA_KEYWORDS
         }
+        if "type" not in adapted:
+            if "const" in adapted:
+                adapted["type"] = _json_schema_type(adapted["const"])
+            elif isinstance(adapted.get("enum"), list):
+                inferred = []
+                for item in adapted["enum"]:
+                    item_type = _json_schema_type(item)
+                    if item_type not in inferred:
+                        inferred.append(item_type)
+                adapted["type"] = inferred[0] if len(inferred) == 1 else inferred
+        return adapted
     if isinstance(value, list):
         return [openrouter_schema(child) for child in value]
     return value
+
+
+def _json_schema_type(value: object) -> str:
+    if value is None:
+        return "null"
+    if isinstance(value, bool):
+        return "boolean"
+    if isinstance(value, int):
+        return "integer"
+    if isinstance(value, float):
+        return "number"
+    if isinstance(value, str):
+        return "string"
+    if isinstance(value, list):
+        return "array"
+    if isinstance(value, dict):
+        return "object"
+    raise TypeError(f"unsupported JSON Schema constant type: {type(value).__name__}")
+
+
+def _safe_error_summary(response_bytes: bytes) -> str:
+    try:
+        payload = json.loads(response_bytes)
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return "unparseable provider error response omitted"
+    error = payload.get("error") if isinstance(payload, dict) else None
+    if not isinstance(error, dict):
+        return "provider error response omitted"
+    summary: dict[str, Any] = {
+        key: error.get(key) for key in ("code", "message") if error.get(key) is not None
+    }
+    metadata = error.get("metadata")
+    if isinstance(metadata, dict):
+        summary["metadata"] = {
+            key: metadata.get(key)
+            for key in ("provider_error_code", "provider_name")
+            if metadata.get(key) is not None
+        }
+    return json.dumps(summary, sort_keys=True)
 
 
 def _default_transport(
@@ -260,11 +310,10 @@ def invoke_openrouter_role(
         "status": "failed",
     }
     if status_code != 200:
-        error_tail = response_bytes.decode("utf-8", errors="replace")[-2_000:]
-        error_tail = error_tail.replace(secret, "[REDACTED]")
+        error_summary = _safe_error_summary(response_bytes)
         raise RuntimeError(
             f"{role_id} OpenRouter invocation failed with HTTP {status_code}; "
-            f"response_tail={error_tail!r}; receipt={json.dumps(receipt, sort_keys=True)}"
+            f"error={error_summary}; receipt={json.dumps(receipt, sort_keys=True)}"
         )
     try:
         response = json.loads(response_bytes)
