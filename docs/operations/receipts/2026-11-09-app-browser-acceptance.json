@@ -1,0 +1,175 @@
+{
+  "base": {
+    "commit": "c6dfd933551a5e96757c51434c6fe3f22c849552",
+    "tree": "6f18fc067ca0ea56f47ea7068612d8bbd1b33aa2"
+  },
+  "browser_acceptance": {
+    "comparison_only": {
+      "command": "TURBO_TEST_BASE_URL=http://127.0.0.1:8034 npm run test:visual",
+      "passed": 4,
+      "result": "passed",
+      "seconds": 16.1
+    },
+    "initial_comparison": {
+      "passed": 2,
+      "failed": 2,
+      "expected_failures": [
+        "new desktop and mobile overview-markets baselines were absent",
+        "desktop and mobile Universe copy intentionally differed from historical baselines"
+      ],
+      "unexpected_findings": [
+        "the Overview element capture scrolled its panel into view and the following Universe viewport inherited that offset"
+      ]
+    },
+    "reviewed_refresh": {
+      "command": "TURBO_TEST_BASE_URL=http://127.0.0.1:8034 npm run test:visual:update -- --update-snapshots=all",
+      "passed": 4,
+      "result": "passed",
+      "seconds": 17.8
+    },
+    "suite_coverage": [
+      "seven read surfaces at desktop 1440x1000 and mobile 390x844",
+      "axe WCAG 2 A and AA checks",
+      "all 16 screenshot comparisons",
+      "Overview content and status geometry",
+      "synthetic long-status containment",
+      "historical snapshot tuple propagation to Audit",
+      "partial-version fail-closed recovery"
+    ],
+    "test_harness_resolution": {
+      "classification": "fact",
+      "change": "restore window.scrollY to zero and assert it before each route axe and viewport capture",
+      "reason": "element screenshots scroll their subject into view; accepting the inherited offset would have created false Universe baselines"
+    }
+  },
+  "checks": {
+    "focused_python": {
+      "command": "PYTHONPATH=src .venv/bin/python -m unittest tests.test_read_model tests.test_web_api -v",
+      "passed": 31,
+      "seconds": 42.656
+    },
+    "frontend_unit": {
+      "command": "npm test",
+      "passed": 9
+    },
+    "full_python": {
+      "command": "PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -v",
+      "passed": 259,
+      "seconds": 716.847
+    },
+    "source_replay": {
+      "command": "PYTHONPATH=src .venv/bin/python -m turbo.cli run",
+      "immutable_run_id": "run-2ea0f00db84148de663f",
+      "result": "passed"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "result": "passed"
+    },
+    "validate": {
+      "command": "PYTHONPATH=src .venv/bin/python -m turbo.cli validate",
+      "errors": [],
+      "valid": true
+    },
+    "context": {
+      "command": "PYTHONPATH=src .venv/bin/python -m turbo.cli context",
+      "result": "passed"
+    }
+  },
+  "full_field_inspection": {
+    "classification": "fact",
+    "market_statuses": {
+      "Dental practice administration": "provisional",
+      "Integrated outsourced office administration": "accepted_with_open_gaps",
+      "Medical practice administration": "provisional"
+    },
+    "lowest_confidence": 0.1,
+    "lowest_confidence_dimension": "ambient_ai_workflow",
+    "explicit_exclusions_inspected": 16,
+    "open_gap_ids": [
+      "gap:horizontal-office-admin-operating-tests",
+      "gap:vertical-administration-boundary"
+    ],
+    "research_scores": 0,
+    "target_markets": 0
+  },
+  "input_sha256": {
+    "frontend/e2e/read-surface.spec.ts": "f45f50ad52b83d697d6183adfa1d4acc309ecc44c188bc12fe79319e500d5d24",
+    "frontend/package-lock.json": "1f184a4517dbfe83d9bf0b9b136c7b09c91628c06ea0b40c236ac5975759da6a",
+    "frontend/playwright.config.ts": "72d74f3ab05cade634daca4e98d9cee4c25534e6710d202308a7ab8cdc537a9a"
+  },
+  "merge_authorized": false,
+  "provenance": {
+    "as_of_utc": "2026-11-09T03:30:00Z",
+    "context_fingerprint": "0254f47f2148c024ddee9807c0e2469ee88b0a2d644d22f2f9af11b82bea89cd",
+    "graph_version_id": "graph-e674a77fbfd5939c25c9e9a1",
+    "partition_id": "family-partition:60517981ab96e7f243c7033e",
+    "read_model_version": "1.1.0",
+    "release_id": "graph-release-aa5b6f83e7a06e073d3a",
+    "source_run_id": "run-2ea0f00db84148de663f"
+  },
+  "runtime": {
+    "chrome": "157.0.8103.38",
+    "macOS": "14.6.1 (23G93)",
+    "node": "24.22.0",
+    "npm": "11.19.1",
+    "playwright": "1.65.0",
+    "python": "3.14.2",
+    "vite": "7.3.7"
+  },
+  "scope": "Packaged browser acceptance for issues 26 and 34 and draft PR 29; no research, graph, API, deployment, or merge change.",
+  "server_lifecycle": {
+    "owned": {
+      "pid": 8444,
+      "port": 8034,
+      "started_for_verification": true,
+      "stopped_after_verification": true
+    },
+    "preserved": [
+      {
+        "pid": 90051,
+        "port": 8017
+      },
+      {
+        "pid": 88641,
+        "port": 8028
+      }
+    ],
+    "scoped_approval": "read-only ps inspection of the two existing server commands"
+  },
+  "snapshot_sha256": {
+    "frontend/e2e/__screenshots__/desktop/audit.png": "ea409dfd7f1c1fe287c6c4566d2612a66eb07371f89ac5199aa1ef7667bb3e2c",
+    "frontend/e2e/__screenshots__/desktop/batches.png": "6c0d74939d620f8cccc3310c5abcfcc07844a63487c6eb49dd1a7b5018761fbb",
+    "frontend/e2e/__screenshots__/desktop/families.png": "ec69d131640e41876072745b1b0eab76fd89eb52b5bb6d14a25711c75ec4c5af",
+    "frontend/e2e/__screenshots__/desktop/family-detail.png": "2cd351a628db83134798dd05de8a99f0505106f327e258a829766295676e9be4",
+    "frontend/e2e/__screenshots__/desktop/market-detail.png": "c7b67e90033e8fe66612b2aed21b7c5ac96f8d83eb9f61f5dcba79535bbd7f44",
+    "frontend/e2e/__screenshots__/desktop/overview-markets.png": "71d0fc929b0e22b20dc8e589fd0696b3dde4facae6063f6df44356e9fcfee195",
+    "frontend/e2e/__screenshots__/desktop/overview.png": "69d36ad22ff7afd912508f9653c5696d48316f9a0c9a44bb81e73edf3d3b62eb",
+    "frontend/e2e/__screenshots__/desktop/universe.png": "fc811ee0026fbb614a70effebbc01e679049c2fc20dab0fba3e587710f30cb9e",
+    "frontend/e2e/__screenshots__/mobile/audit.png": "1fadfc9cd1483df096a7654ed32500f6390694b797fc60b052b3704749e75b6c",
+    "frontend/e2e/__screenshots__/mobile/batches.png": "7ef8cc89a2deaedabad6216647f146e7b228d14acc63b11c45ab631565e48a93",
+    "frontend/e2e/__screenshots__/mobile/families.png": "caeb12b42efb72e4115515b8c59ff839aabb316b4cd0753777514e6dce23df99",
+    "frontend/e2e/__screenshots__/mobile/family-detail.png": "6f90e1a1bd47bdfc678266c13bc361010537090e25e3ce4ea9dfe84b0c15c665",
+    "frontend/e2e/__screenshots__/mobile/market-detail.png": "8612e951fc3d9a6fb7882d27e99de8ebfe977ac12568dd173ea58adedeeea035",
+    "frontend/e2e/__screenshots__/mobile/overview-markets.png": "0fa093f31f7029be90e4bbabe6688a7c59f721b1fe602ccef088a83693cc7565",
+    "frontend/e2e/__screenshots__/mobile/overview.png": "50271b92ce1a9ed35565d8658c596f05af7c0bc95c9c24899e372b189dfb6ff6",
+    "frontend/e2e/__screenshots__/mobile/universe.png": "2e4a91f37c72589e93a0c5b44bc82c05c62a5beb06b616fb37e467f6284cd748"
+  },
+  "supersedes_browser_gate_from": "docs/operations/receipts/2026-11-09-app-status-integrated-verification.json",
+  "tested_code": {
+    "commit": "caa95205f5f909d16ec6cff0f5b2ded7ba8cd862",
+    "tree": "7e4e97cb65269638e5c9bf207840a5466adb9781"
+  },
+  "visual_review": {
+    "classification": "fact",
+    "changed_or_new_screenshots": 5,
+    "reviewed_screenshots": 16,
+    "observed": [
+      "all three Overview market statuses are complete and bounded at both viewports",
+      "Universe wording explicitly includes provisional records and remains readable at both viewports",
+      "desktop and mobile route captures are anchored at the intended top viewport",
+      "the remaining 11 historical baselines are byte-identical"
+    ]
+  },
+  "verified_at_utc": "2026-11-09T14:05:48Z"
+}

@@ -37,6 +37,13 @@ The first reviewed family produced **Integrated outsourced office administration
 model and vertical-boundary gaps remain open; family-local non-mappings have not
 removed any of the 978 prior candidates globally.
 
+The [first batch research pilot](data/research_pilots/anchored-20261109/README.md)
+adds six independently reviewed **provisional manufacturing hypotheses**, covering
+82 identity dispositions and one candidate with 16 explicit gaps. These artifacts
+are outside the canonical graph and the counts above. They were authored by a
+collaboration agent after the local CLI attempt failed; no CLI success, canonical
+acceptance, or investment eligibility is claimed.
+
 Current immutable layers:
 
 | Layer | Version |
@@ -149,7 +156,14 @@ The corrected code passed 162 Python tests, frontend unit/type/build checks, and
 host-run browser screenshot/accessibility checks. All 14 desktop/mobile images were
 reviewed, including corrected family counts and Audit provenance. See the
 [verification receipt](docs/operations/receipts/2026-11-09-dashboard-corrections.json)
-for exact hashes and the minor Overview status-badge clipping follow-up.
+for that historical result and its Overview status-badge clipping finding.
+The follow-up changes Overview market rows to keep full status text beneath their
+descriptions and uses neutral collection copy for provisional boundaries;
+direct desktop/mobile inspection confirms readable statuses and bounded descriptions.
+The packaged browser suite now passes at the exact tested tree after a reviewed
+16-image desktop/mobile baseline refresh and comparison-only rerun. The run used an
+owned loopback server while preserving both pre-existing servers; see the
+[browser acceptance receipt](docs/operations/receipts/2026-11-09-app-browser-acceptance.json).
 
 The simulation execution foundation is merged: [B1 / PR #21](https://github.com/michaelsena/turbo/pull/21)
 provides authorization, reservation, and replay within one journal; [B2 / PR #23](https://github.com/michaelsena/turbo/pull/23)
@@ -162,25 +176,49 @@ guarantee. Standalone B1 stays per-journal. See the
 [B2 receipt](docs/operations/receipts/2026-11-09-shared-registry-verification.json)
 for pinned tests, simulation replay, and review results.
 
-[PR #25](https://github.com/michaelsena/turbo/pull/25) implements Track B3, a
+[PR #25](https://github.com/michaelsena/turbo/pull/25), merged at `73bf1f8`, adds B3, a
 standalone batch-output contract over verified family preparations. It checks
 structural coverage, evidence references, reasoning labels,
 confidence, gaps, and boundary proposals; synthetic validation is not research
 acceptance. It does not dispatch models or feed B1 settlement automatically.
 All 237 Python tests passed, including 22 focused checks; independent review found
 no blocking issues. A synthetic two-family validation covered all 59 required
-subjects without changing the market graph. PR #25 remains unmerged. See
+subjects without changing the market graph. These are the pinned B3 results. See
 [ADR 0010](docs/decisions/0010-batch-output-contract.md) and the
 [verification receipt](docs/operations/receipts/2026-11-09-batch-output-verification.json).
 
-Real model dispatch and adapter integration, selective independent verification,
+[Issue 33](https://github.com/michaelsena/turbo/issues/33) implements B4: a simulation
+bridge that retains confidence-bearing output in immutable artifacts and settles
+compact references through the managed journal. Known bounded usage is charged even
+for invalid output; uncertain usage or dispatch retains its reservation. This does
+not accept research or enable a real provider. [PR 35](https://github.com/michaelsena/turbo/pull/35)
+is merged: 23 focused and 282 full-suite tests passed, independent review
+found no P0/P1/P2 issues, and synthetic retry/replay preserved the graph. See
+[ADR 0011](docs/decisions/0011-batch-output-artifacts.md) and the
+[B4 verification receipt](docs/operations/receipts/2026-11-09-batch-research-verification.json).
+
+Real provider integration, selective independent verification,
 disagreement escalation, and deterministic family closure remain later work. Approve
 and evaluate one neutral metered canary before authorizing broad execution. Then
 complete cross-family coverage, publish the canonical universe, add Target filtering,
 and begin production scoring.
 The read product can expand only as those durable projections become available.
 
+An explicitly authorized frozen batch can use the
+[local Codex research runner](docs/operations/real-batch-research.md). It consumes
+account quota, retains exact inputs and final-output receipts, and never
+automatically retries; structural validity still requires substantive review. This
+route is separate from simulation accounting.
+
 ## Working protocol and navigation
+
+The [App/UI GM charter](https://github.com/michaelsena/turbo/issues/26) assigns
+frontend delivery, usability, accessibility, and app backlog ownership separately
+from Platform GM research/execution ownership. Shared API changes require linked
+contract issues. App claims name their owner and branch in GitHub. Automatic issue
+pickup is implemented in the local dispatcher, but its installed runtime reports
+no attempts and has not been verified running. See [dispatcher issue #27](https://github.com/michaelsena/turbo/issues/27).
+A ready issue alone does not start an agent.
 
 Every material change starts with a scoped GitHub issue and acceptance criteria.
 Use a named branch, keep README and detailed docs synchronized, record decisions and

@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import axe from "axe-core";
 
 test("required read surfaces remain accessible and visually stable", async ({ page, request }) => {
-  const marketPayload = await (await request.get("/api/v1/markets?page_size=1")).json();
+  const marketPayload = await (await request.get("/api/v1/markets?page_size=10")).json();
   const familyPayload = await (await request.get("/api/v1/families?page_size=1")).json();
   const versionPayload = await (await request.get("/api/v1/versions")).json();
   const marketId = marketPayload.data.items[0].market_id;
@@ -33,10 +33,36 @@ test("required read surfaces remain accessible and visually stable", async ({ pa
         await expect(page.getByRole("heading", { name: "Explicit exclusions", exact: true })).toBeVisible();
         await expect(page.getByText(/it is not an investment score/i)).toBeVisible();
       }
+      if (name === "overview") {
+        await expect(page.getByRole("heading", { name: "Canonical markets", exact: true })).toBeVisible();
+        const rows = page.locator(".market-row");
+        await expect(rows).toHaveCount(marketPayload.data.items.length);
+        for (const row of await rows.all()) {
+          expect(await row.locator(":scope > span").first().evaluate(element => {
+            const content = element.getBoundingClientRect();
+            const row = element.closest(".market-row")!.getBoundingClientRect();
+            return content.left >= row.left - 1 && content.right <= row.right + 1;
+          })).toBe(true);
+          const status = row.locator(".status");
+          await expect(status).toBeVisible();
+          // Visibility alone does not detect clipped text inside a flex/grid child.
+          expect(await status.evaluate(element => {
+            const badge = element.getBoundingClientRect();
+            const row = element.closest(".market-row")!.getBoundingClientRect();
+            return badge.left >= row.left - 1 && badge.right <= row.right + 1
+              && element.scrollWidth <= element.clientWidth + 1
+              && element.scrollHeight <= element.clientHeight + 1;
+          })).toBe(true);
+        }
+      }
       if (name === "family-detail") {
         await expect(page.locator(".metric-grid.small .metric strong").nth(0)).toHaveText("80");
         await expect(page.locator(".metric-grid.small .metric strong").nth(2)).toHaveText("1");
       }
+      // Element screenshots scroll their subject into view. Re-anchor every route so
+      // the preceding Overview panel capture cannot shift the next viewport baseline.
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
       await page.addScriptTag({ content: axe.source });
       const results = await page.evaluate(async () => {
         return await (window as typeof window & { axe: typeof axe }).axe.run(document, {
@@ -45,6 +71,10 @@ test("required read surfaces remain accessible and visually stable", async ({ pa
       });
       expect(results.violations, results.violations.map(item => `${item.id}: ${item.help}`).join("\n")).toEqual([]);
       await expect(page).toHaveScreenshot(`${name}.png`);
+      if (name === "overview") {
+        const panel = page.locator(".panel").filter({ has: page.getByRole("heading", { name: "Canonical markets", exact: true }) });
+        await expect(panel).toHaveScreenshot("overview-markets.png");
+      }
     });
   }
 
@@ -70,4 +100,22 @@ test("required read surfaces remain accessible and visually stable", async ({ pa
     await page.getByRole("combobox", { name: /research snapshot/i }).selectOption("latest");
     await expect(page.getByRole("heading", { name: "Current provenance" })).toBeVisible();
   });
+});
+
+
+test("long synthetic market status stays readable in a narrow row", async ({ page }) => {
+  // Presentation-only stress fixture; never represents accepted research state.
+  await page.goto("/");
+  const status = page.locator(".market-row .status").first();
+  await expect(status).toBeVisible();
+  await status.evaluate(element => {
+    element.textContent = "synthetic_".repeat(30);
+    element.closest<HTMLElement>(".market-row")!.style.width = "160px";
+  });
+  expect(await status.evaluate(element => {
+    const badge = element.getBoundingClientRect();
+    const row = element.closest(".market-row")!.getBoundingClientRect();
+    return badge.left >= row.left - 1 && badge.right <= row.right + 1
+      && element.scrollWidth <= element.clientWidth + 1;
+  })).toBe(true);
 });

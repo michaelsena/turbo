@@ -54,9 +54,9 @@ function Overview() {
   return <>
     <section className="hero"><Eyebrow>Verified research system</Eyebrow><h1>See the market universe<br />as it is being built.</h1><p className="lede">A read-only view of source coverage, operating-family work, and the cumulative canonical Market Graph. Universe construction stays separate from filtering, evaluation, and ranking.</p></section>
     <section className="metric-grid" aria-label="Current verified counts">{metrics.map(([label, value]) => <article className="metric" key={label}><strong>{value.toLocaleString()}</strong><span>{label}</span></article>)}</section>
-    <section className="two-column"><div className="panel"><div className="section-head"><div><Eyebrow>Canonical graph</Eyebrow><h2>Accepted markets</h2></div><Link to={versionedPath("/universe")}>Explore all</Link></div>{markets.data.data.items.map(market => <Link className="row-link" key={market.market_id} to={versionedPath(`/markets/${market.market_id}`)}><span><strong>{market.canonical_name}</strong><small>{market.definition}</small></span><Status value={market.activation_status} /></Link>)}</div>
+    <section className="two-column"><div className="panel"><div className="section-head"><div><Eyebrow>Canonical graph</Eyebrow><h2>Canonical markets</h2></div><Link to={versionedPath("/universe")}>Explore all</Link></div>{markets.data.data.items.map(market => <Link className="row-link market-row" key={market.market_id} to={versionedPath(`/markets/${market.market_id}`)}><span><strong>{market.canonical_name}</strong><small>{market.definition}</small></span><Status value={market.activation_status} /></Link>)}</div>
     <div className="panel"><div className="section-head"><div><Eyebrow>Deterministic work queue</Eyebrow><h2>Next batches</h2></div><Link to={versionedPath("/batches")}>View manifest</Link></div>{batches.data.data.items.map(batch => <div className="row-link static" key={batch.batch_id}><span><strong>Batch {batch.ordinal}</strong><small>{batch.family_ids.length} families · {batch.required_identities.toLocaleString()} identities</small></span><Status value={batch.status} /></div>)}</div></section>
-    <section className="callout"><div><Eyebrow>Important boundary</Eyebrow><h2>This is not a ranking.</h2></div><p>Family priority is administrative and neutral. A market’s presence means only that its boundary passed the audited universe-construction process.</p></section>
+    <section className="callout"><div><Eyebrow>Important boundary</Eyebrow><h2>This is not a ranking.</h2></div><p>Family priority is administrative and neutral. The graph includes provisional boundaries. Read each market’s status and open gaps before treating its boundary as settled.</p></section>
   </>;
 }
 
@@ -74,7 +74,7 @@ function Universe() {
     { header: "Parent", accessorFn: row => row.parent_market_id || "—" },
   ], [versionedPath]);
   function submit(event: FormEvent) { event.preventDefault(); setSearch(current => { current.delete("page"); draft ? current.set("q", draft) : current.delete("q"); return current; }); }
-  return <><header className="page-head"><div><Eyebrow>Cumulative canonical graph</Eyebrow><h1>Market universe</h1><p>Accepted boundaries in the current graph version—not a shortlist or ranking.</p></div></header>
+  return <><header className="page-head"><div><Eyebrow>Cumulative canonical graph</Eyebrow><h1>Market universe</h1><p>Market boundaries in the selected graph, including provisional records—not a shortlist or ranking.</p></div></header>
     <form className="filters compact" onSubmit={submit}><label><span>Search</span><input value={draft} onChange={event => setDraft(event.target.value)} placeholder="Name, definition, or ID" /></label><button>Search</button></form>
     {result.isPending ? <Loading /> : result.error ? <ErrorState error={result.error} /> : <><p className="result-count">{result.data.data.total.toLocaleString()} records</p><DataTable data={result.data.data.items} columns={columns} /><Pager page={result.data.data} setPage={value => setSearch(current => { current.set("page", String(value)); return current; })} /></>}
   </>;

@@ -76,6 +76,9 @@ those runtime details in the acceptance receipt. Investigate a mismatch before
 changing baselines. Use `npm run test:visual:update` only when an intentional reviewed visual
 change requires new baselines. Commit the deterministic files under
 `frontend/e2e/__screenshots__/`; never commit `test-results` or `playwright-report`.
+The route loop explicitly restores `window.scrollY` to zero before axe and viewport
+capture. This keeps the separate Overview market-panel element screenshot—which
+scrolls its subject into view—from shifting the next route's viewport baseline.
 
 If the test executor cannot bind a server, start the compiled product from a shell
 that can bind loopback. From the repository root:
@@ -242,11 +245,60 @@ confidence in the range zero through one is not proof of calibration or factual
 truth. A proposal with valid fields still needs substantive evidence and quality
 review. Synthetic examples are not research executions or accepted boundaries.
 
-This contract is not connected to B1 settlement or a real provider. B1's fake
+The standalone B3 command does not settle a B1 attempt or call a real provider. B1's fake
 response envelope rejects floating-point values throughout its output; do not assume
-that a B3 confidence-bearing document can be embedded there unchanged. Adapter and
-settlement integration require a later reviewed contract. See
+that a B3 confidence-bearing document can be embedded there unchanged. B4 uses
+separate immutable artifacts for simulation settlement; real-provider integration
+remains later work. See
 [ADR 0010](../decisions/0010-batch-output-contract.md).
+
+### Managed batch-output artifact replay (Track B4)
+
+B4 uses the same trusted local registry and exact preparation inputs as B2. Set the
+authorization's `prompt_sha256` to `research_contract_sha256(root=...)` from
+`turbo.agents.batch_research`, not the raw B3 prompt-file hash. This effective digest
+pins artifact kind, B3 prompt/schema hashes, and output/context byte caps before
+claim or dispatch; B3 context still carries the raw prompt hash. It is exercised through the Python
+`BatchResearch` API and fake transport only; there is no live execution command.
+To inspect an existing artifact-backed attempt:
+
+```bash
+PYTHONPATH=src python3 -m turbo.cli batch-research-validate path/to/registry \
+  "$AUTHORIZATION_SHA256" path/to/preparation-1 path/to/preparation-2
+```
+
+Use the exact authorization digest and same manifest-ordered preparations. This
+command is read-only: it regenerates context, validates persisted artifacts and
+structural verdicts, and checks settled ledger references. It neither invokes a
+transport nor repairs a journal. B1 generic settlements do not satisfy this B4
+artifact contract.
+
+For fake integration tests, construct `BatchResearch(registry_dir, authorization,
+preparation_dirs)` and call `run(request_id, worker_id, fake_transport, retry_of=...)`.
+The callback receives B3 context and returns raw `body` bytes plus integer token
+`usage`. Request identity determines a stable invocation within the authorization;
+resume never authorizes another transport call for a dispatched attempt.
+
+A bounded invalid response with known bounded usage still costs its recorded usage.
+Unknown/invalid usage, oversized raw output, transport failure, or uncertain artifact
+persistence retains the full reservation. Inspect unresolved work and orphan
+artifacts; do not manually settle it from file existence, refund it, or automatically
+retry it. Existing retry rules remain unchanged for properly settled failed work.
+
+Keep the managed journal and `research-artifacts/` together. Raw response content and
+confidence live outside the float-free ledger; compact hashes bind their receipts to
+settlement. Replay may be valid while attempts remain unresolved or no output has settled;
+check `unresolved_requests`, `artifact_valid_requests`, and
+`structurally_valid_outputs` separately. These are not accepted research counts or
+quality scores. Real provider integration and substantive review remain later work.
+See [ADR 0011](../decisions/0011-batch-output-artifacts.md).
+
+### Real frozen-batch research
+
+For an explicitly authorized batch using the local Codex account, follow the
+[real-batch operator guide](real-batch-research.md). Keep one fixed output root and
+retain interrupted attempts; this route does not use the simulation ledger or the
+OpenRouter pilot. Structural validation is not substantive research acceptance.
 
 ### Existing metered pilot lane
 
@@ -362,4 +414,3 @@ The GM/PM owns decomposition and integration. Parallel agents receive non-overla
 issues or review scopes. Each returns evidence, files changed, local test results, and
 open risks. One agent's output is not accepted merely because another agent produced
 it; integration and independent review remain explicit.
-

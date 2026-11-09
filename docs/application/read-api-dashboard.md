@@ -168,8 +168,50 @@ The corrected code passed host-run browser comparisons and accessibility checks 
 required identities and Audit reports read-model 1.1.0. The executor's loopback and
 Chrome restrictions were handled with the runbook's external-server path. See the
 [exact verification receipt](../operations/receipts/2026-11-09-dashboard-corrections.json).
-One minor visual follow-up remains: the desktop Overview clips a long market-status
-badge; full statuses remain available in list/detail views. PR #19 is merged at `a9aef2befbc61208431ce4b546d6bed15d6edef1`.
+That receipt records the earlier desktop Overview badge clipping. The follow-up
+uses a bounded single-column market row: name/description first, then the complete
+status badge, wrapping when necessary. Overview and Universe call the collection
+canonical markets in the selected graph and explicitly retain provisional boundaries;
+listing a boundary does not imply it is settled. No status value or graph record is
+changed. Regression checks assert status geometry at desktop/mobile widths and use
+an explicitly synthetic long-status stress case. Direct connected-Chrome inspection
+at desktop (1440 × 1000) and mobile (390 × 844) confirms all three full statuses and
+bounded descriptions; historical Universe → Audit navigation retains the exact tuple.
+The packaged Playwright/axe suite subsequently completed at tested commit
+`caa95205f5f909d16ec6cff0f5b2ded7ba8cd862`: the reviewed all-baseline refresh and
+comparison-only rerun each passed 4 tests at desktop and mobile, including the
+synthetic stress case. All 16 images were inspected. An owned preview on port 8034
+was stopped after the run; the pre-existing 8017 and 8028 servers were preserved.
+See the [browser acceptance receipt](../operations/receipts/2026-11-09-app-browser-acceptance.json).
+PR #19 is merged at `a9aef2befbc61208431ce4b546d6bed15d6edef1`.
+
+## App ownership and intake
+
+The [App/UI GM charter](https://github.com/michaelsena/turbo/issues/26) governs frontend,
+UX, accessibility, frontend tests, app documentation, and the app backlog. Platform GM
+retains research and execution ownership. Propose shared read/API changes through a
+linked issue specifying contracts, compatibility, and acceptance checks before editing.
+Each app issue names `Owner: App/UI GM`; its claim records branch and immediate scope.
+The merged dispatcher implements `area:app` plus `status:ready` routing and requires
+an authorized readiness event. Label existence and live pickup are separate checks.
+The installed runtime currently reports no attempts and has not been verified running;
+see [#27](https://github.com/michaelsena/turbo/issues/27) and the
+[dispatcher guide](../operations/app-dispatcher.md).
+During an active session, resume owned work before claiming another issue. No merge
+occurs without explicit chairman authorization.
+
+## Current integration verification
+
+The [prior integration receipt](../operations/receipts/2026-11-09-app-status-integrated-verification.json)
+records the pre-browser state: 259 passing Python tests, 31 focused read/API checks,
+9 frontend tests, typecheck/build, validation and unchanged context replay. The
+[browser acceptance receipt](../operations/receipts/2026-11-09-app-browser-acceptance.json)
+resolves its remaining packaged-suite gate: 4/4 Playwright tests passed after the
+reviewed refresh and again comparison-only; all 16 screenshots were inspected; the
+focused, frontend, full Python, validation, source replay, context and full-field
+checks also passed. Issue #34's execution dependency is satisfied for this exact
+tree. Independent static review remains the prior zero-P0/P1/P2 result; no new
+independent visual review is claimed. No merge is authorized by either receipt.
 
 ## Market identity inspection
 

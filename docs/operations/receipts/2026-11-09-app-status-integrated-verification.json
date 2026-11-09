@@ -1,0 +1,211 @@
+{
+  "base": {
+    "published_commit": "d9bbf77acb5c6f2f29c6f35eecf96911c023be02",
+    "tree": "3345cacd911ddbac8d3765f2a3ae07198f14b56a"
+  },
+  "browser_execution_gate": {
+    "dependency_issue": 34,
+    "reason": "Managed shell cannot bind loopback; no permitted browser process runner verified. Direct browser control is available but is a distinct capability.",
+    "remaining": [
+      "packaged Playwright/axe suite at current head",
+      "synthetic long-status stress test",
+      "intentional reviewed screenshot-baseline update and comparison-only pass"
+    ],
+    "status": "blocked"
+  },
+  "build_output_sha256": {
+    "frontend/dist/assets/index-DNoTDWpn.css": "ac6c09e0ef827fa36cf9504b4ace708ebdf83f9e0c391bbb9a5d0af40464ac61",
+    "frontend/dist/assets/index-IYxnlvZQ.js": "4ecbd3a07ae2ee89cc28a88a9f5a480f2ff9f869c7f58e7e00935366d57a61ad",
+    "frontend/dist/index.html": "a49955403d02af36e850344342eca35f0bd6bf255fb11ce410a18fdefc98f135"
+  },
+  "checks": {
+    "build": {
+      "command": "npm run build",
+      "result": "passed"
+    },
+    "canonical_data_diff": "empty",
+    "context": {
+      "byte_identical_to_initial": true,
+      "result": "passed"
+    },
+    "diff_check": "passed",
+    "focused_python": {
+      "command": "PYTHONPATH=src .venv/bin/python -m unittest tests.test_read_model tests.test_web_api -v",
+      "passed": 31,
+      "seconds": 43.187
+    },
+    "frontend_unit": {
+      "command": "npm test",
+      "passed": 9
+    },
+    "full_python": {
+      "command": "PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -v",
+      "passed": 259,
+      "result": "OK",
+      "seconds": 702.507
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "result": "passed"
+    },
+    "validate": {
+      "errors": [],
+      "valid": true
+    }
+  },
+  "direct_browser_inspection": {
+    "new_baselines_accepted": false,
+    "observed": [
+      "all three market statuses fully visible in complete Overview panel screenshots",
+      "all six row children stay inside market-row boundaries without horizontal child overflow at both viewports",
+      "mobile document width equals390px viewport",
+      "Universe retains neutral selected-graph/provisional wording",
+      "historical selection propagates exact source/partition/graph from Universe to Audit",
+      "Audit active provenance uses selected historical partition family-partition:7cd6554639bfffa181a3466a"
+    ],
+    "packaged_suite_executed": false,
+    "recorded_github_comment": "https://github.com/michaelsena/turbo/pull/29#issuecomment-6740730874",
+    "reviewer": "App/UI GM root",
+    "status": "passed_for_listed_checks",
+    "surface": "connected Google Chrome, existing user-owned loopback preview port8028",
+    "temporary_viewport_reset": true,
+    "user_server_preserved": true,
+    "viewports": [
+      {
+        "height": 1000,
+        "width": 1440
+      },
+      {
+        "height": 844,
+        "width": 390
+      }
+    ]
+  },
+  "dispatcher": {
+    "dispatcher_started_by_this_session": false,
+    "github_cli_preflight": "fails to connect to api.github.com in current managed shell; not evidence of invalid credentials",
+    "implementation": "merged on main through issue27",
+    "installed_state": "empty; attempts[]",
+    "login_preflight": "Codex ChatGPT login verified",
+    "running": "not_verified"
+  },
+  "frontend_input_sha256": {
+    "frontend/e2e/read-surface.spec.ts": "5990fd973231acc716c5aced87422ebfc5271beae533b7357a2b1fb22bc5b2ef",
+    "frontend/package-lock.json": "1f184a4517dbfe83d9bf0b9b136c7b09c91628c06ea0b40c236ac5975759da6a",
+    "frontend/src/App.test.tsx": "0a3fd181a48e84290ca51cea2f673657a036047d3555aca9d581ebbc6f98c3e2",
+    "frontend/src/App.tsx": "155f5c4994a2445902644be69b5e5249b664bb6b3fcd7c63450cd9e17c8ab248",
+    "frontend/src/styles.css": "4c58c33d7bd53123e9318f4e251d767a5e45fa26160f683ec10f2f6d7f75fdac"
+  },
+  "full_field_inspection": {
+    "canonical_data_diff": "empty",
+    "confidence_by_dimension": {
+      "Dental practice administration": {
+        "acquisition_universe": 0.32,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.38,
+        "delivery": 0.48,
+        "economics_risk": 0.15,
+        "job": 0.58,
+        "workforce": 0.45
+      },
+      "Integrated outsourced office administration": {
+        "acquisition_universe": 0.7,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.65,
+        "delivery": 0.85,
+        "economics_risk": 0.3,
+        "job": 0.88,
+        "workforce": 0.84
+      },
+      "Medical practice administration": {
+        "acquisition_universe": 0.32,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.38,
+        "delivery": 0.48,
+        "economics_risk": 0.15,
+        "job": 0.58,
+        "workforce": 0.45
+      }
+    },
+    "explicit_exclusions": "inspected in complete read-model render; unchanged",
+    "market_statuses": {
+      "Dental practice administration": "provisional",
+      "Integrated outsourced office administration": "accepted_with_open_gaps",
+      "Medical practice administration": "provisional"
+    },
+    "open_gap_ids": [
+      "gap:horizontal-office-admin-operating-tests",
+      "gap:vertical-administration-boundary"
+    ],
+    "scores": 0,
+    "target_markets": 0
+  },
+  "independent_review": {
+    "independent_visual": "not completed; browser tab creation returned cancellation without page state or screenshots",
+    "local_commit": "a7e0bfbd6e3ebecff3a553cb45af0dbee0506919",
+    "p0": 0,
+    "p1": 0,
+    "p2": 0,
+    "reviewer": "app_audit scoped subagent",
+    "scope": "frontend and integrated README/app docs static review",
+    "tree": "54f877dfd80240c025cc31c42a66eeef3e6e62fa"
+  },
+  "inputs": {
+    "graph_projection": "a22336b3711ba1095607aa03850607cb50a801c49abcd3e3cd0b3d914b87b8ca",
+    "graph_receipt": "60000766e22dd07dd63aa865618d92774d7f4d0d5eb89d95c2353a659fff48d3",
+    "schedule_outputs": {
+      "batch-manifest.json": "0fed1a507344eeafecd06bb9c7806fbb434bd6b7e52557af303f05c94586b6b0",
+      "candidate-collision-ledger.json.gz": "6c9c805392c910a64a797c525f234ce8c2bd54601d9f296775b0d75f80725f92",
+      "context-edge-ledger.json.gz": "9af74b8379fc004c7c6e49fc8aca40cea27f4e720ba89eb304c7573819163db5",
+      "coverage-ledger.json.gz": "aa3629fb6974673253013d531dfe703f826355d849ef5001c93cdf4c0b789efc",
+      "family-manifest.json.gz": "f960d7f49e5755e63ceafa8abd5704fbc2acde72355ee5677ee305a1689cb5dd"
+    },
+    "schedule_receipt": "e162e3bf258d77b87f9ccb3bd323562499fc0261f68fa508ea5096bfd5667b91",
+    "source_outputs": {
+      "identity-relationships.json.gz": "e3753b2902723245369fa01aae42b23b95ac641b3f8194d43b36f3421e9f06b7",
+      "identity-source-summary.json.gz": "b7b4fa9685b98f292b9c1365df1577a3bf221e21dfe2591992284c5955e4f6ee",
+      "multisource-reconciliation.json.gz": "80eef412e9f48388c6f50c03faee2d75ebba382c560175f5ed1241fc0c5ac02b",
+      "naics-identity-evidence.json.gz": "c2ad398ce33457b9486df665222b4700889b6b8e924b03b4619b04c0cd3eeaf5",
+      "naics-identity-source-summary.json.gz": "cf4c3c746481974e320c52aee18456dc3860105e9509eafa85a2f5ab9411a9c4",
+      "napcs-hierarchy-evidence.json.gz": "e35bebe1fc3979393bd946f205f316b49f6c0561785e8417db19ddb5686c9f77",
+      "napcs-hierarchy-source-summary.json.gz": "3f514ac4301ce04f733dcd3b61dd2128ca3b2c213b95d9460acceb168dcea8e1",
+      "raw-source-hierarchy.json.gz": "6ae20ad5f11574bad02aafcaa6a530f461cfc278d82dec5d1b5821a65343db52"
+    },
+    "source_receipt": "e0ea7bf16b4a55488d9cfad5da90bc4e58e7b18f1b6ef667aeb4dd971fa375de"
+  },
+  "merge_authorized": false,
+  "output_sha256": {
+    "turbo-app-ui-current-context.json": "0300ce2cd11139c85bb49578f025831d59171b1ef9d12a0dbe6941b5f9950962",
+    "turbo-app-ui-current-focused.log": "117c5fafd258340c14f5084f34177e7950ea2169509671061cb6e3c9b65d092b",
+    "turbo-app-ui-current-validate.json": "655823ac7f996b259837b1279f4757264aac1ab82808d9b562c06a9f640f36af",
+    "turbo-app-ui-integrated-full.log": "84fbf87243ae4ebcc311d019aef984a653ba3a0d8a5ff46ffdfa84804867c7be",
+    "turbo-app-ui-rerender.json": "d3a8585e03309c47fc3a41a326d2a009c2e5e6e0e0b276e61fc292ffa0fac3b0"
+  },
+  "provenance": {
+    "as_of_utc": "2026-11-09T03:30:00Z",
+    "context_fingerprint": "0254f47f2148c024ddee9807c0e2469ee88b0a2d644d22f2f9af11b82bea89cd",
+    "graph_version_id": "graph-e674a77fbfd5939c25c9e9a1",
+    "partition_id": "family-partition:60517981ab96e7f243c7033e",
+    "read_model_version": "1.1.0",
+    "release_id": "graph-release-aa5b6f83e7a06e073d3a",
+    "source_run_id": "run-2ea0f00db84148de663f"
+  },
+  "runtime": {
+    "chrome": "157.0.8103.38",
+    "macOS": "14.6.1 (23G93)",
+    "node": "24.22.0",
+    "playwright": "1.65.0",
+    "python": "3.14.2",
+    "vite": "7.3.7"
+  },
+  "scope": "Current-main integration of App/UI provisional-status clarity; no research or graph changes. Packaged browser acceptance remains blocked.",
+  "supersedes": "docs/operations/receipts/2026-11-09-app-status-initial-verification.json",
+  "tested_code": {
+    "frontend_unchanged_from_directly_inspected_local_commit": "04d1421ef64c941c73b67624b37ba453a9021101",
+    "local_commit": "a7e0bfbd6e3ebecff3a553cb45af0dbee0506919",
+    "published_commit": "c52c18722bc9dbd9cbc79428242debb4fc54574f",
+    "tree": "54f877dfd80240c025cc31c42a66eeef3e6e62fa",
+    "worktree_clean_throughout_full_suite": true
+  },
+  "verified_at_utc": "2026-11-09T13:22:20.150794+00:00"
+}

@@ -70,8 +70,11 @@ There is no silent truncation, inferred substitution, activation, or graph mutat
 - Track B2: trusted local registry for managed authorization consumption; simulation
   only, merged and locally verified.
 - Track B3: implemented in PR #25; all 237 Python tests, 22 focused checks, synthetic
-  replay, and independent review passed. The PR remains unmerged.
-- Later Track B: real model adapter and contract integration, selective verification,
+  replay, and independent review passed. Merged at `73bf1f8`.
+- Track B4: artifact-backed managed simulation integration in Issue #33 is verified
+  in [PR 35](https://github.com/michaelsena/turbo/pull/35), unmerged; see the
+  [B4 receipt](../operations/receipts/2026-11-09-batch-research-verification.json).
+- Later Track B: real provider integration, selective verification,
   disagreement escalation, and provider-cost reconciliation.
 - Track C: progress events, closure receipts, cross-family conflict checks, and
   cumulative graph-release integration.
@@ -178,7 +181,7 @@ No real provider call, approval authentication, or research activation is includ
 tests passed in 675.858 seconds, including 22 focused checks that separately passed
 in 71.554 seconds. Independent review found no blocking issues. Synthetic replay
 covered one required identity and 58 candidates with explicit unresolved gaps and
-no graph mutation. The PR remains unmerged. The
+no graph mutation. The PR merged at `73bf1f8`. The
 [verification receipt](../operations/receipts/2026-11-09-batch-output-verification.json)
 records exact tested commits, hashes, runtime, and limitations.
 
@@ -190,8 +193,32 @@ validation rather than trusting a caller-edited coverage list.
 
 This increment exercises synthetic outputs only. Structural validity and bounded
 confidence do not establish factual correctness, calibration, or a reviewable
-research conclusion without substantive quality review. The contract is not wired
+research conclusion without substantive quality review. B3 itself does not wire the contract
 into B1/B2 settlement: B1's fake response envelope rejects floats, while B3 permits
-finite confidence values. Real adapters, integration, research review, and activation
-remain separate work. See [ADR 0010](../decisions/0010-batch-output-contract.md) and
+finite confidence values. B4 addresses the simulation artifact bridge below; real
+providers, research review, and activation remain separate work. See [ADR 0010](../decisions/0010-batch-output-contract.md) and
 the [runbook](../operations/runbook.md#batch-output-contract-inspection-track-b3).
+
+## Track B4: immutable output artifacts and managed settlement
+
+[Issue 33](https://github.com/michaelsena/turbo/issues/33) connects B3 validation to
+managed simulation execution without changing B1/B2 schemas. Full confidence-bearing
+responses and validation receipts live in immutable artifacts; compact hash-bound
+references enter the integer-only ledger. Repeated or restarted managed attempts
+must not dispatch again.
+
+Known valid bounded usage is charged even for structurally invalid output. Unknown
+or invalid usage, ambiguous transport, and uncertain persistence retain reservations
+without automatic retry or refund. Replay checks artifact ownership, bytes, input
+and context bindings, verdict, and journal references. Structural validity is not
+substantive evidence review or research acceptance.
+
+[PR 35](https://github.com/michaelsena/turbo/pull/35) is verified and unmerged:
+23 focused and 282 full-suite tests pass; independent review found no P0/P1/P2
+issues. The synthetic canary charged 20 microUSD for invalid coverage and 24 for a
+valid retry, retained zero outstanding reservation, and replayed without another
+callback or file change. The canonical graph remained unchanged. See the
+[verification receipt](../operations/receipts/2026-11-09-batch-research-verification.json).
+No real provider, live execution CLI, score, graph activation, or frontend change
+is included. See
+[ADR 0011](../decisions/0011-batch-output-artifacts.md).
