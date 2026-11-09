@@ -1,0 +1,2548 @@
+{
+  "alternatives_considered": [
+    "A separate market for each reported NAPCS product was rejected: industry-product relationships establish reported products, not a shared operating identity.",
+    "Narrow prior candidate seeds were rejected because none is evidenced as equivalent to the integrated multi-function boundary.",
+    "The two specialist proposals were merged under the clearer integrated-outsourced-office-administration formulation."
+  ],
+  "analysis_summary": "The evidence directly supports one operating market: contract- or fee-based delivery of an integrated range of day-to-day office administrative functions for client organizations. The defining boundary requires a range of functions and excludes complete operation of the client business; the manual also separates management consulting, property management, computer facilities management, construction management, food-service management, and single-support-service providers. NAPCS identities are reported product identities associated with the industry and are not themselves operating-market identities.",
+  "candidate_dispositions": [
+    {
+      "candidate_market_id": "candidate-market:00095b7c27b7c679b4303c28",
+      "confidence": 0.84,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "A narrow dispatch/billing workflow does not evidence the required integrated range of office functions.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:007b2d3661bb4eaa6f78d638",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0149cb1f23b6c0fdcee1d68e",
+      "confidence": 0.93,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single specialist managed service, not an integrated office-administration offering.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0220a26a8f39cc99c6f80d79",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:04c7d46701ae1dcd03015d74",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:072030972a077ba627c6dbfd",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:086bac7b09fbc3f54a7d7bd4",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0a029ecc18f4807b4c01770e",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0b7e3eb71e58765476c6285c",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0c18f6607af933ca8432686f",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Vertical specialist coordination is not the integrated office-administration boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0c275f55a03a6956219d316d",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "fact",
+      "proposal_ids": [],
+      "rationale": "Management advice without day-to-day management is explicitly outside the industry boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:143be21b6989c55dc5a84fed",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:1480a724ba58b5d5f128cce4",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single technical service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:15e240367d707e62e441deb6",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:17057f00f350dbf892c8f27c",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:177699c95565599564670a22",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:1c8b0adcff1ef7467e309620",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:1f5dc416c4cd112172aebd85",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:20d043d440539d3fd61b6719",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2118c1b964a8d177fcb7b461",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single technical service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:233c03efa0c9bc950cc548da",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Vertical specialist service is not the integrated office-administration boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:26306d42f3067db3d573d9d8",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single technical service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:274afebd1474a99e58c712e9",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2b5bf7917ca64940e540352d",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single support service is not the integrated office-administration boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2c736ff785f142bbc6e3bb99",
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "fact",
+      "proposal_ids": [],
+      "rationale": "Construction management is explicitly cross-referenced outside this industry.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2c8608f5ebb6f1a7c7b8dcc9",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2efc806090544b10c7bbe4e2",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Specialist legal-support service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:31a8be271ce7dcc26ba2177a",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:374df39ea8dcab70439fb738",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:3fb47e68c79ba2ddcd554f95",
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "fact",
+      "proposal_ids": [],
+      "rationale": "Management advice without day-to-day management is explicitly outside the industry boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:404ed85c65f9b35c56b96ddd",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Specialist legal service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:41f1904f971ef4af453afbfe",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:4405d750cc679bfe1280520e",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:45334d728adf272076854946",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Specialist content service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:466c6c191bf5e28d0419ba0b",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:47ab6392ed72aef7967dd71c",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:4857beb93a522839a9ef5cb3",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:4870ae961ee618140727f76a",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:490ec0dc65f068019eba9aba",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:49148114f3d02c6f1682e6d1",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single technical service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:4dae82ea274a2a67780d6c30",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single technical service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:51c132ad21f52e923d1ef819",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:52ae777f3da71972d5eecb5a",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single labor-market service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:57dac7780a62d6b35700dd3e",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Specialist insurance service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:57f01b2eb45e93d01d9bdf66",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Specialist insurance service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:590501d8a94f5b2cf74c7bd4",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:5f3daef53d424d46d8e9858d",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:64782526f6372bed5d1d6ddc",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:6a2d79f21fe516e3557f2ff1",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single technical service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:705d6a292d77a7a99510415d",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:707b66399aa66923b045b867",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Production service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7091390bf8c23bf53716ded5",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single specialist support service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:72fe70f94c65299acfadb880",
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "fact",
+      "proposal_ids": [],
+      "rationale": "Management advice without day-to-day management is explicitly outside the industry boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:77e1259f6f4a5dc6743feb73",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single specialist support service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7aa463165d5b0c85f3f3516b",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7adb16106172a2f29eb35ee9",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7b94a5af8df9c83048cb92cd",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Specialist analytical service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7bfe7bb6084f75cc36146ad2",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7d7687f9a4389f3a5d384e4c",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Vertical specialist support service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:80de45a7c1a8411c9e3256c3",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8215b70383952a7f95d608a0",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:82806428882f6ea8fdf544ac",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8602b66ec08457109662b617",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single specialist support service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8954ffe252dffbca8dea63bf",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8c80137625413d7a0cd7ab27",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "fact",
+      "proposal_ids": [],
+      "rationale": "Management advice without day-to-day management is explicitly outside the industry boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8e80554b86b540e5fc9f0763",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8ec81c3c408c6e5029d48d88",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single support service is not the integrated office-administration boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8ef4eeab88443720c9f3e8ea",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:905913e88df68e9277b30089",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:90819988665f00b67a77894a",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Specialist content service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:951ad44e618860beb1c6807f",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:95f2e15a23f82c272a53c93b",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:98fc545d539bc3610b4e661e",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Specialist language service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:9a5f3e12237cfc35b5d4fece",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:9a74b72a45ab4549a1c282f4",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "fact",
+      "proposal_ids": [],
+      "rationale": "Management advice without day-to-day management is explicitly outside the industry boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:9f4ba3d8fd05b52e9e450370",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a157567f7d558f502a9d20a6",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single technical service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a16caf87ccdccd9515746910",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a228a7e6c3b976cafb060250",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a51ce8f59ea8e69213df6f38",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a5bed6b4c178b47f3cb3cf86",
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "fact",
+      "proposal_ids": [],
+      "rationale": "Real-property management is explicitly cross-referenced outside this industry.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a700b93fadefe3102a797e3d",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a808e050b06d3e48840ac1dc",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:abe2231a1265dfa9442ada12",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ae7c2c8ec3c988dfc7a37197",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:b208ae36081a29f8115bef0a",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ba14ea1d7f7250e92c254818",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single specialist support service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:bc371b534805e498bd65748a",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single technical service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:bc671578ed6c8ac86e579dae",
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Vertical operating model is not evidenced as equivalent to the general integrated boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:bdffae11b3d5b58911a9fe3a",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Specialist professional service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:bf994d8adf9126be46a9d487",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Specialist insurance support is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:c1a9137c708b815abf514639",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "fact",
+      "proposal_ids": [],
+      "rationale": "Labor supply is distinct from the integrated administrative-service boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:c7ef2c664629455f45054398",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:c9bc2b5dcd00d064ed2137a5",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:caa212ece802fe6fffe00608",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cbf2fc3a80c6da4531dd143b",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cc4eb7571be86e23bfaca940",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "fact",
+      "proposal_ids": [],
+      "rationale": "Management advice without day-to-day management is explicitly outside the industry boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cc5c2b663ea4dd50e2186369",
+      "confidence": 0.88,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Vertical management service is not evidenced as equivalent to the general integrated boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cf0500f84b010f42bb58e499",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "fact",
+      "proposal_ids": [],
+      "rationale": "Management advice without day-to-day management is explicitly outside the industry boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cf060693786866c832fa1d44",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d0a7feead2a8ee4ffea7afc5",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d2bfadc84b4fff9d36fbff57",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d5a727a29368e643cd159439",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d699f1b75955b0231547ceea",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d929827c3a5c08dc27f39265",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:dae8ed82893a50c798edf5d3",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Production-procurement service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:dd362bcd5c61840e9197ff40",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:de707741045d401cc1c5acd6",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e1b2ccf8bb19dfc2d57ccc08",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e24adfa895e0fd39ad1087a0",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e403e131940a27b5430512e5",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e640c645982e326ab30a8edd",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e68435171d112228418755ca",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e9e0eb597f1c09664430d69a",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ea24fa67b5fdc79ca93ab3ab",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single document service is not the integrated office-administration boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ed4805d33ad2109875a6ef33",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single document service is not the integrated office-administration boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:edcfbfe448e631a166cf9872",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ef0487a6470e4ada0e85d520",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ef051f628282ef235dec3edb",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Specialist legal-support service is not integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f03413b44d1ea1114967030a",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f3ceb8241e205094081d2e48",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f50891bf2e5a7d4edfe56058",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Vertical specialist service is not the integrated office-administration boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f655fb660b1bc4595a804d8c",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f713aa7201868b482386d8fe",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f9753ba56afe540a0eeb5e34",
+      "confidence": 0.97,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unrelated operating service outside integrated office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:fb494cca1c3ab48d968a8f34",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "fact",
+      "proposal_ids": [],
+      "rationale": "Management advice without day-to-day management is explicitly outside the industry boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:fb6f65200317750c23dc8b7a",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Single support service is not the integrated office-administration boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    }
+  ],
+  "family_id": "office-administrative-services-v1",
+  "identity_dispositions": [
+    {
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "map_to_proposal",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:naics:561110",
+      "proposal_id": "proposal:integrated-outsourced-office-administration",
+      "rationale": "The manual directly defines a contracted range of day-to-day office administrative services for others and excludes complete business operation.",
+      "relationship_type": "industry_containing_market",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:2052875000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:616d14da21c87c6a4f0e3453"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3001050000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:9a286235b835de25dcd8fa7c"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3001410000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:f5984a9b565e6d26ebf9a71e"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3001500000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:d347d7ccb9a1f2a70c565216"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3002050000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:78214b1bcba505ce31f72ff7"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3004800000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:460f5f1cfa4b0dcd890d31f6"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:6000175000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:0750fa9c6330e187ea7ef0ca"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7001300000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:f47efa6b5dbf507d8af429ff"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7002545000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:b712dc57d1df9a44011866ee"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7003925000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:357f41887939a9289cf0c410"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7004125000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:0c9dae7e51df30eb1a88c439"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7004650000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:b3e04688aa813bc1d07b5c8d"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7004955000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:b4ffd0a227c121682d34fdd8"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005450000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:c62d71ae6f967d83ecc7553b"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005562000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:711a3373d1207abe20aabbb3"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005563000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:bbaca0581cda860a974c85ea"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005700000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:7abbe8aa7bfa3d8f8a4cfb22"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005950000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:9dd3c235dfc7afbd470847a8"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7006300000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:d86709c71d7b37231af3c849"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7008550000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:ddeef1935407632b229ef1bd"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7010350000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:a944ead791e0c0cd9497bd1a"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7010450000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:3cb325f5ec773501da373171"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012028000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:2639ddcf5e1e97d90ae49333"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012045000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:2123d24702f6b0f2c315ed2b"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012270000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:b945e74c78a8c489b650af3c"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012450000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:13261c7331cf2d6ce0f0b8a7"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012475000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:26245cf222b5987dd8263cc1"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014150000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:7878bb0546eb4f01e86048f6"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014225000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:6962fbe86c877dbcb98a35c7"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014300000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:016b1d6c5681aa52dd079b94"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014410000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:486a54dabda9da353efb6cc6"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014450000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:fb755eedf8bc3e5a6d4b45b4"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014450003",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:e8b9bb96cdcdb87f29493e7b"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014450006",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:b31a93c256e3995b6f345db3"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014530000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:091c3d68330abae8ca5af904"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014550000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:bbc545d3fcdecea0a1b75cde"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014550003",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:f0a1a0c9928a0b68c0b8c907"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014550006",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:dab5905d9f8985e24a12e7c3"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014550009",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:4ac8cae0455d50b737c159c1"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014575000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:e477b1f224550a3c29e6d306"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014600000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:338c242b67b0185e0745b08e"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014625000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:4fb1996cc23898e5fec65528"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014650000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:7e866af3316015432b50a42e"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014670000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:63b765d9f5b7c5669d3d3de0"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014675000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:52fbe41bab7e5c7e9b4b66b0"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014725000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:7c16b0aaae91603165af18b6"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014750000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:cca171015999e1c4bc3be592"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014775000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:eb672cafea35ed15d15bfec4"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014800000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:b73eeb74f6bd17518bcda59c"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014825000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:e4a7304c45468d6b18050005"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014850000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:aae59dd2f05e6a049e5dcce2"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014875000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:46b19d8aa779bf6ba586e38b"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014925000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:a8ac18520cd6d77d377f1f64"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016325000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:b40696df37cd0aca1303fdb8"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016375000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:9cdedb0569fb91c7f843dae6"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016450000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:4189bd24c89c4edc9d62301c"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016475000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:a8b4229507ca1a8c36c3ad7c"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016500000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:fcd2ed641a7e8ce03bfdb62e"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016500003",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:dd3827702c52bd074162a295"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016500006",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:cec428dda2d8794b59c7c919"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016550000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:0132451e8e16379c21883bcf"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016550003",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:7bbdb7c2ef86f68b5c186219"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016550006",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:27ca5204e5b8854e522e572a"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7017150000",
+      "proposal_id": null,
+      "rationale": "Reported product identity, not an operating-market identity.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:industry-product-relationship:679c9eed166f1333319fa530"
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "counterevidence_ids": [],
+      "disposition": "non_market_source_identity",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:9000000000",
+      "proposal_id": null,
+      "rationale": "Residual product bucket with no trilateral mapping; not an operating-market identity.",
+      "relationship_type": "residual_bucket",
+      "supporting_evidence_ids": [
+        "evidence:collection-trilateral-no-mapping:6a88d51f5483193c3346e156"
+      ]
+    }
+  ],
+  "input_pack_sha256": "32634f119b454bbae964cab7ed1c40a2f5eb09285fa3c254191422246f33bbed",
+  "invocation_id": "invocation:a1e2873d9f3d72081c3b643a",
+  "proposed_markets": [
+    {
+      "acquisition_universe": "Providers principally delivering an integrated range of outsourced day-to-day office administrative functions to client organizations.",
+      "aliases": [
+        "Office administrative services",
+        "Outsourced office administration",
+        "Bundled back-office administration",
+        "Administrative management services"
+      ],
+      "ambient_ai_workflow": "AI may assist billing, recordkeeping, personnel administration, logistics coordination, and document workflows; no evidence supports an AI-specific market split.",
+      "boundary": "Contracted delivery across multiple day-to-day office functions, including financial planning, billing and recordkeeping, personnel, and physical-distribution/logistics administration. Excludes complete operation of the client business, management advice without day-to-day management, internally managed offices, property management, computer facilities management, construction management, food-service management, staffing, and standalone specialist support services.",
+      "buyer": "Organizations outsourcing a range of recurring office-administration responsibilities to an external provider.",
+      "candidate_market_ids": [],
+      "canonical_name": "Integrated outsourced office administration",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.8,
+        "ambient_ai_workflow": 0.3,
+        "buyer": 0.84,
+        "delivery": 0.91,
+        "economics_risk": 0.58,
+        "job": 0.93,
+        "workforce": 0.76
+      },
+      "counterevidence_ids": [],
+      "definition": "Contracted provision of an integrated range of day-to-day office administrative services for other organizations, without providing operating staff to run the client's complete business.",
+      "delivery_model": "Contract- or fee-based recurring managed delivery across multiple administrative functions.",
+      "economics_risk": "Labor-enabled service economics depend on reliable execution, standardized processes, client scope, and accountability for recurring administrative workflows; the evidence does not support a narrower economic segmentation.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "inference",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "fact",
+        "delivery": "fact",
+        "economics_risk": "inference",
+        "job": "fact",
+        "workforce": "inference"
+      },
+      "explicit_exclusions": [
+        "Complete operation of a client's business with operating staff",
+        "Single-function support-service providers",
+        "Management advice without day-to-day management",
+        "Construction management",
+        "Computer facilities management",
+        "Real-property management",
+        "Food-service management",
+        "Internal corporate, subsidiary, and regional managing offices"
+      ],
+      "job_to_be_done": "Run a client's recurring office-administration functions as an integrated external service.",
+      "proposal_id": "proposal:integrated-outsourced-office-administration",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:source-identity:8e55efba8cb7eedfad823673"
+      ],
+      "workforce_model": "Administrative personnel performing coordinated finance, billing, recordkeeping, personnel, and logistics tasks for client organizations."
+    }
+  ],
+  "research_gaps": [],
+  "role_id": "adjudicator",
+  "schema_version": 1,
+  "specialist_output_sha256": [
+    "b7024b0e5471a1723d8db03492fd6bccbb335979e77e487482dfd5319df17166",
+    "e8255073c1bacd2f13f161c3ce80b46f887c8dab23ca4fcb12b57d3a4f379565"
+  ],
+  "specialist_resolution": [
+    {
+      "adopted_elements": [
+        "One integrated outsourced office-administration market",
+        "Contract- or fee-based multi-function delivery",
+        "Exclusions for complete operation and standalone single-function services",
+        "NAPCS identities treated as non-market product identities"
+      ],
+      "assessment": "Both specialists converge on the same operating boundary. The adjudication retains the clearer integrated-outsourced-office-administration name and corrects the classification of NAPCS entries from no-family-mapping to non-market source identities.",
+      "rejected_elements": [],
+      "role_id": "specialist-a"
+    },
+    {
+      "adopted_elements": [
+        "Integrated outsourced office-administration boundary",
+        "Explicit separation of consulting, property management, computer facilities management, construction management, and full business operation",
+        "Unknown AI-specific segmentation"
+      ],
+      "assessment": "The proposal is directly aligned with the NAICS definition and is adopted with slightly more explicit workforce and economics wording.",
+      "rejected_elements": [],
+      "role_id": "specialist-b"
+    }
+  ]
+}

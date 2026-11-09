@@ -1,0 +1,651 @@
+[
+  {
+    "activation_status": "accepted_with_open_gaps",
+    "alternatives_considered": [
+      "Single horizontal outsourced-office-administration market only",
+      "Separate named vertical administration markets",
+      "Treat reported NAPCS products as equivalent operating markets"
+    ],
+    "counterevidence_record_ids": [
+      "evidence:manual-definition:bb8297ad9acd30b748422249"
+    ],
+    "decision": "accepted",
+    "event_id": "boundary-activation-9d3772f0364b4632dc62:01:create-market:integrated-outsourced-office-administration",
+    "event_type": "create_market",
+    "input_candidate_market_ids": [
+      "candidate-market:83c901691f2d7e1f17cf8604",
+      "candidate-market:cc5c2b663ea4dd50e2186369"
+    ],
+    "input_market_ids": [],
+    "input_source_record_ids": [
+      "source-row:census-naics-2022:561110",
+      "source-row:prior-model-2026-11-05:12a677c307e26c425df4",
+      "source-row:prior-model-2026-11-05:d1477d31b0b95ea3bd2b"
+    ],
+    "market_version": {
+      "acquisition_universe": "Providers whose primary contracted offering is an integrated range of day-to-day office administrative functions for client businesses, without supplying operating staff for complete business operation.",
+      "activation_status": "accepted_with_open_gaps",
+      "aliases": [
+        "Office administrative services",
+        "Integrated outsourced office administration",
+        "Administrative management services",
+        "Office management services"
+      ],
+      "ambient_ai_workflow": "Unknown from the frozen evidence; plausible workflow assistance is not treated as fact.",
+      "boundary": "Includes horizontal multi-function, day-to-day office administration for others on contract or fee. Excludes complete client-business operation, single-service specialists, holding-company offices, corporate managing offices, computer facilities management, construction management, farm management, real-property management, food-service management, and advice without day-to-day management.",
+      "buyer": "Client organizations seeking outsourced recurring administrative capability; inferred from services provided for others.",
+      "candidate_market_ids": [
+        "candidate-market:83c901691f2d7e1f17cf8604",
+        "candidate-market:cc5c2b663ea4dd50e2186369"
+      ],
+      "canonical_name": "Integrated outsourced office administration",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.7,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.65,
+        "delivery": 0.85,
+        "economics_risk": 0.3,
+        "job": 0.88,
+        "workforce": 0.84
+      },
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "definition": "Contracted provision of a range of day-to-day office administrative services, including financial planning, billing and recordkeeping, personnel, and physical distribution/logistics, without operating staff for the complete operation of the client business.",
+      "delivery_model": "Ongoing contract- or fee-based outsourced administration.",
+      "economics_risk": "Pricing, economics, and allocation of operational risk are not directly evidenced.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "inference",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "inference",
+        "delivery": "fact",
+        "economics_risk": "unknown",
+        "job": "fact",
+        "workforce": "fact"
+      },
+      "explicit_exclusions": [
+        "Complete operation of a client's business",
+        "Holding-company offices",
+        "Corporate, subsidiary, and regional managing offices",
+        "Computer facilities management",
+        "Construction management",
+        "Farm management",
+        "Real property management",
+        "Food-service contracting",
+        "Management advice without day-to-day management",
+        "Single support services supplied alone"
+      ],
+      "job_to_be_done": "Operate a client's recurring office-administration functions without taking over the complete operating business.",
+      "mapping_event_ids": [],
+      "market_id": "market:930fb681a7db796a46677c8c",
+      "market_version_id": "market-version:066869f4f57eff5f6e145628",
+      "parent_market_id": null,
+      "proposal_id": "proposal:integrated-outsourced-office-administration",
+      "research_gap_ids": [
+        "gap:horizontal-office-admin-operating-tests",
+        "gap:vertical-administration-boundary"
+      ],
+      "source_boundary_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+      "source_record_ids": [
+        "source-row:census-naics-2022:561110",
+        "source-row:prior-model-2026-11-05:12a677c307e26c425df4",
+        "source-row:prior-model-2026-11-05:d1477d31b0b95ea3bd2b"
+      ],
+      "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:manual-index-entry:14adf7145d9c89c953d90b2f",
+        "evidence:manual-index-entry:4135fb564eddde5555720e17",
+        "evidence:manual-index-entry:4f36a492ecfb9071554fa8fc",
+        "evidence:required-prior-candidate-anchor:6e0993298caa6d8e9892e220"
+      ],
+      "workforce_model": "Administrative-service workforce; expressly excludes operating staff for complete client-business operations."
+    },
+    "operating_identity": {
+      "acquisition_universe": {
+        "confidence": 0.7,
+        "result": "Providers whose primary contracted offering is an integrated range of day-to-day office administrative functions for client businesses, without supplying operating staff for complete business operation."
+      },
+      "ambient_ai_workflow": {
+        "confidence": 0.1,
+        "result": "Unknown from the frozen evidence; plausible workflow assistance is not treated as fact."
+      },
+      "buyer": {
+        "confidence": 0.65,
+        "result": "Client organizations seeking outsourced recurring administrative capability; inferred from services provided for others."
+      },
+      "delivery": {
+        "confidence": 0.85,
+        "result": "Ongoing contract- or fee-based outsourced administration."
+      },
+      "economics_risk": {
+        "confidence": 0.3,
+        "result": "Pricing, economics, and allocation of operational risk are not directly evidenced."
+      },
+      "job": {
+        "confidence": 0.88,
+        "result": "Operate a client's recurring office-administration functions without taking over the complete operating business."
+      },
+      "workforce": {
+        "confidence": 0.84,
+        "result": "Administrative-service workforce; expressly excludes operating staff for complete client-business operations."
+      }
+    },
+    "output_market_ids": [
+      "market:930fb681a7db796a46677c8c"
+    ],
+    "proposal_id": "proposal:integrated-outsourced-office-administration",
+    "recorded_at": "2026-11-09T02:36:06Z",
+    "relationship_type": null,
+    "research_gap_ids": [
+      "gap:horizontal-office-admin-operating-tests",
+      "gap:vertical-administration-boundary"
+    ],
+    "research_gaps": [
+      {
+        "affected_identity_ids": [
+          "identity:naics:561110"
+        ],
+        "confidence": 0.41,
+        "counterevidence_ids": [
+          "evidence:manual-definition:bb8297ad9acd30b748422249"
+        ],
+        "current_judgment": "The horizontal market is supported, but the pack does not directly establish buyer role, acquisition universe, pricing/economics, risk ownership, or Ambient AI workflow.",
+        "evidence_label": "unknown",
+        "gap_id": "gap:horizontal-office-admin-operating-tests",
+        "question": "For integrated outsourced office administration, what are buyer roles, contracting and pricing structures, workforce mix, risk allocation, acquisition universe, and recurring AI-enabled workflows?",
+        "retry_trigger": "Obtain frozen primary descriptions of provider delivery models, client contracts, workforce responsibilities, and AI-enabled workflows.",
+        "supporting_evidence_ids": [
+          "evidence:manual-definition:bb8297ad9acd30b748422249"
+        ]
+      },
+      {
+        "affected_identity_ids": [
+          "identity:naics:561110"
+        ],
+        "confidence": 0.34,
+        "counterevidence_ids": [
+          "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+          "evidence:manual-index-entry:5345528a627722e2c82fe981",
+          "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+          "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad"
+        ],
+        "current_judgment": "Medical, dental, hotel, motel, industrial, and professional-office administration labels appear in the index, but the frozen pack does not resolve whether they are separate markets or vertical sales segments of horizontal office administration.",
+        "evidence_label": "unknown",
+        "gap_id": "gap:vertical-administration-boundary",
+        "question": "Do named administration models have distinct buyers, jobs, delivery/workforce structures, economics/risk, acquisition universes, or Ambient AI workflows relative to integrated horizontal office administration?",
+        "retry_trigger": "Obtain comparable provider and buyer evidence for each named vertical and evidence separating non-complete-operation administration from full operating management.",
+        "supporting_evidence_ids": [
+          "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+          "evidence:manual-index-entry:5345528a627722e2c82fe981",
+          "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+          "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad",
+          "evidence:manual-definition:bb8297ad9acd30b748422249"
+        ]
+      }
+    ],
+    "review": {
+      "independent_reviewer": "independent-review:boundary-review:office-administrative-services-v2:correction-cycle",
+      "proposer": "adjudicator:boundary-run-1a88e9a3acdf15d63b09",
+      "result": "accepted"
+    },
+    "source_adjudication_sha256": "c560ac7d565f163eee92a4ee839a38e6322258352f1170555085b90b87d87e73",
+    "source_boundary_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+    "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+    "source_review_output_sha256": "3f0b3e668e2f5050fc2a3afb0d10c6b2b869b81e604c786668ff3f6d497e3c43",
+    "supersedes": [],
+    "supersedes_market_version_ids": [],
+    "supporting_record_ids": [
+      "evidence:manual-definition:bb8297ad9acd30b748422249",
+      "evidence:manual-index-entry:14adf7145d9c89c953d90b2f",
+      "evidence:manual-index-entry:4135fb564eddde5555720e17",
+      "evidence:manual-index-entry:4f36a492ecfb9071554fa8fc",
+      "evidence:required-prior-candidate-anchor:6e0993298caa6d8e9892e220"
+    ]
+  },
+  {
+    "activation_status": "provisional",
+    "alternatives_considered": [
+      "Single horizontal outsourced-office-administration market only",
+      "Separate named vertical administration markets",
+      "Treat reported NAPCS products as equivalent operating markets"
+    ],
+    "counterevidence_record_ids": [
+      "evidence:manual-definition:bb8297ad9acd30b748422249",
+      "evidence:source-identity:2a67da0aa554c22c09967bde"
+    ],
+    "decision": "accepted",
+    "event_id": "boundary-activation-9d3772f0364b4632dc62:02:create-market:medical-practice-administration",
+    "event_type": "create_market",
+    "input_candidate_market_ids": [
+      "candidate-market:a1b56327512348614f589ebc"
+    ],
+    "input_market_ids": [],
+    "input_source_record_ids": [
+      "source-row:census-naics-2022:561110",
+      "source-row:census-napcs-2022-economic-census-codes:7004955000",
+      "source-row:prior-model-2026-11-05:ac143ac1d6f02431d046"
+    ],
+    "market_version": {
+      "acquisition_universe": "Potential providers of ongoing administration for medical practices; separate acquisition evidence is absent.",
+      "activation_status": "provisional",
+      "aliases": [
+        "Medical office management services",
+        "Managing offices of physicians and surgeons"
+      ],
+      "ambient_ai_workflow": "Unknown from the frozen evidence.",
+      "boundary": "Provisional vertical input limited to medical-practice administration that does not supply complete clinical operating staff; excludes clinical care, medical care management alone, and complete practice or hospital operation.",
+      "buyer": "Likely medical practices or professional medical offices; inference only.",
+      "candidate_market_ids": [
+        "candidate-market:a1b56327512348614f589ebc"
+      ],
+      "canonical_name": "Medical practice administration",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.32,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.38,
+        "delivery": 0.48,
+        "economics_risk": 0.15,
+        "job": 0.58,
+        "workforce": 0.45
+      },
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:source-identity:2a67da0aa554c22c09967bde"
+      ],
+      "definition": "Provisional candidate for contracted medical-office administration, limited to non-complete-operation services.",
+      "delivery_model": "Not directly evidenced; constrained by the prohibition on complete client-business operation.",
+      "economics_risk": "Unknown.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "unknown",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "inference",
+        "delivery": "inference",
+        "economics_risk": "unknown",
+        "job": "inference",
+        "workforce": "inference"
+      },
+      "explicit_exclusions": [
+        "Clinical care delivery",
+        "Medical care management as a product category",
+        "Complete operation of a client medical practice or hospital"
+      ],
+      "job_to_be_done": "Potentially administer recurring nonclinical medical-office operations without taking over complete practice operations.",
+      "mapping_event_ids": [],
+      "market_id": "market:a4e5f08d253256b2a0c8ca05",
+      "market_version_id": "market-version:2901f3513d7c05313005b764",
+      "parent_market_id": null,
+      "proposal_id": "proposal:medical-practice-administration",
+      "research_gap_ids": [
+        "gap:vertical-administration-boundary"
+      ],
+      "source_boundary_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+      "source_record_ids": [
+        "source-row:census-naics-2022:561110",
+        "source-row:census-napcs-2022-economic-census-codes:7004955000",
+        "source-row:prior-model-2026-11-05:ac143ac1d6f02431d046"
+      ],
+      "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+      "supporting_evidence_ids": [
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+        "evidence:manual-index-entry:ba9f06dc45c764a58e117b43",
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "workforce_model": "Unknown; cannot include operating staff for complete practice operations."
+    },
+    "operating_identity": {
+      "acquisition_universe": {
+        "confidence": 0.32,
+        "result": "Potential providers of ongoing administration for medical practices; separate acquisition evidence is absent."
+      },
+      "ambient_ai_workflow": {
+        "confidence": 0.1,
+        "result": "Unknown from the frozen evidence."
+      },
+      "buyer": {
+        "confidence": 0.38,
+        "result": "Likely medical practices or professional medical offices; inference only."
+      },
+      "delivery": {
+        "confidence": 0.48,
+        "result": "Not directly evidenced; constrained by the prohibition on complete client-business operation."
+      },
+      "economics_risk": {
+        "confidence": 0.15,
+        "result": "Unknown."
+      },
+      "job": {
+        "confidence": 0.58,
+        "result": "Potentially administer recurring nonclinical medical-office operations without taking over complete practice operations."
+      },
+      "workforce": {
+        "confidence": 0.45,
+        "result": "Unknown; cannot include operating staff for complete practice operations."
+      }
+    },
+    "output_market_ids": [
+      "market:a4e5f08d253256b2a0c8ca05"
+    ],
+    "proposal_id": "proposal:medical-practice-administration",
+    "recorded_at": "2026-11-09T02:36:06Z",
+    "relationship_type": null,
+    "research_gap_ids": [
+      "gap:vertical-administration-boundary"
+    ],
+    "research_gaps": [
+      {
+        "affected_identity_ids": [
+          "identity:naics:561110"
+        ],
+        "confidence": 0.34,
+        "counterevidence_ids": [
+          "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+          "evidence:manual-index-entry:5345528a627722e2c82fe981",
+          "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+          "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad"
+        ],
+        "current_judgment": "Medical, dental, hotel, motel, industrial, and professional-office administration labels appear in the index, but the frozen pack does not resolve whether they are separate markets or vertical sales segments of horizontal office administration.",
+        "evidence_label": "unknown",
+        "gap_id": "gap:vertical-administration-boundary",
+        "question": "Do named administration models have distinct buyers, jobs, delivery/workforce structures, economics/risk, acquisition universes, or Ambient AI workflows relative to integrated horizontal office administration?",
+        "retry_trigger": "Obtain comparable provider and buyer evidence for each named vertical and evidence separating non-complete-operation administration from full operating management.",
+        "supporting_evidence_ids": [
+          "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+          "evidence:manual-index-entry:5345528a627722e2c82fe981",
+          "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+          "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad",
+          "evidence:manual-definition:bb8297ad9acd30b748422249"
+        ]
+      }
+    ],
+    "review": {
+      "independent_reviewer": "independent-review:boundary-review:office-administrative-services-v2:correction-cycle",
+      "proposer": "adjudicator:boundary-run-1a88e9a3acdf15d63b09",
+      "result": "accepted"
+    },
+    "source_adjudication_sha256": "c560ac7d565f163eee92a4ee839a38e6322258352f1170555085b90b87d87e73",
+    "source_boundary_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+    "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+    "source_review_output_sha256": "3f0b3e668e2f5050fc2a3afb0d10c6b2b869b81e604c786668ff3f6d497e3c43",
+    "supersedes": [],
+    "supersedes_market_version_ids": [],
+    "supporting_record_ids": [
+      "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+      "evidence:manual-index-entry:ba9f06dc45c764a58e117b43",
+      "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+      "evidence:manual-definition:bb8297ad9acd30b748422249"
+    ]
+  },
+  {
+    "activation_status": "provisional",
+    "alternatives_considered": [
+      "Single horizontal outsourced-office-administration market only",
+      "Separate named vertical administration markets",
+      "Treat reported NAPCS products as equivalent operating markets"
+    ],
+    "counterevidence_record_ids": [
+      "evidence:manual-definition:bb8297ad9acd30b748422249"
+    ],
+    "decision": "accepted",
+    "event_id": "boundary-activation-9d3772f0364b4632dc62:03:create-market:dental-practice-administration",
+    "event_type": "create_market",
+    "input_candidate_market_ids": [
+      "candidate-market:ecd0f6e0ed43d167e2c16afb"
+    ],
+    "input_market_ids": [],
+    "input_source_record_ids": [
+      "source-row:census-naics-2022:561110",
+      "source-row:prior-model-2026-11-05:42a2b0e53eb3dd43c913"
+    ],
+    "market_version": {
+      "acquisition_universe": "Potential providers of ongoing administration for dental practices; separate acquisition evidence is absent.",
+      "activation_status": "provisional",
+      "aliases": [
+        "Managing offices of dentists",
+        "Dental practice administration"
+      ],
+      "ambient_ai_workflow": "Unknown from the frozen evidence.",
+      "boundary": "Provisional vertical input limited to dental-practice administration that does not supply complete clinical operating staff; excludes clinical dental practice operations and dental insurance billing alone.",
+      "buyer": "Likely dental practices; inference only.",
+      "candidate_market_ids": [
+        "candidate-market:ecd0f6e0ed43d167e2c16afb"
+      ],
+      "canonical_name": "Dental practice administration",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.32,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.38,
+        "delivery": 0.48,
+        "economics_risk": 0.15,
+        "job": 0.58,
+        "workforce": 0.45
+      },
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "definition": "Provisional candidate for contracted dental-practice administration, limited to non-complete-operation services.",
+      "delivery_model": "Not directly evidenced; constrained by the prohibition on complete client-business operation.",
+      "economics_risk": "Unknown.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "unknown",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "inference",
+        "delivery": "inference",
+        "economics_risk": "unknown",
+        "job": "inference",
+        "workforce": "inference"
+      },
+      "explicit_exclusions": [
+        "Clinical dental care",
+        "Dental insurance billing alone",
+        "Complete operation of a client dental practice"
+      ],
+      "job_to_be_done": "Potentially administer recurring nonclinical dental-practice operations without taking over complete practice operations.",
+      "mapping_event_ids": [],
+      "market_id": "market:8230a0616ef5332c9c156ed2",
+      "market_version_id": "market-version:a57061eca5145cf35d522c34",
+      "parent_market_id": null,
+      "proposal_id": "proposal:dental-practice-administration",
+      "research_gap_ids": [
+        "gap:vertical-administration-boundary"
+      ],
+      "source_boundary_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+      "source_record_ids": [
+        "source-row:census-naics-2022:561110",
+        "source-row:prior-model-2026-11-05:42a2b0e53eb3dd43c913"
+      ],
+      "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+      "supporting_evidence_ids": [
+        "evidence:manual-index-entry:5345528a627722e2c82fe981",
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "workforce_model": "Unknown; cannot include operating staff for complete practice operations."
+    },
+    "operating_identity": {
+      "acquisition_universe": {
+        "confidence": 0.32,
+        "result": "Potential providers of ongoing administration for dental practices; separate acquisition evidence is absent."
+      },
+      "ambient_ai_workflow": {
+        "confidence": 0.1,
+        "result": "Unknown from the frozen evidence."
+      },
+      "buyer": {
+        "confidence": 0.38,
+        "result": "Likely dental practices; inference only."
+      },
+      "delivery": {
+        "confidence": 0.48,
+        "result": "Not directly evidenced; constrained by the prohibition on complete client-business operation."
+      },
+      "economics_risk": {
+        "confidence": 0.15,
+        "result": "Unknown."
+      },
+      "job": {
+        "confidence": 0.58,
+        "result": "Potentially administer recurring nonclinical dental-practice operations without taking over complete practice operations."
+      },
+      "workforce": {
+        "confidence": 0.45,
+        "result": "Unknown; cannot include operating staff for complete practice operations."
+      }
+    },
+    "output_market_ids": [
+      "market:8230a0616ef5332c9c156ed2"
+    ],
+    "proposal_id": "proposal:dental-practice-administration",
+    "recorded_at": "2026-11-09T02:36:06Z",
+    "relationship_type": null,
+    "research_gap_ids": [
+      "gap:vertical-administration-boundary"
+    ],
+    "research_gaps": [
+      {
+        "affected_identity_ids": [
+          "identity:naics:561110"
+        ],
+        "confidence": 0.34,
+        "counterevidence_ids": [
+          "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+          "evidence:manual-index-entry:5345528a627722e2c82fe981",
+          "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+          "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad"
+        ],
+        "current_judgment": "Medical, dental, hotel, motel, industrial, and professional-office administration labels appear in the index, but the frozen pack does not resolve whether they are separate markets or vertical sales segments of horizontal office administration.",
+        "evidence_label": "unknown",
+        "gap_id": "gap:vertical-administration-boundary",
+        "question": "Do named administration models have distinct buyers, jobs, delivery/workforce structures, economics/risk, acquisition universes, or Ambient AI workflows relative to integrated horizontal office administration?",
+        "retry_trigger": "Obtain comparable provider and buyer evidence for each named vertical and evidence separating non-complete-operation administration from full operating management.",
+        "supporting_evidence_ids": [
+          "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+          "evidence:manual-index-entry:5345528a627722e2c82fe981",
+          "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+          "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad",
+          "evidence:manual-definition:bb8297ad9acd30b748422249"
+        ]
+      }
+    ],
+    "review": {
+      "independent_reviewer": "independent-review:boundary-review:office-administrative-services-v2:correction-cycle",
+      "proposer": "adjudicator:boundary-run-1a88e9a3acdf15d63b09",
+      "result": "accepted"
+    },
+    "source_adjudication_sha256": "c560ac7d565f163eee92a4ee839a38e6322258352f1170555085b90b87d87e73",
+    "source_boundary_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+    "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+    "source_review_output_sha256": "3f0b3e668e2f5050fc2a3afb0d10c6b2b869b81e604c786668ff3f6d497e3c43",
+    "supersedes": [],
+    "supersedes_market_version_ids": [],
+    "supporting_record_ids": [
+      "evidence:manual-index-entry:5345528a627722e2c82fe981",
+      "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+      "evidence:manual-definition:bb8297ad9acd30b748422249"
+    ]
+  },
+  {
+    "activation_status": "provisional",
+    "alternatives_considered": [
+      "Single horizontal outsourced-office-administration market only",
+      "Separate named vertical administration markets",
+      "Treat reported NAPCS products as equivalent operating markets"
+    ],
+    "counterevidence_record_ids": [],
+    "decision": "accepted",
+    "event_id": "boundary-activation-9d3772f0364b4632dc62:04:map:identity-naics-561110",
+    "event_type": "map",
+    "identity_confidence": 0.79,
+    "identity_disposition": "provisional_map_to_proposal",
+    "identity_evidence_label": "fact",
+    "identity_id": "identity:naics:561110",
+    "identity_rationale": "The definition directly supports contracted multi-function day-to-day office administration; named vertical index labels preserve an unresolved split question.",
+    "input_candidate_market_ids": [],
+    "input_market_ids": [],
+    "input_source_record_ids": [
+      "source-row:census-naics-2022:561110"
+    ],
+    "operating_identity": {
+      "acquisition_universe": {
+        "confidence": 0.7,
+        "result": "Providers whose primary contracted offering is an integrated range of day-to-day office administrative functions for client businesses, without supplying operating staff for complete business operation."
+      },
+      "ambient_ai_workflow": {
+        "confidence": 0.1,
+        "result": "Unknown from the frozen evidence; plausible workflow assistance is not treated as fact."
+      },
+      "buyer": {
+        "confidence": 0.65,
+        "result": "Client organizations seeking outsourced recurring administrative capability; inferred from services provided for others."
+      },
+      "delivery": {
+        "confidence": 0.85,
+        "result": "Ongoing contract- or fee-based outsourced administration."
+      },
+      "economics_risk": {
+        "confidence": 0.3,
+        "result": "Pricing, economics, and allocation of operational risk are not directly evidenced."
+      },
+      "job": {
+        "confidence": 0.88,
+        "result": "Operate a client's recurring office-administration functions without taking over the complete operating business."
+      },
+      "workforce": {
+        "confidence": 0.84,
+        "result": "Administrative-service workforce; expressly excludes operating staff for complete client-business operations."
+      }
+    },
+    "output_market_ids": [
+      "market:930fb681a7db796a46677c8c"
+    ],
+    "proposal_id": "proposal:integrated-outsourced-office-administration",
+    "recorded_at": "2026-11-09T02:36:06Z",
+    "relationship_type": "broader_than_market",
+    "research_gap_ids": [
+      "gap:vertical-administration-boundary"
+    ],
+    "research_gaps": [
+      {
+        "affected_identity_ids": [
+          "identity:naics:561110"
+        ],
+        "confidence": 0.34,
+        "counterevidence_ids": [
+          "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+          "evidence:manual-index-entry:5345528a627722e2c82fe981",
+          "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+          "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad"
+        ],
+        "current_judgment": "Medical, dental, hotel, motel, industrial, and professional-office administration labels appear in the index, but the frozen pack does not resolve whether they are separate markets or vertical sales segments of horizontal office administration.",
+        "evidence_label": "unknown",
+        "gap_id": "gap:vertical-administration-boundary",
+        "question": "Do named administration models have distinct buyers, jobs, delivery/workforce structures, economics/risk, acquisition universes, or Ambient AI workflows relative to integrated horizontal office administration?",
+        "retry_trigger": "Obtain comparable provider and buyer evidence for each named vertical and evidence separating non-complete-operation administration from full operating management.",
+        "supporting_evidence_ids": [
+          "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+          "evidence:manual-index-entry:5345528a627722e2c82fe981",
+          "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+          "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad",
+          "evidence:manual-definition:bb8297ad9acd30b748422249"
+        ]
+      }
+    ],
+    "review": {
+      "independent_reviewer": "independent-review:boundary-review:office-administrative-services-v2:correction-cycle",
+      "proposer": "adjudicator:boundary-run-1a88e9a3acdf15d63b09",
+      "result": "accepted"
+    },
+    "source_adjudication_sha256": "c560ac7d565f163eee92a4ee839a38e6322258352f1170555085b90b87d87e73",
+    "source_boundary_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+    "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+    "source_review_output_sha256": "3f0b3e668e2f5050fc2a3afb0d10c6b2b869b81e604c786668ff3f6d497e3c43",
+    "supersedes": [],
+    "supersedes_market_version_ids": [],
+    "supporting_record_ids": [
+      "evidence:manual-definition:bb8297ad9acd30b748422249",
+      "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+      "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad"
+    ]
+  }
+]

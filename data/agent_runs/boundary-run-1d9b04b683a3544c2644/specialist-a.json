@@ -1,0 +1,2523 @@
+{
+  "alternatives_considered": [
+    "Treating each reported NAPCS product as a separate operating market was rejected because the NAICS definition excludes establishments providing only one support service and industry-product relationships do not establish operating-boundary centrality.",
+    "Adopting narrow prior seeds was rejected because the frozen pack provides no operating-model evidence that any seed defines the bundled office-administration boundary."
+  ],
+  "analysis_summary": "The bounded family resolves to one provisional-quality but usable operating market: contracted, bundled day-to-day office administration for other organizations, excluding complete operation of a client business and standalone specialist services. The NAICS definition directly supports the bundled-service boundary; the reported NAPCS identities are products observed as sold by the industry, not proof of separate market membership. All retrieved prior candidates lack sufficient frozen evidence to establish equivalence to this operating boundary.",
+  "candidate_dispositions": [
+    {
+      "candidate_market_id": "candidate-market:00095b7c27b7c679b4303c28",
+      "confidence": 0.72,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "A field-service back-office is a narrow workflow and is not evidenced as the bundled office-administration operating boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:007b2d3661bb4eaa6f78d638",
+      "confidence": 0.9,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Maintenance delivery is outside contracted office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0149cb1f23b6c0fdcee1d68e",
+      "confidence": 0.86,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "A standalone contract-lifecycle service is not evidenced as bundled office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0220a26a8f39cc99c6f80d79",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Pool maintenance is outside the office-administration boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:04c7d46701ae1dcd03015d74",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Wedding planning is outside the office-administration boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:072030972a077ba627c6dbfd",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Equipment leasing is outside the office-administration boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:086bac7b09fbc3f54a7d7bd4",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Commercial refrigeration service is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0a029ecc18f4807b4c01770e",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Landscaping is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0b7e3eb71e58765476c6285c",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Waste treatment is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0c18f6607af933ca8432686f",
+      "confidence": 0.9,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Medical-review coordination is a specialist workflow, not evidenced as bundled office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:0c275f55a03a6956219d316d",
+      "confidence": 0.88,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "HR consulting is advice-led and is distinct from day-to-day contracted administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:143be21b6989c55dc5a84fed",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Site-selection consulting is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:1480a724ba58b5d5f128cce4",
+      "confidence": 0.93,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Web hosting is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:15e240367d707e62e441deb6",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Vocational rehabilitation is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:17057f00f350dbf892c8f27c",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Vehicle leasing is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:177699c95565599564670a22",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Housing construction is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:1c8b0adcff1ef7467e309620",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Financial-market quotation is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:1f5dc416c4cd112172aebd85",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Fashion and textile design is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:20d043d440539d3fd61b6719",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Institutional investment management is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2118c1b964a8d177fcb7b461",
+      "confidence": 0.91,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Managed IT is a technical operations market, not bundled office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:233c03efa0c9bc950cc548da",
+      "confidence": 0.93,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Medical-records services are vertical specialist services, not the bundled boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:26306d42f3067db3d573d9d8",
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Software implementation and support is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:274afebd1474a99e58c712e9",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Debt counseling is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2b5bf7917ca64940e540352d",
+      "confidence": 0.91,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Patient scheduling and answering is a standalone specialist support service.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2c736ff785f142bbc6e3bb99",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Construction project management is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2c8608f5ebb6f1a7c7b8dcc9",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Smoking cessation programs are outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:2efc806090544b10c7bbe4e2",
+      "confidence": 0.91,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Litigation records preparation is a specialist legal-support service.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:31a8be271ce7dcc26ba2177a",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Family counseling is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:374df39ea8dcab70439fb738",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Child care is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:3fb47e68c79ba2ddcd554f95",
+      "confidence": 0.9,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Marketing consulting is advice-led rather than day-to-day office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:404ed85c65f9b35c56b96ddd",
+      "confidence": 0.93,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Patent agency services are specialist legal services.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:41f1904f971ef4af453afbfe",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Residential maternity support is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:4405d750cc679bfe1280520e",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Water conditioning is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:45334d728adf272076854946",
+      "confidence": 0.93,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Medical-device translation is specialist content work.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:466c6c191bf5e28d0419ba0b",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Curriculum development is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:47ab6392ed72aef7967dd71c",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Animal genetic services are outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:4857beb93a522839a9ef5cb3",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Water supply and irrigation is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:4870ae961ee618140727f76a",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Shoeshine is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:490ec0dc65f068019eba9aba",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Limousine service is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:49148114f3d02c6f1682e6d1",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Data-center and colocation operations are outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:4dae82ea274a2a67780d6c30",
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Outsourced data processing is a distinct technical service.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:51c132ad21f52e923d1ef819",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Vehicle rental is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:52ae777f3da71972d5eecb5a",
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Executive search is a standalone labor-market service.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:57dac7780a62d6b35700dd3e",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Actuarial support is specialist insurance work.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:57f01b2eb45e93d01d9bdf66",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Insurance rate filing is specialist insurance work.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:590501d8a94f5b2cf74c7bd4",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Office-equipment leasing is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:5f3daef53d424d46d8e9858d",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Personal celebration services are outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:64782526f6372bed5d1d6ddc",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Interior design is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:6a2d79f21fe516e3557f2ff1",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "IT disaster recovery is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:705d6a292d77a7a99510415d",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Audio-visual engineering is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:707b66399aa66923b045b867",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Commercial printing is production work, not office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7091390bf8c23bf53716ded5",
+      "confidence": 0.93,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Routine tax preparation is a standalone specialist service.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:72fe70f94c65299acfadb880",
+      "confidence": 0.9,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Corporate strategy consulting is advice-led and distinct from administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:77e1259f6f4a5dc6743feb73",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Unclaimed-property reporting is a specialist compliance service.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7aa463165d5b0c85f3f3516b",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Industrial design is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7adb16106172a2f29eb35ee9",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Commercial diving is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7b94a5af8df9c83048cb92cd",
+      "confidence": 0.93,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Business research and information services are specialist analytical work.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7bfe7bb6084f75cc36146ad2",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Sports-event services are outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:7d7687f9a4389f3a5d384e4c",
+      "confidence": 0.93,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Dental insurance billing is vertical specialist support.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:80de45a7c1a8411c9e3256c3",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Betting information is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8215b70383952a7f95d608a0",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Commercial firefighting is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:82806428882f6ea8fdf544ac",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Farrier services are outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8602b66ec08457109662b617",
+      "confidence": 0.93,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Telecom expense management is a specialist service.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8954ffe252dffbca8dea63bf",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Veterinary services are outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8c80137625413d7a0cd7ab27",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Utility consulting is advice-led and outside the bundled boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8e80554b86b540e5fc9f0763",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Industrial water treatment is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8ec81c3c408c6e5029d48d88",
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Telephone answering is a single specialist support service, not bundled administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:8ef4eeab88443720c9f3e8ea",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Biological-science consulting is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:905913e88df68e9277b30089",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Graphic design is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:90819988665f00b67a77894a",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Technical documentation is specialist content work.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:951ad44e618860beb1c6807f",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Contract driving is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:95f2e15a23f82c272a53c93b",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Urgent care is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:98fc545d539bc3610b4e661e",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Translation is specialist language work.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:9a5f3e12237cfc35b5d4fece",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Securities-holder representation is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:9a74b72a45ab4549a1c282f4",
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Supply-chain consulting is advice-led and distinct from administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:9f4ba3d8fd05b52e9e450370",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Primary care is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a157567f7d558f502a9d20a6",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Data recovery is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a16caf87ccdccd9515746910",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Social-service program administration is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a228a7e6c3b976cafb060250",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Pet care is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a51ce8f59ea8e69213df6f38",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Hospice care is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a5bed6b4c178b47f3cb3cf86",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Commercial property management is explicitly classified separately from this industry.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a700b93fadefe3102a797e3d",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Nonmedical home care is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:a808e050b06d3e48840ac1dc",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Residential disability care is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:abe2231a1265dfa9442ada12",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Film and broadcast consulting is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ae7c2c8ec3c988dfc7a37197",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Industrial construction is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:b208ae36081a29f8115bef0a",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Crane services are outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ba14ea1d7f7250e92c254818",
+      "confidence": 0.93,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Corporate entity compliance is a standalone specialist service.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:bc371b534805e498bd65748a",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Custom programming is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:bc671578ed6c8ac86e579dae",
+      "confidence": 0.92,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Association management is a vertical operating model, not the general bundled boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:bdffae11b3d5b58911a9fe3a",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Forensic accounting is specialist professional work.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:bf994d8adf9126be46a9d487",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Insurance certificate tracking is specialist insurance support.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:c1a9137c708b815abf514639",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Temporary staffing is separately classified labor supply, not bundled administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:c7ef2c664629455f45054398",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Publishing production is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:c9bc2b5dcd00d064ed2137a5",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Special-education staffing is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:caa212ece802fe6fffe00608",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Housing construction is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cbf2fc3a80c6da4531dd143b",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Personal organizing is outside the business office-administration boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cc4eb7571be86e23bfaca940",
+      "confidence": 0.93,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Financial restructuring consulting is advice-led specialist work.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cc5c2b663ea4dd50e2186369",
+      "confidence": 0.82,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Hotel administration is a vertical management service and the pack does not establish its equivalence to the general bundled boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cf0500f84b010f42bb58e499",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Forest-management consulting is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:cf060693786866c832fa1d44",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Office-furniture leasing is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d0a7feead2a8ee4ffea7afc5",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Birth-support services are outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d2bfadc84b4fff9d36fbff57",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Digital-asset exchange operation is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d5a727a29368e643cd159439",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Shuttle services are outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d699f1b75955b0231547ceea",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Mining support is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:d929827c3a5c08dc27f39265",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Waste collection is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:dae8ed82893a50c798edf5d3",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Printing brokerage is a production-procurement service, not bundled administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:dd362bcd5c61840e9197ff40",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Money transmission is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:de707741045d401cc1c5acd6",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Assisted living is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e1b2ccf8bb19dfc2d57ccc08",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Aircraft asset management is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e24adfa895e0fd39ad1087a0",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Audio editing is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e403e131940a27b5430512e5",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Sewage treatment is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e640c645982e326ab30a8edd",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "News reporting is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e68435171d112228418755ca",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Repossession is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:e9e0eb597f1c09664430d69a",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Independent writing is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ea24fa67b5fdc79ca93ab3ab",
+      "confidence": 0.91,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Business copy centers are standalone document services rather than bundled administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ed4805d33ad2109875a6ef33",
+      "confidence": 0.91,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Document formatting is a standalone support service, not the bundled boundary.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:edcfbfe448e631a166cf9872",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Aircraft ferrying and pilot services are outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ef0487a6470e4ada0e85d520",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Consumer-electronics repair is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:ef051f628282ef235dec3edb",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Patent docketing is specialist legal-support work.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f03413b44d1ea1114967030a",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Audio licensing brokerage is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f3ceb8241e205094081d2e48",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Jewelry design is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f50891bf2e5a7d4edfe56058",
+      "confidence": 0.95,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Education administration is a vertical specialist service.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f655fb660b1bc4595a804d8c",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Personal-chef services are outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f713aa7201868b482386d8fe",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Audio recording is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:f9753ba56afe540a0eeb5e34",
+      "confidence": 0.96,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Restaurant operation is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:fb494cca1c3ab48d968a8f34",
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Telecommunications consulting is outside office administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "candidate_market_id": "candidate-market:fb6f65200317750c23dc8b7a",
+      "confidence": 0.91,
+      "counterevidence_ids": [],
+      "disposition": "reject",
+      "evidence_label": "inference",
+      "proposal_ids": [],
+      "rationale": "Mail preparation is a standalone specialist support service, not bundled administration.",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    }
+  ],
+  "family_id": "office-administrative-services-v1",
+  "identity_dispositions": [
+    {
+      "confidence": 0.94,
+      "counterevidence_ids": [],
+      "disposition": "map_to_proposal",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:naics:561110",
+      "proposal_id": "proposal:contracted-bundled-office-administration",
+      "rationale": "The NAICS definition directly describes contracted day-to-day office administration while excluding complete client operations.",
+      "relationship_type": "industry_containing_market",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:2052875000",
+      "proposal_id": null,
+      "rationale": "Quick printing is a product identity, not the bundled office-administration market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:84533703a96037681905879a"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3001050000",
+      "proposal_id": null,
+      "rationale": "Apartment construction is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:a46d2bbcf5a0db60108537d4"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3001410000",
+      "proposal_id": null,
+      "rationale": "Commercial mobile-building construction is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:744ccb7b655f88b535821b44"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3001500000",
+      "proposal_id": null,
+      "rationale": "Nonresidential construction is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:b9706a8567735bede31c7c35"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3002050000",
+      "proposal_id": null,
+      "rationale": "Commercial-building repair construction is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:0ce97b791e680d593b33d58a"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:3004800000",
+      "proposal_id": null,
+      "rationale": "Construction project management is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:4dc50dcf6a2da4ca834a75d9"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:6000175000",
+      "proposal_id": null,
+      "rationale": "Water and sewage treatment is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:ddee9949fe973632f99fbad9"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7001300000",
+      "proposal_id": null,
+      "rationale": "Textbooks are outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:64d0cd84933ccbd25da49fcc"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7002545000",
+      "proposal_id": null,
+      "rationale": "Social event planning is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:4756f33875254163103421e8"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7003925000",
+      "proposal_id": null,
+      "rationale": "Education programs are outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:333ad7752bf3208b3a7ac904"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7004125000",
+      "proposal_id": null,
+      "rationale": "Patient care is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:46cf4114381e07b5c7af1918"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7004650000",
+      "proposal_id": null,
+      "rationale": "Assisted daily living is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:8bcd462c15012ccdcbccb412"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7004955000",
+      "proposal_id": null,
+      "rationale": "Medical care management is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:2a67da0aa554c22c09967bde"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005450000",
+      "proposal_id": null,
+      "rationale": "Personal financial planning is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:648d4bb146ef39940bf58d25"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005562000",
+      "proposal_id": null,
+      "rationale": "Insurance consulting is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:ef9d1a258aa5147dbd56ae83"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005563000",
+      "proposal_id": null,
+      "rationale": "Insurance support is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:11d66e5028ddc588fa3561a3"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005700000",
+      "proposal_id": null,
+      "rationale": "Business and commercial legal services are outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:4fc21d134fbcb972f461e2a5"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7005950000",
+      "proposal_id": null,
+      "rationale": "Legal and patent document services are specialist legal support.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:a7239fac99b8d130260529c4"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7006300000",
+      "proposal_id": null,
+      "rationale": "Nonresidential land leasing is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:530c031b1c8a32940589eb77"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7008550000",
+      "proposal_id": null,
+      "rationale": "Property management is explicitly separately classified.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:d76b9ed75cddcb5f9fe32952",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7010350000",
+      "proposal_id": null,
+      "rationale": "Temporary staffing is a separate labor-supply service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:8240831852a12a0fe49ee389"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7010450000",
+      "proposal_id": null,
+      "rationale": "Co-employment is a separate labor-supply service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:dd5502904bfa373972bb8f11"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012028000",
+      "proposal_id": null,
+      "rationale": "Website design and development is a standalone technical service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:7af1d42207475ae2d33c7500"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012045000",
+      "proposal_id": null,
+      "rationale": "Computer systems design and development is a standalone technical service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:31a33cb0b3f1c78b1d18b7c8"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012270000",
+      "proposal_id": null,
+      "rationale": "Scientific and technical consulting is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:0c70b9646bf1764e77adf60f"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012450000",
+      "proposal_id": null,
+      "rationale": "Full-service direct marketing is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:1545a7d08b9c6cecb64f1949"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7012475000",
+      "proposal_id": null,
+      "rationale": "Advertising creative services are outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:25b673cedc71dac187d959ca"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014150000",
+      "proposal_id": null,
+      "rationale": "Telephone answering is a standalone support service, not a bundled operating market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:bd8ca6179a254a78a7533cef",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014225000",
+      "proposal_id": null,
+      "rationale": "IT technical consulting is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:1341bed39cd6ee8283d1f8e1"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014300000",
+      "proposal_id": null,
+      "rationale": "Business-process management is a separately specified product, not proof of the bundled boundary.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:5ef98268217cf38de7322b5a",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014410000",
+      "proposal_id": null,
+      "rationale": "IT infrastructure provisioning is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:c1cabd07429f124252adf0ff"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014450000",
+      "proposal_id": null,
+      "rationale": "IT infrastructure and network management is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:355ebae24a0f216287892984"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014450003",
+      "proposal_id": null,
+      "rationale": "Network management is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:8d1a3c33a2b247da9d4c56a7"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014450006",
+      "proposal_id": null,
+      "rationale": "Computer systems management is outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:5cb859c564094f9e11512c4a"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014530000",
+      "proposal_id": null,
+      "rationale": "Translation and interpretation is a specialist language service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:685a7b6784fbb72ef87c0c13"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014550000",
+      "proposal_id": null,
+      "rationale": "Strategic management consulting is advice-led and separately classified.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:2e955d01b883f2f0bc873129",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014550003",
+      "proposal_id": null,
+      "rationale": "Business strategy consulting is advice-led and outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:28fbd532187d16b87d2b0af6"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014550006",
+      "proposal_id": null,
+      "rationale": "Corporate development consulting is advice-led and outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:4ae0fae47c66c4c8e3984f77"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014550009",
+      "proposal_id": null,
+      "rationale": "Strategic consulting is advice-led and outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:6eeb096cc64ce005d824e632"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014575000",
+      "proposal_id": null,
+      "rationale": "Financial management consulting is advice-led and outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:116215961725ba8fe9756f80"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014600000",
+      "proposal_id": null,
+      "rationale": "Marketing management consulting is advice-led and outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:686c6087ff6db39dd49a3865"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014625000",
+      "proposal_id": null,
+      "rationale": "HR management consulting is advice-led and outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:62e5d078ed5786d7f3ab9169"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014650000",
+      "proposal_id": null,
+      "rationale": "Operations and supply-chain consulting is advice-led and outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:dd0472d9ec029b36ef5961ee"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014670000",
+      "proposal_id": null,
+      "rationale": "Correctional-facility operation is a complete client operation and is excluded.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:51f67e0d587e71630c067a6e",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014675000",
+      "proposal_id": null,
+      "rationale": "Facility support is not established as the bundled office-administration market.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:5207f52a8c86cf0218bdc956"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014725000",
+      "proposal_id": null,
+      "rationale": "Typing and transcription is a standalone support service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:ab6fd57211eb549ad5695f22"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014750000",
+      "proposal_id": null,
+      "rationale": "Document processing and editing is a standalone support service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:c9cf12a3422aef5e5bfd4c3b"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014775000",
+      "proposal_id": null,
+      "rationale": "Copying and reproduction is a standalone support service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:a58211c15434d71f9a0965d8"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014800000",
+      "proposal_id": null,
+      "rationale": "Fax transmission is a standalone communications service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:29ce095ebb07843c2e688c92"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014825000",
+      "proposal_id": null,
+      "rationale": "Document finishing is a standalone support service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:111060de52453d183022e7fd"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014850000",
+      "proposal_id": null,
+      "rationale": "Mailroom services are standalone support services.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:295d157d927ae203946ae248"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014875000",
+      "proposal_id": null,
+      "rationale": "Mail presorting and barcoding is a standalone support service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:3aafd501419cb408ab29ff44"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7014925000",
+      "proposal_id": null,
+      "rationale": "Project management is separately specified and not established as bundled office administration.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:1240d48112f9f1d3119e233e"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016325000",
+      "proposal_id": null,
+      "rationale": "Financial auditing is a specialist accounting service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:8a2ef81d27ae0ceb4fc45450"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016375000",
+      "proposal_id": null,
+      "rationale": "Financial statement review is a specialist accounting service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:45db92403895691d20466c09"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016450000",
+      "proposal_id": null,
+      "rationale": "General accounting is a standalone specialist service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:66e8e72ce6f52a99da85f522"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016475000",
+      "proposal_id": null,
+      "rationale": "Bookkeeping is a standalone specialist service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:0a9cb8e4495de3e0858daae7"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016500000",
+      "proposal_id": null,
+      "rationale": "Payroll is a standalone specialist service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:befef7f25d01f598ed5e69cc"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016500003",
+      "proposal_id": null,
+      "rationale": "Full-service payroll is a standalone specialist service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:5f408555c9724a3861f21a9d"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016500006",
+      "proposal_id": null,
+      "rationale": "Payroll sold separately is explicitly a standalone service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:128821f7d416db8634ac92ea"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016550000",
+      "proposal_id": null,
+      "rationale": "Tax preparation and representation is a standalone specialist service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:e8ce3bfa2b7d0d3601a0d4c7"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016550003",
+      "proposal_id": null,
+      "rationale": "Individual tax preparation is a standalone specialist service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:41e0fd17833c2fb23d3b6d50"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7016550006",
+      "proposal_id": null,
+      "rationale": "Corporate tax preparation is a standalone specialist service.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:f47680f73917d03dda75eac0"
+      ]
+    },
+    {
+      "confidence": 0.98,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:7017150000",
+      "proposal_id": null,
+      "rationale": "Association membership services are outside the family.",
+      "relationship_type": "non_market_product",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:94a101770fa5086dc2fc0098"
+      ]
+    },
+    {
+      "confidence": 0.99,
+      "counterevidence_ids": [],
+      "disposition": "no_mapping_to_family",
+      "evidence_label": "fact",
+      "gap_id": null,
+      "identity_id": "identity:napcs-collection:9000000000",
+      "proposal_id": null,
+      "rationale": "The residual all-other-products identity has no trilateral mapping and cannot define a market boundary.",
+      "relationship_type": "residual_bucket",
+      "supporting_evidence_ids": [
+        "evidence:source-identity:3fec0fb50b3e272634fd4c3d",
+        "evidence:collection-trilateral-no-mapping:6a88d51f5483193c3346e156"
+      ]
+    }
+  ],
+  "input_pack_sha256": "32634f119b454bbae964cab7ed1c40a2f5eb09285fa3c254191422246f33bbed",
+  "invocation_id": "invocation:3ff89b47433f3192f94a42c0",
+  "proposed_markets": [
+    {
+      "acquisition_universe": "Providers whose primary offering is a contract or fee-based bundle of recurring day-to-day office administrative services for other organizations; exclude providers selling only one specialist support service or operating the client's complete business.",
+      "aliases": [
+        "Office administrative services",
+        "Outsourced office administration",
+        "Bundled back-office administration"
+      ],
+      "ambient_ai_workflow": "AI can assist recordkeeping, billing workflows, personnel administration, routing, and document handling, but the market boundary remains accountable delivery of the bundled administrative service rather than sale of AI software.",
+      "boundary": "Includes externally provided, bundled day-to-day financial-planning, billing and recordkeeping, personnel, and physical-distribution/logistics administration. Excludes complete operation of a client business, internal corporate managing offices, consulting without day-to-day management, property management, facilities management, staffing, and standalone specialist services such as accounting, payroll, tax, mail, document, IT, or legal support.",
+      "buyer": "Organizations that contract an outside provider to run a range of their day-to-day office administrative functions.",
+      "candidate_market_ids": [],
+      "canonical_name": "Contracted bundled office administration",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.78,
+        "ambient_ai_workflow": 0.55,
+        "buyer": 0.85,
+        "delivery": 0.9,
+        "economics_risk": 0.72,
+        "job": 0.92,
+        "workforce": 0.76
+      },
+      "counterevidence_ids": [],
+      "definition": "A market for providers that deliver a bundled range of day-to-day office administrative functions for other organizations on a contract or fee basis, without providing the operating staff required to run the client's complete business.",
+      "delivery_model": "Recurring contracted or fee-based managed administrative delivery across multiple office functions.",
+      "economics_risk": "Service economics are tied to labor-enabled administrative delivery, process standardization, client scope, and responsibility for execution of routine office workflows; complete operational takeover is excluded.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "inference",
+        "ambient_ai_workflow": "inference",
+        "buyer": "fact",
+        "delivery": "fact",
+        "economics_risk": "inference",
+        "job": "fact",
+        "workforce": "inference"
+      },
+      "explicit_exclusions": [
+        "Complete operation of a client's business",
+        "Standalone accounting, payroll, tax, document, mail, IT, legal, or other single support service",
+        "Management consulting without day-to-day management",
+        "Property management",
+        "Computer facilities management",
+        "Internal corporate, subsidiary, or regional managing offices"
+      ],
+      "job_to_be_done": "Run a client's recurring day-to-day office administration as an integrated external service.",
+      "proposal_id": "proposal:contracted-bundled-office-administration",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:source-identity:8e55efba8cb7eedfad823673"
+      ],
+      "workforce_model": "Administrative personnel organized to execute multiple routine office functions for clients; not the operating staff for the client's entire business."
+    }
+  ],
+  "research_gaps": [],
+  "role_id": "specialist-a",
+  "schema_version": 1
+}

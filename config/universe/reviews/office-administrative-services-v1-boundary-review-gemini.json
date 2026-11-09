@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "review_id": "boundary-review:office-administrative-services-v1:first-pilot:gemini-successor",
+  "supersedes_review_config": "config/universe/reviews/office-administrative-services-v1-boundary-review.json",
+  "target_run_id": "boundary-run-1d9b04b683a3544c2644",
+  "target_run_dir": "data/agent_runs/boundary-run-1d9b04b683a3544c2644",
+  "target_pack_sha256": "32634f119b454bbae964cab7ed1c40a2f5eb09285fa3c254191422246f33bbed",
+  "target_adjudication_sha256": "270b95ab18257bb24a464f47d3bf0f7ca7d33e7b3b48259ebf5adbb15223d685",
+  "provider": "openrouter",
+  "review_model": "google/gemini-4-argon",
+  "reasoning_effort": "high",
+  "max_completion_tokens": 32000,
+  "max_attempts": 3,
+  "questions": [
+    "Does the frozen evidence support the proposed integrated outsourced office administration operating-market boundary?",
+    "Are all identity dispositions evidence-faithful, including the classification of 65 NAPCS product identities as non-market source identities?",
+    "Is the zero-gap result appropriately cautious given unknown Ambient AI workflow evidence and inferred acquisition/economic dimensions?",
+    "Does candidate disposition reject mean only not mapped into this bounded family, or could it incorrectly imply global deletion from the prior-candidate universe?",
+    "Do any unsupported facts, invented IDs, overconfident labels, missing counterevidence, or unsafe activation assumptions remain?"
+  ],
+  "activation_rule": "No graph activation unless the independent review returns approve_activation with zero P0, P1, or P2 findings and every registered check passes."
+}

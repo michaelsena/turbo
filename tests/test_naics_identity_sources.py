@@ -94,8 +94,8 @@ class NaicsIdentitySourcesTest(unittest.TestCase):
             self.summary["manual_definitions"]["disposition_counts"],
             {
                 "delegated_definition": 522,
-                "substantive_inline_definition": 1_572,
-                "title_only_heading": 31,
+                "substantive_inline_definition": 1_571,
+                "title_only_heading": 32,
             },
         )
 
@@ -114,14 +114,14 @@ class NaicsIdentitySourcesTest(unittest.TestCase):
         self.assertEqual(len(illustrative), 381)
         self.assertEqual(len(cross_references), 1_095)
         self.assertEqual(len(delegated), 522)
-        self.assertEqual(len(title_only), 31)
+        self.assertEqual(len(title_only), 32)
         self.assertTrue(all(item.level == 5 for item in delegated))
         self.assertEqual(
             {item.naics_2022_code for item in title_only},
             {
                 "2111", "3122", "4242", "4251", "4453", "4492", "4551",
                 "4552", "4561", "4572", "4581", "4582", "4592", "4593",
-                "4595", "5178", "5621", "5622", "6111", "8131", "8132",
+                "4595", "5178", "5612", "5621", "5622", "6111", "8131", "8132",
                 "8133", "8134", "9211", "9221", "9231", "9241", "9251",
                 "9261", "9271", "9281",
             },
@@ -159,6 +159,36 @@ class NaicsIdentitySourcesTest(unittest.TestCase):
                 )
             )
             self.assertNotIn("Canadian, Mexican", semantic_text)
+
+    def test_manual_semantic_blocks_exclude_heading_decorations(self) -> None:
+        definitions = {
+            item.naics_2022_code: item for item in parse_naics_manual_definitions()
+        }
+        office_administration = definitions["561110"]
+        self.assertTrue(
+            office_administration.cross_references_text.endswith(
+                "according to the service provided."
+            )
+        )
+        self.assertEqual(office_administration.end_page, 488)
+        self.assertEqual(office_administration.end_y, 423.19)
+        self.assertEqual(definitions["5612"].disposition, "title_only_heading")
+        self.assertEqual(definitions["5612"].narrative_text, "")
+        for definition in definitions.values():
+            for fragments in (
+                definition.narrative_fragments,
+                definition.illustrative_examples_fragments,
+                definition.cross_references_fragments,
+            ):
+                self.assertFalse(
+                    any(
+                        fragment["text"].strip() == "T"
+                        and "Bold" in str(fragment["font"])
+                        and abs(float(fragment["size"]) - 6.48) <= 0.01
+                        and abs(float(fragment["x"]) - 221.52) <= 0.01
+                        for fragment in fragments
+                    )
+                )
 
     def test_full_concordance_directions_are_exact_reverses(self) -> None:
         counts = self.summary["full_concordance"]

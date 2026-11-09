@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelsena/turbo/schemas/boundary-specialist-output.schema.json",
+  "title": "Turbo boundary specialist output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "family_id", "role_id", "invocation_id",
+    "input_pack_sha256", "analysis_summary", "proposed_markets",
+    "identity_dispositions", "candidate_dispositions",
+    "alternatives_considered", "research_gaps"
+  ],
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "family_id": {"type": "string", "pattern": "\\S"},
+    "role_id": {"type": "string", "pattern": "^specialist-[ab]$"},
+    "invocation_id": {"type": "string", "pattern": "^invocation:[0-9a-f]{24}$"},
+    "input_pack_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "analysis_summary": {"type": "string", "pattern": "\\S"},
+    "proposed_markets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/proposedMarket"}
+    },
+    "identity_dispositions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/identityDisposition"}
+    },
+    "candidate_dispositions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/candidateDisposition"}
+    },
+    "alternatives_considered": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "\\S"}
+    },
+    "research_gaps": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/researchGap"}
+    }
+  },
+  "$defs": {
+    "uniqueStrings": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "\\S"}
+    },
+    "nonEmptyUniqueStrings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "pattern": "\\S"}
+    },
+    "evidenceLabel": {"type": "string", "enum": ["fact", "inference", "assumption", "unknown"]},
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["buyer", "job", "delivery", "workforce", "economics_risk", "acquisition_universe", "ambient_ai_workflow"],
+      "properties": {
+        "buyer": {"$ref": "#/$defs/evidenceLabel"},
+        "job": {"$ref": "#/$defs/evidenceLabel"},
+        "delivery": {"$ref": "#/$defs/evidenceLabel"},
+        "workforce": {"$ref": "#/$defs/evidenceLabel"},
+        "economics_risk": {"$ref": "#/$defs/evidenceLabel"},
+        "acquisition_universe": {"$ref": "#/$defs/evidenceLabel"},
+        "ambient_ai_workflow": {"$ref": "#/$defs/evidenceLabel"}
+      }
+    },
+    "confidenceDimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["buyer", "job", "delivery", "workforce", "economics_risk", "acquisition_universe", "ambient_ai_workflow"],
+      "properties": {
+        "buyer": {"type": "number", "minimum": 0, "maximum": 1},
+        "job": {"type": "number", "minimum": 0, "maximum": 1},
+        "delivery": {"type": "number", "minimum": 0, "maximum": 1},
+        "workforce": {"type": "number", "minimum": 0, "maximum": 1},
+        "economics_risk": {"type": "number", "minimum": 0, "maximum": 1},
+        "acquisition_universe": {"type": "number", "minimum": 0, "maximum": 1},
+        "ambient_ai_workflow": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "proposedMarket": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proposal_id", "canonical_name", "definition", "boundary", "buyer",
+        "job_to_be_done", "delivery_model", "workforce_model", "economics_risk",
+        "acquisition_universe", "ambient_ai_workflow", "aliases",
+        "explicit_exclusions", "candidate_market_ids", "supporting_evidence_ids",
+        "counterevidence_ids", "evidence_by_dimension",
+        "confidence_by_dimension"
+      ],
+      "properties": {
+        "proposal_id": {"type": "string", "pattern": "^proposal:[a-z0-9][a-z0-9-]{1,63}$"},
+        "canonical_name": {"type": "string", "pattern": "\\S"},
+        "definition": {"type": "string", "pattern": "\\S"},
+        "boundary": {"type": "string", "pattern": "\\S"},
+        "buyer": {"type": "string", "pattern": "\\S"},
+        "job_to_be_done": {"type": "string", "pattern": "\\S"},
+        "delivery_model": {"type": "string", "pattern": "\\S"},
+        "workforce_model": {"type": "string", "pattern": "\\S"},
+        "economics_risk": {"type": "string", "pattern": "\\S"},
+        "acquisition_universe": {"type": "string", "pattern": "\\S"},
+        "ambient_ai_workflow": {"type": "string", "pattern": "\\S"},
+        "aliases": {"$ref": "#/$defs/uniqueStrings"},
+        "explicit_exclusions": {"$ref": "#/$defs/uniqueStrings"},
+        "candidate_market_ids": {"$ref": "#/$defs/uniqueStrings"},
+        "supporting_evidence_ids": {"$ref": "#/$defs/nonEmptyUniqueStrings"},
+        "counterevidence_ids": {"$ref": "#/$defs/uniqueStrings"},
+        "evidence_by_dimension": {"$ref": "#/$defs/dimensions"},
+        "confidence_by_dimension": {"$ref": "#/$defs/confidenceDimensions"}
+      }
+    },
+    "identityDisposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity_id", "disposition", "proposal_id", "relationship_type",
+        "rationale", "evidence_label", "confidence", "supporting_evidence_ids",
+        "counterevidence_ids", "gap_id"
+      ],
+      "properties": {
+        "identity_id": {"type": "string", "pattern": "^identity:"},
+        "disposition": {
+          "type": "string",
+          "enum": [
+            "map_to_proposal", "provisional_map_to_proposal",
+            "no_mapping_to_family", "provisional_no_mapping_to_family",
+            "non_market_source_identity", "provisional_non_market_source_identity"
+          ]
+        },
+        "proposal_id": {"type": ["string", "null"], "pattern": "^proposal:"},
+        "relationship_type": {
+          "type": ["string", "null"],
+          "enum": [null, "equivalent_label_candidate", "broader_than_market", "narrower_than_market", "product_sold_by_market", "industry_containing_market", "task_performed_by_market", "partial_overlap", "residual_bucket", "non_market_product"]
+        },
+        "rationale": {"type": "string", "pattern": "\\S"},
+        "evidence_label": {"$ref": "#/$defs/evidenceLabel"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "supporting_evidence_ids": {"$ref": "#/$defs/nonEmptyUniqueStrings"},
+        "counterevidence_ids": {"$ref": "#/$defs/uniqueStrings"},
+        "gap_id": {"type": ["string", "null"], "pattern": "^gap:"}
+      }
+    },
+    "candidateDisposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_market_id", "disposition", "proposal_ids", "rationale",
+        "evidence_label", "confidence", "supporting_evidence_ids",
+        "counterevidence_ids"
+      ],
+      "properties": {
+        "candidate_market_id": {"type": "string", "pattern": "^candidate-market:"},
+        "disposition": {"type": "string", "enum": ["adopt", "change", "merge_input", "split_input", "reject", "not_resolved_in_family"]},
+        "proposal_ids": {"$ref": "#/$defs/uniqueStrings"},
+        "rationale": {"type": "string", "pattern": "\\S"},
+        "evidence_label": {"$ref": "#/$defs/evidenceLabel"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "supporting_evidence_ids": {"$ref": "#/$defs/nonEmptyUniqueStrings"},
+        "counterevidence_ids": {"$ref": "#/$defs/uniqueStrings"}
+      }
+    },
+    "researchGap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gap_id", "question", "affected_identity_ids", "current_judgment",
+        "evidence_label", "confidence", "retry_trigger",
+        "supporting_evidence_ids", "counterevidence_ids"
+      ],
+      "properties": {
+        "gap_id": {"type": "string", "pattern": "^gap:[a-z0-9][a-z0-9-]{1,63}$"},
+        "question": {"type": "string", "pattern": "\\S"},
+        "affected_identity_ids": {"$ref": "#/$defs/uniqueStrings"},
+        "current_judgment": {"type": "string", "pattern": "\\S"},
+        "evidence_label": {"$ref": "#/$defs/evidenceLabel"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "retry_trigger": {"type": "string", "pattern": "\\S"},
+        "supporting_evidence_ids": {"$ref": "#/$defs/nonEmptyUniqueStrings"},
+        "counterevidence_ids": {"$ref": "#/$defs/uniqueStrings"}
+      }
+    }
+  }
+}

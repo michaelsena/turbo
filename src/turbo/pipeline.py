@@ -34,7 +34,19 @@ PROJECT_CONFIG = ROOT / "pyproject.toml"
 GENERATED = ROOT / "data/generated"
 RUNS = ROOT / "data/runs"
 SOURCE_URL = "https://www.census.gov/naics/2022NAICS/2022_NAICS_Structure.xlsx"
-METHOD_VERSION = "identity-source-semantic-reconciliation-v8"
+METHOD_VERSION = "identity-source-semantic-reconciliation-v9"
+
+UNIVERSE_CODE_PATHS = (
+    "src/turbo/models.py",
+    "src/turbo/pipeline.py",
+    "src/turbo/pipeline_paths.py",
+    "src/turbo/universe/identity_sources.py",
+    "src/turbo/universe/multisource.py",
+    "src/turbo/universe/naics.py",
+    "src/turbo/universe/naics_identity_sources.py",
+    "src/turbo/universe/napcs_hierarchy.py",
+)
+UNIVERSE_SCHEMA_PATHS = ("schemas/source-record.schema.json",)
 
 
 def sha256(path: Path) -> str:
@@ -317,16 +329,18 @@ def _canonical_bytes(value: object) -> bytes:
 
 def _code_fingerprint() -> str:
     digest = hashlib.sha256()
-    for path in sorted((ROOT / "src/turbo").rglob("*.py")):
-        digest.update(str(path.relative_to(ROOT)).encode("utf-8"))
+    for relative_path in UNIVERSE_CODE_PATHS:
+        path = ROOT / relative_path
+        digest.update(relative_path.encode("utf-8"))
         digest.update(path.read_bytes())
     return digest.hexdigest()
 
 
 def _schema_fingerprint() -> str:
     digest = hashlib.sha256()
-    for path in sorted((ROOT / "schemas").glob("*.json")):
-        digest.update(str(path.relative_to(ROOT)).encode("utf-8"))
+    for relative_path in UNIVERSE_SCHEMA_PATHS:
+        path = ROOT / relative_path
+        digest.update(relative_path.encode("utf-8"))
         digest.update(path.read_bytes())
     return digest.hexdigest()
 
@@ -628,5 +642,31 @@ def validate() -> list[str]:
             )
         except Exception as error:
             errors.append(f"identity/reference validation failed: {error}")
+    if not errors:
+        try:
+            from jsonschema import Draft202012Validator
+
+            from turbo.agents.boundary_harness import (
+                load_adjudication_schema,
+                load_specialist_schema,
+            )
+            from turbo.universe.boundary_pack import (
+                build_boundary_pack,
+                validate_boundary_pack,
+            )
+
+            Draft202012Validator.check_schema(load_specialist_schema())
+            Draft202012Validator.check_schema(load_adjudication_schema())
+            family_configs = sorted((ROOT / "config/universe/families").glob("*.json"))
+            if not family_configs:
+                errors.append("no boundary family configurations")
+            for config_path in family_configs:
+                pack = build_boundary_pack(config_path)
+                errors.extend(
+                    f"boundary family {config_path.name}: {error}"
+                    for error in validate_boundary_pack(pack)
+                )
+        except Exception as error:
+            errors.append(f"boundary harness validation failed: {error}")
     return errors
 

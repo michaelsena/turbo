@@ -84,8 +84,8 @@ from the index is not negative market evidence.
 The Manual definition section is parsed separately from its alphabetic index. Turbo
 uses coordinate-aware headings on physical PDF pages 79–603 to close exactly one
 semantic record against each of the 2,125 official hierarchy identities. The result
-contains 1,572 substantive inline definitions, 522 level-five headings that delegate
-to a six-digit definition, and 31 level-four title-only headings. Illustrative
+contains 1,571 substantive inline definitions, 522 level-five headings that delegate
+to a six-digit definition, and 32 level-four title-only headings. Illustrative
 examples (381 blocks) and cross-references (1,095 blocks) remain distinct from the
 definition narrative. Every derived field retains its contributing page, x/y,
 font, size, and text fragments; delegated endpoints must resolve to current 2022
@@ -145,6 +145,36 @@ second independently tests them and searches for countercases, and adjudication
 resolves disagreements or keeps the mapping explicitly unresolved. Accepted events
 are appended only after review.
 
+The first pre-registered pilot is the `identity:naics:561110` Office Administrative
+Services family. The seed was chosen neutrally to exercise a difficult boundary; it
+was not selected for investment attractiveness. The exact frozen pack contains the
+seed plus all 65 directly observed collection-product identities, while four NAICS
+ancestors, nine Manual cross-reference neighbors, and 149 linked trilateral hierarchy
+nodes are context-only. It preserves all 121 selected industry-product observations,
+55 collection/trilateral relationships with 110 observations, one official explicit
+no-mapping row, nine selected products absent from the concordance, the exact Manual
+definition and 13 index entries, one vintage-lineage pair, 66 current reconciliation
+work items, 127 retrieved prior candidates, and the complete lightweight 978-candidate
+catalog. Expected counts are executable gates; a mismatch aborts compilation.
+
+The pack is compiled only from hash-verified immutable run artifacts. It does not
+rerun parsers, browse, filter for strategy fit, score attractiveness, or create graph
+events. Two blind specialists must disposition every required identity and candidate
+hypothesis. The mandatory adjudicator is cryptographically bound to both exact
+specialist outputs. Weak evidence produces a provisional inference or assumption with
+lower confidence and a retry gap, never a blank. Even a schema-valid adjudication is
+only a proposal until independent review activates deterministic graph events.
+
+The corrected V2 pilot is the first completed activation. A zero-finding independent
+review approved three proposals with explicit conditions; a separately preregistered,
+network-free compiler then emitted three `create_market` events and one provisional
+NAICS `561110` `map` event. It emitted no `reject_candidate` events, preserving all
+family-local non-mappings in the global candidate catalog. The projection is graph
+version `graph-1287641f7c96ef367b8cba4d`. Horizontal operating-model evidence and the
+horizontal-versus-vertical boundary remain active gaps; medical and dental markets
+and the NAICS mapping remain provisional. Activation is not Target filtering or
+market evaluation.
+
 The global audit then detects cross-family duplicates, incompatible mappings,
 hierarchy cycles, task-level false markets, residual buckets hiding missing markets,
 one-source-only nodes, and boundaries that are too broad or too narrow.
@@ -174,8 +204,8 @@ artifact with referentially closed identity endpoints. Seven official `NA`
 concordance rows remain explicit non-mapping dispositions. The reconciliation layer
 retains 30,850 source rows/observations but produces one review mapping for each of
 11,543 normalized identities. The NAICS Manual identity layer now contains exactly
-one definition record for all 2,125 hierarchy identities, including 1,572 substantive
-definitions, 522 delegated definition links, 31 title-only headings, 381 illustrative
+one definition record for all 2,125 hierarchy identities, including 1,571 substantive
+definitions, 522 delegated definition links, 32 title-only headings, 381 illustrative
 example blocks, and 1,095 cross-reference blocks. Its 20,373 coded alphabetic-index
 entries, 25 uncoded index cross-references, the 1,150 full 2017/2022 lineage pairs,
 and 846 bridge

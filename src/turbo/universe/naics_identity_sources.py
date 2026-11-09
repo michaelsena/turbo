@@ -214,6 +214,19 @@ def _derived_line_text(
     )
 
 
+def _is_heading_decoration(line: dict[str, object]) -> bool:
+    spans = line["spans"]
+    if not isinstance(spans, list) or len(spans) != 1:
+        return False
+    span = spans[0]
+    return (
+        str(span["text"]).strip() == "T"
+        and "Bold" in str(span["font"])
+        and abs(float(span["size"]) - 6.48) <= 0.01
+        and abs(float(span["x"]) - 221.52) <= 0.01
+    )
+
+
 @lru_cache(maxsize=1)
 def parse_naics_manual_definitions() -> tuple[NaicsManualDefinition, ...]:
     nodes = parse_naics(STRUCTURE)
@@ -301,7 +314,7 @@ def parse_naics_manual_definitions() -> tuple[NaicsManualDefinition, ...]:
                 blocks.append((current_code, current_lines))
             current_code = code
             current_lines = [line]
-        elif current_code is not None:
+        elif current_code is not None and not _is_heading_decoration(line):
             current_lines.append(line)
     if current_code is not None:
         blocks.append((current_code, current_lines))
@@ -658,9 +671,9 @@ def naics_identity_source_artifacts() -> tuple[dict[str, object], dict[str, obje
         definition.disposition for definition in manual_definitions
     )
     if disposition_counts != {
-        "substantive_inline_definition": 1_572,
+        "substantive_inline_definition": 1_571,
         "delegated_definition": 522,
-        "title_only_heading": 31,
+        "title_only_heading": 32,
     }:
         raise ValueError(f"unexpected NAICS definition dispositions: {disposition_counts}")
     delegated = [

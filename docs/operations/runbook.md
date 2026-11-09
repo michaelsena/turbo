@@ -39,6 +39,32 @@ truth. Private or unsupported evidence must never leak into publication artifact
 
 ## Local verification
 
+For metered model runs, create an ignored local `.env` from `.env.example` and place
+the dedicated Turbo OpenRouter key there. Never paste the key into GitHub, a prompt,
+or a committed configuration file.
+
+```bash
+cp .env.example .env
+# Edit .env locally, then load it only into the current shell.
+set -a
+source .env
+set +a
+turbo boundary-run
+turbo boundary-validate-run data/agent_runs/<boundary-run-id>
+turbo boundary-review config/universe/reviews/<review-config>.json
+turbo boundary-activate config/universe/activations/<activation-config>.json
+turbo boundary-validate-activation \
+  data/market_graph/activations/<activation-id> \
+  config/universe/activations/<activation-config>.json
+```
+
+`boundary-run` makes two concurrent specialist calls and, only after both validate,
+one adjudicator call. It is intentionally explicit and metered; validators and tests
+never call OpenRouter. Model slugs are versioned in the family execution config. A
+role whose structured output fails local validation may use the configured bounded
+correction loop, so one boundary run can make more than three paid calls; inspect the
+per-call receipts and remaining key limit after a run.
+
 ```bash
 PYTHONPATH=src python3 -m turbo.cli validate
 PYTHONPATH=src python3 -m turbo.cli run
@@ -57,6 +83,41 @@ Before accepting a material run, verify:
 - rerunning produces the same substantive projection
 - README and relevant detailed docs are current
 - exact Git commit and output hashes are recorded
+
+Before a metered run, also verify that `OPENROUTER_API_KEY` is present without
+printing it, the configured provider/model slugs are expected, and the dedicated key
+limit is sufficient. Receipts may record provider/model/cost metadata but never the
+credential or raw private reasoning.
+
+Independent-review runs create their run directory and a sanitized
+`review.receipt.json` before sending the metered request. The receipt begins as
+`in_progress` and is replaced in place with `valid`, `invalid`, or `failed` after
+the attempt. A killed process therefore leaves an inspectable interrupted-run
+receipt instead of an untraceable gap. Receipts contain hashes and provider
+metadata, never the credential, raw private reasoning, or unsanitized exception
+text. Diagnose an interrupted, invalid, or failed receipt before authorizing a
+new metered attempt.
+
+Replay a completed review against its exact preregistered configuration and frozen
+boundary run before accepting its conclusion:
+
+```bash
+turbo boundary-validate-review <review-directory> <review-config> \
+  --config <boundary-family-config>
+```
+
+The replay fails if the structured review, receipt hashes, requested model, target
+envelope, validation status, or credential/reasoning persistence flags differ.
+
+Activation is a separate, network-free step. Its preregistered config must bind an
+exact valid run and zero-finding approval, enumerate the exact proposals and mappings,
+retain every required provisional status and research gap, and prohibit Target
+filtering, scoring, company work, model calls, and global rejection of family-local
+candidate non-mappings. Commit the compiler before running activation so the receipt
+can bind the exact execution head. The command fails if the worktree contains any
+tracked or untracked change, and replay requires the receipt's full hexadecimal
+execution commit to resolve locally. Then commit the resulting immutable events,
+projection, receipt, replay test, and documentation as a separate increment.
 
 ## Agent coordination
 

@@ -155,8 +155,8 @@ fabricated index entries. Both full NAICS concordance directions produce the sam
 1,057 2017 codes and all 1,012 2022 codes. The 846 Economic Census bridge rows remain
 quantitative observations; their eight-digit bridge components are not promoted to
 market or identity nodes. The Manual definition parser separately closes all 2,125
-official NAICS hierarchy identities: 1,572 contain substantive inline definitions,
-522 level-five headings delegate to a six-digit industry definition, and 31
+official NAICS hierarchy identities: 1,571 contain substantive inline definitions,
+522 level-five headings delegate to a six-digit industry definition, and 32
 level-four headings are title-only. It also preserves 381 illustrative-example
 blocks and 1,095 cross-reference blocks. Every block retains its original coordinate
 fragments, exact physical-page locator, and current identity endpoint. These semantic
@@ -348,9 +348,9 @@ starting lists.
 | NAICS Manual uncoded cross-reference rows | 25 |
 | Six-digit codes represented in the manual index | 1,010 |
 | NAICS Manual definition records | 2,125 |
-| Substantive inline NAICS definitions | 1,572 |
+| Substantive inline NAICS definitions | 1,571 |
 | Delegated level-five definition links | 522 |
-| Title-only level-four headings | 31 |
+| Title-only level-four headings | 32 |
 | NAICS illustrative-example blocks | 381 |
 | NAICS cross-reference blocks | 1,095 |
 | Full 2017/2022 NAICS vintage-lineage pairs | 1,150 |
@@ -368,16 +368,99 @@ starting lists.
 | Clean top-candidate proposals | 167 |
 | Ambiguous/conflicted proposals | 44 |
 | Unmatched reconciliation items | 10,980 |
-| Canonical markets accepted | 0 |
+| Canonical markets activated | 3 (1 accepted with open gaps; 2 provisional) |
 | Target markets filtered | 0 |
 | Research scores produced | 0 |
+
+Issue #12 has also completed and activated the first bounded AI-review pilot. The
+neutral Office Administrative Services family contains 66 required source identities,
+65 industry-product relationships backed by 121 exact
+source observations, 547 citable evidence items, 127 retrieved prior-candidate
+hypotheses, and the full lightweight 978-candidate catalog. Its frozen canonical pack
+hash is `32634f119b454bbae964cab7ed1c40a2f5eb09285fa3c254191422246f33bbed`.
+This is an execution input—not a market conclusion, Target Market admission, or
+attractiveness score.
+
+At exact execution head `acb4354f77a5bd5ba5e27982545f61d765a303fa`, two blind
+specialists and one adjudicator independently converged on one proposed operating
+market, **Integrated outsourced office administration**. All three outputs covered
+all 66 required identities and 127 prior-candidate dispositions and passed the
+deterministic closed-world validator. The durable run is
+[`boundary-run-1d9b04b683a3544c2644`](data/agent_runs/boundary-run-1d9b04b683a3544c2644/),
+and `turbo boundary-validate-run` replays it exactly.
+
+That original V1 result remained a **validated proposal, not an accepted canonical
+market**. Independent review had to resolve whether the zero-gap result and 127
+`reject` dispositions were appropriately scoped to this family rather than
+accidentally implying global removal of unrelated prior seeds. No Target Market
+filter, attractiveness score, shortlist, or company work had begun.
+
+The first independent reviewer configuration used Claude Opus 5.5. A tiny strict-JSON
+diagnostic succeeded, but two full frozen-packet attempts returned HTTP 200 with no
+model choice and zero billed usage; both failed closed and the Claude route is retired
+for this review. The append-only successor configuration uses Gemini 4 Argon against
+the identical frozen run and activation rule.
+
+That successor review has now completed with a validated **request changes** verdict:
+one P0, two P1, and two P2 findings. It found that the 127 candidate rejections were
+not safely scoped to this family, directly relevant prior seeds were missed, all 13
+official NAICS 561110 index entries were omitted, and zero research gaps was not
+credible given unresolved vertical boundaries and weak workflow/economic evidence.
+The exact review is
+[`independent-review-e6058823bd1c604ffb36`](data/agent_reviews/independent-review-e6058823bd1c604ffb36/)
+and replays with zero validation errors. That proposal remained outside the Market
+Graph and was superseded by the append-only correction cycle described below.
+
+The correction cycle is preregistered in a successor V2 pack rather than mutating the
+reviewed evidence. It adds the three missed prior seeds as mandatory anchors, expands
+the required candidate set from 127 to 130, and makes family-local rejection scope,
+all 13 index entries, explicit research gaps, complete exclusions, and stronger NAPCS
+citations part of the model completion contract. Its frozen pack hash is
+`eccc87570dc259f3cea6449a5a87455ccba4e690ccb82851e28822c3a64346e5`.
+
+The V2 run has now produced a validated replacement proposal with three linked
+inputs: horizontal integrated office administration plus provisional medical- and
+dental-practice administration boundaries. It reconciles the missed prior seeds,
+marks all 126 remaining rejections as family-local, and preserves two explicit gaps
+for the operating model and horizontal-versus-vertical boundary. The durable run is
+[`boundary-run-1a88e9a3acdf15d63b09`](data/agent_runs/boundary-run-1a88e9a3acdf15d63b09/).
+At that stage it remained unactivated pending a fresh independent review against the
+prior P0/P1/P2 conditions.
+
+That successor review now passes all five checks with **zero P0/P1/P2 findings** and
+an `approve_activation` verdict. It confirms that the corrected proposal is safe for
+deterministic graph activation while preserving provisional status for the medical
+and dental inputs, family-local semantics for rejected seeds, and both open research
+gaps. The exact review is
+[`independent-review-b95c0d39bef8bffa9c00`](data/agent_reviews/independent-review-b95c0d39bef8bffa9c00/).
+The review itself did not mutate the Market Graph.
+
+The separately preregistered deterministic compiler then activated the approved
+boundary at exact implementation head
+`243fbc385cad66e5bc6cbbcbd511b8a47397dc6f`. Activation
+[`boundary-activation-9d3772f0364b4632dc62`](data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62/)
+created three stable, versioned market IDs and one provisional NAICS mapping:
+
+- `market:930fb681a7db796a46677c8c` — Integrated outsourced office administration,
+  accepted with both research gaps open;
+- `market:a4e5f08d253256b2a0c8ca05` — Medical practice administration, provisional;
+- `market:8230a0616ef5332c9c156ed2` — Dental practice administration, provisional; and
+- NAICS `561110` maps provisionally as `broader_than_market` to the horizontal market
+  until the vertical-boundary gap is resolved.
+
+The activation emitted zero `reject_candidate` events, so all 126 family-local
+non-mappings remain intact in the global 978-candidate catalog. Both approved gaps
+remain active. The resulting graph version is
+`graph-1287641f7c96ef367b8cba4d`; its four events and projection replay exactly without
+a model call. This is universe construction only: Target filtering, market scoring,
+ranking, shortlist formation, and company work remain at zero.
 
 These counts and every reconciliation proposal are in the deterministic
 `multisource-reconciliation.json.gz` artifact inside the immutable run directory.
 Large derived views are compressed with a fixed timestamp so replay produces
-byte-identical files and repository growth remains bounded. Zero canonical
-and target markets is the honest current state: source ingestion is working, while
-reviewed normalization is the active critical path.
+byte-identical files and repository growth remains bounded. Three pilot-family
+markets now exist in the graph, but the American Market Universe remains incomplete
+until the remaining operating families and global coverage audit are finished.
 
 The current machine-readable pointer and receipt is
 [`data/generated/latest-run.json`](data/generated/latest-run.json). Full source
@@ -392,9 +475,18 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | `src/turbo/universe/naics_identity_sources.py` | Coordinate-aware NAICS index and definition, vintage-lineage, and bridge parsers |
 | `src/turbo/universe/napcs_hierarchy.py` | Fail-closed parser for the 24-page official six-level NAPCS hierarchy capture |
 | `src/turbo/universe/multisource.py` | Multi-list normalization and reconciliation worklist |
+| `src/turbo/universe/boundary_pack.py` | Hash-verified frozen evidence-pack compiler for bounded operating families |
+| `src/turbo/universe/boundary_activation.py` | Exact-run/review gate and deterministic approved-event compiler/replay validator |
+| `src/turbo/agents/boundary_harness.py` | Schema and closed-world validation for specialists and adjudication |
+| `src/turbo/agents/boundary_runner.py` | Provider-neutral two-specialist/one-adjudicator orchestration and durable outputs |
+| `src/turbo/agents/openrouter_runner.py` | Metered OpenRouter requests, structured-output enforcement, retries, and redacted receipts |
+| `src/turbo/agents/codex_runner.py` | Isolated local Codex CLI provider fallback |
+| `src/turbo/agents/boundary_review.py` | Cross-model independent activation review and closed-world review validation |
 | `src/turbo/pipeline.py` | Replayable source-universe and reconciliation generation |
 | `src/turbo/cli.py` | Local run, validation, and context commands |
 | `data/source_snapshots/` | Immutable official source captures and manifests |
+| `data/agent_runs/` | Immutable model outputs and per-call receipts awaiting activation review |
+| `data/market_graph/activations/` | Immutable accepted graph events, projections, and exact execution receipts |
 | `data/runs/` | Immutable, content-addressed universe artifacts |
 | `data/generated/` | Mutable pointer to the most recent immutable run |
 | `docs/universe/` | Universe sources, identity rules, normalization, and roadmap |
@@ -419,6 +511,20 @@ python3 -m pip install -e .
 turbo validate
 turbo run
 turbo context
+turbo boundary-pack
+# Deliberately invokes three metered model calls after the pack validates:
+cp .env.example .env
+# Add the dedicated key locally, then: set -a; source .env; set +a
+turbo boundary-run
+turbo boundary-validate-review \
+  data/agent_reviews/independent-review-b95c0d39bef8bffa9c00 \
+  config/universe/reviews/office-administrative-services-v2-boundary-review-gemini.json \
+  --config config/universe/families/office-administrative-services-v2.json
+turbo boundary-activate \
+  config/universe/activations/office-administrative-services-v2.json
+turbo boundary-validate-activation \
+  data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62 \
+  config/universe/activations/office-administrative-services-v2.json
 python3 -m unittest discover -s tests -v
 ```
 
@@ -427,10 +533,42 @@ CI are intentionally not configured to avoid unnecessary spend. The test command
 results, input hash, output hash, and exact commit are posted as GitHub issue/PR
 receipts instead.
 
-The production scoring design uses independent model specialists and mandatory
-adjudication. The V1 bootstrap performs no real-market scoring: it stops at the
-source-reconciliation worklist until canonical markets and the Target Market
-Universe have been reviewed and published.
+The boundary harness is model-agnostic. Its first baseline is explicitly provisional:
+two blind specialists receive the same frozen pack in separate ephemeral, read-only
+sessions, and a mandatory adjudicator receives only the pack plus both validated
+structured outputs. Every one of the 66 required identities and all 127 retrieved
+candidate hypotheses must receive a disposition. Every citation must resolve to the
+pack; invented IDs, omissions, duplicate identities, unknown proposals, unmatched
+specialist hashes, and blank provisional judgments fail validation. Only final JSON
+and invocation receipts are durable; private reasoning streams are neither required
+nor persisted.
+
+Model choice is a measured configuration decision, not architecture. OpenRouter is
+the primary metered provider layer because it exposes multiple vendors behind one API,
+but Turbo never delegates model choice to an opaque cross-model router. Specialist A,
+specialist B, and adjudicator each have an explicit versioned model slug. The current
+pilot requests `openai/gpt-5.6-terra` for all three roles only as a provisional
+baseline; candidate models will be benchmarked by role on the same frozen cases for
+boundary correctness, grounding, schema reliability, stability, disagreement
+quality, latency, and cost.
+
+Requests require a provider endpoint that honors structured JSON Schema and are then
+validated again locally. Same-model provider fallback is allowed and receipted.
+Credentials live only in the ignored `OPENROUTER_API_KEY` environment variable. The
+dedicated pilot key has a $50 monthly cap and 180-day lifetime. Receipts preserve
+request/response hashes, requested/served model, provider when reported, usage/cost,
+and validation status—never the key or raw private reasoning. A valid adjudication
+remains a proposal until independent review approves it and the separately
+preregistered deterministic compiler emits and replays append-only graph events.
+
+The runtime envelope also carries exact required identity and prior-candidate IDs and
+counts. If a model returns a complete JSON object that fails local closed-world
+validation, Turbo may make up to two configured correction calls, each fully
+receipted; it never silently fills missing judgments or lets an invalid partial answer
+reach adjudication.
+
+The V1 bootstrap still performs no market-attractiveness scoring. Universe decisions
+must precede the Target Market filter, which must precede evaluation.
 
 ## The application and API
 
@@ -470,7 +608,8 @@ results coherent. See [the local operating runbook](docs/operations/runbook.md).
 
 ## Near-term roadmap
 
-1. Run AI operating-family review and append accepted split, merge, map, exclusion,
+1. Scale the proven AI operating-family review and deterministic activation lane
+   across the remaining families, appending reviewed split, merge, map, exclusion,
    and market-creation events.
 2. Complete the cross-family coverage audit and publish the first canonical graph.
 3. Add SUSB and QCEW evidence and publish the separately versioned Target Market

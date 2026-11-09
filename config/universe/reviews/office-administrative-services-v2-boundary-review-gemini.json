@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+  "supersedes_review_config": "config/universe/reviews/office-administrative-services-v1-boundary-review-gemini.json",
+  "target_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+  "target_run_dir": "data/agent_runs/boundary-run-1a88e9a3acdf15d63b09",
+  "target_pack_sha256": "eccc87570dc259f3cea6449a5a87455ccba4e690ccb82851e28822c3a64346e5",
+  "target_adjudication_sha256": "c560ac7d565f163eee92a4ee839a38e6322258352f1170555085b90b87d87e73",
+  "provider": "openrouter",
+  "review_model": "google/gemini-4-argon",
+  "reasoning_effort": "high",
+  "max_completion_tokens": 32000,
+  "max_attempts": 3,
+  "questions": [
+    "Are all 126 reject dispositions explicitly and safely scoped as family-local non-mappings rather than global prior-seed deletion?",
+    "Does the corrected output reconcile the horizontal office-administration, medical-practice-administration, dental-practice-administration, and hotel-administration prior seeds without duplicate or unsupported nodes?",
+    "Are all 13 NAICS 561110 manual index entries and explicit manual cross-reference exclusions materially addressed with correct evidence labels?",
+    "Do the two preserved research gaps accurately cover the horizontal-versus-vertical boundary and weak buyer, workflow, economics, workforce, acquisition, and revenue-mix evidence?",
+    "Are the 65 NAPCS dispositions now supported by sufficient identity, relationship, prevalence, hierarchy, definition, or retrieval evidence rather than product links alone?",
+    "Do any unsupported facts, missing counterevidence, incomplete exclusions, invented IDs, or unsafe activation assumptions remain?"
+  ],
+  "activation_rule": "No graph activation unless this successor review returns approve_activation with zero P0, P1, or P2 findings and every registered check passes."
+}

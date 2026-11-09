@@ -116,6 +116,50 @@ Every accepted market version installed by an active event remains subject to
 referential validation even if a later split or merge retires it. Retirement changes
 effective state; it does not erase historical validation obligations.
 
+## Boundary evidence pack and model outputs
+
+A boundary pack is a deterministic, disposable view over one immutable universe run.
+It records the family configuration, source-run and artifact hashes, explicit cutoff,
+required-disposition identities, context-only identities, citable evidence catalog,
+prior-candidate details, exact count gates, and its own canonical SHA-256. Changing any
+content changes the pack hash; changing a governed source artifact fails compilation.
+
+Specialist outputs contain proposed markets, complete identity and candidate
+dispositions, evidence labels, dimension-level confidence, supporting and contrary
+evidence IDs, alternatives, and active retry gaps. Evidence IDs must resolve inside
+the exact pack. Adjudication uses the same decision payload plus a resolution record
+for each specialist and the two exact specialist-output hashes. Neither output is an
+accepted Market Graph event. A deterministic compiler and independent review are
+separate activation gates.
+
+Invocation receipts store provider, role, requested and served model, served provider
+when reported, reasoning effort, prompt, schema, pack, request, response, and output
+hashes, model-facing provider-schema hash, UTC start/end, latency, attempts,
+generation ID, sanitized token/cost usage, and validation result. Provider-specific
+fields such as CLI version or HTTP status are retained where relevant. The full
+canonical schema remains the acceptance contract even when a portable subset is sent
+to a model provider. A bounded correction sequence retains one nested call receipt
+per model call plus the number of validation repairs used. Receipts explicitly state
+that credentials and raw model reasoning were not persisted.
+
+A boundary run receipt also records the exact execution commit, config hash, frozen
+pack hash, both specialist output hashes, adjudication hash, and non-activation
+status. `boundary-validate-run` rebuilds the exact pack, reruns all three local
+validators, and checks every receipt binding before review.
+
+An independent boundary-review record binds one exact run, pack, and adjudication
+hash. It contains the registered check results, P0/P1/P2 findings, evidence IDs,
+affected output paths, activation conditions, alternatives, verdict, and confidence.
+The validator requires the exact check set, closed-world evidence references, and
+zero findings plus all-pass checks for an approval verdict. Review remains advisory
+until a separately preregistered activation config binds the exact run, pack,
+adjudication, review, allowed proposals, mapping dispositions, statuses, and gaps.
+The network-free activation compiler replays those inputs, emits only the authorized
+events, projects the graph, and records exact event/projection hashes plus its
+execution commit. `boundary-validate-activation` recompiles the events and projection
+and fails on any drift. Family-local non-mappings cannot be compiled as global
+candidate rejections.
+
 
 ## Factor definition, evaluator result, and score event
 
@@ -134,8 +178,10 @@ terminal condition. Gaps never null out accepted scores.
 
 ## Run receipt
 
-Contains immutable run ID, input/configuration hashes, code fingerprint, parser
-dependency versions, output hashes, and validation results. Exact Git head and wall-clock local verification are
+Contains immutable run ID, input/configuration hashes, the explicitly scoped universe-
+generation code and source-schema fingerprints, parser dependency versions, output
+hashes, and validation results. Agent, scoring, API, or UI files cannot create a new
+source-universe run when the universe method is unchanged. Exact Git head and wall-clock local verification are
 posted as GitHub issue/PR receipts so deterministic replay never dirties the worktree.
 
 Formal JSON Schemas and executable projection tests precede external API stability.

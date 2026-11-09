@@ -1,0 +1,53 @@
+{
+  "attempts": 1,
+  "completed_at_utc": "2026-11-09T01:57:51Z",
+  "credential_persisted": false,
+  "elapsed_ms": 347444,
+  "generation_id": "gen-1794189125-cI7OGUhefvQxhBNv9Xmj",
+  "git_commit": "26d76dbdc72500f1733340a9b747a75b7da0f209",
+  "http_status": 200,
+  "invocation_id": "review-invocation:2da10592626a12732f28ce38",
+  "output_sha256": "fe47954a90aa3d1ee0217c55d802e1df41e4fc4933c126cdc0611326a17f51ea",
+  "prompt_sha256": "309556e4ff49565d972eeef6e28588c5aad71ac184152006500a8637cd54aa13",
+  "provider": "openrouter",
+  "provider_schema_sha256": "857688d1667edca50cc706f2e9de3f553671d0369e9de051f13e6a90745de8a0",
+  "raw_reasoning_persisted": false,
+  "reasoning_effort": "high",
+  "request_sha256": "2dc328b53f9ee3266473cd33adf3aae34e716c6294f34a71b950fe2fe73366f2",
+  "requested_model": "google/gemini-4-argon",
+  "response_sha256": "c0c8957598ae1bb260a1981f32c6954d437e57ecc71186dfe00803e9ab629147",
+  "review_config_sha256": "750410ff0e2372601d8efe272f5af38f2a80190697c425f9cd2457c4508f8590",
+  "review_id": "boundary-review:office-administrative-services-v1:first-pilot:gemini-successor",
+  "review_input_sha256": "5d614640c53289fe69fe7e63003addfb535803e69a3060c470da5ae50c5a794f",
+  "runtime_prompt_sha256": "ee9bd954af5c526c4c1b4ba97cd7275bae7b9995158fcb68870f7daba2c89236",
+  "schema_sha256": "b6663dd0fc73dace423af377ad1b9b3d58436f1ee1d680a9e4c1abc4d630fbaf",
+  "schema_version": 1,
+  "served_model": "google/gemini-4-argon",
+  "served_provider": "Google",
+  "started_at_utc": "2026-11-09T01:52:04Z",
+  "status": "valid",
+  "usage": {
+    "completion_tokens": 29447,
+    "completion_tokens_details": {
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "reasoning_tokens": 20919
+    },
+    "cost": 0.946912,
+    "cost_details": {
+      "upstream_inference_completions_cost": 0.29447,
+      "upstream_inference_cost": 0.946912,
+      "upstream_inference_prompt_cost": 0.652442
+    },
+    "is_byok": false,
+    "prompt_tokens": 326221,
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": 0,
+      "cached_tokens": 0,
+      "video_tokens": 0
+    },
+    "total_tokens": 355668
+  },
+  "validation_errors": []
+}
