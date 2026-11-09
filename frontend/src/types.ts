@@ -10,6 +10,7 @@ export interface Provenance {
 
 export interface Envelope<T> { data: T; provenance: Provenance }
 export interface Page<T> { items: T[]; page: number; page_size: number; total: number; pages: number }
+export type VersionTuple = Pick<Provenance, "source_run_id" | "partition_id" | "graph_version_id">;
 
 export interface MarketSummary {
   market_id: string;
@@ -37,10 +38,17 @@ export interface FamilySummary {
   family_kind: string;
   status: string;
   schedulable: boolean;
-  counts: Record<string, number>;
+  counts: FamilyCounts;
   neutral_priority: { ordering_key: Array<string | number> };
   batch_id: string | null;
   batch_ordinal: number | null;
+}
+
+export interface FamilyCounts {
+  required_identities: number;
+  context_identities: number;
+  required_candidates: number;
+  [key: string]: number;
 }
 
 export interface Identity {
@@ -74,6 +82,7 @@ export interface Versions {
   source_runs: Array<Record<string, unknown>>;
   partitions: Array<Record<string, unknown>>;
   graph_releases: Array<Record<string, unknown>>;
+  compatible_snapshots: Array<Provenance & { current: boolean }>;
   current: Provenance;
 }
 

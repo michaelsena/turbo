@@ -4,6 +4,8 @@ __pycache__/
 .venv/
 node_modules/
 *.tsbuildinfo
+test-results/
+playwright-report/
 dist/
 build/
 *.egg-info/

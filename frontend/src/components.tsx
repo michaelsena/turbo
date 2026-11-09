@@ -2,19 +2,25 @@ import type { ReactNode } from "react";
 import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from "@tanstack/react-table";
 import { NavLink, Outlet } from "react-router-dom";
 import type { Page, Provenance } from "./types";
+import { useVersioning, versionKeyFor } from "./versioning";
 
 export function Layout({ provenance }: { provenance?: Provenance }) {
+  const { catalog, isCatalogPending, selectedKey, selectVersion, versionedPath } = useVersioning();
   return <>
     <a className="skip-link" href="#content">Skip to content</a>
     <header className="site-header">
-      <NavLink className="wordmark" to="/" aria-label="Turbo overview"><span className="mark">T</span>Turbo</NavLink>
-      <nav aria-label="Primary navigation">
-        <NavLink to="/universe">Universe</NavLink>
-        <NavLink to="/families">Families</NavLink>
-        <NavLink to="/batches">Batches</NavLink>
-        <NavLink to="/audit">Audit</NavLink>
+      <NavLink className="wordmark" to={versionedPath("/")} aria-label="Turbo overview"><span className="mark">T</span>Turbo</NavLink>
+      <div className="header-actions"><nav aria-label="Primary navigation">
+        <NavLink to={versionedPath("/universe")}>Universe</NavLink>
+        <NavLink to={versionedPath("/families")}>Families</NavLink>
+        <NavLink to={versionedPath("/batches")}>Batches</NavLink>
+        <NavLink to={versionedPath("/audit")}>Audit</NavLink>
         <a href="/docs">API</a>
       </nav>
+      <label className="version-selector"><span>Research snapshot</span><select aria-label="Research snapshot" value={selectedKey} disabled={isCatalogPending || !catalog} onChange={event => selectVersion(event.target.value)}>
+        <option value="latest">Current snapshot</option>
+        {catalog?.compatible_snapshots.filter(item => !item.current).map(item => <option key={versionKeyFor(item)} value={versionKeyFor(item)}>Historical · {item.as_of_utc}</option>)}
+      </select></label></div>
     </header>
     <main id="content" className="shell"><Outlet /></main>
     {provenance && <footer className="provenance-bar" aria-label="Current data version">
@@ -38,7 +44,7 @@ export function ErrorState({ error }: { error: Error }) { return <div className=
 
 export function DataTable<T>({ data, columns, empty = "No records match this view." }: { data: T[]; columns: ColumnDef<T>[]; empty?: string }) {
   const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
-  return <div className="table-wrap"><table>
+  return <div className="table-wrap" role="region" aria-label="Scrollable data table" tabIndex={0}><table>
     <thead>{table.getHeaderGroups().map(group => <tr key={group.id}>{group.headers.map(header => <th key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</th>)}</tr>)}</thead>
     <tbody>{table.getRowModel().rows.map(row => <tr key={row.id}>{row.getVisibleCells().map(cell => <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>)}</tr>)}
     {!data.length && <tr><td className="empty" colSpan={columns.length}>{empty}</td></tr>}</tbody>

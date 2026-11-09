@@ -3,3 +3,10 @@
 @media(max-width:560px){.site-header{padding:0 18px}.site-header nav{gap:14px}.shell{padding-left:18px;padding-right:18px}.hero{padding-top:0}.metric-grid,.metric-grid.small{grid-template-columns:1fr}.metric{border-right:0}.filters.compact{grid-template-columns:1fr}.page-head{flex-direction:column}.provenance-bar{grid-template-columns:1fr}.callout{padding:28px}table{min-width:680px}}
 @media(prefers-reduced-motion:no-preference){.panel,.metric,.row-link{transition:transform .18s ease,box-shadow .18s ease}.row-link[href]:hover{transform:translateX(3px);text-decoration:none}.panel:hover{box-shadow:0 14px 42px rgba(0,0,0,.06)}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation-duration:.01ms!important}}
+.header-actions{display:flex;align-items:center;gap:24px}.version-selector{display:flex;align-items:center;gap:8px}.version-selector span{font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.08em}.version-selector select{max-width:210px;border:1px solid var(--line);border-radius:9px;background:#fff;padding:8px 30px 8px 10px;color:#333;font:inherit;font-size:12px}.version-selector select:focus{outline:2px solid #111;outline-offset:2px}
+.provenance-bar span{color:#666}
+.result-count,summary span,.empty,.version-selector span{color:#666}
+@media(max-width:1100px){.version-selector span{display:none}.version-selector select{max-width:170px}.header-actions{gap:14px}.site-header nav{gap:16px}}
+@media(max-width:700px){.site-header{height:auto;min-height:72px;align-items:flex-start;padding-top:12px;padding-bottom:12px}.header-actions{align-items:flex-end;flex-direction:column-reverse}.site-header nav{gap:14px}.site-header nav a:nth-child(2){display:none}.version-selector select{max-width:190px}}
+@media(max-width:900px){.site-header nav{flex-wrap:wrap;justify-content:flex-end}.site-header nav a:nth-child(3),.site-header nav a:nth-child(5){display:inline}}
+@media(max-width:700px){.site-header nav a:nth-child(2){display:inline}}
