@@ -152,9 +152,19 @@ Track B3 adds a standalone output-validation context over verified preparations.
 Request/invocation identity, schema and prompt hashes, evidence references, and
 coverage obligations bind each synthetic output to its intended batch. Validation
 checks structure and references; it does not establish factual truth or calibrated
-confidence. It is not connected to B1 settlement or a provider adapter, and it
-creates no accepted market event. See
+confidence. B3 itself does not connect to B1 settlement or a provider adapter, and
+it creates no accepted market event. See
 [ADR 0010](../decisions/0010-batch-output-contract.md).
+
+Track B4 bridges these contracts through immutable response and validation artifacts.
+Confidence-bearing content stays outside B1's integer-only response envelope; the
+managed journal settles compact artifact references. An effective execution-contract
+digest pins the prompt, output schema, and byte caps in the authorization before
+claim and dispatch; the B3 context retains its raw prompt hash. Known valid bounded usage is
+charged even when structural output validation fails. Ambiguous transport, usage,
+or persistence retains its reservation without automatic retry. This integration
+uses fake transport only, creates no accepted research, and leaves B1/B2 schemas
+unchanged. See [ADR 0011](../decisions/0011-batch-output-artifacts.md).
 
 ## Comparison topology
 

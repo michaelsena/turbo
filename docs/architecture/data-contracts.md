@@ -424,11 +424,66 @@ that multiple required candidates participated. Public validation returns `valid
 `errors`, `structural_validation_only: true`, and `model_invoked: false`, with the
 regenerated context hash when context construction succeeds.
 
-B3 is separate from B1/B2 execution settlement. B1 rejects floats anywhere in its
-fake response output, while B3 permits finite confidence values. A later adapter
-must reconcile the envelope and output contracts explicitly. Synthetic validation
+B3 itself is separate from B1/B2 execution settlement. B1 rejects floats anywhere in its
+fake response output, while B3 permits finite confidence values. B4 bridges these
+contracts through immutable artifacts rather than embedding raw confidence in the
+ledger; see [ADR 0011](../decisions/0011-batch-output-artifacts.md). Synthetic validation
 does not authorize a real provider, metered canary, score, or market activation.
 See [ADR 0010](../decisions/0010-batch-output-contract.md).
+
+## Managed batch-output artifacts (Track B4)
+
+`BatchResearch` bridges the managed registry journal and B3 using fake transport.
+Its authorization's existing `prompt_sha256` field must equal
+`research_contract_sha256(root=...)`: the canonical digest of artifact kind, raw B3
+prompt-file hash, output-schema hash, and output/context byte caps. The bridge checks
+this effective contract before claiming a journal, dispatching, and replaying. A
+schema or limit change therefore cannot silently reuse an earlier authorization.
+B3 context retains its separate raw prompt-file `prompt_sha256`. Context is regenerated from
+verified preparations, with an invocation derived deterministically from the
+canonical authorization digest and request ID. The bridge does not accept arbitrary
+caller-supplied validation context or an alternative execution directory.
+
+The transport receives B3 context and returns `body` as bytes plus `usage` containing
+integer `input_tokens` and `output_tokens`. Limits are fixed at 1,000,000 output bytes,
+100,000,000 context bytes, and 4,000,000 receipt bytes. Raw confidence-bearing content
+is not placed in B1's response envelope.
+
+| Artifact under the managed journal | Purpose |
+| --- | --- |
+| `research-artifacts/<invocation-hex>/context.json` | Frozen exact context and input bindings |
+| `research-artifacts/<invocation-hex>/output.raw` | Exact transport response bytes, including invalid JSON when bounded |
+| `research-artifacts/<invocation-hex>/receipt.json` | Validation verdict, usage, ownership, and artifact bindings |
+
+Artifacts are persisted durably and atomically before settlement. The ledger stores
+only `kind: batch_research_artifact_v1`, `artifact_path`, `receipt_sha256`,
+`output_sha256`, `context_sha256`, and `invocation_id` as its output reference, plus
+integer usage accounting. The receipt separately binds registry/authorization/request
+identity, exact raw-output and canonical-context file hashes, prompt/schema hashes,
+usage/cost, verdict, outcome, and creation time. Its `execution_contract_sha256`
+records the effective execution-contract digest; its `prompt_sha256` remains the raw B3
+prompt-file hash. `context_sha256` is the context
+content digest; `context_file_sha256` hashes its canonical persisted bytes.
+B1/B2 schemas and their float prohibition remain unchanged. Missing, altered,
+mismatched, or transplanted artifacts fail validation.
+
+Known valid bounded usage is settled even if JSON or structural validation fails;
+that attempt is charged and marked failed. Unknown, invalid, or over-limit usage,
+oversized raw output, transport failure, or uncertain persistence leaves an
+unresolved attempt with its full reservation. No automatic retry or refund follows.
+A crash can leave orphan artifacts; their existence does not authorize automatic
+settlement, re-dispatch, or research acceptance.
+
+Read-only replay regenerates B3 context and verdict, checks artifact bytes and
+ownership, and reconciles every settled B4 reference with the journal. A generic B1
+settlement is not a valid B4 artifact receipt. Results distinguish `settled_requests`,
+`artifact_valid_requests`, `structurally_valid_outputs`, and `unresolved_requests`.
+An empty or unresolved journal can have valid accounting replay with zero validated
+artifacts; `valid: true` does not mean every attempt produced a valid output.
+Unaccepted `.pending-` directories and orphan artifacts are not automatically
+recovered or counted as settled outputs. These counts are not research acceptance. Real
+providers, substantive verification, and reviewed family closure remain outside this
+contract. See [ADR 0011](../decisions/0011-batch-output-artifacts.md).
 
 ## Factor definition, evaluator result, and score event
 
