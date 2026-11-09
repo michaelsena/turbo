@@ -2,8 +2,11 @@
 
 ## Status
 
-Proposed for [Issue 33](https://github.com/michaelsena/turbo/issues/33), Track B4 of
-Issue 15. Local tests, synthetic replay, and independent review remain pending.
+Verified in [PR 35](https://github.com/michaelsena/turbo/pull/35), unmerged, for
+[Issue 33](https://github.com/michaelsena/turbo/issues/33), Track B4 of Issue 15.
+All 23 focused and 282 full-suite tests pass; independent review found no
+P0/P1/P2 issues. The [verification receipt](../operations/receipts/2026-11-09-batch-research-verification.json)
+pins the code tree and synthetic replay results.
 This is a fake-transport integration; it enables no real provider or research spend.
 
 ## Context

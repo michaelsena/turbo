@@ -170,12 +170,15 @@ subjects without changing the market graph. These are the pinned B3 results. See
 [ADR 0010](docs/decisions/0010-batch-output-contract.md) and the
 [verification receipt](docs/operations/receipts/2026-11-09-batch-output-verification.json).
 
-[Issue 33](https://github.com/michaelsena/turbo/issues/33) develops B4: a simulation
+[Issue 33](https://github.com/michaelsena/turbo/issues/33) implements B4: a simulation
 bridge that retains confidence-bearing output in immutable artifacts and settles
 compact references through the managed journal. Known bounded usage is charged even
 for invalid output; uncertain usage or dispatch retains its reservation. This does
-not accept research or enable a real provider. Tests and independent review remain
-pending; see [ADR 0011](docs/decisions/0011-batch-output-artifacts.md).
+not accept research or enable a real provider. [PR 35](https://github.com/michaelsena/turbo/pull/35)
+is verified and unmerged: 23 focused and 282 full-suite tests pass, independent review
+found no P0/P1/P2 issues, and synthetic retry/replay preserved the graph. See
+[ADR 0011](docs/decisions/0011-batch-output-artifacts.md) and the
+[B4 verification receipt](docs/operations/receipts/2026-11-09-batch-research-verification.json).
 
 Real provider integration, selective independent verification,
 disagreement escalation, and deterministic family closure remain later work. Approve

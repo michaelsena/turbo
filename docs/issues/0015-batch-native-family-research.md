@@ -71,8 +71,9 @@ There is no silent truncation, inferred substitution, activation, or graph mutat
   only, merged and locally verified.
 - Track B3: implemented in PR #25; all 237 Python tests, 22 focused checks, synthetic
   replay, and independent review passed. Merged at `73bf1f8`.
-- Track B4: artifact-backed managed simulation integration in Issue #33; local
-  tests, replay, and independent review remain pending.
+- Track B4: artifact-backed managed simulation integration in Issue #33 is verified
+  in [PR 35](https://github.com/michaelsena/turbo/pull/35), unmerged; see the
+  [B4 receipt](../operations/receipts/2026-11-09-batch-research-verification.json).
 - Later Track B: real provider integration, selective verification,
   disagreement escalation, and provider-cost reconciliation.
 - Track C: progress events, closure receipts, cross-family conflict checks, and
@@ -212,6 +213,12 @@ without automatic retry or refund. Replay checks artifact ownership, bytes, inpu
 and context bindings, verdict, and journal references. Structural validity is not
 substantive evidence review or research acceptance.
 
-Local tests, synthetic replay, and independent review are pending. No real provider,
-live execution CLI, score, graph activation, or frontend change is included. See
+[PR 35](https://github.com/michaelsena/turbo/pull/35) is verified and unmerged:
+23 focused and 282 full-suite tests pass; independent review found no P0/P1/P2
+issues. The synthetic canary charged 20 microUSD for invalid coverage and 24 for a
+valid retry, retained zero outstanding reservation, and replayed without another
+callback or file change. The canonical graph remained unchanged. See the
+[verification receipt](../operations/receipts/2026-11-09-batch-research-verification.json).
+No real provider, live execution CLI, score, graph activation, or frontend change
+is included. See
 [ADR 0011](../decisions/0011-batch-output-artifacts.md).
