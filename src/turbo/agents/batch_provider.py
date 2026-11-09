@@ -19,11 +19,11 @@ from turbo.agents import model_view as view
 from turbo.agents.batch_output import PROMPT_PATH, SCHEMA_PATH, _strict_json
 from turbo.agents.batch_execution_v2 import BatchExecutionV2
 from turbo.agents.openrouter_attempt import bounded_request_body, invoke_openrouter_once
-from turbo.agents.openrouter_runner import openrouter_schema
+from turbo.agents.openrouter_runner import openrouter_role_schema
 from turbo.pipeline_paths import ROOT
 
 SUPPORTED_ROLES = workflow.ROLES
-EXECUTION_FILES = ('src/turbo/agents/batch_release_recovery.py', 'src/turbo/agents/model_view.py', 'src/turbo/agents/batch_recovery.py', 'src/turbo/agents/batch_provider.py', 'src/turbo/agents/openrouter_attempt.py',
+EXECUTION_FILES = ('src/turbo/agents/batch_request_repair.py', 'src/turbo/agents/batch_release_recovery.py', 'src/turbo/agents/model_view.py', 'src/turbo/agents/batch_recovery.py', 'src/turbo/agents/batch_provider.py', 'src/turbo/agents/openrouter_attempt.py',
                    'src/turbo/agents/openrouter_runner.py', 'src/turbo/agents/batch_output.py',
                    'src/turbo/agents/batch_authorization.py', 'src/turbo/agents/runtime.py',
                    'src/turbo/agents/boundary_harness.py', 'src/turbo/universe/batch_closure.py',
@@ -218,7 +218,10 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         from turbo.agents.batch_recovery import checkpoint_binding
         from turbo.agents.batch_execution_v2 import _read
         checkpoint = _read(Path(recovery_checkpoint))
-        if checkpoint.get('kind') == 'explicit_release_http400_successor':
+        if checkpoint.get('kind') == 'explicit_corrected_release_successor':
+            from turbo.agents.batch_request_repair import CONTRACT_KEY, checkpoint_binding
+            expected_contracts[CONTRACT_KEY] = checkpoint_binding(checkpoint)
+        elif checkpoint.get('kind') == 'explicit_release_http400_successor':
             from turbo.agents.batch_release_recovery import CONTRACT_KEY, checkpoint_binding
             expected_contracts[CONTRACT_KEY] = checkpoint_binding(checkpoint)
         else:
@@ -248,7 +251,7 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
     # This deliberately overestimates normal tokenization, not a provider dollar cap.
     request_bound = bounded_request_body(routing=config.get('routing'), role_id=role, model=config['model'],
         reasoning_effort=config['reasoning_effort'], runtime_prompt_text=runtime,
-        schema=openrouter_schema(schema), invocation_id='invocation:' + '0' * 24,
+        schema=openrouter_role_schema(schema, role_id=role, model=config['model']), invocation_id='invocation:' + '0' * 24,
         max_completion_tokens=config['max_output_tokens'], allow_fallbacks=False,
         schema_name='turbo_workflow_role')
     if len(_bytes(request_bound)) + 4096 > config['max_input_tokens']:
@@ -259,7 +262,11 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         execution = BatchExecutionV2(registry_dir, authorization, **({'clock': clock} if clock else {}))
     else:
         from turbo.agents.batch_recovery import RecoveryExecution
-        if checkpoint.get('kind') == 'explicit_release_http400_successor':
+        if checkpoint.get('kind') == 'explicit_corrected_release_successor':
+            from turbo.agents.batch_request_repair import RequestRepairExecution
+            execution = RequestRepairExecution(registry_dir, authorization, recovery_checkpoint,
+                preparation_dirs=preparation_dirs, **({'clock': clock} if clock else {}))
+        elif checkpoint.get('kind') == 'explicit_release_http400_successor':
             from turbo.agents.batch_release_recovery import ReleaseRecoveryExecution
             execution = ReleaseRecoveryExecution(registry_dir, authorization, recovery_checkpoint,
                 preparation_dirs=preparation_dirs, **({'clock': clock} if clock else {}))

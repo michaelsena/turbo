@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "issue": "https://github.com/michaelsena/turbo/issues/57",
+  "kind": "controlled_provider_schema_compatibility",
+  "model": "google/gemini-4-argon",
+  "provider_route": "google-vertex/global",
+  "controlled_constants": ["prompt", "model", "provider_routing", "reasoning_effort", "output_limit"],
+  "changed_schema_path": "properties.findings.maxItems",
+  "change": "omit provider-facing bound only",
+  "original_provider_schema_sha256": "2c7a37f1bc5a5bd8b47658dcec3da3bd1b9af53b0265b7bac5e2f4388350b835",
+  "adapted_provider_schema_sha256": "f2e75b0fa8011e28a3b3645d36deaf0c08e8f3b87d830d49293f7e4cf165ea44",
+  "original_http_status": 400,
+  "adapted_http_status": 200,
+  "adapted_content_status": "truncated diagnostic response; not an accepted review",
+  "candidate_adapter_matches_successful_probe_schema": true,
+  "canonical_findings_maxItems": 20000,
+  "canonical_validation_unchanged": true,
+  "research_submission": false,
+  "release_approved": false,
+  "market_activation": false
+}
