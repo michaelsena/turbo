@@ -170,3 +170,15 @@ write a sanitized `in_progress` receipt before network execution and to preserve
 `failed` or `invalid` receipt for transport, provider, parse, and local-validation
 failures. This makes every later metered attempt auditable even if its process is
 interrupted.
+
+At exact head `6bddfa0d0144bbc7a743b3b704351c9f18d1e1bd`, the single
+review retry reached OpenRouter once and received HTTP 200, but the provider response
+contained no usable choice. The runner failed closed before local review validation,
+produced no review output, and activated nothing. The dedicated key again remained at
+exactly `$3.538212`, indicating zero billed usage for this failed generation. The
+attempt is preserved as
+`independent-review-7fd09e54f4c6bf5cf162/review.receipt.json`; because the response
+parser exception exposed a missing catch path, its exact completion time and provider
+generation metadata were unavailable and are explicitly left unknown. The receipt
+records the later failure-observation time instead. A regression test now covers an
+HTTP-200 response with an empty choice list.

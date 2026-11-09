@@ -108,6 +108,38 @@ class BoundaryIndependentReviewTest(unittest.TestCase):
             self.assertNotIn("test-secret", receipt_text)
             self.assertNotIn("sensitive transport detail", receipt_text)
 
+    def test_empty_provider_choices_persist_failed_receipt(self) -> None:
+        response = json.dumps(
+            {
+                "id": "generation-without-choice",
+                "model": "anthropic/claude-opus-5.5",
+                "choices": [],
+                "usage": {"total_tokens": 0, "cost": 0},
+            }
+        ).encode("utf-8")
+        with tempfile.TemporaryDirectory() as temporary:
+            output_root = Path(temporary)
+            with patch.dict(os.environ, {"OPENROUTER_API_KEY": "test-secret"}):
+                with patch(
+                    "turbo.agents.boundary_review._default_transport",
+                    return_value=(200, {}, response),
+                ):
+                    with self.assertRaisesRegex(
+                        RuntimeError, "structured output was invalid"
+                    ):
+                        run_independent_review(
+                            REVIEW_CONFIG,
+                            BOUNDARY_CONFIG,
+                            output_root=output_root,
+                        )
+            receipts = list(output_root.glob("*/review.receipt.json"))
+            self.assertEqual(len(receipts), 1)
+            receipt = json.loads(receipts[0].read_text(encoding="utf-8"))
+            self.assertEqual(receipt["status"], "failed")
+            self.assertEqual(receipt["failure_stage"], "structured_output_parse")
+            self.assertEqual(receipt["failure_type"], "RuntimeError")
+            self.assertEqual(receipt["generation_id"], "generation-without-choice")
+
 
 if __name__ == "__main__":
     unittest.main()

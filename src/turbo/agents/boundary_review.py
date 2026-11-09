@@ -288,7 +288,7 @@ def run_independent_review(
     )
     try:
         output = json.loads(_message_content(response))
-    except (json.JSONDecodeError, ValueError) as error:
+    except (json.JSONDecodeError, ValueError, RuntimeError) as error:
         receipt.update(
             {
                 "failure_stage": "structured_output_parse",
