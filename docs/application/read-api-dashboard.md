@@ -196,3 +196,15 @@ see [#27](https://github.com/michaelsena/turbo/issues/27) and the
 [dispatcher guide](../operations/app-dispatcher.md).
 During an active session, resume owned work before claiming another issue. No merge
 occurs without explicit chairman authorization.
+
+## Current integration verification
+
+The [current-main receipt](../operations/receipts/2026-11-09-app-status-integrated-verification.json)
+records 259 passing Python tests on one clean, stable tree, 31 focused read/API
+checks, 9 frontend tests, typecheck/build, validation and unchanged context replay.
+Independent static review has no outstanding P0/P1/P2 findings. Root direct Chrome
+inspection verifies the listed real desktop/mobile layout and historical-navigation
+checks; independent visual review did not complete. Packaged Playwright/axe execution,
+synthetic stress coverage and reviewed baseline refresh remain blocked on the
+[permitted runner dependency #34](https://github.com/michaelsena/turbo/issues/34).
+No merge is authorized by this receipt.

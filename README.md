@@ -148,7 +148,7 @@ reviewed, including corrected family counts and Audit provenance. See the
 [verification receipt](docs/operations/receipts/2026-11-09-dashboard-corrections.json)
 for that historical result and its Overview status-badge clipping finding.
 The follow-up changes Overview market rows to keep full status text beneath their
-descriptions and uses neutral collection copy for provisional boundaries; current
+descriptions and uses neutral collection copy for provisional boundaries;
 direct desktop/mobile inspection confirms readable statuses and bounded descriptions.
 The packaged browser suite and refreshed screenshot baselines remain pending.
 
