@@ -2,9 +2,13 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from turbo.pipeline_paths import ROOT
-from turbo.universe.boundary_activation import compile_boundary_activation
+from turbo.universe.boundary_activation import (
+    compile_boundary_activation,
+    run_boundary_activation,
+)
 
 
 ACTIVATION_CONFIG = (
@@ -57,6 +61,21 @@ class BoundaryActivationTest(unittest.TestCase):
                 ValueError, "preserve family-local candidate non-mappings"
             ):
                 compile_boundary_activation(path, execution_commit=EXECUTION_COMMIT)
+
+    def test_activation_requires_clean_worktree(self) -> None:
+        with patch(
+            "turbo.universe.boundary_activation._git_worktree_clean",
+            return_value=False,
+        ):
+            with self.assertRaisesRegex(RuntimeError, "requires a clean Git worktree"):
+                run_boundary_activation(ACTIVATION_CONFIG)
+
+    def test_execution_commit_must_be_full_hexadecimal_hash(self) -> None:
+        with self.assertRaisesRegex(ValueError, "lowercase hexadecimal"):
+            compile_boundary_activation(
+                ACTIVATION_CONFIG,
+                execution_commit="z" * 40,
+            )
 
 
 if __name__ == "__main__":

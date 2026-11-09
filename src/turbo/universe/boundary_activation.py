@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import re
+import subprocess
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -27,6 +29,31 @@ DIMENSION_FIELDS = {
     "acquisition_universe": "acquisition_universe",
     "ambient_ai_workflow": "ambient_ai_workflow",
 }
+FULL_GIT_COMMIT = re.compile(r"[0-9a-f]{40}")
+
+
+def _git_worktree_clean(root: Path) -> bool:
+    completed = subprocess.run(
+        ["git", "status", "--porcelain", "--untracked-files=all"],
+        cwd=root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    return completed.returncode == 0 and not completed.stdout.strip()
+
+
+def _git_commit_exists(root: Path, commit: str) -> bool:
+    if FULL_GIT_COMMIT.fullmatch(commit) is None:
+        return False
+    completed = subprocess.run(
+        ["git", "cat-file", "-e", f"{commit}^{{commit}}"],
+        cwd=root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    return completed.returncode == 0
 
 
 def _load_object(path: Path) -> dict[str, Any]:
@@ -290,8 +317,8 @@ def compile_boundary_activation(
     execution_commit: str,
     root: Path = ROOT,
 ) -> dict[str, Any]:
-    if len(execution_commit) != 40:
-        raise ValueError("execution_commit must be a complete 40-character Git commit")
+    if FULL_GIT_COMMIT.fullmatch(execution_commit) is None:
+        raise ValueError("execution_commit must be a complete lowercase hexadecimal Git commit")
     inputs = _prepare_inputs(activation_config_path, root=root)
     indexes = _source_indexes(inputs["pack"])
     activation_id = inputs["activation_id"]
@@ -436,6 +463,11 @@ def run_boundary_activation(
     output_root: Path | None = None,
     root: Path = ROOT,
 ) -> dict[str, Any]:
+    if not _git_worktree_clean(root):
+        raise RuntimeError(
+            "boundary activation requires a clean Git worktree so its exact commit "
+            "contains the executed compiler and configuration"
+        )
     execution_commit = _git_head(root)
     if execution_commit is None:
         raise RuntimeError("cannot determine exact Git commit for activation")
@@ -502,6 +534,10 @@ def validate_boundary_activation(
         events = _load_array(activation_dir / "events.json")
         projection = _load_object(activation_dir / "projection.json")
         execution_commit = receipt["activation_execution_commit"]
+        if not _git_commit_exists(root, execution_commit):
+            raise ValueError(
+                "activation_execution_commit is not a resolvable full Git commit"
+            )
         compiled = compile_boundary_activation(
             activation_config_path,
             execution_commit=execution_commit,

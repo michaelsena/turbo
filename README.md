@@ -517,8 +517,9 @@ cp .env.example .env
 # Add the dedicated key locally, then: set -a; source .env; set +a
 turbo boundary-run
 turbo boundary-validate-review \
-  data/agent_reviews/independent-review-e6058823bd1c604ffb36 \
-  config/universe/reviews/office-administrative-services-v1-boundary-review-gemini.json
+  data/agent_reviews/independent-review-b95c0d39bef8bffa9c00 \
+  config/universe/reviews/office-administrative-services-v2-boundary-review-gemini.json \
+  --config config/universe/families/office-administrative-services-v2.json
 turbo boundary-activate \
   config/universe/activations/office-administrative-services-v2.json
 turbo boundary-validate-activation \

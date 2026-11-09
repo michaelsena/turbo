@@ -353,3 +353,19 @@ Exact replay returns zero errors and requires no model or network call.
 This completes one operating-family activation, not the American Market Universe.
 No Target Market filtering, attractiveness evaluation, ranking, shortlist, or company
 work is implied.
+
+### First exact-head activation audit
+
+An independent read-only audit of exact pushed head
+`c79241150d12d13d97cddd2bb381300087394301` found zero P0, one P1, and two P2 issues.
+The graph events, statuses, gaps, hashes, and research boundaries were correct. The P1
+was a provenance hardening gap: the activation command recorded `git rev-parse HEAD`
+without refusing a dirty worktree, so a future dirty execution could be attributed to
+code not actually present in that commit. The P2s were an obsolete V1 replay example
+in the README and stale GitHub Issue/PR summary metadata.
+
+The correction makes activation fail unless the worktree is clean, requires a full
+lowercase hexadecimal execution hash, verifies that receipt commit resolves during
+replay, adds regression tests, points the README at the approved V2 review, and updates
+the GitHub summaries before closeout. This hardens future provenance; it does not
+rewrite the already activated events or change any market conclusion.

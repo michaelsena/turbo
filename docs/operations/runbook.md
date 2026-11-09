@@ -114,7 +114,9 @@ exact valid run and zero-finding approval, enumerate the exact proposals and map
 retain every required provisional status and research gap, and prohibit Target
 filtering, scoring, company work, model calls, and global rejection of family-local
 candidate non-mappings. Commit the compiler before running activation so the receipt
-can bind the exact execution head. Then commit the resulting immutable events,
+can bind the exact execution head. The command fails if the worktree contains any
+tracked or untracked change, and replay requires the receipt's full hexadecimal
+execution commit to resolve locally. Then commit the resulting immutable events,
 projection, receipt, replay test, and documentation as a separate increment.
 
 ## Agent coordination
