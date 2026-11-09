@@ -159,6 +159,82 @@ class OpenRouterAttemptTest(unittest.TestCase):
         self.assertEqual(len(calls),1);self.assertEqual(result['error_stage'],'provider_error')
         self.assertEqual(result['usage_status'],'known');self.assertIsNone(result['body']);self.safe(result)
 
+    def test_error_diagnostics_keep_only_allowlisted_provider_hints(self):
+        prompt = 'PRIVATE research evidence and secret candidate names'
+        nested = {'error': {'code': 400, 'status': 'INVALID_ARGUMENT',
+            'message': 'Invalid JSON schema: ' + prompt + ' ' + SECRET,
+            'details': [{'prompt': prompt, 'credential': SECRET}]}}
+        response = {'error': {'code': 'invalid_request_error',
+            'param': 'response_format.json_schema.schema', 'message': 'Provider returned error',
+            'metadata': {'raw': json.dumps(nested), 'prompt': prompt, 'key': SECRET}}}
+        result, calls = self.call(response, status=400, runtime_prompt_text=prompt)
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(result['error_stage'], 'http')
+        self.assertEqual(result['error_diagnostics'], {
+            'version': 1, 'provider_codes': ['invalid_argument', 'invalid_request_error'],
+            'provider_parameters': ['response_format.json_schema.schema'],
+            'provider_schema_keywords': [], 'provider_reported_hints': ['schema_rejected']})
+        self.assertIsNone(result['usage'])
+        self.assertIsNone(result['provider_cost_microusd'])
+        self.assertEqual(result['cost_status'], 'unknown')
+        self.assertNotIn(prompt, repr(result)); self.safe(result)
+
+    def test_error_diagnostics_never_copy_arbitrary_fields_or_nested_payloads(self):
+        for error in (None, SECRET, [SECRET],
+                {'type': SECRET, 'code': SECRET, 'param': SECRET,
+                 'message': SECRET, 'metadata': {'raw': SECRET}},
+                {'message': 'x' * 4097 + ' invalid schema',
+                 'metadata': {'raw': 'x' * 8193 + ' invalid schema'}},
+                {'metadata': {'raw': '{"error":{"code":"invalid_argument","code":"' + SECRET + '"}}'}},
+                {'metadata': {'raw': json.dumps({'error': {'metadata': {'raw': json.dumps({
+                    'error': {'code': 'invalid_argument'}})}}})}}):
+            with self.subTest(error_type=type(error).__name__):
+                result, calls = self.call({'error': error}, status=400)
+                self.assertEqual(len(calls), 1)
+                self.assertEqual(result['error_diagnostics'], {'version': 1,
+                    'provider_codes': [], 'provider_parameters': [], 'provider_schema_keywords': [],
+                    'provider_reported_hints': []})
+                self.assertIsNone(result['body']); self.safe(result)
+
+    def test_schema_keyword_diagnostics_require_explicit_rejection(self):
+        prompt = 'PRIVATE_SOURCE_TEXT'
+        for phrase, keyword in (
+                ('Unknown name "maxItems" at request.schema.private_path', 'maxItems'),
+                ("Unsupported keyword: 'additionalProperties'", 'additionalProperties'),
+                ('Unrecognized schema field `$ref`', '$ref'),
+                ('Unsupported schema keyword anyOf', 'anyOf'),
+                ('unknown field "$defs"', '$defs')):
+            with self.subTest(keyword=keyword):
+                nested = {'error': {'message': phrase + ' ' + SECRET + ' ' + prompt}}
+                result, calls = self.call({'error': {'metadata': {'raw': json.dumps(nested)}}}, status=400)
+                self.assertEqual(len(calls), 1)
+                self.assertEqual(result['error_diagnostics']['provider_schema_keywords'], [keyword])
+                self.assertIn('schema_keyword_rejected', result['error_diagnostics']['provider_reported_hints'])
+                self.assertNotIn('private_path', repr(result)); self.assertNotIn(prompt, repr(result))
+                self.assertIsNone(result['provider_cost_microusd']); self.safe(result)
+        for message in ('Schema contains maxItems and anyOf', 'Unknown name "maxItemsPrivate"',
+                        'Unsupported keyword "privateField"', 'Unknown name "response.maxItems"',
+                        'x' * 4097 + ' Unknown name "maxItems"'):
+            result, _ = self.call({'error': {'message': message}}, status=400)
+            self.assertEqual(result['error_diagnostics']['provider_schema_keywords'], [])
+            self.assertNotIn('schema_keyword_rejected', result['error_diagnostics']['provider_reported_hints'])
+
+    def test_diagnostic_hints_do_not_change_known_billing_or_success_shape(self):
+        for message, hint in (
+                ('Unsupported parameter supplied', 'parameter_rejected'),
+                ('Maximum context length exceeded', 'context_limit_reported'),
+                ('No endpoints found for request', 'route_unavailable_reported')):
+            response = self.response()
+            response['error'] = {'message': message, 'code': 'unsupported_parameter'}
+            result, calls = self.call(response)
+            self.assertEqual(len(calls), 1)
+            self.assertEqual(result['error_stage'], 'provider_error')
+            self.assertEqual(result['error_diagnostics']['provider_reported_hints'], [hint])
+            self.assertEqual(result['usage_status'], 'known')
+            self.assertEqual(result['provider_cost_microusd'], 2)
+        result, _ = self.call(self.response())
+        self.assertNotIn('error_diagnostics', result)
+
     def test_external_schema_reference_cannot_add_hidden_network_io(self):
         result,calls=self.call(self.response(),schema={'$ref':'https://example.invalid/schema'})
         self.assertEqual(calls,[])

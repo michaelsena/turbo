@@ -23,7 +23,7 @@ from turbo.agents.openrouter_runner import openrouter_schema
 from turbo.pipeline_paths import ROOT
 
 SUPPORTED_ROLES = workflow.ROLES
-EXECUTION_FILES = ('src/turbo/agents/model_view.py', 'src/turbo/agents/batch_recovery.py', 'src/turbo/agents/batch_provider.py', 'src/turbo/agents/openrouter_attempt.py',
+EXECUTION_FILES = ('src/turbo/agents/batch_release_recovery.py', 'src/turbo/agents/model_view.py', 'src/turbo/agents/batch_recovery.py', 'src/turbo/agents/batch_provider.py', 'src/turbo/agents/openrouter_attempt.py',
                    'src/turbo/agents/openrouter_runner.py', 'src/turbo/agents/batch_output.py',
                    'src/turbo/agents/batch_authorization.py', 'src/turbo/agents/runtime.py',
                    'src/turbo/agents/boundary_harness.py', 'src/turbo/universe/batch_closure.py',
@@ -217,7 +217,12 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
     if recovery_checkpoint is not None:
         from turbo.agents.batch_recovery import checkpoint_binding
         from turbo.agents.batch_execution_v2 import _read
-        expected_contracts['recovery/checkpoint-v1'] = checkpoint_binding(_read(Path(recovery_checkpoint)))
+        checkpoint = _read(Path(recovery_checkpoint))
+        if checkpoint.get('kind') == 'explicit_release_http400_successor':
+            from turbo.agents.batch_release_recovery import CONTRACT_KEY, checkpoint_binding
+            expected_contracts[CONTRACT_KEY] = checkpoint_binding(checkpoint)
+        else:
+            expected_contracts['recovery/checkpoint-v1'] = checkpoint_binding(checkpoint)
     if authorization['execution_contract_hashes'] != expected_contracts:
         raise ValueError('execution implementation changed')
     if authorization['workflow_plan_sha256'] != task['plan_sha256']:
@@ -254,7 +259,12 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         execution = BatchExecutionV2(registry_dir, authorization, **({'clock': clock} if clock else {}))
     else:
         from turbo.agents.batch_recovery import RecoveryExecution
-        execution = RecoveryExecution(registry_dir, authorization, recovery_checkpoint, **({'clock': clock} if clock else {}))
+        if checkpoint.get('kind') == 'explicit_release_http400_successor':
+            from turbo.agents.batch_release_recovery import ReleaseRecoveryExecution
+            execution = ReleaseRecoveryExecution(registry_dir, authorization, recovery_checkpoint,
+                preparation_dirs=preparation_dirs, **({'clock': clock} if clock else {}))
+        else:
+            execution = RecoveryExecution(registry_dir, authorization, recovery_checkpoint, **({'clock': clock} if clock else {}))
         if (execution.checkpoint['workflow_path'] != str(directory)
                 or execution.checkpoint['input_root'] != str(input_root)):
             raise ValueError('recovery workflow or input root changed')
