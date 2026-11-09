@@ -207,12 +207,16 @@ The new stacked increment supports dispatch for all six workflow roles. Routine 
 uses primary, verifier, and release reviewer; material disagreement adds two blind
 specialists and adjudication. Exact upstream provider provenance and compiler-preview
 replay precede release review. The successor increment passed 22 focused checks in
-95.040 seconds, with clear independent review; its full suite is still running.
+95.040 seconds, with clear independent review; its full suite passed 368 tests.
 The scoped [operator commands](docs/operations/runbook.md#governed-batch-operator-commands)
 now wrap explicit registry initialization, one-role run/resume, read-only accounting,
 release preview, activation, and closure/replay. Eight focused controlled-transport
-CLI tests passed; full-suite verification and independent review remain tracked in
-[issue 42](https://github.com/michaelsena/turbo/issues/42).
+CLI tests and the 376-test operator suite passed, with repository validation and
+clear independent review; see [issue 42](https://github.com/michaelsena/turbo/issues/42).
+Optional [authorization-bound routing](docs/batch-provider-routing.md) pins provider
+restrictions, price caps, and supported cache policy in the same request used for
+admission and dispatch. Combined routing and activation-path verification is pending;
+these controls do not authorize a paid canary.
 No paid calls or new market activation occurred. This is not production readiness. The six
 exploratory manual hypotheses remain provisional and cannot bypass the gates. Approve
 and evaluate one neutral metered canary before authorizing broad execution. Then

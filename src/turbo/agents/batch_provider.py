@@ -17,8 +17,8 @@ from typing import Any
 from turbo.agents import batch_workflow as workflow
 from turbo.agents.batch_output import PROMPT_PATH, SCHEMA_PATH, _strict_json
 from turbo.agents.batch_execution_v2 import BatchExecutionV2
-from turbo.agents.openrouter_attempt import invoke_openrouter_once
-from turbo.agents.openrouter_runner import openrouter_request_body, openrouter_schema
+from turbo.agents.openrouter_attempt import bounded_request_body, invoke_openrouter_once
+from turbo.agents.openrouter_runner import openrouter_schema
 from turbo.pipeline_paths import ROOT
 
 SUPPORTED_ROLES = workflow.ROLES
@@ -226,7 +226,7 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
     schema = role_schema(role, input_root=input_root)
     # Conservative admission: UTF-8 request bytes plus an explicit wrapper allowance.
     # This deliberately overestimates normal tokenization, not a provider dollar cap.
-    request_bound = openrouter_request_body(role_id=role, model=config['model'],
+    request_bound = bounded_request_body(routing=config.get('routing'), role_id=role, model=config['model'],
         reasoning_effort=config['reasoning_effort'], runtime_prompt_text=runtime,
         schema=openrouter_schema(schema), invocation_id='invocation:' + '0' * 24,
         max_completion_tokens=config['max_output_tokens'], allow_fallbacks=False,
@@ -263,7 +263,8 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
                        role=role, model=config['model'], reasoning_effort=config['reasoning_effort'],
                        runtime_prompt_text=runtime, schema=schema,
                        max_completion_tokens=config['max_output_tokens'],
-                       timeout=config['timeout_seconds'], allow_fallbacks=config['allow_fallbacks'], api_key=api_key)
+                       timeout=config['timeout_seconds'], allow_fallbacks=config['allow_fallbacks'],
+                       routing=config.get('routing'), api_key=api_key)
         if transport is not None:
             options['transport'] = transport
         result = invoke_openrouter_once(**options)
