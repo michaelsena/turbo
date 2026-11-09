@@ -22,23 +22,9 @@ export interface MarketSummary {
   parent_market_id: string | null;
 }
 
-export type IdentityDimension = "buyer" | "job" | "delivery" | "workforce" | "economics_risk" | "acquisition_universe" | "ambient_ai_workflow";
-
 export interface MarketDetail extends MarketSummary {
   aliases: string[];
-  boundary: string;
-  buyer?: string | null;
-  job_to_be_done?: string | null;
-  delivery_model?: string | null;
-  workforce_model?: string | null;
-  economics_risk?: string | null;
-  acquisition_universe?: string | null;
-  ambient_ai_workflow?: string | null;
-  confidence_by_dimension?: Partial<Record<IdentityDimension, number | null>>;
-  evidence_by_dimension?: Partial<Record<IdentityDimension, string | null>>;
-  explicit_exclusions?: string[] | null;
-  supporting_evidence_ids?: string[] | null;
-  counterevidence_ids?: string[] | null;
+  boundary: Record<string, unknown>;
   mappings: Record<string, unknown>[];
   research_gaps: Record<string, unknown>[];
   source_records: Record<string, unknown>[];

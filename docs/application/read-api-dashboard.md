@@ -118,7 +118,7 @@ Pages:
 
 - `/` verified overview and explicit “not a ranking” boundary
 - `/universe` accepted market table
-- `/markets/{market_id}` boundary, seven identity dimensions with confidence/evidence class, exclusions, gaps, source lineage, and audit chain
+- `/markets/{market_id}` boundary, gaps, source lineage, and audit chain
 - `/families` neutral schedule
 - `/families/{family_id}` required work, paginated context, and candidates
 - `/batches` deterministic batch manifest
@@ -212,33 +212,3 @@ focused, frontend, full Python, validation, source replay, context and full-fiel
 checks also passed. Issue #34's execution dependency is satisfied for this exact
 tree. Independent static review remains the prior zero-P0/P1/P2 result; no new
 independent visual review is claimed. No merge is authorized by either receipt.
-
-## Market identity inspection
-
-The market detail page renders the selected API response's seven dimensions: buyer,
-job-to-be-done, delivery, workforce, economics/risk, acquisition universe, and Ambient
-AI workflow. Each narrative stays verbatim beside its original numeric confidence
-on the 0–1 scale and its evidence-class label. These are boundary judgments, not
-investment scores. The client does not infer a confidence threshold or upgrade
-unknown or inferred evidence.
-
-Explicit exclusions are visible as a list. Supporting and counterevidence IDs appear
-in separate disclosures and remain plain identifiers; the API does not supply a
-per-dimension citation mapping or a resolvable URL for each ID, so the UI invents
-neither. Missing/null fields say “Not recorded in this snapshot”; explicitly empty
-lists say “None recorded.” All reads and navigation retain the existing selected
-source/partition/graph tuple.
-
-Unit coverage includes a fixture copied from the committed provisional dental market,
-with its graph-projection hash, plus missing/null, empty-list and zero-confidence
-cases. Packaged desktop/mobile browser acceptance now covers the seven identity cards,
-explicit exclusions, and expanded supporting/counterevidence disclosures. Axe WCAG 2
-A/AA checks, the reviewed six-image refresh, and the comparison-only rerun passed on
-the integrated PR #38 tree.
-
-The [identity inspection receipt](../operations/receipts/2026-11-09-market-identity-verification.json)
-records 12 passing frontend tests, typecheck/build, 31 focused read/API tests, 259
-full-suite Python tests, validation/context and zero-finding independent static review
-on the original code tree. The [browser acceptance receipt](../operations/receipts/2026-11-09-market-identity-browser-acceptance.json)
-records the integrated head/tree, exact screenshot and input hashes, server lifecycle,
-comparison pass, and zero-finding independent visual review.
