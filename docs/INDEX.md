@@ -32,4 +32,5 @@ the README and the relevant document whenever behavior or architecture changes.
 - [ADR 0005: Model-agnostic boundary harness](decisions/0005-model-agnostic-boundary-harness.md)
 - [ADR 0006: OpenRouter model-provider layer](decisions/0006-openrouter-model-provider.md)
 - [ADR 0007: Schedule-driven family preparations](decisions/0007-schedule-driven-family-preparations.md)
+- [ADR 0008: Batch authorization and execution ledger](decisions/0008-batch-authorization-execution-ledger.md)
 - [Prior-model crosswalk](decisions/prior-model-crosswalk.md)

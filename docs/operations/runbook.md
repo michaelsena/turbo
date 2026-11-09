@@ -114,6 +114,63 @@ current-context compile. Record the exact commit and counts in the issue/PR. Do 
 commit `node_modules`, `frontend/dist`, `.venv`, or `*.tsbuildinfo`; do commit
 `package-lock.json`.
 
+### Batch authorization and ledger inspection (Track B1)
+
+This lane is simulation-only. It does not use the pilot's provider key, dispatch a
+live model, or publish a market decision. Start with exact V2 family preparations,
+then validate a bounded authorization against those same directories. Preparations
+must match the current implementation hashes, belong to one scheduled batch, and
+remain in manifest order. A changed compiler requires fresh preparations; never
+rewrite the old ones merely to make replay pass:
+
+```bash
+PYTHONPATH=src python3 -m turbo.cli batch-dry-run path/to/authorization.json \
+  path/to/preparation-1 path/to/preparation-2
+PYTHONPATH=src python3 -m turbo.cli batch-status path/to/execution
+PYTHONPATH=src python3 -m turbo.cli batch-validate-execution path/to/execution \
+  path/to/preparation-1 path/to/preparation-2
+```
+
+`batch-dry-run` validates scope and limits without dispatch. `batch-status` inspects
+and replays an existing journal without changing it. `batch-validate-execution` also
+checks the exact preparation inputs. None creates a live model call, and there is no
+new `batch-execute` CLI command in Track B1. Fake execution is exercised by the Python
+library and focused tests.
+
+The authorization must use `mode: simulation_only`, `provider: simulation`, and
+`role: batch_primary`, and `budget_scope: single_journal_simulation`. It binds 2–8 exact family preparations, the batch ID, model and
+prompt hash, both execution-schema hashes, integer token-price assumptions and their hash, UTC validity interval,
+maximum input/output tokens, total microdollar/call caps, combined retry/repair
+allowance, concurrency, and lease duration. Times must end in `Z`; authorization is
+valid at its start and invalid at its expiry. Set `max_concurrency` to 1; B1 rejects
+2. It supports one initial batch-primary request and a linear retry/repair chain, not concurrent independent tasks.
+An authorization file does not itself authorize a real provider or future canary.
+
+Budget and idempotency checks cover one trusted journal only. Copying the same
+authorization into another execution directory starts separate counters; it does not
+share or enforce a global budget. Do not use B1 as production spend authority. A
+shared spent-authorization registry or deterministic governed execution namespace
+is a blocking requirement before any live adapter or paid canary.
+
+Before retrying interrupted work, inspect the journal. A dispatched attempt with an
+unknown outcome retains its full reservation; lease expiry does not prove that no
+work occurred. Do not remove the journal, invent a zero-cost settlement, or create
+a new attempt to bypass that reservation. Deterministic replay must explain the
+confirmed cost and every outstanding reservation. A reservation expired before
+its dispatch can release funds, but does not restore its consumed call allowance.
+A subsequent attempt references a failed, settled predecessor or a safely released
+undispatched predecessor through `retry_of`. It uses a fresh request ID and consumes
+both a call and the shared `max_retries` allowance; the chain cannot fork. Provider
+reconciliation, real output validation, and reviewed family closure remain later work.
+
+See [Issue 15](../issues/0015-batch-native-family-research.md),
+[the contracts](../architecture/data-contracts.md#batch-authorization-and-execution-journal),
+and [ADR 0008](../decisions/0008-batch-authorization-execution-ledger.md). Record the
+exact code/input hashes and local test results in GitHub before accepting this lane;
+fake-transport tests must not be reported as a metered research run.
+
+### Existing metered pilot lane
+
 For metered model runs, create an ignored local `.env` from `.env.example` and place
 the dedicated Turbo OpenRouter key there. Never paste the key into GitHub, a prompt,
 or a committed configuration file.

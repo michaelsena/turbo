@@ -122,6 +122,24 @@ The same records render into a concise public explanation and a detailed audit v
 This keeps the system understandable to the chairman and an interviewer without
 forking the truth into a presentation database and a hidden research database.
 
+## Batch execution foundation
+
+Track B1 adds a separate authorization and durable execution ledger above prepared
+family packs. It binds exact batch scope and execution limits, reserves worst-case
+cost before a dispatch transition, serializes concurrent updates with a process-safe
+lock, and makes attempt resumption idempotent. Costs use integer microdollars;
+ambiguous dispatch retains its reservation without automatic refund or retry.
+
+This foundation is exercised through fake transport only. It neither replaces the
+existing pilot runner nor exposes a new live model command. Real adapters, validated
+batch outputs, selective verification, adjudication, cost reconciliation, and reviewed
+family closure remain separate work. An execution event is not a market-graph event.
+Authorization and status declare `budget_scope: single_journal_simulation`. Budget
+and idempotency controls apply to one trusted journal; a copied authorization in
+another directory has separate counters. Shared spent-authorization tracking or a
+deterministic governed namespace must precede any live adapter or paid canary.
+See [ADR 0008](../decisions/0008-batch-authorization-execution-ledger.md).
+
 ## Comparison topology
 
 Pairwise comparison is a domain operation. Every submodel has its own comparator and

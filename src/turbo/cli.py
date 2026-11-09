@@ -4,6 +4,9 @@ import argparse
 import json
 from pathlib import Path
 
+from turbo.agents.batch_authorization import validate_authorization
+from turbo.agents.batch_execution import inspect_execution, validate_execution
+
 from turbo.agents.boundary_runner import run_boundary_pilot, validate_boundary_run
 from turbo.agents.boundary_review import (
     run_independent_review,
@@ -41,6 +44,20 @@ def _parser() -> argparse.ArgumentParser:
     commands.add_parser("run", help="Build the source universe and reconciliation worklist")
     commands.add_parser("validate", help="Validate immutable inputs and market hierarchy")
     commands.add_parser("context", help="Render the current run receipt")
+    batch_dry_run = commands.add_parser(
+        "batch-dry-run", help="Validate a simulation authorization and exact V2 batch inputs; no dispatch"
+    )
+    batch_dry_run.add_argument("authorization", type=Path)
+    batch_dry_run.add_argument("preparation_dirs", type=Path, nargs="+")
+    batch_status = commands.add_parser(
+        "batch-status", help="Read and replay a simulation execution journal without changing it"
+    )
+    batch_status.add_argument("execution_dir", type=Path)
+    batch_validate = commands.add_parser(
+        "batch-validate-execution", help="Replay a simulation journal against exact V2 preparations"
+    )
+    batch_validate.add_argument("execution_dir", type=Path)
+    batch_validate.add_argument("preparation_dirs", type=Path, nargs="+")
     graph_release = commands.add_parser(
         "graph-release",
         help="Publish a cumulative canonical Market Graph from approved activations",
@@ -134,6 +151,20 @@ def _parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = _parser().parse_args()
+    if args.command in {"batch-dry-run", "batch-status", "batch-validate-execution"}:
+        try:
+            if args.command == "batch-dry-run":
+                authorization = json.loads(args.authorization.read_text(encoding="utf-8"))
+                result = validate_authorization(authorization, args.preparation_dirs)
+            elif args.command == "batch-status":
+                result = inspect_execution(args.execution_dir)
+            else:
+                result = validate_execution(args.execution_dir, args.preparation_dirs)
+        except (OSError, ValueError, TypeError, KeyError) as error:
+            print(json.dumps({"valid": False, "errors": [str(error)]}, indent=2))
+            return 1
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return 0 if result.get("valid", True) else 1
     if args.command == "run":
         print(json.dumps(run(), indent=2, sort_keys=True))
         return 0

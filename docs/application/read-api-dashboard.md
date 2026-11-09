@@ -169,4 +169,4 @@ required identities and Audit reports read-model 1.1.0. The executor's loopback 
 Chrome restrictions were handled with the runbook's external-server path. See the
 [exact verification receipt](../operations/receipts/2026-11-09-dashboard-corrections.json).
 One minor visual follow-up remains: the desktop Overview clips a long market-status
-badge; full statuses remain available in list/detail views. PR #19 is unmerged.
+badge; full statuses remain available in list/detail views. PR #19 is merged at `a9aef2befbc61208431ce4b546d6bed15d6edef1`.

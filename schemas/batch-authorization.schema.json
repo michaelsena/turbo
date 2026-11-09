@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelsena/turbo/schemas/batch-authorization.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "mode",
+    "provider",
+    "role",
+    "authorized_by",
+    "valid_from_utc",
+    "expires_at_utc",
+    "model",
+    "prompt_sha256",
+    "pricing",
+    "pricing_sha256",
+    "max_cost_microusd",
+    "max_calls",
+    "max_retries",
+    "max_concurrency",
+    "lease_seconds",
+    "max_input_tokens",
+    "max_output_tokens",
+    "batch_id",
+    "families",
+    "execution_schema_hashes",
+    "budget_scope"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "mode": {
+      "const": "simulation_only"
+    },
+    "provider": {
+      "const": "simulation"
+    },
+    "role": {
+      "const": "batch_primary"
+    },
+    "authorized_by": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "valid_from_utc": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "expires_at_utc": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "prompt_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "pricing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_microusd_per_token",
+        "output_microusd_per_token"
+      ],
+      "properties": {
+        "input_microusd_per_token": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "output_microusd_per_token": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "pricing_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "max_cost_microusd": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "max_calls": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10000
+    },
+    "max_retries": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "max_concurrency": {
+      "const": 1
+    },
+    "lease_seconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3600
+    },
+    "max_input_tokens": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_output_tokens": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "batch_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "families": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "family_id",
+          "preparation_id",
+          "config_sha256",
+          "pack_file_sha256",
+          "receipt_sha256"
+        ],
+        "properties": {
+          "family_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "preparation_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "config_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "pack_file_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "receipt_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "execution_schema_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "batch-authorization.schema.json",
+        "batch-execution-event.schema.json"
+      ],
+      "properties": {
+        "batch-authorization.schema.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "batch-execution-event.schema.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "budget_scope": {
+      "const": "single_journal_simulation"
+    }
+  }
+}

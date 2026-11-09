@@ -65,8 +65,10 @@ There is no silent truncation, inferred substitution, activation, or graph mutat
 
 ## Remaining tracks
 
-- Track B: explicit authorization, leases, cost accounting, resumable execution, and
-  bounded concurrency.
+- Track B1: authorization and execution-ledger foundation, exercised with fake
+  transport only; its scope and acceptance are described below.
+- Later Track B: real model adapter, output contract, selective verification,
+  disagreement escalation, and provider-cost reconciliation.
 - Track C: progress events, closure receipts, cross-family conflict checks, and
   cumulative graph-release integration.
 - Metered canary: only after exact local replay, independent review, and separate
@@ -93,3 +95,41 @@ A concurrent re-audit also identified malformed nested JSON types escaping as Py
 exceptions. Pack and persisted-preparation validation now checks executable schemas
 before nested field access and returns structured errors for these inputs. Regression
 cases cover malformed metadata, scope, counts, and family IDs.
+
+
+## Track B1: authorization and execution-ledger foundation
+
+This increment tests execution control before enabling real model calls. It binds an
+exact prepared family batch to explicit time, model/provider, price, call, cost,
+retry/repair, and concurrency limits. The 2–8 prepared families must come from one
+scheduled batch and retain manifest order. Integer microdollar reservations are
+persisted before dispatch under a process-safe lock. Replaying an attempt is idempotent.
+B1 permits one batch-primary task with one initial request and a linear retry/repair
+chain. `max_concurrency` is exactly 1; concurrency 2 and independent task scheduling
+are deferred rather than allowing new initial IDs to bypass retry limits.
+A subsequent attempt must reference a failed, settled or safely released undispatched
+predecessor; it consumes both call and retry allowances, and the chain cannot fork.
+Confirmed cost and outstanding reservations jointly consume the authorized budget.
+Ambiguous dispatch retains its reservation and cannot be automatically retried or
+refunded merely because a worker or lease expired.
+
+Authorization and status explicitly declare
+`budget_scope: single_journal_simulation`. Budgets and idempotency apply within one
+trusted journal; copying authorization to another directory does not share counters.
+A shared spent-authorization registry or deterministic governed execution namespace
+is a blocking requirement before any live adapter or paid canary. B1 is not
+production spend authority.
+
+The transport used by this increment is fake. There is no live execution command,
+provider credential, new source evidence, market conclusion, or activation. A fake
+successful response is not a validated boundary decision. Code/schema/output review
+and exact-head local tests are required before accepting the infrastructure; separate
+spend authorization and later adapter/output/closure work precede a metered canary.
+
+The CLI exposes `batch-dry-run <authorization> <preparation_dirs...>`,
+`batch-status <execution_dir>`, and
+`batch-validate-execution <execution_dir> <preparation_dirs...>`. These are validation
+and inspection commands; none dispatches a transport.
+
+See [ADR 0008](../decisions/0008-batch-authorization-execution-ledger.md) for the decision
+and the [runbook](../operations/runbook.md) for the implemented inspection commands.
