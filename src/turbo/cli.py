@@ -6,6 +6,11 @@ from pathlib import Path
 
 from turbo.agents.batch_authorization import validate_authorization
 from turbo.agents.batch_execution import inspect_execution, validate_execution
+from turbo.agents.batch_registry import (
+    initialize_registry,
+    inspect_registry,
+    validate_registry_execution,
+)
 
 from turbo.agents.boundary_runner import run_boundary_pilot, validate_boundary_run
 from turbo.agents.boundary_review import (
@@ -58,6 +63,20 @@ def _parser() -> argparse.ArgumentParser:
     )
     batch_validate.add_argument("execution_dir", type=Path)
     batch_validate.add_argument("preparation_dirs", type=Path, nargs="+")
+    registry_init = commands.add_parser(
+        "batch-registry-init", help="Explicitly initialize a new trusted local simulation registry"
+    )
+    registry_init.add_argument("registry_dir", type=Path)
+    registry_status = commands.add_parser(
+        "batch-registry-status", help="Inspect existing registered journals without changing them"
+    )
+    registry_status.add_argument("registry_dir", type=Path)
+    registry_validate = commands.add_parser(
+        "batch-registry-validate", help="Replay one registered simulation journal against exact preparations"
+    )
+    registry_validate.add_argument("registry_dir", type=Path)
+    registry_validate.add_argument("authorization_sha256")
+    registry_validate.add_argument("preparation_dirs", type=Path, nargs="+")
     graph_release = commands.add_parser(
         "graph-release",
         help="Publish a cumulative canonical Market Graph from approved activations",
@@ -151,6 +170,21 @@ def _parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = _parser().parse_args()
+    if args.command in {"batch-registry-init", "batch-registry-status", "batch-registry-validate"}:
+        try:
+            if args.command == "batch-registry-init":
+                result = initialize_registry(args.registry_dir)
+            elif args.command == "batch-registry-status":
+                result = inspect_registry(args.registry_dir)
+            else:
+                result = validate_registry_execution(
+                    args.registry_dir, args.authorization_sha256, args.preparation_dirs
+                )
+        except (OSError, ValueError, TypeError, KeyError) as error:
+            print(json.dumps({"valid": False, "errors": [str(error)]}, indent=2))
+            return 1
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return 0 if result.get("valid", True) else 1
     if args.command in {"batch-dry-run", "batch-status", "batch-validate-execution"}:
         try:
             if args.command == "batch-dry-run":
