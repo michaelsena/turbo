@@ -32,7 +32,7 @@ SENSITIVE_KEY_PARTS = (
     "chain_of_thought",
     "secret",
 )
-READ_MODEL_VERSION = "1.0.0"
+READ_MODEL_VERSION = "1.1.0"
 
 
 class SnapshotError(ValueError):
@@ -190,10 +190,13 @@ class ReadSnapshot:
             fingerprint=canonical_sha256(
                 {
                     "source_run_id": source_receipt["run_id"],
+                    "source_receipt_sha256": canonical_sha256(source_receipt),
                     "source_hashes": source_receipt["output_hashes"],
                     "partition_id": schedule_receipt["partition_id"],
+                    "schedule_receipt_sha256": canonical_sha256(schedule_receipt),
                     "schedule_hashes": schedule_receipt["output_hashes"],
                     "graph_version_id": graph_receipt["graph_version_id"],
+                    "graph_receipt_sha256": canonical_sha256(graph_receipt),
                     "projection_sha256": graph_receipt["projection_sha256"],
                     "read_model_version": READ_MODEL_VERSION,
                 }
@@ -573,7 +576,12 @@ class ReadSnapshot:
         _safe_identifier(receipt_id, "receipt ID")
         base, filename = RECEIPT_KINDS[kind]
         path = self.root / base / receipt_id / filename
-        value = _object(path)
+        if not path.is_file():
+            raise KeyError(receipt_id)
+        try:
+            value = _object(path)
+        except SnapshotError as error:
+            raise SnapshotError("receipt exists but could not be read") from error
         redactions: list[str] = []
         sanitized = _sanitize_receipt(value, redactions=redactions)
         return {
@@ -812,9 +820,47 @@ class SnapshotStore:
                     == latest.version.graph_version_id,
                 }
             )
+        compatible_snapshots: list[dict[str, Any]] = []
+        for partition in partitions:
+            for graph in graphs:
+                source_run_id = str(partition["source_run_id"])
+                if source_run_id != graph["source_run_id"]:
+                    continue
+                try:
+                    snapshot = self.get(
+                        source_run_id=source_run_id,
+                        partition_id=str(partition["partition_id"]),
+                        graph_version_id=str(graph["graph_version_id"]),
+                    )
+                except (KeyError, OSError, SnapshotError, ValueError):
+                    continue
+                provenance = snapshot.provenance()
+                compatible_snapshots.append(
+                    {
+                        **provenance,
+                        "current": (
+                            provenance["source_run_id"]
+                            == latest.version.source_run_id
+                            and provenance["partition_id"]
+                            == latest.version.partition_id
+                            and provenance["graph_version_id"]
+                            == latest.version.graph_version_id
+                        ),
+                    }
+                )
+        compatible_snapshots.sort(
+            key=lambda item: (
+                not item["current"],
+                item["as_of_utc"],
+                item["source_run_id"],
+                item["partition_id"],
+                item["graph_version_id"],
+            )
+        )
         return {
             "source_runs": source_runs,
             "partitions": partitions,
             "graph_releases": graphs,
+            "compatible_snapshots": compatible_snapshots,
             "current": latest.provenance(),
         }

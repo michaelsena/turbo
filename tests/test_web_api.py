@@ -31,6 +31,17 @@ class WebApiTest(unittest.TestCase):
         self.assertEqual(replay.status_code, 304)
         self.assertEqual(replay.content, b"")
 
+    def test_etag_is_bound_to_the_exact_response_representation(self) -> None:
+        markets = self.client.get("/api/v1/markets?page_size=1")
+        families = self.client.get(
+            "/api/v1/families?page_size=1",
+            headers={"If-None-Match": markets.headers["etag"]},
+        )
+        second_market_page = self.client.get("/api/v1/markets?page=2&page_size=1")
+        self.assertEqual(families.status_code, 200)
+        self.assertNotEqual(markets.headers["etag"], families.headers["etag"])
+        self.assertNotEqual(markets.headers["etag"], second_market_page.headers["etag"])
+
     def test_markets_are_deterministic_and_not_ranked(self) -> None:
         first = self.client.get("/api/v1/markets?page_size=100")
         replay = self.client.get("/api/v1/markets?page_size=100")
@@ -65,6 +76,10 @@ class WebApiTest(unittest.TestCase):
         self.assertEqual(valid.json()["data"]["kind"], "graph-release")
         unknown = self.client.get("/api/v1/receipts/arbitrary/value")
         self.assertEqual(unknown.status_code, 404)
+        missing = self.client.get("/api/v1/receipts/graph-release/nonexistent")
+        self.assertEqual(missing.status_code, 404)
+        self.assertNotIn(str(Path.cwd()), missing.text)
+        self.assertEqual(missing.json()["detail"], "Receipt not found")
 
     def test_incompatible_version_tuple_fails_closed(self) -> None:
         response = self.client.get(
@@ -72,6 +87,59 @@ class WebApiTest(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 409)
         self.assertIn("incompatible", response.json()["detail"])
+
+    def test_every_snapshot_route_uses_the_shared_version_selection(self) -> None:
+        market_id = self.client.get("/api/v1/markets?page_size=1").json()["data"][
+            "items"
+        ][0]["market_id"]
+        family_id = self.client.get("/api/v1/families?page_size=1").json()["data"][
+            "items"
+        ][0]["family_id"]
+        incompatible = "source_run_id=run-1f039950ed1e4e3192c7"
+        routes = [
+            "/api/v1/context",
+            "/api/v1/versions",
+            "/api/v1/markets",
+            f"/api/v1/markets/{market_id}",
+            "/api/v1/mappings",
+            "/api/v1/families",
+            f"/api/v1/families/{family_id}",
+            "/api/v1/batches",
+            "/api/v1/identities/identity:naics:561110",
+            "/api/v1/candidates",
+            "/api/v1/search?q=office",
+            (
+                "/api/v1/receipts/graph-release/"
+                "graph-release-aa5b6f83e7a06e073d3a"
+            ),
+        ]
+        for route in routes:
+            separator = "&" if "?" in route else "?"
+            with self.subTest(route=route):
+                response = self.client.get(f"{route}{separator}{incompatible}")
+                self.assertEqual(response.status_code, 409)
+                self.assertIn("incompatible", response.json()["detail"])
+
+    def test_compatible_historical_tuple_reaches_detail_routes(self) -> None:
+        versions = self.client.get("/api/v1/versions").json()["data"]
+        historical = next(
+            item for item in versions["compatible_snapshots"] if not item["current"]
+        )
+        family_id = self.client.get("/api/v1/families?page_size=1").json()["data"][
+            "items"
+        ][0]["family_id"]
+        query = (
+            f"source_run_id={historical['source_run_id']}"
+            f"&partition_id={historical['partition_id']}"
+            f"&graph_version_id={historical['graph_version_id']}"
+        )
+        response = self.client.get(f"/api/v1/families/{family_id}?{query}")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.json()["provenance"]["partition_id"],
+            historical["partition_id"],
+        )
+        self.assertEqual(response.headers["x-turbo-partition"], historical["partition_id"])
 
     def test_page_size_is_bounded_at_http_boundary(self) -> None:
         response = self.client.get("/api/v1/families?page_size=101")

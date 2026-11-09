@@ -20,6 +20,7 @@ class ReadModelTest(unittest.TestCase):
             "family-partition:60517981ab96e7f243c7033e",
         )
         self.assertEqual(snapshot.context["canonical_markets"], 3)
+        self.assertEqual(snapshot.provenance()["read_model_version"], "1.1.0")
         self.assertEqual(len(snapshot.identities), 11_543)
         self.assertEqual(len(snapshot.families), 1_026)
         self.assertEqual(len(snapshot.batches), 129)
@@ -114,6 +115,11 @@ class ReadModelTest(unittest.TestCase):
             ["$.api_key", "$.nested.authorization_header"],
         )
 
+    def test_absent_allowlisted_receipt_does_not_expose_a_path(self) -> None:
+        with self.assertRaises(KeyError) as raised:
+            self.snapshot.receipt("graph-release", "nonexistent")
+        self.assertNotIn(str(self.snapshot.root), str(raised.exception))
+
     def test_explicit_incompatible_versions_fail_closed(self) -> None:
         with self.assertRaisesRegex(SnapshotError, "incompatible"):
             load_snapshot(source_run_id="run-1f039950ed1e4e3192c7")
@@ -129,6 +135,10 @@ class ReadModelTest(unittest.TestCase):
         self.assertEqual(sum(item["current"] for item in versions["source_runs"]), 1)
         self.assertEqual(sum(item["current"] for item in versions["partitions"]), 1)
         self.assertEqual(sum(item["current"] for item in versions["graph_releases"]), 1)
+        self.assertEqual(
+            sum(item["current"] for item in versions["compatible_snapshots"]), 1
+        )
+        self.assertGreaterEqual(len(versions["compatible_snapshots"]), 2)
 
 
 if __name__ == "__main__":
