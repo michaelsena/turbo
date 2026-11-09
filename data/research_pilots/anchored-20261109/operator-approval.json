@@ -1,0 +1,9 @@
+{
+  "recorded_at_utc": "2026-11-09T13:31:50.021062+00:00",
+  "user_response": "yes",
+  "scope": "One real research batch: 82 public-source identities and one candidate; local Codex gpt-5.6-sol high; consumes account quota",
+  "approved_invocation_id": "invocation:ffffffffffffffffffffffff",
+  "prior_invocation_id": "invocation:eeeeeeeeeeeeeeeeeeeeeeee",
+  "prior_status": "Automatic approval review rejected execution; process session unavailable; no output observed; preserve unknown status, do not reuse invocation",
+  "context_sha256": "f11fcdaf332839a3319dce39d5d3ed6538a91ee2840de0825cc5c2fff2594c1d"
+}

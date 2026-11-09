@@ -12,6 +12,7 @@ from turbo.agents.batch_registry import (
     validate_registry_execution,
 )
 from turbo.agents.batch_output import build_batch_context, validate_batch_output_file
+from turbo.agents.batch_research import validate_batch_research
 
 from turbo.agents.boundary_runner import run_boundary_pilot, validate_boundary_run
 from turbo.agents.boundary_review import (
@@ -93,6 +94,12 @@ def _parser() -> argparse.ArgumentParser:
     output_validate.add_argument("invocation_id")
     output_validate.add_argument("preparation_dirs", type=Path, nargs="+")
     output_validate.add_argument("--max-output-bytes", type=int, default=1_000_000)
+    research_validate = commands.add_parser(
+        "batch-research-validate", help="Replay managed simulation output artifacts and their accounting"
+    )
+    research_validate.add_argument("registry_dir", type=Path)
+    research_validate.add_argument("authorization_sha256")
+    research_validate.add_argument("preparation_dirs", type=Path, nargs="+")
     graph_release = commands.add_parser(
         "graph-release",
         help="Publish a cumulative canonical Market Graph from approved activations",
@@ -186,6 +193,16 @@ def _parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = _parser().parse_args()
+    if args.command == "batch-research-validate":
+        try:
+            result = validate_batch_research(
+                args.registry_dir, args.authorization_sha256, args.preparation_dirs
+            )
+        except (OSError, ValueError, TypeError, KeyError, OverflowError, RecursionError) as error:
+            result = {"valid": False, "errors": [str(error)],
+                      "structural_validation_only": True, "model_invoked": False}
+        print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))
+        return 0 if result.get("valid", False) else 1
     if args.command in {"batch-output-context", "batch-output-validate"}:
         try:
             if args.command == "batch-output-context":

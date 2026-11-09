@@ -2,8 +2,8 @@
 
 ## Status
 
-Proposed for Issue #15 Track B3 in [PR #25](https://github.com/michaelsena/turbo/pull/25).
-Local tests, synthetic replay, and independent review passed; the PR remains unmerged.
+Implemented for Issue #15 Track B3 in [PR #25](https://github.com/michaelsena/turbo/pull/25),
+merged at `73bf1f8`. Local tests, synthetic replay, and independent review passed.
 See the [verification receipt](../operations/receipts/2026-11-09-batch-output-verification.json).
 This increment validates synthetic output structure only; it makes no provider call
 and does not accept research, alter scores, or activate market boundaries.
@@ -35,7 +35,8 @@ substantive evidence review and the existing governance path before acceptance.
 This contract is standalone. B1 rejects floating-point values anywhere in its fake
 response envelope, including output; confidence values in this new contract are not
 automatically compatible with that envelope. No execution-settlement wiring or
-provider adapter is introduced here. Later integration must explicitly reconcile
+provider adapter was introduced in B3. [ADR 0011](0011-batch-output-artifacts.md)
+defines the subsequent simulation artifact bridge. Later integration must explicitly reconcile
 these contracts and verify their behavior before enabling any paid canary.
 
 Synthetic examples test contract acceptance and rejection, not research quality.
