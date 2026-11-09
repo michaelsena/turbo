@@ -56,6 +56,12 @@ turbo boundary-activate config/universe/activations/<activation-config>.json
 turbo boundary-validate-activation \
   data/market_graph/activations/<activation-id> \
   config/universe/activations/<activation-config>.json
+turbo family-plan config/universe/family-partition-v1.json
+turbo family-validate-plan data/family_schedules/<partition-id> \
+  config/universe/family-partition-v1.json
+turbo graph-release config/universe/graph-releases/<release-config>.json
+turbo graph-validate-release data/market_graph/versions/<release-id> \
+  config/universe/graph-releases/<release-config>.json
 ```
 
 `boundary-run` makes two concurrent specialist calls and, only after both validate,
@@ -118,6 +124,17 @@ can bind the exact execution head. The command fails if the worktree contains an
 tracked or untracked change, and replay requires the receipt's full hexadecimal
 execution commit to resolve locally. Then commit the resulting immutable events,
 projection, receipt, replay test, and documentation as a separate increment.
+
+Family plans and graph releases use the same exact-head rule. Commit their compiler,
+configuration, tests, and documentation first. With a clean worktree, publish the
+immutable outputs and verification pointer. Commit those outputs separately, replay
+them, run the full local suite, and post exact hashes and head receipts to GitHub.
+
+`turbo context` is the inspection command for current system state. It verifies the
+latest source pointer against its immutable receipt, verifies every family-plan output
+hash, verifies the cumulative graph receipt and projection, requires a common source
+run, and then renders the layers separately. A failure is a blocker; do not replace
+the missing layer with a directory scan or an inferred “latest” result.
 
 ## Agent coordination
 

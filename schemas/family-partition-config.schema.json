@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelsena/turbo/schemas/family-partition-config.schema.json",
+  "title": "Turbo deterministic family partition configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "method_version", "source_run_id", "as_of_utc",
+    "limits", "pilot_regression", "neutral_priority_policy", "expected_counts",
+    "prohibited_actions"
+  ],
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "method_version": {"type": "string", "const": "naics-leaf-rendezvous-v1"},
+    "source_run_id": {"type": "string", "pattern": "^run-[0-9a-f]{20}$"},
+    "as_of_utc": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_required_identities_per_family", "max_context_identities_per_shard",
+        "max_families_per_batch", "max_required_identities_per_batch",
+        "max_required_candidates_per_batch"
+      ],
+      "properties": {
+        "max_required_identities_per_family": {"type": "integer", "minimum": 1},
+        "max_context_identities_per_shard": {"type": "integer", "minimum": 1},
+        "max_families_per_batch": {"type": "integer", "minimum": 1},
+        "max_required_identities_per_batch": {"type": "integer", "minimum": 1},
+        "max_required_candidates_per_batch": {"type": "integer", "minimum": 1}
+      }
+    },
+    "pilot_regression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seed_identity_id", "source_family_config", "source_pack_sha256",
+        "expected_required_identities"
+      ],
+      "properties": {
+        "seed_identity_id": {"type": "string", "pattern": "^identity:naics:[0-9]{6}$"},
+        "source_family_config": {"type": "string", "pattern": "\\S"},
+        "source_pack_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "expected_required_identities": {"type": "integer", "minimum": 1}
+      }
+    },
+    "neutral_priority_policy": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "string", "pattern": "\\S"}
+    },
+    "expected_counts": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "prohibited_actions": {
+      "type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true,
+      "items": {
+        "enum": [
+          "target-universe filtering", "market evaluation or scoring",
+          "company discovery or evaluation", "investment-attractiveness scheduling",
+          "model invocation"
+        ]
+      }
+    }
+  }
+}

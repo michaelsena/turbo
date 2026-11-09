@@ -1,0 +1,29 @@
+{
+  "activation_bindings": [
+    {
+      "activation_config": "config/universe/activations/office-administrative-services-v2.json",
+      "activation_config_sha256": "e2229c0b84d2889378e23d20f037c2f03f0c47070b7a42d291dea0c475ef12bc",
+      "activation_dir": "data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62",
+      "activation_id": "boundary-activation-9d3772f0364b4632dc62",
+      "events_sha256": "3e9c3f4f09c8f5ada2301fcfd9a8e04d18e8ba509afcfb2db5cb22ccacc22d51",
+      "projection_sha256": "5341b24b07e24dc40130affeefe7d5c8937abc9c69bab0f6589e5c4bfcae3646"
+    }
+  ],
+  "as_of_utc": "2026-11-09T02:36:06Z",
+  "config_sha256": "041fd45fce5f2651e3ff3411e72b759d4d4620a9d7f21f4d86ff6e9194f0c446",
+  "counts": {
+    "activations": 1,
+    "active_events": 4,
+    "canonical_markets": 3,
+    "mappings": 1,
+    "retired_markets": 0
+  },
+  "execution_commit": "03bcf1edd30eb109fc3943f30270b94f8a6cc1bc",
+  "graph_version_id": "graph-e674a77fbfd5939c25c9e9a1",
+  "model_invoked": false,
+  "projection_sha256": "a22336b3711ba1095607aa03850607cb50a801c49abcd3e3cd0b3d914b87b8ca",
+  "release_id": "graph-release-aa5b6f83e7a06e073d3a",
+  "schema_version": 1,
+  "source_universe_run_id": "run-2ea0f00db84148de663f",
+  "status": "published_cumulative_canonical_graph"
+}

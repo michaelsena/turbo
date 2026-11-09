@@ -160,6 +160,41 @@ execution commit. `boundary-validate-activation` recompiles the events and proje
 and fails on any drift. Family-local non-mappings cannot be compiled as global
 candidate rejections.
 
+## Family partition, schedule, and graph release
+
+A family partition binds one immutable source run, the exact reconciliation and
+relationship artifact hashes, a versioned deterministic method, explicit UTC cutoff,
+configuration hash, and execution commit. Its coverage ledger gives every normalized
+identity exactly one administrative owner and one role: `required_review` or
+`context_only`. Multiple family appearances are permitted and expected; they cannot
+create a second primary disposition obligation.
+
+The candidate-collision ledger is separate because prior market hypotheses and
+source identities are different namespaces. It preserves every retrieval occurrence,
+all collision families, one administrative challenge owner, and an explicit status
+for candidates with no current retrieval collision. A local candidate disposition
+never becomes a global rejection through scheduling. The primary owner must be a
+schedulable family or completed regression fixture; otherwise the candidate enters an
+explicit global challenge family.
+
+The context-edge ledger preserves every official industry-product relationship,
+collection/trilateral relationship, and explicit concordance non-mapping with stable
+relationship ID, exact endpoints, source observations, and administrative routing.
+It is relationship topology for evidence assembly, never a canonical market mapping.
+
+The family manifest contains exact required identities, context identities, context
+shards, required candidate hypotheses, workload counts, status, and a neutral priority
+key. A batch is an ordered collection of independent family runs, not a merged evidence
+pack. Coverage, relationship-context, collision, family, and batch outputs use
+byte-stable canonical JSON or fixed-timestamp gzip and are hash-bound from the schedule
+receipt.
+
+A cumulative graph release binds exact activation IDs, directories, configs, event
+hashes, projection hashes, source-universe run, cutoff, config hash, code commit, and
+the resulting cumulative projection hash. `latest-graph.json` and
+`latest-family-schedule.json` are verification pointers only; their referenced
+receipts and artifacts must rehash before they enter composed context.
+
 
 ## Factor definition, evaluator result, and score event
 

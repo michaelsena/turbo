@@ -19,6 +19,11 @@ evaluation. Attractiveness cannot decide whether a market exists; filtering cann
 erase a canonical market; scoring cannot mutate a market boundary. A discovered
 boundary defect must return through a separate append-only universe proposal.
 
+The source-universe run, operating-family schedule, canonical graph release, Target
+projection, and evaluation projection also have separate receipts and pointers.
+`turbo context` verifies and composes them; it does not treat a source-run-local count
+or the most recently written activation directory as current system truth.
+
 ## Core durable identities
 
 - `source_snapshot_id`: immutable bytes plus publisher/URL/time/hash.
@@ -38,6 +43,30 @@ events through a cutoff. Stable market IDs survive ordinary score changes. Split
 merges create successor market IDs with explicit edges; prior versions remain queryable.
 
 The API will support both `latest` and explicit `as_of`/`graph_version` requests.
+
+An activation is deliberately local to one reviewed family. Publication therefore
+uses a cumulative graph-release config that enumerates exact activation directories,
+configs, and hashes. The release compiler replays all of them, requires one source-
+universe lineage, unions accepted events, rejects duplicate event IDs, and projects
+one graph through an explicit UTC cutoff. A mutable pointer contains only the release
+identity, path, and verification hashes; it never replaces immutable graph truth.
+
+## Operating-family scheduling
+
+Scheduling is a deterministic universe-construction subsystem, not a research model.
+Each six-digit NAICS identity anchors a family. Shared collection products retain all
+official family appearances but receive one stable administrative owner by rendezvous
+hashing. Aggregate NAICS and trilateral NAPCS nodes are context-only. Unlinked
+collection products and prior candidates with no retrieval collision enter explicit
+coverage-challenge families. The completed 561110 pilot is a pinned regression
+override.
+
+The planner publishes separate ledgers for identity coverage, source relationship
+context, and prior-candidate collisions, plus a family manifest and batch manifest.
+Every candidate owner must be reviewable; context-only families may provide collision
+evidence but cannot own work. Batch order uses only source-reconciliation burden and
+coverage risk. Administrative ownership must never be consumed as an accepted market
+mapping, semantic primacy, strategy fit, or score.
 
 ## Agent-native execution
 
