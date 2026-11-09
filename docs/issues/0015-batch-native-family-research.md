@@ -88,3 +88,8 @@ Configs and packs bind every Turbo Python source file and both executable V2 sch
 Any implementation/schema change creates a new preparation identity; replay of an old
 preparation requires its original checkout. Model prompt binding remains a runner
 responsibility because Track A invokes no model.
+
+A concurrent re-audit also identified malformed nested JSON types escaping as Python
+exceptions. Pack and persisted-preparation validation now checks executable schemas
+before nested field access and returns structured errors for these inputs. Regression
+cases cover malformed metadata, scope, counts, and family IDs.

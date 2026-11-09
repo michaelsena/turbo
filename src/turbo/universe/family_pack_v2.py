@@ -594,6 +594,8 @@ def _validate_family_evidence_pack_v2(
     expected_pack: dict[str, Any],
 ) -> list[str]:
     errors = _schema_errors(pack, "family-evidence-pack-v2.schema.json", root)
+    if errors:
+        return errors
     try:
         if pack.get("metadata", {}).get("pack_sha256") != _pack_hash(pack):
             errors.append("pack_sha256 does not match canonical pack content")
@@ -713,6 +715,12 @@ def validate_family_preparation_v2(
         ):
             if path.read_bytes() != _canonical_bytes(value):
                 errors.append(f"persisted {name} bytes are not canonical")
+        schema_errors = (
+            _schema_errors(config, "family-config-v2.schema.json", root)
+            + _schema_errors(pack, "family-evidence-pack-v2.schema.json", root)
+        )
+        if schema_errors:
+            raise ValueError("persisted schema validation failed: " + "; ".join(schema_errors))
         regenerated_config = generate_family_config_v2(
             config["family_id"], root=root, limits=config["limits"]
         )

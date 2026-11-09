@@ -65,6 +65,23 @@ class FamilyPackV2Test(unittest.TestCase):
         tampered["metadata"]["pack_sha256"] = _pack_hash(tampered)
         self.assertTrue(validate_family_evidence_pack_v2(tampered, self.config))
 
+    def test_malformed_nested_types_return_structured_errors(self) -> None:
+        for field in ("metadata", "scope", "counts"):
+            pack = copy.deepcopy(self.pack)
+            pack[field] = []
+            with self.subTest(field=field):
+                self.assertTrue(validate_family_evidence_pack_v2(pack, self.config))
+        with tempfile.TemporaryDirectory() as raw:
+            result = prepare_family_v2(UNLINKED_FAMILY, output_root=Path(raw))
+            directory = Path(result["preparation_path"])
+            path = directory / "family-config-v2.json"
+            config = json.loads(path.read_text())
+            config["family_id"] = []
+            path.write_text(json.dumps(config))
+            replay = validate_family_preparation_v2(directory)
+            self.assertFalse(replay["valid"])
+            self.assertTrue(any("schema validation failed" in error for error in replay["errors"]))
+
     def test_implementation_and_schema_bytes_are_bound(self) -> None:
         hashes = self.config["implementation_hashes"]
         for path in ("src/turbo/universe/family_pack_v2.py",
@@ -291,10 +308,10 @@ class FamilyPackV2Test(unittest.TestCase):
             pack_path.write_text(json.dumps(pack), encoding="utf-8")
             invalid = validate_family_preparation_v2(preparation_dir)
             self.assertFalse(invalid["valid"])
-            self.assertIn(
-                "persisted pack does not match deterministic regeneration",
-                invalid["errors"],
-            )
+            self.assertTrue(any(
+                "persisted schema validation failed" in error
+                for error in invalid["errors"]
+            ))
 
 
 if __name__ == "__main__":
