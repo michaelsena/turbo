@@ -177,9 +177,12 @@ changed. Regression checks assert status geometry at desktop/mobile widths and u
 an explicitly synthetic long-status stress case. Direct connected-Chrome inspection
 at desktop (1440 × 1000) and mobile (390 × 844) confirms all three full statuses and
 bounded descriptions; historical Universe → Audit navigation retains the exact tuple.
-This interactive check is distinct from executing the packaged Playwright/axe suite.
-That suite and intentional screenshot refresh remain pending; historical baselines
-are retained until the suite can run in a permitted process environment.
+The packaged Playwright/axe suite subsequently completed at tested commit
+`caa95205f5f909d16ec6cff0f5b2ded7ba8cd862`: the reviewed all-baseline refresh and
+comparison-only rerun each passed 4 tests at desktop and mobile, including the
+synthetic stress case. All 16 images were inspected. An owned preview on port 8034
+was stopped after the run; the pre-existing 8017 and 8028 servers were preserved.
+See the [browser acceptance receipt](../operations/receipts/2026-11-09-app-browser-acceptance.json).
 PR #19 is merged at `a9aef2befbc61208431ce4b546d6bed15d6edef1`.
 
 ## App ownership and intake
@@ -199,12 +202,13 @@ occurs without explicit chairman authorization.
 
 ## Current integration verification
 
-The [current-main receipt](../operations/receipts/2026-11-09-app-status-integrated-verification.json)
-records 259 passing Python tests on one clean, stable tree, 31 focused read/API
-checks, 9 frontend tests, typecheck/build, validation and unchanged context replay.
-Independent static review has no outstanding P0/P1/P2 findings. Root direct Chrome
-inspection verifies the listed real desktop/mobile layout and historical-navigation
-checks; independent visual review did not complete. Packaged Playwright/axe execution,
-synthetic stress coverage and reviewed baseline refresh remain blocked on the
-[permitted runner dependency #34](https://github.com/michaelsena/turbo/issues/34).
-No merge is authorized by this receipt.
+The [prior integration receipt](../operations/receipts/2026-11-09-app-status-integrated-verification.json)
+records the pre-browser state: 259 passing Python tests, 31 focused read/API checks,
+9 frontend tests, typecheck/build, validation and unchanged context replay. The
+[browser acceptance receipt](../operations/receipts/2026-11-09-app-browser-acceptance.json)
+resolves its remaining packaged-suite gate: 4/4 Playwright tests passed after the
+reviewed refresh and again comparison-only; all 16 screenshots were inspected; the
+focused, frontend, full Python, validation, source replay, context and full-field
+checks also passed. Issue #34's execution dependency is satisfied for this exact
+tree. Independent static review remains the prior zero-P0/P1/P2 result; no new
+independent visual review is claimed. No merge is authorized by either receipt.

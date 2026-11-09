@@ -150,7 +150,10 @@ for that historical result and its Overview status-badge clipping finding.
 The follow-up changes Overview market rows to keep full status text beneath their
 descriptions and uses neutral collection copy for provisional boundaries;
 direct desktop/mobile inspection confirms readable statuses and bounded descriptions.
-The packaged browser suite and refreshed screenshot baselines remain pending.
+The packaged browser suite now passes at the exact tested tree after a reviewed
+16-image desktop/mobile baseline refresh and comparison-only rerun. The run used an
+owned loopback server while preserving both pre-existing servers; see the
+[browser acceptance receipt](docs/operations/receipts/2026-11-09-app-browser-acceptance.json).
 
 The simulation execution foundation is merged: [B1 / PR #21](https://github.com/michaelsena/turbo/pull/21)
 provides authorization, reservation, and replay within one journal; [B2 / PR #23](https://github.com/michaelsena/turbo/pull/23)

@@ -47,6 +47,10 @@ test("required read surfaces remain accessible and visually stable", async ({ pa
         await expect(page.locator(".metric-grid.small .metric strong").nth(0)).toHaveText("80");
         await expect(page.locator(".metric-grid.small .metric strong").nth(2)).toHaveText("1");
       }
+      // Element screenshots scroll their subject into view. Re-anchor every route so
+      // the preceding Overview panel capture cannot shift the next viewport baseline.
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
       await page.addScriptTag({ content: axe.source });
       const results = await page.evaluate(async () => {
         return await (window as typeof window & { axe: typeof axe }).axe.run(document, {
