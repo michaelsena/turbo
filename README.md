@@ -208,6 +208,11 @@ uses primary, verifier, and release reviewer; material disagreement adds two bli
 specialists and adjudication. Exact upstream provider provenance and compiler-preview
 replay precede release review. The successor increment passed 22 focused checks in
 95.040 seconds, with clear independent review; its full suite is still running.
+The scoped [operator commands](docs/operations/runbook.md#governed-batch-operator-commands)
+now wrap explicit registry initialization, one-role run/resume, read-only accounting,
+release preview, activation, and closure/replay. Eight focused controlled-transport
+CLI tests passed; full-suite verification and independent review remain tracked in
+[issue 42](https://github.com/michaelsena/turbo/issues/42).
 No paid calls or new market activation occurred. This is not production readiness. The six
 exploratory manual hypotheses remain provisional and cannot bypass the gates. Approve
 and evaluate one neutral metered canary before authorizing broad execution. Then
