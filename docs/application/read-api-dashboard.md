@@ -231,10 +231,14 @@ source/partition/graph tuple.
 
 Unit coverage includes a fixture copied from the committed provisional dental market,
 with its graph-projection hash, plus missing/null, empty-list and zero-confidence
-cases. Browser acceptance and intentional market-detail screenshot refresh remain
-pending local browser verification (#34); this documentation is not a current browser pass.
+cases. Packaged desktop/mobile browser acceptance now covers the seven identity cards,
+explicit exclusions, and expanded supporting/counterevidence disclosures. Axe WCAG 2
+A/AA checks, the reviewed six-image refresh, and the comparison-only rerun passed on
+the integrated PR #38 tree.
 
 The [identity inspection receipt](../operations/receipts/2026-11-09-market-identity-verification.json)
 records 12 passing frontend tests, typecheck/build, 31 focused read/API tests, 259
 full-suite Python tests, validation/context and zero-finding independent static review
-on the exact code tree. Browser checks for this new detail layout remain pending.
+on the original code tree. The [browser acceptance receipt](../operations/receipts/2026-11-09-market-identity-browser-acceptance.json)
+records the integrated head/tree, exact screenshot and input hashes, server lifecycle,
+comparison pass, and zero-finding independent visual review.

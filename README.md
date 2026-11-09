@@ -164,6 +164,10 @@ The packaged browser suite now passes at the exact tested tree after a reviewed
 16-image desktop/mobile baseline refresh and comparison-only rerun. The run used an
 owned loopback server while preserving both pre-existing servers; see the
 [browser acceptance receipt](docs/operations/receipts/2026-11-09-app-browser-acceptance.json).
+Market identity detail acceptance also passes on the integrated PR #38 tree. Six
+desktop/mobile panel baselines cover all seven operating dimensions, exclusions, and
+expanded supporting/counterevidence IDs; independent artifact review found no
+P0/P1/P2 issues. See the [identity browser receipt](docs/operations/receipts/2026-11-09-market-identity-browser-acceptance.json).
 
 The simulation execution foundation is merged: [B1 / PR #21](https://github.com/michaelsena/turbo/pull/21)
 provides authorization, reservation, and replay within one journal; [B2 / PR #23](https://github.com/michaelsena/turbo/pull/23)
