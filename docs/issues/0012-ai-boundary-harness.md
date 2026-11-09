@@ -282,3 +282,11 @@ The three calls reported 737,944 total tokens and `$2.6181175` cost. Dedicated-k
 cumulative usage is `$7.1042895`, with `$42.8957105` remaining. This is still a
 `validated_proposal_not_activated`; an independent successor review must test every
 original activation condition before any graph event can be considered.
+
+The successor activation audit is preregistered in
+`config/universe/reviews/office-administrative-services-v2-boundary-review-gemini.json`.
+It binds the exact V2 run, pack, and adjudication hashes and asks Gemini 4 Argon to
+re-test family-local semantics, seed reconciliation, all 13 index entries, explicit
+exclusions, preserved gaps, NAPCS evidence sufficiency, and evidence-label accuracy.
+Approval still requires all five registered checks to pass with zero findings; the
+review cannot activate the graph directly.
