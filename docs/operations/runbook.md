@@ -290,6 +290,13 @@ check `unresolved_requests`, `artifact_valid_requests`, and
 quality scores. Real provider integration and substantive review remain later work.
 See [ADR 0011](../decisions/0011-batch-output-artifacts.md).
 
+### Real frozen-batch research
+
+For an explicitly authorized batch using the local Codex account, follow the
+[real-batch operator guide](real-batch-research.md). Keep one fixed output root and
+retain interrupted attempts; this route does not use the simulation ledger or the
+OpenRouter pilot. Structural validation is not substantive research acceptance.
+
 ### Existing metered pilot lane
 
 For metered model runs, create an ignored local `.env` from `.env.example` and place

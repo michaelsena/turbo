@@ -1,0 +1,51 @@
+{
+  "provenance": "collaboration_agent",
+  "author_agent": "/root/live_pack_fix",
+  "model_invoked": true,
+  "external_model_dispatches": 0,
+  "codex_cli_invoked": false,
+  "openrouter_invoked": false,
+  "external_research_performed": false,
+  "context_path": "/tmp/turbo-first-real-batch/approved-anchored-context.json",
+  "context_file_sha256": "306a9127bba0240c3d44f018dc0c9792db553d46deac240a29c4e4c993724334",
+  "context_sha256": "f11fcdaf332839a3319dce39d5d3ed6538a91ee2840de0825cc5c2fff2594c1d",
+  "output_sha256": "d02f930f2976ae2876d77eaa1397f7500d8eb211a59aabbdf3278ea01459e96d",
+  "created_at_utc": "2026-11-09T13:36:08.177617+00:00",
+  "status": "provisional_pending_independent_review",
+  "required_identities": 82,
+  "required_candidates": 1,
+  "proposals": 6,
+  "research_gaps": 16,
+  "confidence_note": "Confidence values are subjective source-interpretation judgments, not calibrated probabilities. Unknown dimension confidence is zero.",
+  "limitations": [
+    "Frozen taxonomy and Manual evidence only; no company research, financial evidence, or measured AI workflow evidence.",
+    "Proposals are operating-boundary hypotheses, not canonical markets or acquisition recommendations.",
+    "Classification examples outside explicit required product rows require further coverage before family closure."
+  ],
+  "validation": {
+    "valid": true,
+    "errors": [],
+    "context_sha256": "f11fcdaf332839a3319dce39d5d3ed6538a91ee2840de0825cc5c2fff2594c1d",
+    "structural_validation_only": true,
+    "model_invoked": false
+  },
+  "preparation_paths": [
+    "/tmp/turbo-first-real-batch/preparations/family-preparation:78408ce718cfa2d94c77e0ec",
+    "/tmp/turbo-first-real-batch/preparations/family-preparation:ef0c5fb162a6fd1c9c350f99"
+  ],
+  "review_corrections": [
+    {
+      "finding": "P2 vehicle-use boundary overgeneralization",
+      "previous_output_sha256": "0767a6697db3c2eeedc6c278b8fc7d1132262ca2be27982dab368f4de665f31e",
+      "previous_output_file": "output-before-vehicle-review.json",
+      "correction": "Narrowed motor-vehicle AC exclusion, explicitly retained indexed RV unit AC and truck refrigeration, and added exact Manual index citations. Mixed line remains unresolved for operating decomposition.",
+      "updated_at_utc": "2026-11-09T13:37:50.545196+00:00"
+    },
+    {
+      "finding": "P2 miscellaneous refrigeration catch-all overmapping",
+      "previous_output_file": "output-after-vehicle-review.json",
+      "correction": "Held both open-ended miscellaneous refrigeration identities unresolved with dedicated decomposition gaps; retained explicit beverage/ice rows as provisional mappings.",
+      "updated_at_utc": "2026-11-09T13:38:17.244287+00:00"
+    }
+  ]
+}

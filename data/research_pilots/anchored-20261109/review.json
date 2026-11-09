@@ -1,0 +1,84 @@
+{
+  "accepted_operating_markets_added": 0,
+  "canonical_activation_approved": false,
+  "checks": [
+    "Read the frozen 333415 Manual definition and cross-references, all 34 index labels, all required identity labels, candidate card, proposal dimensions, disposition rationales and gaps.",
+    "Checked each proposed product grouping against its cited family evidence; taxonomy establishes manufacturing/product scope, not common firm economics or acquisition-market equivalence.",
+    "Independently ran existing B3 structural checks against the supplied approved context: zero errors; all required subjects exactly once, local evidence/proposal/gap links valid.",
+    "All six proposals retain workforce, economics/risk, acquisition universe and Ambient AI workflow as unknown at confidence zero; buyer/channel and job descriptions remain inferences with applicable gaps.",
+    "Finished household refrigerators are outside this family under the Manual; household parts and mixed product lines remain unresolved rather than being silently excluded from the whole universe.",
+    "Commercial plumbing contracting/maintenance is rejected only as a mapping into this manufacturing family; its weak retrieval collision is not accepted evidence of operating equivalence."
+  ],
+  "context_file_sha256": "306a9127bba0240c3d44f018dc0c9792db553d46deac240a29c4e4c993724334",
+  "context_sha256": "f11fcdaf332839a3319dce39d5d3ed6538a91ee2840de0825cc5c2fff2594c1d",
+  "coverage": {
+    "candidate_mapping_rejections": 1,
+    "families": 2,
+    "identity_outside_this_family": 1,
+    "proposals": 6,
+    "provisional_identity_mappings": 72,
+    "required_candidates": 1,
+    "required_identities": 82,
+    "research_gaps": 16,
+    "unresolved_identities": 9
+  },
+  "findings": [
+    {
+      "evidence_ids": [
+        "evidence:6266dc5d61e2451e80ae5eaa50cca8e1785d7b6f4309170b0e234cf2e9f42581",
+        "evidence:91fd4596273d9903c3ed694ba02394ab84845f3bade1421eb9e7c75dfcb3f3b5"
+      ],
+      "id": "R1",
+      "issue": "Nonvehicle wording overgeneralized the Manual exclusion and conflicted with included recreational-vehicle unit air conditioners and truck refrigeration.",
+      "original_output_sha256": "0767a6697db3c2eeedc6c278b8fc7d1132262ca2be27982dab368f4de665f31e",
+      "resolution": "Final proposal and mixed-line gap distinguish excluded motor-vehicle AC systems/compressors from expressly indexed motor-home/trailer unit AC and truck-type refrigeration.",
+      "severity": "P2",
+      "status": "resolved"
+    },
+    {
+      "id": "R2",
+      "issue": "Miscellaneous refrigeration catch-all rows 2017775000 and 2017775009 were mapped as though their beverage/water examples exhausted the categories.",
+      "original_output_sha256": "0767a6697db3c2eeedc6c278b8fc7d1132262ca2be27982dab368f4de665f31e",
+      "resolution": "Both complete identities now remain unresolved with dedicated scope-reconciliation gaps; examples may support overlap but not exhaustive assignment.",
+      "severity": "P2",
+      "status": "resolved"
+    }
+  ],
+  "next_research_action": "Prioritize operator/customer evidence for the space-conditioning and commercial refrigeration hypotheses, explicitly testing submarkets, while resolving the two miscellaneous refrigeration catch-alls; retain all 16 gaps and frozen source references.",
+  "open_findings_blocking_provisional_publication": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 0
+  },
+  "output_sha256": "d02f930f2976ae2876d77eaa1397f7500d8eb211a59aabbdf3278ea01459e96d",
+  "provenance": {
+    "execution_channel": "collaboration_agent",
+    "new_external_source_calls": 0,
+    "primary_output_edited_by_reviewer": false,
+    "successful_codex_cli_run": false,
+    "synthetic_fixture": false
+  },
+  "remaining_gates_for_canonical_acceptance": [
+    {
+      "gate": "Operating identity evidence",
+      "required_work": "For each hypothesis obtain supplier/customer and establishment evidence for buyer, job, delivery, workforce, economics/risk, acquisition universe and actual AI-relevant workflows. Test laboratory vs commercial refrigeration, exchangers vs chillers/transport refrigeration, OEM vs aftermarket components and residential vs commercial equipment boundaries. Current taxonomy and product capacities cannot settle these splits."
+    },
+    {
+      "gate": "Complete scope reconciliation",
+      "required_work": "Resolve nine unresolved identities, reconcile open-ended and portable/vehicle mixtures, and cover Manual examples such as humidification, snow-making and cooling towers before claiming family closure. Keep excluded household finished appliances and plumbing candidate available to their appropriate families."
+    },
+    {
+      "gate": "Cross-family conflicts",
+      "required_work": "Reconcile proposed mappings against neighboring manufacturing and contracting families plus the existing canonical graph. Shared collection ownership and retrieval collisions do not authorize duplicate markets, broad exclusions or merge equivalence."
+    },
+    {
+      "gate": "Reviewed release and import",
+      "required_work": "This B3 output and review are not a governed activation/import receipt. Obtain the required independent release decision and validated graph-import/activation or explicit no-movement closure before adding accepted markets. No Target scoring or ranking is established."
+    }
+  ],
+  "reviewed_at_utc": "2026-11-09T13:39:27.680530+00:00",
+  "reviewer": "independent collaboration agent /root/dashboard_final_review",
+  "schema_version": 1,
+  "summary": "Six useful manufacturing product/operating hypotheses organize the evidence; they are not six established canonical markets. Exact coverage and citations pass structural checks. Two substantive scope errors were corrected before this verdict.",
+  "verdict": "accepted_for_provisional_research_publication_only"
+}

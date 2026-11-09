@@ -1,0 +1,190 @@
+{
+  "accepted_operating_markets_added": 0,
+  "archive_format": {
+    "compression_preset": 6,
+    "format": "USTAR + XZ",
+    "member_gid": 0,
+    "member_mode": "0644",
+    "member_mtime": 0,
+    "member_uid": 0
+  },
+  "archive_members": {
+    "contexts/approved.json": {
+      "bytes": 2453217,
+      "sha256": "306a9127bba0240c3d44f018dc0c9792db553d46deac240a29c4e4c993724334"
+    },
+    "contexts/initial-cli.json": {
+      "bytes": 2453214,
+      "sha256": "9ce7764e2bb40c91280b8f8e5bc98d45d7c559ef6b6e3797c20b5b9695f1a870"
+    },
+    "preparations/family-preparation:78408ce718cfa2d94c77e0ec/family-config-v2.json": {
+      "bytes": 6758,
+      "sha256": "8c3b53f6e9dd5c05de349daeb495edabf4ac586afa8d918e2627b672f66534cc"
+    },
+    "preparations/family-preparation:78408ce718cfa2d94c77e0ec/family-evidence-pack-v2.json": {
+      "bytes": 24348,
+      "sha256": "26cfd24c5505a791f1ef8ef735f673310cf9238c17cd0fb5a7c7154029e21cb5"
+    },
+    "preparations/family-preparation:78408ce718cfa2d94c77e0ec/preparation-receipt.json": {
+      "bytes": 801,
+      "sha256": "c173661947bf4217907a90e0be7fc020f6087c7c72e96fb528621605fb834109"
+    },
+    "preparations/family-preparation:ef0c5fb162a6fd1c9c350f99/family-config-v2.json": {
+      "bytes": 12539,
+      "sha256": "79bb28d49b1a07cd5ee69c8f8ae7ad182baa50193ae32d478e0412fda9eb9710"
+    },
+    "preparations/family-preparation:ef0c5fb162a6fd1c9c350f99/family-evidence-pack-v2.json": {
+      "bytes": 1843154,
+      "sha256": "f89c04bfdda7d80cf9c87cb3f272639295eaca69c2201e3a84f49743de812d11"
+    },
+    "preparations/family-preparation:ef0c5fb162a6fd1c9c350f99/preparation-receipt.json": {
+      "bytes": 801,
+      "sha256": "22df02ee29dd30f393f3e66ea76a61ba1cf931f88280c7f4d4c73bfa0fd406ea"
+    }
+  },
+  "bundled_at_utc": "2026-11-09T13:41:48.943137+00:00",
+  "canonical_activation_approved": false,
+  "cli_attempts": [
+    {
+      "active_process": "unknown_not_asserted",
+      "context_archive_member": "contexts/initial-cli.json",
+      "model_invoked": "unknown",
+      "observed_status": "stale_receipt_session_unavailable",
+      "output_observed": false,
+      "receipt": "cli-attempt-initial.receipt.json",
+      "reported_status": "in_progress"
+    },
+    {
+      "context_archive_member": "contexts/approved.json",
+      "exit_code": 1,
+      "model_invoked": "unknown",
+      "output_observed": false,
+      "receipt": "cli-attempt-approved.receipt.json",
+      "reported_status": "failed",
+      "usage_reported": false
+    }
+  ],
+  "commits": {
+    "bundle_validation_checkout_commit": "fb045a41b3571234ef4c16496ca812efa29bf7e2",
+    "bundle_validation_checkout_tree": "64ff400db0b655d1c3eefa7eef954d72b57b6cac",
+    "codex_runner_execution_commit": "eae68c7bc1ec315f095c40b3707ce5562779b9df",
+    "equivalent_live_schema_fix_commit": "ebde67957c525f590789f7ead6d786f2354f1a59",
+    "preparation_source_and_schema_commit": "898d3e85baf2aff6ca456ddb6b077fcb97887beb"
+  },
+  "context_file_sha256": "306a9127bba0240c3d44f018dc0c9792db553d46deac240a29c4e4c993724334",
+  "context_sha256": "f11fcdaf332839a3319dce39d5d3ed6538a91ee2840de0825cc5c2fff2594c1d",
+  "file_manifest": {
+    "README.md": {
+      "bytes": 2515,
+      "sha256": "7c877c5aef8771cf68352c27b0b4d13c52b78f0afeef269040567c9ad99f9faa"
+    },
+    "cli-attempt-approved.receipt.json": {
+      "bytes": 2000,
+      "sha256": "ace830945b7ec6aea8ea1807e4a2edfd5b6e2587a9dc2b7751a3481205c0b513"
+    },
+    "cli-attempt-initial.receipt.json": {
+      "bytes": 1724,
+      "sha256": "0fa35f31c51a0ad44e83060c3eb9bf62ee5630d7e5fe256e8b032dabd32a089b"
+    },
+    "history/output-after-vehicle-review.json.gz": {
+      "bytes": 24670,
+      "sha256": "d528fbbe81cd18ad67eb02d267f90c2c65d7bbf36d3445038373fd80d5b04bd7"
+    },
+    "history/output-before-vehicle-review.json.gz": {
+      "bytes": 23942,
+      "sha256": "0e19a328e18b6ea8c2eac245773894b72d31a384795b7b4580046bcd268489bc"
+    },
+    "history/researcher-notes-before-vehicle-review.json": {
+      "bytes": 1758,
+      "sha256": "36be6dd2696ed3ac619b97ebc561304b50b23316685f5cbaa527ffb7b057845e"
+    },
+    "inputs.tar.xz": {
+      "bytes": 239288,
+      "sha256": "e74cbdf653074c52782826eda3d287dfbbeb1c56673428b09f02e9ed2d1d11f2"
+    },
+    "operator-approval.json": {
+      "bytes": 609,
+      "sha256": "837be6a3ce60a053178e320cae8018060764b8a30ee64ea04b0806f3e2291d9c"
+    },
+    "output.json.gz": {
+      "bytes": 25214,
+      "sha256": "611ddcb7f985914360168cc7b41e1504774da2b9b257580ae86cbfdf510fa557"
+    },
+    "researcher-notes.json": {
+      "bytes": 2714,
+      "sha256": "2a9b8568fd9d6054f4c30dd40ca72b681ee9650411d71ce584b376a3af8e78dd"
+    },
+    "review.json": {
+      "bytes": 5844,
+      "sha256": "1daa1b602daa178e146476dd5bb08d12c8b1921ca9742053f6066e22b546c77e"
+    }
+  },
+  "manifest_scope": "Every regular bundle file except provenance.json itself; hashes cover stored bytes.",
+  "output_schema_sha256": "d654015d4bb53f42eb146dfabc5bca0469f40db4ae0e9646667ca6b73419e2eb",
+  "output_uncompressed_sha256": "d02f930f2976ae2876d77eaa1397f7500d8eb211a59aabbdf3278ea01459e96d",
+  "pilot_id": "anchored-20261109",
+  "preparation_input_bindings": [
+    {
+      "config_sha256": "8c3b53f6e9dd5c05de349daeb495edabf4ac586afa8d918e2627b672f66534cc",
+      "family_id": "family:coverage:napcs-collection:10:001",
+      "pack_file_sha256": "26cfd24c5505a791f1ef8ef735f673310cf9238c17cd0fb5a7c7154029e21cb5",
+      "preparation_id": "family-preparation:78408ce718cfa2d94c77e0ec",
+      "receipt_sha256": "c173661947bf4217907a90e0be7fc020f6087c7c72e96fb528621605fb834109"
+    },
+    {
+      "config_sha256": "79bb28d49b1a07cd5ee69c8f8ae7ad182baa50193ae32d478e0412fda9eb9710",
+      "family_id": "family:naics-2022:333415",
+      "pack_file_sha256": "f89c04bfdda7d80cf9c87cb3f272639295eaca69c2201e3a84f49743de812d11",
+      "preparation_id": "family-preparation:ef0c5fb162a6fd1c9c350f99",
+      "receipt_sha256": "22df02ee29dd30f393f3e66ea76a61ba1cf931f88280c7f4d4c73bfa0fd406ea"
+    }
+  ],
+  "prompt_sha256": "5eebb02c211c0f15cf3d47fc42108cf6f896a341a02ec2c57e7dad2184fa1441",
+  "publication_status": "accepted_for_provisional_research_publication_only",
+  "python_runtime": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "research_provenance": {
+    "author_agent": "/root/live_pack_fix",
+    "execution_channel": "collaboration_agent",
+    "external_model_dispatches_for_research_artifact": 0,
+    "external_research_performed": false,
+    "metered_provider_cost": "not_available_not_claimed",
+    "openrouter_invoked": false,
+    "reviewer": "independent collaboration agent /root/dashboard_final_review",
+    "successful_codex_cli_run": false,
+    "synthetic_fixture": false
+  },
+  "revision_history": [
+    {
+      "file": "history/output-before-vehicle-review.json.gz",
+      "uncompressed_sha256": "0767a6697db3c2eeedc6c278b8fc7d1132262ca2be27982dab368f4de665f31e"
+    },
+    {
+      "file": "history/output-after-vehicle-review.json.gz",
+      "uncompressed_sha256": "5efcc1077665affb3a1669b35557ea323dc1cf61b0f55e879697eea477a40a4f"
+    },
+    {
+      "file": "output.json.gz",
+      "review": "review.json",
+      "uncompressed_sha256": "d02f930f2976ae2876d77eaa1397f7500d8eb211a59aabbdf3278ea01459e96d"
+    }
+  ],
+  "schema_version": 1,
+  "scope": {
+    "candidate_mapping_rejections": 1,
+    "families": 2,
+    "identity_outside_this_family": 1,
+    "proposals": 6,
+    "provisional_identity_mappings": 72,
+    "required_candidates": 1,
+    "required_identities": 82,
+    "research_gaps": 16,
+    "unresolved_identities": 9
+  },
+  "structural_replay": {
+    "context_sha256": "f11fcdaf332839a3319dce39d5d3ed6538a91ee2840de0825cc5c2fff2594c1d",
+    "errors": [],
+    "model_invoked": false,
+    "structural_validation_only": true,
+    "valid": true
+  }
+}
