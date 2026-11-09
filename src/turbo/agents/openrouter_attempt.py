@@ -146,10 +146,62 @@ def _telemetry(value: Any) -> tuple[dict | None, int | None, str]:
     return usage, cost, cost_status
 
 
+def routing_request_fields(routing: dict) -> dict:
+    """Validate the narrow V1 policy; convert decimal strings only at the wire edge."""
+    if (not isinstance(routing, dict) or set(routing) - {'schema_version', 'provider', 'prompt_cache_options'}
+            or type(routing.get('schema_version')) is not int or routing['schema_version'] != 1):
+        raise ValueError('invalid routing policy version or keys')
+    provider = routing.get('provider')
+    if not isinstance(provider, dict) or set(provider) != {'only', 'ignore', 'max_price'}:
+        raise ValueError('invalid provider routing keys')
+    result = {'require_parameters': True, 'allow_fallbacks': False}
+    for name in ('only', 'ignore'):
+        slugs = provider[name]
+        if (not isinstance(slugs, list) or len(slugs) > 32 or (name == 'only' and not slugs)
+                or any(not isinstance(s, str) or len(s) > 128
+                       or not re.fullmatch(r'[a-z0-9][a-z0-9._/-]*', s) for s in slugs)
+                or len(set(slugs)) != len(slugs)):
+            raise ValueError('invalid provider restrictions')
+        result[name] = list(slugs)
+    prices = provider['max_price']
+    if not isinstance(prices, dict) or set(prices) != {'prompt', 'completion'}:
+        raise ValueError('both price caps are required')
+    result['max_price'] = {}
+    for name, raw in prices.items():
+        if (not isinstance(raw, str) or len(raw) > 32
+                or not re.fullmatch(r'(0|[1-9][0-9]*)(\.[0-9]+)?', raw)):
+            raise ValueError('price caps require nonnegative decimal strings')
+        amount = Decimal(raw)
+        number = int(amount) if amount == amount.to_integral_value() else float(amount)
+        # Reject conversion that would change the JSON numeric value or exceed safe integers.
+        if amount > 2**53 - 1 or Decimal(json.dumps(number, allow_nan=False)) != amount:
+            raise ValueError('price cap is not exactly representable on the JSON wire')
+        result['max_price'][name] = number
+    fields = {'provider': result}
+    if 'prompt_cache_options' in routing:
+        if routing['prompt_cache_options'] != {'mode': 'explicit'}:
+            raise ValueError('unsupported prompt cache options')
+        fields['prompt_cache_options'] = {'mode': 'explicit'}
+    return fields
+
+
+def bounded_request_body(*, routing: dict | None = None, **options) -> dict:
+    """Single request construction path for managed admission and dispatch."""
+    request = openrouter_request_body(**options)
+    if routing is not None:
+        if options.get('allow_fallbacks') is not False:
+            raise ValueError('routing policy forbids fallbacks')
+        fields = routing_request_fields(routing)
+        if 'prompt_cache_options' in fields and not options['model'].startswith('openai/'):
+            raise ValueError('explicit cache mode requires an OpenAI model')
+        request.update(fields)
+    return request
+
+
 def invoke_openrouter_once(
     *, invocation_id: str, role: str, model: str, reasoning_effort: str,
     runtime_prompt_text: str, schema: dict[str, Any], max_completion_tokens: int,
-    timeout: float, allow_fallbacks: bool = False, api_key: str | None = None,
+    timeout: float, allow_fallbacks: bool = False, routing: dict | None = None, api_key: str | None = None,
     transport: Transport = _no_redirect_transport,
     max_response_bytes: int = MAX_RESPONSE_BYTES, max_body_bytes: int = MAX_BODY_BYTES,
 ) -> dict[str, Any]:
@@ -184,7 +236,7 @@ def invoke_openrouter_once(
         Draft202012Validator.check_schema(schema)
         schema_bytes = _canonical(schema)
         provider_schema = openrouter_schema(schema)
-        request = openrouter_request_body(role_id=role, model=model, reasoning_effort=reasoning_effort,
+        request = bounded_request_body(routing=routing, role_id=role, model=model, reasoning_effort=reasoning_effort,
             runtime_prompt_text=runtime_prompt_text, schema=provider_schema,
             invocation_id=invocation_id, max_completion_tokens=max_completion_tokens,
             allow_fallbacks=allow_fallbacks, schema_name='turbo_workflow_role')

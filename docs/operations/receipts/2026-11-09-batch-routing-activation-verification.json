@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "issues": [
+    39,
+    46
+  ],
+  "pull_request": 47,
+  "scope": "authorization-bound provider routing, operator integration, and synthetic positive activation through cumulative release and closure",
+  "completed_at_utc": "2026-11-09T16:16:59.098237+00:00",
+  "python_version": "3.14.2",
+  "tested_local_commit": "7903eaaa6176d4c6e4a66cfc1b93748aea642e68",
+  "equivalent_published_commit": "d515e838538f6b8c098ffb66d96984fbae104495",
+  "tested_tree": "874f12780c19b23002b7b58bdb6879e75bc1d14a",
+  "full_suite": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -v",
+    "passed": 384,
+    "failed": 0,
+    "elapsed_seconds": 1173.578,
+    "log_sha256": "81114ac5a218c98dd25ce716b03b2177e9bff00824873a5b1ee3f94778b28891"
+  },
+  "focused": {
+    "command": "PYTHONPATH=src:tests python -m unittest test_batch_routing test_batch_provider_activation test_batch_operator_cli -v",
+    "passed": 16,
+    "failed": 0,
+    "elapsed_seconds": 109.578,
+    "log_sha256": "84b7d41459c08b3fb970ad1a4a6f5c692d9839bd84c08e0888d491f931424027",
+    "routing_tests": 7,
+    "positive_activation_tests": 1,
+    "operator_tests": 8
+  },
+  "parent_regressions": [
+    {
+      "pull_request": 43,
+      "tested_local_commit": "adee8d05eee3ced39a56662f8ba8dd730a3e8b46",
+      "tested_tree": "deb63b2f797b64f96292a8e852ed919ae0c0bb1f",
+      "passed": 368,
+      "failed": 0,
+      "elapsed_seconds": 1105.488,
+      "log_sha256": "d5319182b293dcfaab7127888c345d12daee442ead261425cf95769f52791e50"
+    },
+    {
+      "pull_request": 45,
+      "tested_local_commit": "1c405c6a42a384f899fbac7ef07ff6543a26e76f",
+      "tested_tree": "dd319e052dd95460c5c8e2776dce716a67898d1b",
+      "passed": 376,
+      "failed": 0,
+      "elapsed_seconds": 1142.554,
+      "log_sha256": "5dc49059a3d309966fad630fa1356381a87178ecb52b32f92870acc8752f45ff"
+    }
+  ],
+  "repository_validation": {
+    "valid": true,
+    "exit_code": 0,
+    "log_sha256": "655823ac7f996b259837b1279f4757264aac1ab82808d9b562c06a9f640f36af"
+  },
+  "independent_routing_review": {
+    "outstanding_P0": 0,
+    "outstanding_P1": 0,
+    "outstanding_P2": 0,
+    "routing_tests": 7,
+    "adapter_tests": 17,
+    "accounting_tests": 12
+  },
+  "documentation_links": {
+    "broken": 0
+  },
+  "synthetic_activation": {
+    "actual_release_compiler": true,
+    "actual_activation_validation": true,
+    "exact_cumulative_base_required": true,
+    "original_markets_preserved": 3,
+    "original_mappings_preserved": true,
+    "original_research_gaps_preserved": true,
+    "new_provisional_synthetic_market": 1,
+    "provider_calls": 3,
+    "replay_additional_calls": 0,
+    "charged_microusd": 60,
+    "outstanding_microusd": 0
+  },
+  "source_sha256": {
+    "src/turbo/agents/batch_provider.py": "99ce55b76306d40b383942cc16022fc35c20b805165fbaef2c7b3edf0893b712",
+    "src/turbo/agents/batch_execution_v2.py": "0a9c19bde71e5d55843581ca406e6b28ad5dad4e8c234c957dbf195b8804f56a",
+    "src/turbo/agents/openrouter_attempt.py": "6da33cf46918ff3c4c4b818268f9c4b09e851796a1f8a087bbdc9165574156f1",
+    "src/turbo/cli.py": "e5f64f6bead851795e0755ed492fa4bb39b4066b31defd755e18e49557fd8b06",
+    "schemas/batch-authorization-v2.schema.json": "7a3aa73247245244f845607d416d07836bac831391eeb534913ead495993edfa",
+    "tests/test_batch_routing.py": "6c85cccd479b39a125ea33820975aa7544cb6ab76e012714ad993a5c56d22527",
+    "tests/test_batch_provider_activation.py": "0cdd3b8eabf94456f67e19f59b413ed1e72bcb3d77eda4889fc57fceafb3407e",
+    "tests/test_batch_operator_cli.py": "41428f859b6b1f6291ef281fcda7137f149937f1ecca8653b09bd8b39d13123c"
+  },
+  "real_provider_calls": 0,
+  "new_research_conclusions": 0,
+  "production_graph_activation": false,
+  "limitations": [
+    "Controlled transport tests prove software contracts, not model research quality.",
+    "This verification does not exercise live context fit, credential access, current provider balance, or paid execution; those require separate canary receipts.",
+    "Optional routing is authorization-bound local policy, not a provider-enforced account-wide spending limit.",
+    "Final verification documentation is a docs-only follow-up to the exact tested tree."
+  ]
+}

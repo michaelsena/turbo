@@ -6,6 +6,7 @@ Local authorization documents are trusted operator records, not signed credentia
 """
 from __future__ import annotations
 from contextlib import contextmanager
+from decimal import Decimal
 import copy
 import fcntl
 import hashlib
@@ -17,6 +18,7 @@ import uuid
 from jsonschema import Draft202012Validator
 from turbo.agents.batch_authorization import canonical_bytes, utc_datetime, utc_now
 from turbo.agents.batch_output import _strict_json
+from turbo.agents.openrouter_attempt import routing_request_fields
 
 SCHEMA = Path(__file__).resolve().parents[3] / 'schemas/batch-authorization-v2.schema.json'
 ROLES = ('primary', 'verifier', 'escalation_a', 'escalation_b', 'adjudicator', 'release_reviewer')
@@ -52,6 +54,15 @@ def _validate_auth(auth: dict) -> None:
         if role['allow_fallbacks'] is not False: raise ValueError('provider fallbacks must be disabled')
         for name in ('max_input_tokens', 'max_output_tokens', 'input_microusd_per_token', 'output_microusd_per_token', 'max_attempts', 'timeout_seconds'):
             if type(role[name]) is not int: raise ValueError('role budgets require actual integers')
+        if 'routing' in role:
+            routing_request_fields(role['routing'])
+            if ('prompt_cache_options' in role['routing'] and not role['model'].startswith('openai/')):
+                raise ValueError('explicit cache mode requires an OpenAI model')
+            # USD/million tokens equals microUSD/token numerically; no float arithmetic.
+            caps = role['routing']['provider']['max_price']
+            if (Decimal(caps['prompt']) > role['input_microusd_per_token']
+                    or Decimal(caps['completion']) > role['output_microusd_per_token']):
+                raise ValueError('local token price ceilings do not cover routing max_price')
     if utc_datetime(auth['valid_from_utc']) >= utc_datetime(auth['expires_at_utc']): raise ValueError('invalid authorization interval')
     if auth['execution_contract'] != _contract(): raise ValueError('V2 execution contract changed')
 

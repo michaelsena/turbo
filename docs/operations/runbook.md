@@ -195,8 +195,12 @@ verifier, and release reviewer; material disagreement requires both blind escala
 roles and adjudication before release review. Every upstream submission must be
 substantiated by its successful settled provider attempt in the same authorization
 journal. Offline submissions cannot masquerade as governed provider results.
-The successor increment is stacked on unmerged PR 40. Its 22 focused checks passed
-in 95.040 seconds and independent review is clear; the full suite is still running.
+The all-role successor is merged in PR 43, following PR 40. Its 22 focused checks
+passed in 95.040 seconds; independent review is clear and its full suite passed
+368 tests.
+The combined routing/operator/activation increment passed 384 full-suite tests,
+16 focused checks, and repository validation; see its
+[verification receipt](receipts/2026-11-09-batch-routing-activation-verification.json).
 Testing uses controlled transports, not paid calls.
 
 Use `batch_execution_v2.initialize_registry` and its `build_authorization` for this
@@ -319,7 +323,8 @@ implicitly dispatches the next role, activates, or closes a batch.
 
 Eight focused operator tests passed with controlled transports, including same-ID
 resume, missing-cost exposure retention, read-only status, and reviewed no-movement
-closure/replay. Independent review and the full suite are tracked with issue 42.
+closure/replay. The operator increment is merged in PR 45: 376 full-suite tests
+and repository validation passed, with clear independent review; see issue 42.
 No paid canary or real market activation was executed by these checks.
 
 ### Batch authorization and ledger inspection (Track B1)

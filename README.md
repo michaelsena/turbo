@@ -206,23 +206,29 @@ independent verification, conditional blind escalation and disagreement adjudica
 then mandatory independent review of planned graph movements and deterministic
 closure/release. The original two-blind pilot and later ranking evaluators are
 different scopes; see the [decision map](docs/decisions/0012-research-workflow-scope.md).
-[PR 40](https://github.com/michaelsena/turbo/pull/40), still unmerged, established the
+Merged [PR 40](https://github.com/michaelsena/turbo/pull/40) established the
 primary/verifier increment: its historical receipt records 357 Python tests,
 40 focused checks, and clear independent review. See its
 [verification receipt](docs/operations/receipts/2026-11-09-batch-provider-verification.json).
-The new stacked increment supports dispatch for all six workflow roles. Routine work
+Merged [PR 43](https://github.com/michaelsena/turbo/pull/43) supports dispatch for all six workflow roles. Routine work
 uses primary, verifier, and release reviewer; material disagreement adds two blind
 specialists and adjudication. Exact upstream provider provenance and compiler-preview
 replay precede release review. The successor increment passed 22 focused checks in
-95.040 seconds, with clear independent review; its full suite is still running.
+95.040 seconds, with clear independent review; its full suite passed 368 tests.
 The scoped [operator commands](docs/operations/runbook.md#governed-batch-operator-commands)
 now wrap explicit registry initialization, one-role run/resume, read-only accounting,
 release preview, activation, and closure/replay. Eight focused controlled-transport
-CLI tests passed; full-suite verification and independent review remain tracked in
-[issue 42](https://github.com/michaelsena/turbo/issues/42).
-No paid calls or new market activation occurred. This is not production readiness. The six
-exploratory manual hypotheses remain provisional and cannot bypass the gates. Approve
-and evaluate one neutral metered canary before authorizing broad execution. Then
+CLI tests and the 376-test operator suite passed, with repository validation and
+clear independent review; see [issue 42](https://github.com/michaelsena/turbo/issues/42).
+Optional [authorization-bound routing](docs/batch-provider-routing.md) pins provider
+restrictions, price caps, and supported cache policy in the same request used for
+admission and dispatch. Combined verification passed 384 full-suite tests,
+16 focused checks, and repository validation; see the
+[verification receipt](docs/operations/receipts/2026-11-09-batch-routing-activation-verification.json).
+These controls do not authorize a paid canary.
+These verification checks made no paid calls or production market activation. This is not production readiness. The six
+exploratory manual hypotheses remain provisional and cannot bypass the gates. Run and evaluate one explicitly authorized neutral metered canary before
+authorizing broad execution. Then
 complete cross-family coverage, publish the canonical universe, add Target filtering,
 and begin production scoring.
 The read product can expand only as those durable projections become available.
