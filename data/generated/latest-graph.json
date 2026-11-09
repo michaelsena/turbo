@@ -1,0 +1,9 @@
+{
+  "graph_version_id": "graph-e674a77fbfd5939c25c9e9a1",
+  "projection_sha256": "a22336b3711ba1095607aa03850607cb50a801c49abcd3e3cd0b3d914b87b8ca",
+  "receipt_sha256": "60000766e22dd07dd63aa865618d92774d7f4d0d5eb89d95c2353a659fff48d3",
+  "release_id": "graph-release-aa5b6f83e7a06e073d3a",
+  "release_path": "data/market_graph/versions/graph-release-aa5b6f83e7a06e073d3a",
+  "schema_version": 1,
+  "source_universe_run_id": "run-2ea0f00db84148de663f"
+}
