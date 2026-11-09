@@ -5,6 +5,8 @@ from unittest.mock import patch
 
 from turbo.pipeline import (
     RUNS,
+    UNIVERSE_CODE_PATHS,
+    UNIVERSE_SCHEMA_PATHS,
     run,
     validate,
     validate_identity_references,
@@ -15,6 +17,13 @@ from turbo.pipeline import (
 
 
 class PipelineTest(unittest.TestCase):
+    def test_universe_fingerprint_excludes_downstream_agent_and_scoring_code(self) -> None:
+        self.assertIn("src/turbo/universe/naics_identity_sources.py", UNIVERSE_CODE_PATHS)
+        self.assertIn("src/turbo/pipeline.py", UNIVERSE_CODE_PATHS)
+        self.assertFalse(any("agents/" in path for path in UNIVERSE_CODE_PATHS))
+        self.assertFalse(any("graph.py" in path for path in UNIVERSE_CODE_PATHS))
+        self.assertEqual(UNIVERSE_SCHEMA_PATHS, ("schemas/source-record.schema.json",))
+
     def test_manifest_metadata_requires_nonempty_utc_governance_fields(self) -> None:
         manifest = {
             "acquired_at": "2026-11-08T12:00:00",

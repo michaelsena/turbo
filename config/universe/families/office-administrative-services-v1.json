@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "family_id": "office-administrative-services-v1",
+  "source_run_id": "run-2ea0f00db84148de663f",
+  "as_of_utc": "2026-11-08T23:35:59Z",
+  "required_seed_identity_ids": [
+    "identity:naics:561110"
+  ],
+  "include_direct_industry_product_identities": true,
+  "context_only_boundary_neighbor_identity_ids": [
+    "identity:naics:23",
+    "identity:naics:115116",
+    "identity:naics:53131",
+    "identity:naics:541513",
+    "identity:naics:54161",
+    "identity:naics:551111",
+    "identity:naics:551112",
+    "identity:naics:551114",
+    "identity:naics:722310"
+  ],
+  "expected_counts": {
+    "required_disposition_identities": 66,
+    "industry_product_relationships": 65,
+    "industry_product_source_observations": 121,
+    "collection_workbook_rows": 38,
+    "relationship_only_collection_identities": 27,
+    "collection_trilateral_relationships": 55,
+    "collection_trilateral_source_observations": 110,
+    "linked_trilateral_products": 47,
+    "linked_trilateral_context_nodes": 149,
+    "explicit_no_mapping_records": 1,
+    "selected_products_absent_from_concordance": 9,
+    "manual_definition_records": 1,
+    "manual_index_entries": 13,
+    "vintage_lineage_relationships": 1,
+    "existing_reconciliation_mappings": 66,
+    "retrieved_prior_candidates": 127,
+    "prior_candidate_catalog": 978
+  },
+  "baseline_execution": {
+    "specialist_model": "gpt-6.1-sol",
+    "adjudicator_model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "status": "pilot_baseline_not_final_model_selection"
+  }
+}

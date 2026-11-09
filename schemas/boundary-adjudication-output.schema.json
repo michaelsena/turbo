@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelsena/turbo/schemas/boundary-adjudication-output.schema.json",
+  "title": "Turbo boundary adjudication output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "family_id", "role_id", "invocation_id",
+    "input_pack_sha256", "specialist_output_sha256", "analysis_summary",
+    "specialist_resolution", "proposed_markets", "identity_dispositions",
+    "candidate_dispositions", "alternatives_considered", "research_gaps"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "family_id": {"type": "string", "pattern": "\\S"},
+    "role_id": {"const": "adjudicator"},
+    "invocation_id": {"type": "string", "pattern": "^invocation:[0-9a-f]{24}$"},
+    "input_pack_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "specialist_output_sha256": {
+      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+    },
+    "analysis_summary": {"type": "string", "pattern": "\\S"},
+    "specialist_resolution": {
+      "type": "array", "minItems": 2,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["role_id", "assessment", "adopted_elements", "rejected_elements"],
+        "properties": {
+          "role_id": {"type": "string", "pattern": "^specialist-[ab]$"},
+          "assessment": {"type": "string", "pattern": "\\S"},
+          "adopted_elements": {"type": "array", "items": {"type": "string", "pattern": "\\S"}},
+          "rejected_elements": {"type": "array", "items": {"type": "string", "pattern": "\\S"}}
+        }
+      }
+    },
+    "proposed_markets": {"type": "array", "minItems": 1, "items": {"$ref": "boundary-specialist-output.schema.json#/$defs/proposedMarket"}},
+    "identity_dispositions": {"type": "array", "minItems": 1, "items": {"$ref": "boundary-specialist-output.schema.json#/$defs/identityDisposition"}},
+    "candidate_dispositions": {"type": "array", "items": {"$ref": "boundary-specialist-output.schema.json#/$defs/candidateDisposition"}},
+    "alternatives_considered": {"type": "array", "items": {"type": "string", "pattern": "\\S"}},
+    "research_gaps": {"type": "array", "items": {"$ref": "boundary-specialist-output.schema.json#/$defs/researchGap"}}
+  }
+}

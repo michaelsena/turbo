@@ -155,8 +155,8 @@ fabricated index entries. Both full NAICS concordance directions produce the sam
 1,057 2017 codes and all 1,012 2022 codes. The 846 Economic Census bridge rows remain
 quantitative observations; their eight-digit bridge components are not promoted to
 market or identity nodes. The Manual definition parser separately closes all 2,125
-official NAICS hierarchy identities: 1,572 contain substantive inline definitions,
-522 level-five headings delegate to a six-digit industry definition, and 31
+official NAICS hierarchy identities: 1,571 contain substantive inline definitions,
+522 level-five headings delegate to a six-digit industry definition, and 32
 level-four headings are title-only. It also preserves 381 illustrative-example
 blocks and 1,095 cross-reference blocks. Every block retains its original coordinate
 fragments, exact physical-page locator, and current identity endpoint. These semantic
@@ -348,9 +348,9 @@ starting lists.
 | NAICS Manual uncoded cross-reference rows | 25 |
 | Six-digit codes represented in the manual index | 1,010 |
 | NAICS Manual definition records | 2,125 |
-| Substantive inline NAICS definitions | 1,572 |
+| Substantive inline NAICS definitions | 1,571 |
 | Delegated level-five definition links | 522 |
-| Title-only level-four headings | 31 |
+| Title-only level-four headings | 32 |
 | NAICS illustrative-example blocks | 381 |
 | NAICS cross-reference blocks | 1,095 |
 | Full 2017/2022 NAICS vintage-lineage pairs | 1,150 |
@@ -372,6 +372,15 @@ starting lists.
 | Target markets filtered | 0 |
 | Research scores produced | 0 |
 
+Issue #12 has also compiled the first bounded AI-review pilot without yet accepting a
+market decision. The neutral Office Administrative Services family contains 66
+required source identities, 65 industry-product relationships backed by 121 exact
+source observations, 547 citable evidence items, 127 retrieved prior-candidate
+hypotheses, and the full lightweight 978-candidate catalog. Its frozen canonical pack
+hash is `32634f119b454bbae964cab7ed1c40a2f5eb09285fa3c254191422246f33bbed`.
+This is an execution input—not a market conclusion, Target Market admission, or
+attractiveness score. The first model run remains pending.
+
 These counts and every reconciliation proposal are in the deterministic
 `multisource-reconciliation.json.gz` artifact inside the immutable run directory.
 Large derived views are compressed with a fixed timestamp so replay produces
@@ -392,6 +401,9 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | `src/turbo/universe/naics_identity_sources.py` | Coordinate-aware NAICS index and definition, vintage-lineage, and bridge parsers |
 | `src/turbo/universe/napcs_hierarchy.py` | Fail-closed parser for the 24-page official six-level NAPCS hierarchy capture |
 | `src/turbo/universe/multisource.py` | Multi-list normalization and reconciliation worklist |
+| `src/turbo/universe/boundary_pack.py` | Hash-verified frozen evidence-pack compiler for bounded operating families |
+| `src/turbo/agents/boundary_harness.py` | Schema and closed-world validation for specialists and adjudication |
+| `src/turbo/agents/codex_runner.py` | Isolated two-specialist/one-adjudicator execution and receipts |
 | `src/turbo/pipeline.py` | Replayable source-universe and reconciliation generation |
 | `src/turbo/cli.py` | Local run, validation, and context commands |
 | `data/source_snapshots/` | Immutable official source captures and manifests |
@@ -419,6 +431,9 @@ python3 -m pip install -e .
 turbo validate
 turbo run
 turbo context
+turbo boundary-pack
+# Deliberately invokes three metered model calls after the pack validates:
+turbo boundary-run
 python3 -m unittest discover -s tests -v
 ```
 
@@ -427,10 +442,26 @@ CI are intentionally not configured to avoid unnecessary spend. The test command
 results, input hash, output hash, and exact commit are posted as GitHub issue/PR
 receipts instead.
 
-The production scoring design uses independent model specialists and mandatory
-adjudication. The V1 bootstrap performs no real-market scoring: it stops at the
-source-reconciliation worklist until canonical markets and the Target Market
-Universe have been reviewed and published.
+The boundary harness is model-agnostic. Its first baseline is explicitly provisional:
+two blind specialists receive the same frozen pack in separate ephemeral, read-only
+sessions, and a mandatory adjudicator receives only the pack plus both validated
+structured outputs. Every one of the 66 required identities and all 127 retrieved
+candidate hypotheses must receive a disposition. Every citation must resolve to the
+pack; invented IDs, omissions, duplicate identities, unknown proposals, unmatched
+specialist hashes, and blank provisional judgments fail validation. Only final JSON
+and invocation receipts are durable; private reasoning streams are neither required
+nor persisted.
+
+Model choice is a measured configuration decision, not architecture. The pilot uses
+one strong provisional baseline to verify the surface. Candidate models will then be
+benchmarked by role on the same frozen cases for boundary correctness, grounding,
+schema reliability, stability, disagreement quality, latency, and cost. Specialist
+and adjudicator roles may select different models. A valid adjudication remains a
+proposal until deterministic compilation and independent exact-head review activate
+append-only graph events.
+
+The V1 bootstrap still performs no market-attractiveness scoring. Universe decisions
+must precede the Target Market filter, which must precede evaluation.
 
 ## The application and API
 

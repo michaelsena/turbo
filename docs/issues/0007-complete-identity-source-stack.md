@@ -41,8 +41,8 @@ downstream market decisions. Transport-level compression and framing are not cla
   spans. Reconstruction now uses embedded font widths and coordinate gaps; regression
   fixtures include `Aftermarket parts, automotive` and `Aluminum billet`.
 - Extracted one coordinate-backed Manual definition record for every official NAICS
-  hierarchy identity on physical PDF pages 79–603: 1,572 substantive inline
-  definitions, 522 delegated level-five-to-level-six definition links, and 31
+  hierarchy identity on physical PDF pages 79–603: 1,571 substantive inline
+  definitions, 522 delegated level-five-to-level-six definition links, and 32
   title-only level-four headings.
 - Preserved 381 illustrative-example blocks and 1,095 cross-reference blocks as
   separate semantic fields with their original page/x/y/font/size/text fragments.
@@ -55,6 +55,11 @@ downstream market decisions. Transport-level compression and framing are not cla
 - Re-review then found the recurring comparability footer inside 458 definition
   records. The definition body gate now excludes that y-coordinate band, and a
   full-record regression rejects the footer phrase from every semantic field.
+- Pilot-pack review later found a small bold standalone heading-decoration glyph
+  leaking across definition boundaries. The parser now excludes only that exact
+  glyph pattern; 5612 correctly changes from false substantive content to a
+  title-only heading, and corpus-wide regression rejects the decoration from every
+  semantic block.
 - Captured all 24 official Census NAPCS hierarchy pages through a same-origin public
   browser session after unauthenticated non-browser requests returned Cloudflare
   errors. The immutable capture envelope contains 1,064,705 response-entity bytes,
