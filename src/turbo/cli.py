@@ -11,6 +11,10 @@ from turbo.agents.boundary_review import (
 )
 from turbo.pipeline import GENERATED, run, validate
 from turbo.pipeline_paths import ROOT
+from turbo.universe.boundary_activation import (
+    run_boundary_activation,
+    validate_boundary_activation,
+)
 from turbo.universe.boundary_pack import (
     build_boundary_pack,
     validate_boundary_pack,
@@ -65,6 +69,18 @@ def _parser() -> argparse.ArgumentParser:
     boundary_validate_review.add_argument(
         "--config", type=Path, default=DEFAULT_BOUNDARY_CONFIG
     )
+    boundary_activate = commands.add_parser(
+        "boundary-activate",
+        help="Compile an approved boundary proposal into deterministic graph events",
+    )
+    boundary_activate.add_argument("activation_config", type=Path)
+    boundary_activate.add_argument("--output-root", type=Path)
+    boundary_validate_activation = commands.add_parser(
+        "boundary-validate-activation",
+        help="Replay a persisted deterministic boundary activation",
+    )
+    boundary_validate_activation.add_argument("activation_dir", type=Path)
+    boundary_validate_activation.add_argument("activation_config", type=Path)
     return parser
 
 
@@ -146,6 +162,23 @@ def main() -> int:
     if args.command == "boundary-validate-review":
         result = validate_independent_review_run(
             args.review_dir, args.review_config, args.config
+        )
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return 0 if result["valid"] else 1
+    if args.command == "boundary-activate":
+        print(
+            json.dumps(
+                run_boundary_activation(
+                    args.activation_config, output_root=args.output_root
+                ),
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "boundary-validate-activation":
+        result = validate_boundary_activation(
+            args.activation_dir, args.activation_config
         )
         print(json.dumps(result, indent=2, sort_keys=True))
         return 0 if result["valid"] else 1
