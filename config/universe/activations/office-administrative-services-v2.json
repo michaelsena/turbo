@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "activation_name": "office-administrative-services-v2-approved-boundary",
+  "recorded_at_utc": "2026-11-09T02:36:06Z",
+  "source_family_config": "config/universe/families/office-administrative-services-v2.json",
+  "source_family_config_sha256": "0c48040d21bb7aee07948b08ef33300eda6e9eb89947121a889d73c17ca942ca",
+  "source_run_dir": "data/agent_runs/boundary-run-1a88e9a3acdf15d63b09",
+  "source_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+  "source_run_execution_commit": "7991201b187729aecc0c80d2a43050c43dfedb34",
+  "source_pack_sha256": "eccc87570dc259f3cea6449a5a87455ccba4e690ccb82851e28822c3a64346e5",
+  "source_adjudication_sha256": "c560ac7d565f163eee92a4ee839a38e6322258352f1170555085b90b87d87e73",
+  "source_review_config": "config/universe/reviews/office-administrative-services-v2-boundary-review-gemini.json",
+  "source_review_config_sha256": "f1e1acc82fa1c27b08e983216f58895b1bd452f2ae495edc1210b82eca56477c",
+  "source_review_dir": "data/agent_reviews/independent-review-b95c0d39bef8bffa9c00",
+  "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+  "source_review_output_sha256": "3f0b3e668e2f5050fc2a3afb0d10c6b2b869b81e604c786668ff3f6d497e3c43",
+  "required_review_verdict": "approve_activation",
+  "required_review_findings": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 0
+  },
+  "activate_proposals": [
+    {
+      "proposal_id": "proposal:integrated-outsourced-office-administration",
+      "activation_status": "accepted_with_open_gaps",
+      "research_gap_ids": [
+        "gap:horizontal-office-admin-operating-tests",
+        "gap:vertical-administration-boundary"
+      ]
+    },
+    {
+      "proposal_id": "proposal:medical-practice-administration",
+      "activation_status": "provisional",
+      "research_gap_ids": [
+        "gap:vertical-administration-boundary"
+      ]
+    },
+    {
+      "proposal_id": "proposal:dental-practice-administration",
+      "activation_status": "provisional",
+      "research_gap_ids": [
+        "gap:vertical-administration-boundary"
+      ]
+    }
+  ],
+  "activate_identity_mappings": [
+    {
+      "identity_id": "identity:naics:561110",
+      "proposal_id": "proposal:integrated-outsourced-office-administration",
+      "relationship_type": "broader_than_market",
+      "activation_status": "provisional",
+      "research_gap_ids": [
+        "gap:vertical-administration-boundary"
+      ]
+    }
+  ],
+  "candidate_disposition_policy": {
+    "family_local_non_mappings_remain_global_candidates": true,
+    "emit_reject_candidate_events": false
+  },
+  "prohibited_actions": [
+    "target-universe filtering",
+    "market attractiveness scoring",
+    "company discovery or evaluation",
+    "global deletion or rejection of family-local candidate non-mappings",
+    "model invocation"
+  ]
+}
