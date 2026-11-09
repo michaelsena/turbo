@@ -70,10 +70,30 @@ test("required read surfaces remain accessible and visually stable", async ({ pa
         });
       });
       expect(results.violations, results.violations.map(item => `${item.id}: ${item.help}`).join("\n")).toEqual([]);
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
       await expect(page).toHaveScreenshot(`${name}.png`);
       if (name === "overview") {
         const panel = page.locator(".panel").filter({ has: page.getByRole("heading", { name: "Canonical markets", exact: true }) });
         await expect(panel).toHaveScreenshot("overview-markets.png");
+      }
+      if (name === "market-detail") {
+        const identityPanels = page.locator(".panel.market-identity");
+        await expect(identityPanels).toHaveCount(3);
+        // A sticky header can be painted repeatedly over a tall element screenshot
+        // as Playwright scrolls it into view. Keep its layout space but disable the
+        // sticky behavior so the captured panel is an unobstructed review artifact.
+        await page.locator(".site-header").evaluate(element => { (element as HTMLElement).style.position = "static"; });
+        await expect(identityPanels.nth(0)).toHaveScreenshot("market-detail-identity.png");
+        await expect(identityPanels.nth(1)).toHaveScreenshot("market-detail-exclusions.png");
+        const evidencePanel = identityPanels.nth(2);
+        const evidenceDetails = evidencePanel.locator("details");
+        await expect(evidenceDetails).toHaveCount(2);
+        for (const detail of await evidenceDetails.all()) {
+          await detail.locator("summary").click();
+          await expect(detail).toHaveAttribute("open", "");
+        }
+        await expect(evidencePanel).toHaveScreenshot("market-detail-evidence.png");
       }
     });
   }
