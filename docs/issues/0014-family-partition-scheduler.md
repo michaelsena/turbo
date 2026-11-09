@@ -52,6 +52,18 @@ edge ledger, and composed system context rehashes every declared source-run arti
 The previously published schedule remains immutable and replayable; the corrected
 schedule is a new version.
 
+## Corrected publication receipt
+
+- partition: `family-partition:60517981ab96e7f243c7033e`
+- exact execution commit: `6e335069a275c26adf9b42d7bcade1735798ed07`
+- schedule receipt SHA-256:
+  `e162e3bf258d77b87f9ccb3bd323562499fc0261f68fa508ea5096bfd5667b91`
+- context-edge ledger SHA-256:
+  `9af74b8379fc004c7c6e49fc8aca40cea27f4e720ba89eb304c7573819163db5`
+- replay: valid with zero errors
+- composed context: 3 canonical markets, 1 mapping, 0 Target markets, and 0 scores
+- model calls: 0
+
 ## Publication sequence
 
 1. Commit compiler, configs, tests, and documentation.

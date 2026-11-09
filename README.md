@@ -507,6 +507,12 @@ composes and hash-verifies the source run, family plan, and cumulative graph as
 separate layers; the source receipt's historical `canonical_markets: 0` is retained
 only as source-run-local state, not misreported as current system state.
 
+The current corrected schedule is
+[`family-partition:60517981ab96e7f243c7033e`](data/family_schedules/family-partition:60517981ab96e7f243c7033e/),
+compiled without model calls from exact clean commit
+`6e335069a275c26adf9b42d7bcade1735798ed07`. Its persisted artifacts replay with zero
+errors, and the mutable latest pointer contains only its path, receipt hash, and counts.
+
 The current machine-readable pointer and receipt is
 [`data/generated/latest-run.json`](data/generated/latest-run.json). Full source
 nodes, reconciliation worklists, and immutable receipts live in content-addressed directories under
