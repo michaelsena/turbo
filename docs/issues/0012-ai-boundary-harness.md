@@ -65,3 +65,9 @@ exclusivity, or a core workflow.
 The parser gate, pack compiler, schemas, closed-world validator, isolated runner, and
 focused contract tests are implemented. No model output, canonical market, Target
 Market admission, company work, or attractiveness score has yet been accepted.
+
+The original `gpt-6.1-sol` baseline was rejected before inference because that model
+is not exposed through the local ChatGPT-authenticated Codex CLI. No output was
+persisted and the adjudicator did not run. The supported `gpt-5.6-terra` high-
+reasoning handshake passed, so both pilot roles now use it as an explicitly
+provisional baseline. This is an access correction, not production model selection.

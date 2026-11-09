@@ -38,8 +38,8 @@
     "prior_candidate_catalog": 978
   },
   "baseline_execution": {
-    "specialist_model": "gpt-6.1-sol",
-    "adjudicator_model": "gpt-6.1-sol",
+    "specialist_model": "gpt-5.6-terra",
+    "adjudicator_model": "gpt-5.6-terra",
     "reasoning_effort": "high",
     "status": "pilot_baseline_not_final_model_selection"
   }
