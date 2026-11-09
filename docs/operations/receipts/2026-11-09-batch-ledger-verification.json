@@ -1,0 +1,421 @@
+{
+  "runtime": {
+    "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+    "platform": "darwin",
+    "jsonschema": "4.26.0"
+  },
+  "verified_at_utc": "2026-11-09T06:35:37.186197+00:00",
+  "local_execution_commit": "43b2315a427a56a50af832549a83589bdf7a1580",
+  "published_execution_commit": "2e5dba4ff0e6d69373e53c877caa5747c9ed25c9",
+  "execution_tree_sha": "d40f973a15a14baf5e938a3079eddcc98abbb593",
+  "canary_code_commit": "d4695f1ccb1302d79f0bf691322e869e04dd2d8f",
+  "canary_published_code_commit": "6f2c6868aad07686d03022b7f314dc9d7c82328b",
+  "scope": "Track B1 simulation-only per-journal authorization, reservations, dispatch bookkeeping and replay. No real model/network calls, scoring, activation, or production spend authority.",
+  "input_bindings": {
+    "source_binding": {
+      "artifact_hashes": {
+        "identity-relationships.json.gz": "e3753b2902723245369fa01aae42b23b95ac641b3f8194d43b36f3421e9f06b7",
+        "identity-source-summary.json.gz": "b7b4fa9685b98f292b9c1365df1577a3bf221e21dfe2591992284c5955e4f6ee",
+        "multisource-reconciliation.json.gz": "80eef412e9f48388c6f50c03faee2d75ebba382c560175f5ed1241fc0c5ac02b",
+        "naics-identity-evidence.json.gz": "c2ad398ce33457b9486df665222b4700889b6b8e924b03b4619b04c0cd3eeaf5",
+        "naics-identity-source-summary.json.gz": "cf4c3c746481974e320c52aee18456dc3860105e9509eafa85a2f5ab9411a9c4",
+        "napcs-hierarchy-evidence.json.gz": "e35bebe1fc3979393bd946f205f316b49f6c0561785e8417db19ddb5686c9f77",
+        "napcs-hierarchy-source-summary.json.gz": "3f514ac4301ce04f733dcd3b61dd2128ca3b2c213b95d9460acceb168dcea8e1",
+        "raw-source-hierarchy.json.gz": "6ae20ad5f11574bad02aafcaa6a530f461cfc278d82dec5d1b5821a65343db52"
+      },
+      "receipt_sha256": "e0ea7bf16b4a55488d9cfad5da90bc4e58e7b18f1b6ef667aeb4dd971fa375de",
+      "run_id": "run-2ea0f00db84148de663f"
+    },
+    "schedule_binding": {
+      "artifact_hashes": {
+        "batch-manifest.json": "0fed1a507344eeafecd06bb9c7806fbb434bd6b7e52557af303f05c94586b6b0",
+        "candidate-collision-ledger.json.gz": "6c9c805392c910a64a797c525f234ce8c2bd54601d9f296775b0d75f80725f92",
+        "context-edge-ledger.json.gz": "9af74b8379fc004c7c6e49fc8aca40cea27f4e720ba89eb304c7573819163db5",
+        "coverage-ledger.json.gz": "aa3629fb6974673253013d531dfe703f826355d849ef5001c93cdf4c0b789efc",
+        "family-manifest.json.gz": "f960d7f49e5755e63ceafa8abd5704fbc2acde72355ee5677ee305a1689cb5dd"
+      },
+      "partition_id": "family-partition:60517981ab96e7f243c7033e",
+      "receipt_sha256": "e162e3bf258d77b87f9ccb3bd323562499fc0261f68fa508ea5096bfd5667b91",
+      "source_run_id": "run-2ea0f00db84148de663f"
+    },
+    "graph_binding": {
+      "graph_version_id": "graph-e674a77fbfd5939c25c9e9a1",
+      "projection_sha256": "a22336b3711ba1095607aa03850607cb50a801c49abcd3e3cd0b3d914b87b8ca",
+      "receipt_sha256": "60000766e22dd07dd63aa865618d92774d7f4d0d5eb89d95c2353a659fff48d3",
+      "release_id": "graph-release-aa5b6f83e7a06e073d3a",
+      "source_universe_run_id": "run-2ea0f00db84148de663f"
+    }
+  },
+  "checks": {
+    "focused": {
+      "passed": 28,
+      "seconds": 140.104,
+      "output_sha256": "0ad779eb13c760a8f386fa55f001ef7f199c9ec812ce7995c7aeb54237aa9db6",
+      "command": "PYTHONPATH=src /tmp/turbo-resume-venv/bin/python -m unittest discover -s tests -p 'test_batch*.py' -v",
+      "test_isolation": "Seven integration cases replay real preparation inputs; ledger unit cases reuse a verified scope fixture while keeping authorization/schema/transition/locking/arithmetic checks real."
+    },
+    "full": {
+      "passed": 190,
+      "seconds": 509.258,
+      "output_sha256": "9a7a00685ee26ef398157e649ca753b706d566c49b97946d882a44beba8eaf37",
+      "command": "PYTHONPATH=src /tmp/turbo-resume-venv/bin/python -m unittest discover -s tests -v"
+    },
+    "validate": {
+      "valid": true,
+      "errors": []
+    },
+    "context_sha256": "0300ce2cd11139c85bb49578f025831d59171b1ef9d12a0dbe6941b5f9950962",
+    "diff_check": "passed"
+  },
+  "independent_review": {
+    "p0": 0,
+    "p1": 0,
+    "p2": 0,
+    "scope": "Simulation-only single-journal contract; code plus README/contracts/runbook/ADR reviewed.",
+    "reviewed_sha256": {
+      "src/turbo/agents/batch_authorization.py": "4165a4aae65e3c225149a363050cf4bd48daf4551aadca80630462868d08de9c",
+      "src/turbo/agents/batch_execution.py": "59d34db3d7b9f86425c012a1aa07e17cb0a239fa954d5c25770421fbe49d6ae2",
+      "schemas/batch-authorization.schema.json": "69483d526794ed4d39dca0c20ee8b4e809f54ca95f325bb722fd69f4aad9484e",
+      "schemas/batch-execution-event.schema.json": "1d6d193bc418b9dae20f306245e504c346c43c810079999911e1726e2bb64d8f"
+    }
+  },
+  "canary": {
+    "executed_at_utc": "2026-11-09T06:26:07.931068Z",
+    "local_code_commit": "d4695f1ccb1302d79f0bf691322e869e04dd2d8f",
+    "mode": "simulation_only",
+    "model_invoked": false,
+    "transport_calls": 2,
+    "families": [
+      "family:coverage:napcs-collection:10:001",
+      "family:coverage:prior-candidate:global-challenger:001"
+    ],
+    "authorization": {
+      "schema_version": 1,
+      "mode": "simulation_only",
+      "provider": "simulation",
+      "budget_scope": "single_journal_simulation",
+      "role": "batch_primary",
+      "authorized_by": "simulation-verification-no-spend",
+      "valid_from_utc": "2026-11-09T06:24:09.618390Z",
+      "expires_at_utc": "2026-11-09T07:25:09.618390Z",
+      "model": "simulation",
+      "prompt_sha256": "2dd0733e7ebc0f40db1c5889e30fbbc8dad9d97b74ca431c72bde75dec163b2f",
+      "pricing": {
+        "input_microusd_per_token": 1,
+        "output_microusd_per_token": 2
+      },
+      "pricing_sha256": "ff7a6e3381bd4769d0ee4bc80c930c7ea8510a4c63cf49da27ebaf16f6162883",
+      "max_cost_microusd": 320,
+      "max_calls": 2,
+      "max_retries": 1,
+      "max_concurrency": 1,
+      "lease_seconds": 60,
+      "max_input_tokens": 100,
+      "max_output_tokens": 100,
+      "batch_id": "family-batch:9bbf36774d5f274bd1bb1b36",
+      "families": [
+        {
+          "family_id": "family:coverage:napcs-collection:10:001",
+          "preparation_id": "family-preparation:ba63fc400b5c6ea1615278f8",
+          "config_sha256": "8287b6ca1d2e1540e3ab99cd00671b029b09132ce56ca66a53da21c122ed02f9",
+          "pack_file_sha256": "b61be55dcb818b26dedf0ac54d30a977ba4f9f875af5119ebff02e478186b39e",
+          "receipt_sha256": "5709a8b2bd5eb7aa43ea571be81157943e0812843379ecd1b217b9c3d0eeb07b"
+        },
+        {
+          "family_id": "family:coverage:prior-candidate:global-challenger:001",
+          "preparation_id": "family-preparation:cd2f99199fef0a43eff2ca9b",
+          "config_sha256": "cfeb4ae8c2c3389a6ac92bcd7cf794c6a60a0d46e1a84b009c5ef082acae0ebc",
+          "pack_file_sha256": "76ed80893d566cd8f782c942289ce418d0fc5854427fcee0a664662f55c22b73",
+          "receipt_sha256": "a9106a2db817046575a0e40f599d2fb69bca16612c97cbc1351d5829dc1e11e5"
+        }
+      ],
+      "execution_schema_hashes": {
+        "batch-authorization.schema.json": "69483d526794ed4d39dca0c20ee8b4e809f54ca95f325bb722fd69f4aad9484e",
+        "batch-execution-event.schema.json": "1d6d193bc418b9dae20f306245e504c346c43c810079999911e1726e2bb64d8f"
+      }
+    },
+    "events": [
+      {
+        "at_utc": "2026-11-09T06:25:09.618390Z",
+        "authorization_sha256": "05f031a37e124b94316d5a7bf03618fd921465edac71a26884534233129d1842",
+        "data": {},
+        "kind": "opened",
+        "previous_sha256": null,
+        "schema_version": 1,
+        "sequence": 0,
+        "sha256": "32126ac238f2b90b4a21d9b5724d38059f2b16f39c08b73ace1568bba3d9c6c0"
+      },
+      {
+        "at_utc": "2026-11-09T06:25:09.618390Z",
+        "authorization_sha256": "05f031a37e124b94316d5a7bf03618fd921465edac71a26884534233129d1842",
+        "data": {
+          "lease_until_utc": "2026-11-09T06:26:09.618390Z",
+          "request_id": "initial",
+          "reserved_microusd": 300,
+          "retry_of": null,
+          "worker_id": "worker"
+        },
+        "kind": "reserved",
+        "previous_sha256": "32126ac238f2b90b4a21d9b5724d38059f2b16f39c08b73ace1568bba3d9c6c0",
+        "schema_version": 1,
+        "sequence": 1,
+        "sha256": "b4f8338c7641e2828fc4d931b71f72e9d123bfcf9c82605b787d5cc74e6453ec"
+      },
+      {
+        "at_utc": "2026-11-09T06:25:09.618390Z",
+        "authorization_sha256": "05f031a37e124b94316d5a7bf03618fd921465edac71a26884534233129d1842",
+        "data": {
+          "request_id": "initial",
+          "worker_id": "worker"
+        },
+        "kind": "dispatched",
+        "previous_sha256": "b4f8338c7641e2828fc4d931b71f72e9d123bfcf9c82605b787d5cc74e6453ec",
+        "schema_version": 1,
+        "sequence": 2,
+        "sha256": "29e61e1335768accd3ef31aa40c6a8a2a889ed06e6c34ad15ae2b42b2a488fb5"
+      },
+      {
+        "at_utc": "2026-11-09T06:25:09.618390Z",
+        "authorization_sha256": "05f031a37e124b94316d5a7bf03618fd921465edac71a26884534233129d1842",
+        "data": {
+          "cost_microusd": 20,
+          "request_id": "initial",
+          "response": {
+            "outcome": "failed",
+            "output": {
+              "simulation": true
+            },
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 5
+            }
+          },
+          "worker_id": "worker"
+        },
+        "kind": "settled",
+        "previous_sha256": "29e61e1335768accd3ef31aa40c6a8a2a889ed06e6c34ad15ae2b42b2a488fb5",
+        "schema_version": 1,
+        "sequence": 3,
+        "sha256": "a187d3e9e176a221a69e9ec446f543c85c9d779c23987dbc4f3da6f9b37c5495"
+      },
+      {
+        "at_utc": "2026-11-09T06:25:09.618390Z",
+        "authorization_sha256": "05f031a37e124b94316d5a7bf03618fd921465edac71a26884534233129d1842",
+        "data": {
+          "lease_until_utc": "2026-11-09T06:26:09.618390Z",
+          "request_id": "retry",
+          "reserved_microusd": 300,
+          "retry_of": "initial",
+          "worker_id": "worker"
+        },
+        "kind": "reserved",
+        "previous_sha256": "a187d3e9e176a221a69e9ec446f543c85c9d779c23987dbc4f3da6f9b37c5495",
+        "schema_version": 1,
+        "sequence": 4,
+        "sha256": "9e72fc4ba4a223f9e98b9e3e51b50795cf81f1113b55d3f2d763f16667e58b1f"
+      },
+      {
+        "at_utc": "2026-11-09T06:25:09.618390Z",
+        "authorization_sha256": "05f031a37e124b94316d5a7bf03618fd921465edac71a26884534233129d1842",
+        "data": {
+          "request_id": "retry",
+          "worker_id": "worker"
+        },
+        "kind": "dispatched",
+        "previous_sha256": "9e72fc4ba4a223f9e98b9e3e51b50795cf81f1113b55d3f2d763f16667e58b1f",
+        "schema_version": 1,
+        "sequence": 5,
+        "sha256": "d659d445e850d4806e0a329eabdd78d16919c79d1b1f6bc6ec96d999175646e4"
+      },
+      {
+        "at_utc": "2026-11-09T06:25:09.618390Z",
+        "authorization_sha256": "05f031a37e124b94316d5a7bf03618fd921465edac71a26884534233129d1842",
+        "data": {
+          "cost_microusd": 20,
+          "request_id": "retry",
+          "response": {
+            "outcome": "succeeded",
+            "output": {
+              "simulation": true
+            },
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 5
+            }
+          },
+          "worker_id": "worker"
+        },
+        "kind": "settled",
+        "previous_sha256": "d659d445e850d4806e0a329eabdd78d16919c79d1b1f6bc6ec96d999175646e4",
+        "schema_version": 1,
+        "sequence": 6,
+        "sha256": "d0d19d3a0afa9fa914a25d535451ec4603a93cf12bd85677405a7157bf03e2d2"
+      }
+    ],
+    "replay": {
+      "valid": true,
+      "errors": [],
+      "requests": {
+        "initial": {
+          "lease_until_utc": "2026-11-09T06:26:09.618390Z",
+          "request_id": "initial",
+          "reserved_microusd": 300,
+          "retry_of": null,
+          "worker_id": "worker",
+          "status": "failed",
+          "response": {
+            "outcome": "failed",
+            "output": {
+              "simulation": true
+            },
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 5
+            }
+          },
+          "cost_microusd": 20
+        },
+        "retry": {
+          "lease_until_utc": "2026-11-09T06:26:09.618390Z",
+          "request_id": "retry",
+          "reserved_microusd": 300,
+          "retry_of": "initial",
+          "worker_id": "worker",
+          "status": "succeeded",
+          "response": {
+            "outcome": "succeeded",
+            "output": {
+              "simulation": true
+            },
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 5
+            }
+          },
+          "cost_microusd": 20
+        }
+      },
+      "committed_microusd": 40,
+      "outstanding_microusd": 0,
+      "calls_reserved": 2,
+      "retries_reserved": 1,
+      "active_requests": 0,
+      "events_count": 7,
+      "last_event_sha256": "d0d19d3a0afa9fa914a25d535451ec4603a93cf12bd85677405a7157bf03e2d2",
+      "authorization_sha256": "05f031a37e124b94316d5a7bf03618fd921465edac71a26884534233129d1842",
+      "mode": "simulation_only",
+      "budget_scope": "single_journal_simulation",
+      "model_invoked": false,
+      "preparations_verified": true
+    },
+    "preparation_file_sha256": {
+      "family-preparation:ba63fc400b5c6ea1615278f8": {
+        "family-config-v2.json": "8287b6ca1d2e1540e3ab99cd00671b029b09132ce56ca66a53da21c122ed02f9",
+        "family-evidence-pack-v2.json": "b61be55dcb818b26dedf0ac54d30a977ba4f9f875af5119ebff02e478186b39e",
+        "preparation-receipt.json": "5709a8b2bd5eb7aa43ea571be81157943e0812843379ecd1b217b9c3d0eeb07b"
+      },
+      "family-preparation:cd2f99199fef0a43eff2ca9b": {
+        "family-config-v2.json": "cfeb4ae8c2c3389a6ac92bcd7cf794c6a60a0d46e1a84b009c5ef082acae0ebc",
+        "family-evidence-pack-v2.json": "76ed80893d566cd8f782c942289ce418d0fc5854427fcee0a664662f55c22b73",
+        "preparation-receipt.json": "a9106a2db817046575a0e40f599d2fb69bca16612c97cbc1351d5829dc1e11e5"
+      }
+    },
+    "journal_file_sha256": {
+      "authorization.json": "05f031a37e124b94316d5a7bf03618fd921465edac71a26884534233129d1842",
+      "events.jsonl": "22c8db7489385e20a6e24b630adbdbe8064251d280d7d8e531a0222fe2259aa4"
+    },
+    "repeated_resume_byte_identical": true
+  },
+  "canary_reproducer": "import hashlib,json,subprocess,tempfile\nfrom datetime import datetime,timedelta,timezone\nfrom pathlib import Path\nfrom turbo.agents.batch_authorization import build_authorization,canonical_bytes\nfrom turbo.agents.batch_execution import BatchExecution,validate_execution\nfrom turbo.universe.family_pack_v2 import prepare_family_v2\nroot=Path.cwd()\nsha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\nnow=datetime.now(timezone.utc)\nstamp=lambda d:d.isoformat().replace('+00:00','Z')\nclock=[stamp(now)]\nfamilies=['family:coverage:napcs-collection:10:001','family:coverage:prior-candidate:global-challenger:001']\nwith tempfile.TemporaryDirectory(prefix='turbo-batch-canary-') as raw:\n base=Path(raw)\n preps=[Path(prepare_family_v2(fid,root=root,output_root=base/'preparations')['preparation_path']) for fid in families]\n auth=build_authorization(preps,root=root,authorized_by='simulation-verification-no-spend',valid_from_utc=stamp(now-timedelta(minutes=1)),expires_at_utc=stamp(now+timedelta(hours=1)),prompt_sha256=hashlib.sha256(b'simulation-only acceptance').hexdigest(),pricing={'input_microusd_per_token':1,'output_microusd_per_token':2},max_cost_microusd=320,max_calls=2,max_retries=1,max_input_tokens=100,max_output_tokens=100)\n ledger=BatchExecution(base/'execution',auth,preps,root=root,clock=lambda:clock[0])\n calls=[]\n def transport(envelope):\n  calls.append([f['family_id'] for f in envelope['families']])\n  return {'outcome':'failed' if len(calls)==1 else 'succeeded','output':{'simulation':True},'usage':{'input_tokens':10,'output_tokens':5}}\n ledger.reserve('initial','worker')\n ledger.dispatch('initial','worker',transport)\n ledger.reserve('retry','worker',retry_of='initial')\n assert ledger.status()['committed_microusd']+ledger.status()['outstanding_microusd']==320\n ledger.dispatch('retry','worker',transport)\n before=(base/'execution/events.jsonl').read_bytes()\n resumed=BatchExecution(base/'execution',auth,preps,root=root,clock=lambda:clock[0])\n resumed.dispatch('retry','worker',transport)\n resumed.recover_expired()\n assert (base/'execution/events.jsonl').read_bytes()==before\n assert calls==[families,families]\n result=validate_execution(base/'execution',preps,root=root)\n assert result['valid'] and result['committed_microusd']==40 and result['outstanding_microusd']==0\n receipt={'executed_at_utc':stamp(datetime.now(timezone.utc)),'local_code_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'mode':'simulation_only','model_invoked':False,'transport_calls':len(calls),'families':families,'authorization':auth,'events':[json.loads(line) for line in before.splitlines()],'replay':result,'preparation_file_sha256':{p.name:{f.name:sha(f) for f in p.iterdir()} for p in preps},'journal_file_sha256':{p.name:sha(p) for p in (base/'execution').iterdir() if p.is_file() and p.name!='.lock'},'repeated_resume_byte_identical':True}\n Path('/tmp/turbo-batch-canary-result.json').write_text(json.dumps(receipt,indent=2)+'\\n')\n print(json.dumps({'valid':True,'families':len(families),'simulation_transport_calls':len(calls),'committed_microusd':40,'byte_identical_resume':True}))\n",
+  "full_field_inspection": {
+    "projection_file_sha256": "6216f81ab6b3011c095fa3086581e6a05b05d9d3f11e56d4b90816173d230469",
+    "projection_content_sha256": "a22336b3711ba1095607aa03850607cb50a801c49abcd3e3cd0b3d914b87b8ca",
+    "projection_exclusions": [],
+    "markets": [
+      {
+        "market_id": "market:8230a0616ef5332c9c156ed2",
+        "canonical_name": "Dental practice administration",
+        "activation_status": "provisional",
+        "explicit_exclusions": [
+          "Clinical dental care",
+          "Dental insurance billing alone",
+          "Complete operation of a client dental practice"
+        ],
+        "confidence_by_dimension": {
+          "acquisition_universe": 0.32,
+          "ambient_ai_workflow": 0.1,
+          "buyer": 0.38,
+          "delivery": 0.48,
+          "economics_risk": 0.15,
+          "job": 0.58,
+          "workforce": 0.45
+        },
+        "research_gap_ids": [
+          "gap:vertical-administration-boundary"
+        ]
+      },
+      {
+        "market_id": "market:930fb681a7db796a46677c8c",
+        "canonical_name": "Integrated outsourced office administration",
+        "activation_status": "accepted_with_open_gaps",
+        "explicit_exclusions": [
+          "Complete operation of a client's business",
+          "Holding-company offices",
+          "Corporate, subsidiary, and regional managing offices",
+          "Computer facilities management",
+          "Construction management",
+          "Farm management",
+          "Real property management",
+          "Food-service contracting",
+          "Management advice without day-to-day management",
+          "Single support services supplied alone"
+        ],
+        "confidence_by_dimension": {
+          "acquisition_universe": 0.7,
+          "ambient_ai_workflow": 0.1,
+          "buyer": 0.65,
+          "delivery": 0.85,
+          "economics_risk": 0.3,
+          "job": 0.88,
+          "workforce": 0.84
+        },
+        "research_gap_ids": [
+          "gap:horizontal-office-admin-operating-tests",
+          "gap:vertical-administration-boundary"
+        ]
+      },
+      {
+        "market_id": "market:a4e5f08d253256b2a0c8ca05",
+        "canonical_name": "Medical practice administration",
+        "activation_status": "provisional",
+        "explicit_exclusions": [
+          "Clinical care delivery",
+          "Medical care management as a product category",
+          "Complete operation of a client medical practice or hospital"
+        ],
+        "confidence_by_dimension": {
+          "acquisition_universe": 0.32,
+          "ambient_ai_workflow": 0.1,
+          "buyer": 0.38,
+          "delivery": 0.48,
+          "economics_risk": 0.15,
+          "job": 0.58,
+          "workforce": 0.45
+        },
+        "research_gap_ids": [
+          "gap:vertical-administration-boundary"
+        ]
+      }
+    ],
+    "data_diff_from_parent": "empty",
+    "target_market_count": 0,
+    "score_count": 0
+  },
+  "limitations": [
+    "Budget and idempotency apply to one trusted journal; copied authorizations in other directories have independent counters. Shared authorization consumption and governed execution namespace are required before live use.",
+    "Prompt hash is declaration metadata; no production output contract or provider adapter is connected.",
+    "Hash chains do not prove completeness against wholesale rewriting or valid-prefix deletion without external receipts."
+  ],
+  "exact_replay_instructions": "At the pinned code checkout, regenerate the two named preparations; restore canary.authorization as canonical authorization.json and canary.events as canonical events.jsonl with an empty .lock file, then run batch-validate-execution against those preparation directories. Expired authorization is permitted for historical validation only.",
+  "model_invoked": false
+}

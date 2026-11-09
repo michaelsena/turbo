@@ -140,17 +140,31 @@ exclusions, index evidence, and non-owned candidate context remain available; so
 compiler, and schema hashes bind each preparation. See [Issue 15](docs/issues/0015-batch-native-family-research.md)
 and its [audit receipt](docs/operations/receipts/2026-11-09-family-pack-corrections.json).
 
-[Dashboard PR #19](https://github.com/michaelsena/turbo/pull/19) remains unmerged.
+[Dashboard PR #19](https://github.com/michaelsena/turbo/pull/19) is merged at
+`a9aef2befbc61208431ce4b546d6bed15d6edef1`.
 The corrected code passed 162 Python tests, frontend unit/type/build checks, and
 host-run browser screenshot/accessibility checks. All 14 desktop/mobile images were
 reviewed, including corrected family counts and Audit provenance. See the
 [verification receipt](docs/operations/receipts/2026-11-09-dashboard-corrections.json)
 for exact hashes and the minor Overview status-badge clipping follow-up.
 
-The next research milestone is a bounded, resumable batch executor with explicit
-spend authorization, selective independent verification, disagreement escalation,
-and deterministic family closure. Prove one neutral canary and measure its quality
-and cost before authorizing broad execution. Then complete cross-family coverage,
+[PR #21](https://github.com/michaelsena/turbo/pull/21) proposes Track B1: a replayable batch authorization and
+execution ledger exercised only through a fake transport. It binds exact prepared
+families, model/provider/price assumptions and time bounds; reserves integer
+microdollar budgets before dispatch; and preserves ambiguous attempts without
+automatic retry or refund. It does not run real research or change any market.
+Budgets and idempotency cover one trusted simulation journal only; copying an
+authorization to another directory does not share counters. Shared authorization
+consumption is required before a live adapter or paid canary.
+See [ADR 0008](docs/decisions/0008-batch-authorization-execution-ledger.md) and the
+[verification receipt](docs/operations/receipts/2026-11-09-batch-ledger-verification.json):
+190 Python tests pass, including 28 focused checks; the two-family simulation
+replays exactly. Independent review found no remaining code issues within this
+limited scope. The PR is unmerged.
+
+Real model dispatch, validated output contracts, selective independent verification,
+disagreement escalation, and deterministic family closure remain later work. Approve
+and evaluate one neutral metered canary before authorizing broad execution. Then complete cross-family coverage,
 publish the canonical universe, add Target filtering, and begin production scoring.
 The read product can expand only as those durable projections become available.
 

@@ -261,6 +261,69 @@ recompiles the full expected pack and compares every top-level evidence and line
 collection, rather than treating a recomputed pack self-hash as proof of completeness.
 
 
+## Batch authorization and execution journal
+
+Track B1's `batch-authorization.schema.json` is an execution-control contract, not a
+market or scoring schema. It is restricted to `simulation_only` mode, the
+`simulation` provider, the `batch_primary` role, and required
+`budget_scope: single_journal_simulation`. Status exposes the same budget scope. The bounded batch retains each
+family separately; combining input envelopes never merges market identities or
+research obligations. All selected preparations must belong to exactly one schedule
+batch and retain its manifest order. Duplicated families/preparations are rejected.
+
+| Binding | Fields and meaning |
+| --- | --- |
+| Exact inputs | `batch_id`; 2–8 `families` with `family_id`, `preparation_id`, `config_sha256`, `pack_file_sha256`, and `receipt_sha256` |
+| Contract versions | `execution_schema_hashes` binds the authorization and execution-event schemas |
+| Execution identity | `authorized_by`, `model`, `provider`, `role`, `prompt_sha256` |
+| Validity | `valid_from_utc`, `expires_at_utc`; timestamps ending in `Z`, valid from the inclusive start until the exclusive expiry |
+| Cost assumptions | `pricing` with integer input/output microdollars per token, plus `pricing_sha256` |
+| Budget and work bounds | `max_cost_microusd`, `max_calls`, combined retry/repair `max_retries`, `max_input_tokens`, `max_output_tokens` |
+| Coordination | `max_concurrency` must be 1 in B1; `lease_seconds` |
+
+A family pack's content hash and its canonical file-byte hash are different concepts:
+`pack_file_sha256` binds the persisted file, including its own metadata hash field.
+The authorization must match the exact validated preparation rather than merely a
+family label or path. `build_authorization` defaults concurrency to 1; serialized
+authorization documents must explicitly contain `max_concurrency: 1`. B1 has one
+batch-primary task: one initial request and a linear retry/repair chain. A new
+initial request ID cannot bypass that chain or its retry cap. Concurrency 2 is
+reserved for a later multi-task scheduler and is rejected here. The prompt hash
+is a pinned declaration in this foundation: prompt contents and a production output
+schema are not yet supplied or validated.
+
+The `batch-execution-event.schema.json` envelope records sequence, UTC time,
+authorization hash, preceding event hash, event kind/data, and event hash. Its event
+kinds are `opened`, `reserved`, `dispatched`, `settled`, `unresolved`, and `released`.
+An execution directory holds `authorization.json`, append-only `events.jsonl`, and a
+process coordination `.lock`. A settled request distinguishes `succeeded` from
+`failed`; neither means an accepted research conclusion.
+Replay validates both integrity and permitted transitions; hashing alone cannot
+legitimize an impossible state or inconsistent budget. The chain detects edits to
+retained records and invalid transitions; it is not external proof against a complete
+journal rewrite or deletion to a valid prefix. An independently retained receipt must
+pin the output hashes and final event hash to establish the accepted journal tip.
+
+Budgets and idempotency apply only within one trusted execution journal. Copying an
+authorization into another directory does not share counters. This is not production
+spend authority: a shared spent-authorization registry or a deterministic governed
+execution namespace is required before any live adapter or paid canary.
+
+Costs use integer microdollars (1,000,000 = USD 1). Reservation precedes dispatch and
+is protected by the same process-safe lock as the journal transition. Confirmed cost
+plus outstanding reservations and a proposed next reservation must fit the cap.
+Attempt identifiers govern idempotent resume. A pre-dispatch reservation may be
+released after lease expiry, but its call count is still consumed. Ambiguous
+dispatched work remains reserved and cannot receive an automatic retry or refund.
+Retry/repair attempts share the global `max_retries` cap and must reference a failed,
+settled predecessor or a safely released undispatched predecessor through `retry_of`.
+Each uses a fresh request ID and consumes both a call and retry allowance; the chain
+cannot fork. A ledger result never constitutes a valid model-output disposition or accepted market event.
+
+The implementation uses fake transport only. Real-provider settlement, model-output
+contracts, selective verification, disagreement escalation, and reviewed activation
+or no-movement closure remain separate contracts. No live-dispatch CLI is exposed.
+
 ## Factor definition, evaluator result, and score event
 
 A factor definition contains anchors, evidence expectations, weight, confidence

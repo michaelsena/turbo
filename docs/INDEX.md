@@ -22,6 +22,8 @@ the README and the relevant document whenever behavior or architecture changes.
 - [Issue 14: deterministic family partition and scheduler](issues/0014-family-partition-scheduler.md)
 - [Issue 15: batch-native family research](issues/0015-batch-native-family-research.md)
 - [Family-preparation correction audit](operations/receipts/2026-11-09-family-pack-corrections.json)
+- [Dashboard verification](operations/receipts/2026-11-09-dashboard-corrections.json)
+- [Batch-ledger simulation verification](operations/receipts/2026-11-09-batch-ledger-verification.json)
 
 ## Architecture decisions
 
@@ -32,4 +34,5 @@ the README and the relevant document whenever behavior or architecture changes.
 - [ADR 0005: Model-agnostic boundary harness](decisions/0005-model-agnostic-boundary-harness.md)
 - [ADR 0006: OpenRouter model-provider layer](decisions/0006-openrouter-model-provider.md)
 - [ADR 0007: Schedule-driven family preparations](decisions/0007-schedule-driven-family-preparations.md)
+- [ADR 0008: Batch authorization and execution ledger](decisions/0008-batch-authorization-execution-ledger.md)
 - [Prior-model crosswalk](decisions/prior-model-crosswalk.md)
