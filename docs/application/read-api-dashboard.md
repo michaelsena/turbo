@@ -51,7 +51,7 @@ sorting, and an envelope:
     "release_id": "...",
     "as_of_utc": "...",
     "context_fingerprint": "...",
-    "read_model_version": "1.0.0"
+    "read_model_version": "1.1.0"
   }
 }
 ```
@@ -69,15 +69,22 @@ Routes:
 - `GET /api/v1/search?q=...`
 - `GET /api/v1/receipts/{kind}/{receipt_id}`
 
-`context`, `markets`, and later version-aware resources accept an explicit compatible
-source-run/partition/graph tuple. The tuple must share one source run. A mismatch,
+Every route above accepts the same optional `source_run_id`, `partition_id`, and
+`graph_version_id` query parameters through one shared API dependency. The tuple must
+share one source run and resolve to hash-verified immutable artifacts. A mismatch,
 missing artifact, or hash failure returns an error rather than falling back to a
-directory scan or inferred latest version.
+directory scan or inferred latest version. `/api/v1/versions` publishes only complete
+compatible tuples as `compatible_snapshots`; the current pointer tuple remains
+explicitly labeled.
 
 Receipt kinds are fixed in code. IDs must match a narrow safe-character grammar and
 cannot contain a path separator. Credential, authorization, secret, raw/private
 reasoning, and chain-of-thought keys are recursively omitted and listed as redacted
 paths. The route never provides arbitrary file access.
+
+The provenance fingerprint binds the exact source, schedule, and graph receipt
+hashes. HTTP ETags separately hash the complete response envelope, so a tag from one
+route, filter, or page cannot incorrectly validate a different representation.
 
 ## User interface
 
@@ -86,6 +93,11 @@ spacing, restrained grayscale, fine borders and shadows, rounded controls, compa
 tables, progressive JSON disclosure, and small optional motion. It uses semantic
 navigation, headings, labels, tables, keyboard-focus affordances, a skip link,
 responsive breakpoints, and reduced-motion behavior.
+
+The header snapshot selector is sourced from `compatible_snapshots`. Choosing a
+historical tuple writes all three exact IDs into the URL and the client carries those
+parameters into every API query and internal navigation. The client never computes
+compatibility or joins versions itself.
 
 Pages:
 
@@ -107,13 +119,17 @@ cd frontend
 npm test
 npm run typecheck
 npm run build
+npm run test:visual
 ```
 
 The Python tests cover exact fixture counts, compatibility, hashing boundaries,
 ordering, pagination, search, ETags, receipt allowlists, sanitization boundaries,
-and compiled-SPA delivery. Frontend tests cover the universe/evaluation boundary and
-visible exact provenance. Browser QA checks overview, table, detail, and responsive
-CSS against the compiled local build.
+and compiled-SPA delivery. Frontend tests cover the universe/evaluation boundary,
+visible exact provenance, and tuple propagation. Playwright starts the compiled app
+locally, runs WCAG 2 A/AA axe checks, exercises historical selection, and compares
+deterministic screenshots for overview, universe, market detail, families, family
+detail, batches, and audit at fixed desktop and mobile viewports. Baselines live under
+`frontend/e2e/__screenshots__/`; transient reports remain ignored.
 
 ## Future extension boundary
 

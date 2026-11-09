@@ -655,9 +655,13 @@ production frontend build is served by the same local FastAPI process; Vite is u
 only for frontend development. There is no application database, hosted deployment,
 telemetry, write route, or second server-side application layer.
 
-Every response carries a provenance envelope and ETag derived from the exact source
-run, partition, graph version, artifact hashes, and read-model version. A request for
-an incompatible tuple fails closed. Receipt routes resolve only fixed repository
+Every response carries provenance derived from the exact source-run, partition,
+graph-version receipts, artifact hashes, and read-model version. Its ETag hashes the
+complete response envelope, so tags cannot be reused across routes, filters, or pages. A request for
+an incompatible tuple fails closed. Every read route shares the same explicit
+source-run/partition/graph selector, and the UI carries a chosen compatible tuple
+through every query and internal link. Compatibility is computed and verified only
+by the backend. Receipt routes resolve only fixed repository
 directories and remove credential/private-reasoning fields recursively.
 
 Run the integrated local product:
@@ -676,6 +680,11 @@ For frontend development, run FastAPI on port 8000 and `npm run dev` in
 `frontend/`; Vite proxies `/api` to the local backend. No model or network research
 call occurs while serving, searching, testing, or building this interface.
 
+Local UI acceptance uses `npm run test:visual`: axe checks WCAG 2 A/AA and Playwright
+compares fixed desktop/mobile screenshots for every shipped page family, including
+market and family detail. It also selects a historical tuple and verifies that the
+page provenance changes with the URL-bound version IDs.
+
 The later application will extend this same contract with:
 
 - Global ranking and submodel/factor rankings.
@@ -685,7 +694,7 @@ The later application will extend this same contract with:
 - Ambient AI concept cards showing context sources, actions, failure modes,
   implementation feasibility, and expected output bottleneck relief.
 - Research queue, challenger intake, shortlist, exceptions, and recent changes.
-- Full historical as-of selectors and diff views.
+- Historical diff views across already inspectable immutable snapshots.
 - Target, score, comparison, and ranking projections only after those durable layers
   exist and have their own receipts.
 

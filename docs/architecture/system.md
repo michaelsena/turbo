@@ -29,9 +29,13 @@ hash-verified source/schedule/graph tuple in memory and exposes deterministic Fa
 resources. The React/TypeScript/Vite client consumes only that API; it cannot scan
 artifact directories or recreate research decisions. FastAPI also serves the compiled
 SPA locally, so there is no second backend, write surface, or application database.
-Snapshot ETags bind exact artifact hashes plus a versioned read-model contract.
+Snapshot provenance binds exact receipt and artifact hashes plus a versioned
+read-model contract. HTTP ETags bind the complete selected response representation.
 Atomic reload occurs only after changed pointers and all referenced receipts and
-artifacts validate.
+artifacts validate. One shared FastAPI dependency applies an explicit source-run,
+partition, and graph tuple to every snapshot-backed route. The UI selector consumes
+the backend's verified compatible-tuple catalog and propagates the three IDs through
+queries and navigation without recreating version compatibility in the client.
 
 ## Core durable identities
 
@@ -51,7 +55,8 @@ an append-only event. A graph version is the deterministic projection of all acc
 events through a cutoff. Stable market IDs survive ordinary score changes. Splits and
 merges create successor market IDs with explicit edges; prior versions remain queryable.
 
-The API will support both `latest` and explicit `as_of`/`graph_version` requests.
+The API supports both verified current pointers and explicit immutable
+source-run/partition/graph tuples. Incompatible joins fail closed.
 
 An activation is deliberately local to one reviewed family. Publication therefore
 uses a cumulative graph-release config that enumerates exact activation directories,

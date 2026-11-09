@@ -10,10 +10,17 @@ projection, output hash, partition ID, or source lineage disagrees.
 Every API response contains `data` plus exact provenance: source run, partition,
 graph version, release, as-of time, read-model version, and context fingerprint.
 Collection fields are deterministically sorted and paginated; nested family context
-is separately bounded. ETags use the snapshot fingerprint and `If-None-Match` may
-return 304. Receipt resources resolve only an enumerated kind and safe ID beneath a
+is separately bounded. The context fingerprint includes all three exact receipt
+hashes; each HTTP ETag hashes its complete response envelope, and `If-None-Match` may
+return 304 only for that equivalent representation. Receipt resources resolve only an enumerated kind and safe ID beneath a
 fixed repository root, then recursively remove secret, credential, authorization,
 and private-reasoning fields.
+
+One shared request dependency applies `source_run_id`, `partition_id`, and
+`graph_version_id` to every snapshot-backed endpoint. The version catalog lists
+complete compatible tuples only after loading and verifying each join. The browser
+may select and propagate one of those tuples, but compatibility remains a backend
+contract and is never reimplemented in TypeScript.
 
 The API is a projection of repository truth, not new truth. UI state, administrative
 ordering, source titles, and client-side filters never create market, Target, or

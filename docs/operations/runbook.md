@@ -54,6 +54,7 @@ npm install
 npm test
 npm run typecheck
 npm run build
+npm run test:visual
 cd ..
 PYTHONPATH=src uvicorn turbo.web.app:app --host 127.0.0.1 --port 8000
 ```
@@ -62,6 +63,13 @@ Open `http://127.0.0.1:8000`; inspect OpenAPI at
 `http://127.0.0.1:8000/docs`. During frontend development, keep FastAPI on port
 8000 and run `npm run dev` in `frontend/`; the Vite server proxies `/api` and remains
 only a development tool. Stop both local processes when inspection is complete.
+
+`npm run test:visual` builds the client, starts a temporary FastAPI server on
+`127.0.0.1:8017`, runs axe WCAG 2 A/AA checks and screenshot comparisons at fixed
+desktop/mobile viewports, exercises the historical snapshot selector, and stops the
+server. Use `npm run test:visual:update` only when an intentional reviewed visual
+change requires new baselines. Commit the deterministic files under
+`frontend/e2e/__screenshots__/`; never commit `test-results` or `playwright-report`.
 
 Before accepting a UI/API change, run the focused Python tests, frontend tests,
 TypeScript check, production build, full Python suite, repository validation, and
