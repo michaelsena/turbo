@@ -199,13 +199,15 @@ independent verification, conditional blind escalation and disagreement adjudica
 then mandatory independent review of planned graph movements and deterministic
 closure/release. The original two-blind pilot and later ranking evaluators are
 different scopes; see the [decision map](docs/decisions/0012-research-workflow-scope.md).
-Issue 39's first provider increment connects only primary and verifier roles through
-a new V2 shared-role journal, one-attempt OpenRouter adapter, output validation, and
-workflow submission. Escalation/adjudication/release dispatch remains blocked until
-later integration. All 40 focused controlled-transport checks pass, and independent
-review found no issues. All 357 Python tests pass; repository validation and local
-documentation links also pass. See [PR 40](https://github.com/michaelsena/turbo/pull/40)
-and its [verification receipt](docs/operations/receipts/2026-11-09-batch-provider-verification.json).
+[PR 40](https://github.com/michaelsena/turbo/pull/40), still unmerged, established the
+primary/verifier increment: its historical receipt records 357 Python tests,
+40 focused checks, and clear independent review. See its
+[verification receipt](docs/operations/receipts/2026-11-09-batch-provider-verification.json).
+The new stacked increment supports dispatch for all six workflow roles. Routine work
+uses primary, verifier, and release reviewer; material disagreement adds two blind
+specialists and adjudication. Exact upstream provider provenance and compiler-preview
+replay precede release review. The successor increment passed 22 focused checks in
+95.040 seconds, with clear independent review; its full suite is still running.
 No paid calls or new market activation occurred. This is not production readiness. The six
 exploratory manual hypotheses remain provisional and cannot bypass the gates. Approve
 and evaluate one neutral metered canary before authorizing broad execution. Then

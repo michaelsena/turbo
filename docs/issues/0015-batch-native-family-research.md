@@ -91,10 +91,11 @@ There is no silent truncation, inferred substitution, activation, or graph mutat
   in merged [PR 35](https://github.com/michaelsena/turbo/pull/35); see the
   [B4 receipt](../operations/receipts/2026-11-09-batch-research-verification.json).
 - Current Issue #39 increment: V2 shared-role accounting, one-attempt provider
-  adapter, and primary/verifier integration. Controlled-transport acceptance remains
-  pending; no paid calls or new market activations are claimed.
-- Later integration: escalation/adjudication/release dispatch and a complete
-  independently reviewed provider-backed run.
+  adapter, and all-six-role integration stacked on unmerged PR 40. The successor
+  passed 22 focused checks and independent review; its full suite is still running.
+  No paid calls or new activations are claimed.
+- Next gate: verify the complete integrated role path and exact release provenance
+  before a separately authorized, independently reviewed provider-backed run.
 - Track C: progress events, closure receipts, cross-family conflict checks, and
   cumulative graph-release integration.
 - Metered canary: only after exact local replay, independent review, and separate
@@ -244,14 +245,19 @@ is included. See
 
 ## Governed provider integration: first increment
 
-[PR 40](https://github.com/michaelsena/turbo/pull/40) connects primary and verifier
+[PR 40](https://github.com/michaelsena/turbo/pull/40), still unmerged, connected primary and verifier
 roles to a V2 shared authorization journal and one-attempt OpenRouter adapter.
-All 357 Python tests pass, including the 40 focused provider/accounting/integration
-checks; independent review has no outstanding P0/P1/P2 findings. Repository
+Its historical acceptance recorded 357 Python tests, including 40 focused
+provider/accounting/integration checks; independent review has no outstanding P0/P1/P2 findings. Repository
 validation and documentation links pass. See the
 [exact verification receipt](../operations/receipts/2026-11-09-batch-provider-verification.json).
 
-No real provider call or graph activation occurred. Escalation, adjudicator, and
-release-review provider dispatch remain blocked pending their integration. The
-offline workflow/closure APIs do not establish an end-to-end metered canary.
+No real provider call or graph activation occurred in that verification. The new
+stacked increment supports all six eligible roles and verifies same-journal upstream
+provenance plus exact release-preview replay. Routine agreement still uses three
+roles; material disagreement adds the two blind roles and adjudicator. Its 22 focused
+checks passed in 95.040 seconds with clear independent review; the full suite is still
+running. New runs require a fresh workflow and authorization, not earlier-source
+accepted submissions. Neither offline APIs nor controlled transports establish a
+metered canary.
 Issue 39 and this parent remain open.

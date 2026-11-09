@@ -245,8 +245,11 @@ above the reservation remains unresolved; it does not establish a provider-enfor
 billing cap or a zero-cost failure. Retrying a settled failed role requires an explicit
 same-role predecessor and consumes remaining shared and per-role allowances.
 
-`batch_provider.run_batch_role` currently supports only primary and verifier, with
-distinct configured models. Admission conservatively bounds serialized UTF-8 request
+`batch_provider.run_batch_role` supports all six workflow roles, subject to the
+selective workflow's dependencies. Primary and verifier use distinct configured
+models; the release reviewer must differ from all five other configured roles.
+The blind pair and adjudicator may share a model, but require independent fresh
+runtime assignments and must not exchange specialist conclusions. Admission conservatively bounds serialized UTF-8 request
 bytes plus 4,096 against `max_input_tokens`; it does not claim exact model tokenization.
 The served model identifier must exactly match authorization, with no alias mapping;
 a known-cost mismatch settles failed and cannot submit a workflow document.
@@ -258,13 +261,24 @@ durable response artifacts, and known-cost settlement precede workflow submissio
 Raw confidence-bearing output remains in artifacts; journal output contains string
 references. Reopening an attempt cannot cause another provider request.
 
-Escalation/adjudication/release dispatch is deliberately unavailable in this first
-increment, although offline workflow/closure APIs remain. Validation uses controlled
-transports; paid execution and production readiness are not claimed. The legacy
+Before later-role dispatch, exact upstream submissions must match successful settled
+provider artifacts in the same authorization journal, including their input and
+upstream-submission bindings. Offline artifacts cannot substitute for that chain.
+Release-review dispatch and output validation recompile the exact bound release
+preview. The execution contract now also binds the closure/release implementation;
+new runs require a fresh workflow and authorization. Earlier-source accepted
+submissions and source-bound authorizations cannot be silently reused under changed
+code.
+
+This all-role increment is stacked on unmerged PR 40, whose verification receipt is
+historical evidence for the earlier primary/verifier slice. The successor increment
+passed 22 focused checks in 95.040 seconds with clear independent review; its full
+suite is still running. Tests use controlled transports; paid execution, accepted research, and
+production readiness are not claimed. The legacy
 single-family provider runner is unchanged. The new default HTTP transport refuses
 redirects and reads at most 4,000,001 bytes to detect the 4,000,000-byte response
 limit; final content is separately bounded to 1,000,000 bytes. Schema validation
-accepts local references only, preventing external reference retrieval. See the [operator boundary](../operations/runbook.md#partial-primaryverifier-provider-integration).
+accepts local references only, preventing external reference retrieval. See the [operator boundary](../operations/runbook.md#governed-provider-role-integration).
 
 ## Family partition, schedule, and graph release
 
