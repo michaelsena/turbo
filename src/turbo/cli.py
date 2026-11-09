@@ -11,6 +11,7 @@ from turbo.agents.batch_registry import (
     inspect_registry,
     validate_registry_execution,
 )
+from turbo.agents.batch_output import build_batch_context, validate_batch_output_file
 
 from turbo.agents.boundary_runner import run_boundary_pilot, validate_boundary_run
 from turbo.agents.boundary_review import (
@@ -77,6 +78,21 @@ def _parser() -> argparse.ArgumentParser:
     registry_validate.add_argument("registry_dir", type=Path)
     registry_validate.add_argument("authorization_sha256")
     registry_validate.add_argument("preparation_dirs", type=Path, nargs="+")
+    output_context = commands.add_parser(
+        "batch-output-context", help="Render a verified batch output contract context without model calls"
+    )
+    output_context.add_argument("request_id")
+    output_context.add_argument("invocation_id")
+    output_context.add_argument("preparation_dirs", type=Path, nargs="+")
+    output_context.add_argument("--max-output-bytes", type=int, default=1_000_000)
+    output_validate = commands.add_parser(
+        "batch-output-validate", help="Validate proposed output against regenerated exact batch inputs"
+    )
+    output_validate.add_argument("output_file", type=Path)
+    output_validate.add_argument("request_id")
+    output_validate.add_argument("invocation_id")
+    output_validate.add_argument("preparation_dirs", type=Path, nargs="+")
+    output_validate.add_argument("--max-output-bytes", type=int, default=1_000_000)
     graph_release = commands.add_parser(
         "graph-release",
         help="Publish a cumulative canonical Market Graph from approved activations",
@@ -170,6 +186,25 @@ def _parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = _parser().parse_args()
+    if args.command in {"batch-output-context", "batch-output-validate"}:
+        try:
+            if args.command == "batch-output-context":
+                result = build_batch_context(
+                    args.preparation_dirs, request_id=args.request_id,
+                    invocation_id=args.invocation_id, max_output_bytes=args.max_output_bytes,
+                )
+            else:
+                result = validate_batch_output_file(
+                    args.output_file, args.preparation_dirs,
+                    expected_request_id=args.request_id,
+                    expected_invocation_id=args.invocation_id,
+                    max_output_bytes=args.max_output_bytes,
+                )
+        except (OSError, ValueError, TypeError, KeyError) as error:
+            print(json.dumps({"valid": False, "errors": [str(error)]}, indent=2))
+            return 1
+        print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))
+        return 0 if result.get("valid", True) else 1
     if args.command in {"batch-registry-init", "batch-registry-status", "batch-registry-validate"}:
         try:
             if args.command == "batch-registry-init":

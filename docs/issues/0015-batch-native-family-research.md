@@ -68,8 +68,10 @@ There is no silent truncation, inferred substitution, activation, or graph mutat
 - Track B1: merged authorization and execution-ledger foundation, exercised with
   fake transport only; its scope and acceptance are described below.
 - Track B2: trusted local registry for managed authorization consumption; simulation
-  only, locally verified and awaiting merge.
-- Later Track B: real model adapter, output contract, selective verification,
+  only, merged and locally verified.
+- Track B3: implemented in PR #25; all 237 Python tests, 22 focused checks, synthetic
+  replay, and independent review passed. The PR remains unmerged.
+- Later Track B: real model adapter and contract integration, selective verification,
   disagreement escalation, and provider-cost reconciliation.
 - Track C: progress events, closure receipts, cross-family conflict checks, and
   cumulative graph-release integration.
@@ -162,9 +164,34 @@ separate review before any paid canary. See
 
 ## Track B2 verification
 
-[PR #23](https://github.com/michaelsena/turbo/pull/23) remains unmerged. Its
+[PR #23](https://github.com/michaelsena/turbo/pull/23) merged at
+`639c3216ac5d3e3baf28fcffbeac8af5bf8e478d`. Its
 [verification receipt](../operations/receipts/2026-11-09-shared-registry-verification.json)
 records 215 passing Python tests (25 focused registry checks), independent review,
 and a two-family simulation in which two managed clients share one journal and
 cannot reset its cost/call state. The public-wrapper binding regression is covered.
 No real provider call, approval authentication, or research activation is included.
+
+## Track B3: standalone output validation
+
+[PR #25](https://github.com/michaelsena/turbo/pull/25) implements B3. All 237 Python
+tests passed in 675.858 seconds, including 22 focused checks that separately passed
+in 71.554 seconds. Independent review found no blocking issues. Synthetic replay
+covered one required identity and 58 candidates with explicit unresolved gaps and
+no graph mutation. The PR remains unmerged. The
+[verification receipt](../operations/receipts/2026-11-09-batch-output-verification.json)
+records exact tested commits, hashes, runtime, and limitations.
+
+B3 adds a structural contract over verified V2 family preparations, preserving
+required identity/candidate coverage and family-specific frozen evidence references.
+The request and invocation IDs, prompt/schema bindings, context, and output limit
+identify what a submitted document must answer. Context is regenerated during
+validation rather than trusting a caller-edited coverage list.
+
+This increment exercises synthetic outputs only. Structural validity and bounded
+confidence do not establish factual correctness, calibration, or a reviewable
+research conclusion without substantive quality review. The contract is not wired
+into B1/B2 settlement: B1's fake response envelope rejects floats, while B3 permits
+finite confidence values. Real adapters, integration, research review, and activation
+remain separate work. See [ADR 0010](../decisions/0010-batch-output-contract.md) and
+the [runbook](../operations/runbook.md#batch-output-contract-inspection-track-b3).
