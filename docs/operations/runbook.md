@@ -183,24 +183,32 @@ status is not itself graph activation or family closure.
 
 The offline commands above remain model-free. Their `model_invoked: false` describes
 that local command, not proof that no research actor was used elsewhere. The separate
-provider integration below supplies only the first two roles so far.
+provider integration below supports eligible roles in the same governed flow.
 
-### Partial primary/verifier provider integration
+### Governed provider role integration
 
 This increment exposes Python APIs only; no new live provider CLI is available.
 `turbo.agents.batch_provider.run_batch_role` binds an eligible workflow assignment,
-role schema, and frozen family coverage to a V2 managed attempt. It dispatches only
-`primary` and `verifier`; escalation, adjudication, and release-review dispatch are
-blocked here. Offline role APIs still exist, but cannot masquerade as a settled
-provider attempt. End-to-end provider operation remains incomplete and acceptance
-is pending. Tests use controlled transports, not paid calls.
+role schema, and frozen family coverage to a V2 managed attempt. It supports all six
+roles, but workflow dependencies determine eligibility: routine work uses primary,
+verifier, and release reviewer; material disagreement requires both blind escalation
+roles and adjudication before release review. Every upstream submission must be
+substantiated by its successful settled provider attempt in the same authorization
+journal. Offline submissions cannot masquerade as governed provider results.
+The successor increment is stacked on unmerged PR 40. Its 22 focused checks passed
+in 95.040 seconds and independent review is clear; the full suite is still running.
+Testing uses controlled transports, not paid calls.
 
 Use `batch_execution_v2.initialize_registry` and its `build_authorization` for this
 versioned lane, with the workflow-plan hash, exact role configurations, validity,
 shared call/cost limits, and `batch_provider.contract_bindings` plus
 `execution_contract_hashes`. `run_batch_role` requires an explicit input root and
 stable attempt ID; repeat calls replay instead of issuing another HTTP request.
-The primary and verifier require distinct configured models. Before admission,
+The primary and verifier require distinct configured models. The release reviewer
+must use a model distinct from all five other configured roles. The two blind
+specialists and adjudicator may share a model, preserving the pilot policy, but each
+requires a fresh independent runtime/assignment; a shared model is not shared
+conversation state. Before admission,
 the serialized UTF-8 request bytes plus a 4,096-unit wrapper allowance must fit
 `max_input_tokens`; this is deliberately conservative, not a model tokenizer or
 provider-dollar guarantee. A returned model identifier must exactly equal the
@@ -209,6 +217,13 @@ for a mismatched model is charged as failed, and its document is not submitted. 
 and durable artifacts precede settlement, and only a successful settled attempt is
 submitted to the workflow. Full batch envelopes preserve separate family obligations;
 this is not the legacy single-family pack runner.
+
+The release compiler's exact preview is replayed before HTTP dispatch and again
+while validating the reviewer output; the output must bind that preview hash.
+Provider output does not itself persist graph activation or closure. Recompute
+`execution_contract_hashes` and create a fresh workflow and authorization for the new
+run. Do not reuse earlier-source accepted submissions or rewrite an existing
+authorization's hashes in place; retain the earlier artifacts as historical records.
 
 The authorization document comes from a trusted operator; `authorized_by` is not a
 signature or independent proof of human spend approval. Local reservations are

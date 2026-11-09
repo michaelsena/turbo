@@ -1,8 +1,8 @@
-"""Managed batch primary/verifier integration; no automatic research or activation.
+"""Managed six-role batch integration; no automatic research or activation.
 
 V2 authorization is supplied by the trusted coordinator. Constructing a document is
-not evidence of human spend approval. Later escalation/release dispatch is deliberately
-blocked in this first increment; the workflow still determines when it is required.
+not evidence of human spend approval. The workflow determines role eligibility;
+provider settlement never bypasses independent review or activates the graph.
 """
 from __future__ import annotations
 
@@ -21,11 +21,12 @@ from turbo.agents.openrouter_attempt import invoke_openrouter_once
 from turbo.agents.openrouter_runner import openrouter_request_body, openrouter_schema
 from turbo.pipeline_paths import ROOT
 
-SUPPORTED_ROLES = ('primary', 'verifier')
+SUPPORTED_ROLES = workflow.ROLES
 EXECUTION_FILES = ('src/turbo/agents/batch_provider.py', 'src/turbo/agents/openrouter_attempt.py',
                    'src/turbo/agents/openrouter_runner.py', 'src/turbo/agents/batch_output.py',
                    'src/turbo/agents/batch_authorization.py', 'src/turbo/agents/runtime.py',
-                   'src/turbo/agents/boundary_harness.py')
+                   'src/turbo/agents/boundary_harness.py', 'src/turbo/universe/batch_closure.py',
+                   'src/turbo/universe/graph_release.py', 'schemas/graph-release-config.schema.json')
 
 
 def execution_contract_hashes() -> dict:
@@ -48,6 +49,11 @@ def role_schema(role: str, *, input_root: Path) -> dict:
     definitions = json.loads((ROOT / workflow.SCHEMA).read_text())['$defs']
     schema = copy.deepcopy(definitions['research' if role in
         ('primary', 'escalation_a', 'escalation_b') else role])
+    if role == 'release_reviewer':
+        # The exact 2-role/5-role hash objects are disjoint (closed properties),
+        # so anyOf is equivalent and fits the pilot's provider-facing subset.
+        hashes = schema['properties']['input_hashes']
+        hashes['anyOf'] = hashes.pop('oneOf')
     if 'payload' in schema['properties']:
         payload = json.loads((Path(input_root) / SCHEMA_PATH).read_text())
         schema['$defs'] = payload.pop('$defs')
@@ -86,6 +92,10 @@ def _validate_document(directory: Path, role: str, document: dict, *, input_root
         if len(workflow._bytes(envelope)) + 1 > workflow.MAX_DOCUMENT_BYTES:
             raise ValueError('role output exceeds workflow bound')
         workflow._validate(envelope, role, plan, context, previous, input_root=input_root)
+        if role == 'release_reviewer':
+            preview = workflow._preview(locked, plan, previous)
+            if document['approved_plan_sha256'] != preview['preview_sha256']:
+                raise ValueError('release review does not bind exact compiler preview')
         return envelope
 
 
@@ -120,17 +130,76 @@ def _load_artifact(journal: Path, reference: dict) -> dict:
     return _strict_json(raw)
 
 
+
+def _upstream_hashes(role: str, previous: dict) -> dict:
+    return {name: previous[name]['submission_sha256']
+            for name in workflow._dependencies(role, previous)}
+
+
+def _snapshot(directory: Path, *, input_root: Path, preparation_dirs=None) -> dict:
+    with workflow._locked(directory) as locked:
+        _, _, previous = workflow._load(locked, input_root=input_root,
+                                        preparation_dirs=preparation_dirs)
+        return previous
+
+
+def _verify_upstream(execution: BatchExecutionV2, role: str, previous: dict,
+                     authorization: dict) -> dict:
+    """Coordinator-only provenance. Never add these conclusions to blind prompts."""
+    required = _upstream_hashes(role, previous)
+    requests = execution.status()['requests']
+    for name in required:
+        matches = [row for row in requests.values()
+                   if row['role'] == name and row['status'] == 'succeeded']
+        if len(matches) != 1:
+            raise ValueError('upstream submission lacks one settled provider attempt')
+        attempt = matches[0]
+        artifact = _load_artifact(execution.journal_path, attempt['response']['output'])
+        provider = artifact['provider']
+        if (artifact['authorization_sha256'] != execution.authorization_sha256
+                or artifact['attempt_id'] != attempt['attempt_id']
+                or artifact['role'] != name or artifact['input_sha256'] != attempt['input_sha256']
+                or artifact['upstream_submission_hashes'] != _upstream_hashes(name, previous)
+                or artifact['valid'] is not True
+                or artifact['document'] != previous[name]['document']
+                or provider['status'] != 'valid'
+                or provider['requested_model'] != authorization['roles'][name]['model']
+                or provider['served_model'] != authorization['roles'][name]['model']
+                or provider['usage'] != attempt['response']['usage']
+                or provider['provider_cost_microusd'] != attempt['response']['provider_cost_microusd']):
+            raise ValueError('upstream provider artifact does not substantiate submission')
+        raw = base64.b64decode(artifact['output_base64'], validate=True)
+        if (_strict_json(raw) != artifact['document']
+                or hashlib.sha256(raw).hexdigest() != provider['body_sha256']):
+            raise ValueError('upstream provider output differs from validated document')
+    return required
+
+
+def _replay_preview(directory: Path, *, input_root: Path, preparation_dirs=None) -> None:
+    from turbo.universe import batch_closure
+    stage = workflow.verified_stage(directory, input_root=input_root,
+                                    preparation_dirs=preparation_dirs)
+    wrapper = stage['release_preview']
+    if wrapper is None:
+        raise ValueError('compiler release preview required')
+    actual = batch_closure._compile(stage, wrapper['preview']['config'], root=ROOT,
+                                    input_root=input_root)
+    if (actual != wrapper['preview']
+            or workflow._hash(actual) != wrapper['preview_sha256']):
+        raise ValueError('release compiler preview cannot replay')
+
 def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, role: str,
                    attempt_id: str, *, input_root: Path, preparation_dirs=None,
                    retry_of: str | None = None, api_key: str | None = None,
                    transport=None, clock=None) -> dict:
     """Execute at most one managed attempt; repeat calls replay without HTTP.
 
-    Only primary/verifier dispatch is implemented. This function never chooses a
-    model, creates spend authority, automatically repairs, or activates the graph.
+    Eligibility comes from frozen workflow dependencies. This function never chooses
+    a model, creates spend authority, automatically repairs, or activates the graph.
     """
+    authorization = copy.deepcopy(authorization)
     if role not in SUPPORTED_ROLES:
-        raise ValueError('this increment dispatches primary and verifier only')
+        raise ValueError('unknown provider workflow role')
     directory = Path(directory).resolve()
     input_root = Path(input_root).resolve()
     task = workflow.assignment(directory, role, input_root=input_root,
@@ -145,6 +214,12 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
             raise ValueError('role prompt/schema authorization mismatch')
     if authorization['roles']['primary']['model'] == authorization['roles']['verifier']['model']:
         raise ValueError('primary and verifier require distinct configured models')
+    reviewer = authorization['roles']['release_reviewer']['model']
+    if any(authorization['roles'][name]['model'] == reviewer
+           for name in workflow.ROLES if name != 'release_reviewer'):
+        raise ValueError('release reviewer requires an independent configured model')
+    if role == 'release_reviewer':
+        _replay_preview(directory, input_root=input_root, preparation_dirs=preparation_dirs)
     config = authorization['roles'][role]
     prompt = role_prompt(input_root=input_root)
     runtime = prompt + '\n# Frozen assignment\n' + _bytes(task).decode()
@@ -160,8 +235,11 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         raise ValueError('conservative request token bound exceeds authorization')
     if not (api_key or os.environ.get('OPENROUTER_API_KEY')):
         raise ValueError('OpenRouter credential required before managed admission')
-    input_digest = _hash({'assignment': task, 'runtime_prompt': runtime, 'schema': schema})
     execution = BatchExecutionV2(registry_dir, authorization, **({'clock': clock} if clock else {}))
+    previous = _snapshot(directory, input_root=input_root, preparation_dirs=preparation_dirs)
+    upstream = _verify_upstream(execution, role, previous, authorization)
+    input_digest = _hash({'assignment': task, 'runtime_prompt': runtime, 'schema': schema,
+                          'upstream_submission_hashes': upstream})
     status = workflow.inspect_workflow(directory, input_root=input_root,
                                        preparation_dirs=preparation_dirs)
     # Offline submissions cannot masquerade as results of this governed execution.
@@ -175,6 +253,11 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
                                     preparation_dirs=preparation_dirs)
         if fresh != task:
             raise ValueError('workflow inputs changed before dispatch')
+        current = _snapshot(directory, input_root=input_root, preparation_dirs=preparation_dirs)
+        if _verify_upstream(execution, role, current, authorization) != upstream:
+            raise ValueError('upstream provenance changed before dispatch')
+        if role == 'release_reviewer':
+            _replay_preview(directory, input_root=input_root, preparation_dirs=preparation_dirs)
         options = dict(invocation_id='invocation:' + _hash([
                            execution.authorization_sha256, attempt_id])[:24],
                        role=role, model=config['model'], reasoning_effort=config['reasoning_effort'],
@@ -193,14 +276,23 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
                 if len(raw) > workflow.MAX_DOCUMENT_BYTES:
                     raise ValueError('role output exceeds bound')
                 document = _strict_json(raw)
+                observed = workflow.assignment(directory, role, input_root=input_root,
+                                               preparation_dirs=preparation_dirs)
+                if observed != task:
+                    raise ValueError('workflow assignment changed during provider execution')
+                current = _snapshot(directory, input_root=input_root, preparation_dirs=preparation_dirs)
+                if _verify_upstream(execution, role, current, authorization) != upstream:
+                    raise ValueError('upstream provenance changed during provider execution')
+                if role == 'release_reviewer':
+                    _replay_preview(directory, input_root=input_root, preparation_dirs=preparation_dirs)
                 _validate_document(directory, role, document, input_root=input_root,
                                    preparation_dirs=preparation_dirs)
                 valid = True
-            except (ValueError, TypeError, KeyError, RecursionError, OverflowError):
+            except (OSError, ValueError, TypeError, KeyError, RecursionError, OverflowError):
                 document = None
         artifact = {'authorization_sha256': execution.authorization_sha256,
                     'attempt_id': attempt_id, 'role': role, 'input_sha256': input_digest,
-                    'provider': result, 'document': document, 'valid': valid,
+                    'upstream_submission_hashes': upstream, 'provider': result, 'document': document, 'valid': valid,
                     'output_base64': base64.b64encode(raw).decode() if raw is not None else None}
         reference = _save_artifact(execution.journal_path, attempt_id, artifact)
         return {'outcome': 'succeeded' if valid else 'failed',
@@ -213,7 +305,8 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         artifact = _load_artifact(execution.journal_path, result['response']['output'])
         if (artifact['authorization_sha256'] != execution.authorization_sha256
                 or artifact['attempt_id'] != attempt_id or artifact['role'] != role
-                or artifact['input_sha256'] != input_digest):
+                or artifact['input_sha256'] != input_digest
+                or artifact['upstream_submission_hashes'] != upstream):
             raise ValueError('provider artifact binding mismatch')
         if artifact['valid'] != (result['status'] == 'succeeded'):
             raise ValueError('provider artifact verdict mismatch')
@@ -222,6 +315,8 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         raw = base64.b64decode(artifact['output_base64'], validate=True)
         if _strict_json(raw) != artifact['document']:
             raise ValueError('provider output differs from validated document')
+        if role == 'release_reviewer':
+            _replay_preview(directory, input_root=input_root, preparation_dirs=preparation_dirs)
         _validate_document(directory, role, artifact['document'], input_root=input_root,
                            preparation_dirs=preparation_dirs)
         workflow.submit(directory, role, task['actor_id'], artifact['document'],

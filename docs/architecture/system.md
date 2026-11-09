@@ -172,9 +172,10 @@ or persistence retains its reservation without automatic retry. This integration
 uses fake transport only, creates no accepted research, and leaves B1/B2 schemas
 unchanged. See [ADR 0011](../decisions/0011-batch-output-artifacts.md).
 
-Issue 39's first provider integration is a separate V2 shared-role execution journal
-plus one-attempt OpenRouter adapter and `batch_provider` bridge. Only primary and
-verifier can dispatch; escalation, adjudication, and release dispatch remain blocked.
+Issue 39 uses a separate V2 shared-role execution journal, one-attempt OpenRouter
+adapter, and `batch_provider` bridge. The new stacked increment supports all six
+roles while preserving selective eligibility, same-journal upstream provenance,
+and exact compiler-preview replay before release review.
 The existing offline workflow/closure APIs and legacy single-family runner retain
 their separate scope. Controlled-transport testing does not establish paid-run or
 production readiness, and no new market activation is claimed.
