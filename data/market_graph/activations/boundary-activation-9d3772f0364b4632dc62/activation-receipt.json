@@ -1,0 +1,34 @@
+{
+  "activation_config_sha256": "e2229c0b84d2889378e23d20f037c2f03f0c47070b7a42d291dea0c475ef12bc",
+  "activation_execution_commit": "243fbc385cad66e5bc6cbbcbd511b8a47397dc6f",
+  "activation_id": "boundary-activation-9d3772f0364b4632dc62",
+  "event_counts": {
+    "create_market": 3,
+    "map": 1,
+    "reject_candidate": 0
+  },
+  "event_ids": [
+    "boundary-activation-9d3772f0364b4632dc62:01:create-market:integrated-outsourced-office-administration",
+    "boundary-activation-9d3772f0364b4632dc62:02:create-market:medical-practice-administration",
+    "boundary-activation-9d3772f0364b4632dc62:03:create-market:dental-practice-administration",
+    "boundary-activation-9d3772f0364b4632dc62:04:map:identity-naics-561110"
+  ],
+  "events_sha256": "3e9c3f4f09c8f5ada2301fcfd9a8e04d18e8ba509afcfb2db5cb22ccacc22d51",
+  "graph_version_id": "graph-1287641f7c96ef367b8cba4d",
+  "model_invoked": false,
+  "open_research_gap_ids": [
+    "gap:horizontal-office-admin-operating-tests",
+    "gap:vertical-administration-boundary"
+  ],
+  "projection_sha256": "5341b24b07e24dc40130affeefe7d5c8937abc9c69bab0f6589e5c4bfcae3646",
+  "proposal_market_ids": {
+    "proposal:dental-practice-administration": "market:8230a0616ef5332c9c156ed2",
+    "proposal:integrated-outsourced-office-administration": "market:930fb681a7db796a46677c8c",
+    "proposal:medical-practice-administration": "market:a4e5f08d253256b2a0c8ca05"
+  },
+  "recorded_at_utc": "2026-11-09T02:36:06Z",
+  "schema_version": 1,
+  "source_boundary_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+  "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+  "status": "activated_approved_boundary"
+}

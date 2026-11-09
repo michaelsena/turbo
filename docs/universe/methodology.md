@@ -165,6 +165,16 @@ specialist outputs. Weak evidence produces a provisional inference or assumption
 lower confidence and a retry gap, never a blank. Even a schema-valid adjudication is
 only a proposal until independent review activates deterministic graph events.
 
+The corrected V2 pilot is the first completed activation. A zero-finding independent
+review approved three proposals with explicit conditions; a separately preregistered,
+network-free compiler then emitted three `create_market` events and one provisional
+NAICS `561110` `map` event. It emitted no `reject_candidate` events, preserving all
+family-local non-mappings in the global candidate catalog. The projection is graph
+version `graph-1287641f7c96ef367b8cba4d`. Horizontal operating-model evidence and the
+horizontal-versus-vertical boundary remain active gaps; medical and dental markets
+and the NAICS mapping remain provisional. Activation is not Target filtering or
+market evaluation.
+
 The global audit then detects cross-family duplicates, incompatible mappings,
 hierarchy cycles, task-level false markets, residual buckets hiding missing markets,
 one-source-only nodes, and boundaries that are too broad or too narrow.

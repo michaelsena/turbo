@@ -520,6 +520,8 @@ def validate_boundary_activation(
     expected = {
         "activation_id": compiled["activation_id"],
         "activation_config_sha256": compiled["activation_config_sha256"],
+        "activation_execution_commit": execution_commit,
+        "recorded_at_utc": projection["as_of"],
         "source_boundary_run_id": compiled["source_boundary_run_id"],
         "source_review_id": compiled["source_review_id"],
         "events_sha256": canonical_sha256(events),
@@ -542,6 +544,8 @@ def validate_boundary_activation(
     )
     if receipt.get("open_research_gap_ids") != expected_gaps:
         errors.append("activation receipt open_research_gap_ids mismatch")
+    if activation_dir.name != compiled["activation_id"]:
+        errors.append("activation directory name does not match activation_id")
     return {
         "valid": not errors,
         "errors": sorted(set(errors)),

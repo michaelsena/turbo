@@ -62,10 +62,10 @@ exclusivity, or a core workflow.
 
 ## Current status
 
-The parser gate, pack compiler, schemas, closed-world validator, isolated runner, and
-focused contract tests are implemented. A validated model proposal now exists, but no
-canonical market, Target Market admission, company work, or attractiveness score has
-yet been accepted.
+The parser gate, pack compiler, schemas, closed-world validator, isolated runner,
+independent review, deterministic activation compiler, and replay tests are
+implemented. Three market versions are now activated from the approved pilot; Target
+Market admission, company work, and attractiveness scoring have not begun.
 
 The original `gpt-6.1-sol` local-CLI baseline was rejected before inference because
 that model was not exposed through the local ChatGPT-authenticated Codex CLI. No
@@ -311,6 +311,45 @@ medical and dental proposals plus the NAICS mapping remain provisional until the
 vertical-boundary gap is resolved; rejected seeds remain globally intact; and the
 horizontal operating-model gap remains open for later enrichment.
 
-This review authorizes a later deterministic graph-activation increment. The review
-itself did not create graph events, apply the Target Market filter, score markets, or
-start company work.
+At that stage, the review authorized a separate deterministic graph-activation
+increment. The review itself did not create graph events, apply the Target Market
+filter, score markets, or start company work.
+
+### Deterministic activation result
+
+Activation was preregistered in
+`config/universe/activations/office-administrative-services-v2.json`, binding the
+exact V2 family config, run, pack, adjudication, independent review, zero-finding
+rule, three proposals, one identity mapping, statuses, and both gaps. The config
+explicitly prohibits model calls, Target filtering, scoring, company work, and global
+candidate rejection.
+
+At exact compiler head `243fbc385cad66e5bc6cbbcbd511b8a47397dc6f`, activation
+`boundary-activation-9d3772f0364b4632dc62` deterministically emitted:
+
+- three `create_market` events;
+- one provisional `broader_than_market` mapping from NAICS `561110` to the horizontal
+  market; and
+- zero `reject_candidate` events.
+
+The stable market IDs are:
+
+- `market:930fb681a7db796a46677c8c` — Integrated outsourced office administration,
+  `accepted_with_open_gaps`;
+- `market:a4e5f08d253256b2a0c8ca05` — Medical practice administration,
+  `provisional`; and
+- `market:8230a0616ef5332c9c156ed2` — Dental practice administration,
+  `provisional`.
+
+Both `gap:horizontal-office-admin-operating-tests` and
+`gap:vertical-administration-boundary` remain active. The 126 family-local candidate
+non-mappings remain globally intact. The projection is
+`graph-1287641f7c96ef367b8cba4d`; canonical event hash is
+`3e9c3f4f09c8f5ada2301fcfd9a8e04d18e8ba509afcfb2db5cb22ccacc22d51`
+and canonical projection hash is
+`5341b24b07e24dc40130affeefe7d5c8937abc9c69bab0f6589e5c4bfcae3646`.
+Exact replay returns zero errors and requires no model or network call.
+
+This completes one operating-family activation, not the American Market Universe.
+No Target Market filtering, attractiveness evaluation, ranking, shortlist, or company
+work is implied.

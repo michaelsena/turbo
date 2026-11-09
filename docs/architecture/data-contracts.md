@@ -151,8 +151,14 @@ An independent boundary-review record binds one exact run, pack, and adjudicatio
 hash. It contains the registered check results, P0/P1/P2 findings, evidence IDs,
 affected output paths, activation conditions, alternatives, verdict, and confidence.
 The validator requires the exact check set, closed-world evidence references, and
-zero findings plus all-pass checks for an approval verdict. Review is advisory until
-a separate deterministic activation step exists.
+zero findings plus all-pass checks for an approval verdict. Review remains advisory
+until a separately preregistered activation config binds the exact run, pack,
+adjudication, review, allowed proposals, mapping dispositions, statuses, and gaps.
+The network-free activation compiler replays those inputs, emits only the authorized
+events, projects the graph, and records exact event/projection hashes plus its
+execution commit. `boundary-validate-activation` recompiles the events and projection
+and fails on any drift. Family-local non-mappings cannot be compiled as global
+candidate rejections.
 
 
 ## Factor definition, evaluator result, and score event

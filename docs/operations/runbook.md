@@ -52,6 +52,10 @@ set +a
 turbo boundary-run
 turbo boundary-validate-run data/agent_runs/<boundary-run-id>
 turbo boundary-review config/universe/reviews/<review-config>.json
+turbo boundary-activate config/universe/activations/<activation-config>.json
+turbo boundary-validate-activation \
+  data/market_graph/activations/<activation-id> \
+  config/universe/activations/<activation-config>.json
 ```
 
 `boundary-run` makes two concurrent specialist calls and, only after both validate,
@@ -104,6 +108,14 @@ turbo boundary-validate-review <review-directory> <review-config> \
 
 The replay fails if the structured review, receipt hashes, requested model, target
 envelope, validation status, or credential/reasoning persistence flags differ.
+
+Activation is a separate, network-free step. Its preregistered config must bind an
+exact valid run and zero-finding approval, enumerate the exact proposals and mappings,
+retain every required provisional status and research gap, and prohibit Target
+filtering, scoring, company work, model calls, and global rejection of family-local
+candidate non-mappings. Commit the compiler before running activation so the receipt
+can bind the exact execution head. Then commit the resulting immutable events,
+projection, receipt, replay test, and documentation as a separate increment.
 
 ## Agent coordination
 
