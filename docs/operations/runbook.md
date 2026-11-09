@@ -178,7 +178,7 @@ exact preview, all five registered checks passing, and zero open findings. After
 exact independent approval, `persist_batch_activation` persists the approved activation, and
 `finalize_batch_closure` records closure. Graph-moving closure requires the exact
 approved events in a validated persisted cumulative graph release. These closure
-operations currently have Python APIs, not a new closure CLI. An `approved` workflow
+operations also have explicit CLI wrappers below. An `approved` workflow
 status is not itself graph activation or family closure.
 
 The offline commands above remain model-free. Their `model_invoked: false` describes
@@ -187,7 +187,7 @@ provider integration below supports eligible roles in the same governed flow.
 
 ### Governed provider role integration
 
-This increment exposes Python APIs only; no new live provider CLI is available.
+The operator CLI wraps the existing Python APIs without changing their contracts.
 `turbo.agents.batch_provider.run_batch_role` binds an eligible workflow assignment,
 role schema, and frozen family coverage to a V2 managed attempt. It supports all six
 roles, but workflow dependencies determine eligibility: routine work uses primary,
@@ -241,6 +241,86 @@ a caller supplies an explicit key and returns sanitized telemetry. The existing
 single-family OpenRouter runner and its documented bounded repair behavior are
 unchanged. No real call, activated market, or production-readiness claim follows from
 passing controlled-transport checks.
+
+### Governed batch operator commands
+
+These commands require an already frozen workflow and an explicitly approved V2
+JSON authorization built through the API above. They do not choose models, prices,
+budgets, validity windows, or spend approval. Keep `OPENROUTER_API_KEY` in the
+runtime environment; never put it in authorization files or command arguments.
+Use a stable attempt ID for each role and retain the registry for the entire run.
+The following sequence is illustrative, not permission to run a paid canary:
+
+```bash
+PYTHONPATH=src python3 -m turbo.cli batch-provider-registry-init path/to/new-registry
+PYTHONPATH=src python3 -m turbo.cli batch-provider-run path/to/workflow path/to/new-registry \
+  path/to/authorization.json primary primary-001 --input-root path/to/frozen-inputs
+# Repeat the identical command/ID after interruption: resume never dispatches a second HTTP call.
+PYTHONPATH=src python3 -m turbo.cli batch-provider-status path/to/new-registry path/to/authorization.json
+PYTHONPATH=src python3 -m turbo.cli batch-provider-run path/to/workflow path/to/new-registry \
+  path/to/authorization.json verifier verifier-001 --input-root path/to/frozen-inputs
+PYTHONPATH=src python3 -m turbo.cli batch-workflow-status path/to/workflow
+```
+
+Stop and inspect each result. Material disagreement requires separate eligible
+`escalation_a`, `escalation_b`, and `adjudicator` invocations before compilation;
+there is no automatic role loop. A permitted retry uses a new attempt ID plus
+`--retry-of FAILED_ATTEMPT_ID`; an unknown or unsettled attempt is not retryable.
+The run command exits zero for a successfully settled role document, including a
+valid review that rejects release. It does not mean approval or activation.
+
+`batch-provider-status` validates registry, authorization, claim, readiness, and
+journal bindings under locks, then replays accounting. It never initializes a
+registry, claims an authorization, creates a journal, or exposes provider response
+artifacts. Missing/unclaimed/malformed state fails without mutation. Its request
+projection is accounting-only; use `batch-workflow-status` for stage and review
+verdict. Domain failures produce bounded generic JSON and exit one without echoing
+source text or secrets. A provider-run failure reports `model_invoked: "unknown"`
+when dispatch cannot be ruled out; inspect the retained journal before proceeding.
+
+Create an explicit release configuration for every frozen family, using the
+existing compiler contract (`schema_version`, `recorded_at_utc`, full
+`execution_commit`, `graph_base_sha256`, and `families`). Bind its exact preview
+before requesting independent review:
+
+```bash
+PYTHONPATH=src python3 -m turbo.cli batch-release-preview path/to/workflow path/to/release-config.json
+PYTHONPATH=src python3 -m turbo.cli batch-provider-run path/to/workflow path/to/new-registry \
+  path/to/authorization.json release_reviewer review-001 --input-root path/to/frozen-inputs
+PYTHONPATH=src python3 -m turbo.cli batch-workflow-status path/to/workflow
+```
+
+Preview prints hashes and closure summaries, not raw role output. Only an approved
+exact preview with all required checks and no open findings can proceed. For a
+graph-moving release, explicitly persist approved events from the exact clean
+reviewed execution commit, validate them, then use the existing cumulative graph
+release configuration and commands:
+
+```bash
+PYTHONPATH=src python3 -m turbo.cli batch-activation path/to/workflow --output-root path/to/activations
+PYTHONPATH=src python3 -m turbo.cli batch-validate-activation path/to/activation \
+  path/to/activation/activation-config.json
+PYTHONPATH=src python3 -m turbo.cli graph-release path/to/graph-release-config.json --output-root path/to/releases
+PYTHONPATH=src python3 -m turbo.cli graph-validate-release path/to/release path/to/graph-release-config.json
+PYTHONPATH=src python3 -m turbo.cli batch-close path/to/workflow --output-root path/to/closures \
+  --graph-release-dir path/to/release --graph-release-config path/to/graph-release-config.json
+PYTHONPATH=src python3 -m turbo.cli batch-validate-closure path/to/closure path/to/workflow \
+  --graph-release-dir path/to/release --graph-release-config path/to/graph-release-config.json
+```
+
+Use the returned activation/release/closure directories in subsequent commands.
+A reviewed no-movement closure can call `batch-close` and `batch-validate-closure`
+without either graph-release argument; graph-moving closure requires both and
+replays their exact approved events. Persisting activation alone does not publish
+a cumulative graph. All workflow-dependent commands above support `--input-root`
+and `--preparation-dirs` for exact relocated inputs (the run command requires an
+input root); registry initialization and accounting status do not. No command
+implicitly dispatches the next role, activates, or closes a batch.
+
+Eight focused operator tests passed with controlled transports, including same-ID
+resume, missing-cost exposure retention, read-only status, and reviewed no-movement
+closure/replay. Independent review and the full suite are tracked with issue 42.
+No paid canary or real market activation was executed by these checks.
 
 ### Batch authorization and ledger inspection (Track B1)
 

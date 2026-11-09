@@ -5,6 +5,12 @@ import json
 import subprocess
 from pathlib import Path
 
+from turbo.agents import batch_execution_v2
+from turbo.agents.batch_provider import run_batch_role
+from turbo.universe.batch_closure import (
+    prepare_batch_release, persist_batch_activation, validate_batch_activation,
+    finalize_batch_closure, validate_batch_closure,
+)
 from turbo.agents.batch_authorization import validate_authorization
 from turbo.agents.batch_execution import inspect_execution, validate_execution
 from turbo.agents.batch_registry import (
@@ -64,6 +70,102 @@ def _workflow_document(path: Path, limit: int = MAX_DOCUMENT_BYTES) -> dict:
         raise ValueError("workflow document must be an object")
     return document
 
+
+
+def _provider_status(registry_dir: Path, authorization: dict) -> dict:
+    """Read only: never invoke the journal-creating V2 constructor."""
+    execution = batch_execution_v2
+    execution._validate_auth(authorization)
+    registry = registry_dir.resolve(strict=True)
+    metadata = execution._registry(registry)
+    digest = execution._hash(authorization)
+    journal = registry / "journals" / digest
+    with execution._lock(registry / ".lock"):
+        if execution._registry(registry) != metadata:
+            raise ValueError("registry identity changed")
+        execution._regular(journal, True)
+        expected = {"authorization_sha256": digest, "registry_id": metadata["registry_id"]}
+        if (execution._read(registry / "claims" / (digest + ".json")) != expected
+                or execution._read(journal / "ready.json") != expected):
+            raise ValueError("journal claim or readiness mismatch")
+        with execution._lock(journal / ".lock"):
+            if execution._read(journal / "authorization.json") != authorization:
+                raise ValueError("stored authorization differs")
+            path = journal / "events.jsonl"
+            execution._regular(path)
+            with path.open("rb") as stream:
+                raw = stream.read(8_000_001)
+            if len(raw) > 8_000_000 or not raw.endswith(b"\n"):
+                raise ValueError("journal truncated or over inspection bound")
+            state = execution.replay_events([_strict_json(line) for line in raw.splitlines()],
+                authorization, registry_id=metadata["registry_id"])
+    # Status is a projection, not an arbitrary artifact or response reader.
+    fields = ("attempt_id", "role", "input_sha256", "retry_of", "reserved_microusd",
+              "status", "charged_microusd", "reason", "observed")
+    state["requests"] = {key: {field: row[field] for field in fields if field in row}
+                         for key, row in state["requests"].items()}
+    return {**state, "workflow_plan_sha256": authorization["workflow_plan_sha256"],
+            "model_invoked": False}
+
+
+def _operator_command(args: argparse.Namespace) -> int:
+    """Small wrappers; policy, compilation and validation stay in existing APIs."""
+    command = args.command
+    may_dispatch = command == "batch-provider-run"
+    try:
+        locations = {"input_root": getattr(args, "input_root", None),
+                     "preparation_dirs": getattr(args, "preparation_dirs", None)}
+        if command == "batch-provider-registry-init":
+            result = {**batch_execution_v2.initialize_registry(args.registry_dir), "model_invoked": False}
+        elif command == "batch-provider-status":
+            result = _provider_status(args.registry_dir, _workflow_document(args.authorization))
+        elif command == "batch-provider-run":
+            result = run_batch_role(args.workflow_dir, args.registry_dir,
+                _workflow_document(args.authorization), args.role, args.attempt_id,
+                retry_of=args.retry_of, **locations)
+        elif command == "batch-release-preview":
+            bound = prepare_batch_release(args.workflow_dir, _workflow_document(args.config), **locations)
+            result = {"preview_sha256": bound["preview_sha256"],
+                      "plan_sha256": bound["plan_sha256"],
+                      "final_submission_sha256": bound["final_submission_sha256"],
+                      "movements_count": len(bound["preview"]["movements"]),
+                      "closure_outcomes": bound["preview"]["closure_outcomes"], "model_invoked": False}
+        elif command == "graph-release":
+            result = run_graph_release(args.config, output_root=args.output_root, **locations)
+        elif command == "graph-validate-release":
+            result = validate_graph_release(args.release_dir, args.config, **locations)
+        elif command == "batch-activation":
+            result = persist_batch_activation(args.workflow_dir, output_root=args.output_root, **locations)
+        elif command == "batch-validate-activation":
+            result = validate_batch_activation(args.activation_dir, args.config, **locations)
+        else:
+            if (args.graph_release_dir is None) != (args.graph_release_config is None):
+                raise ValueError("graph release directory and config must be supplied together")
+            graph = {"graph_release_dir": args.graph_release_dir,
+                     "graph_release_config": args.graph_release_config}
+            if command == "batch-close":
+                proof = finalize_batch_closure(args.workflow_dir, output_root=args.output_root,
+                                               **graph, **locations)
+                result = {key: proof[key] for key in
+                          ("closure_id", "closure_dir", "preview_sha256", "release_review_sha256",
+                           "graph_release", "families", "model_invoked")}
+            else:
+                result = validate_batch_closure(args.closure_dir, args.workflow_dir, **graph, **locations)
+        if result.get("valid") is False:
+            result = {"valid": False, "errors": ["artifact_validation_failed"], "model_invoked": False}
+        encoded = json.dumps(result, sort_keys=True, allow_nan=False)
+        if len(encoded.encode()) > MAX_DOCUMENT_BYTES:
+            raise ValueError("operator result exceeds output bound")
+        print(encoded)
+        if may_dispatch:
+            return 0 if result["status"] == "succeeded" else 1
+        return 0 if result.get("valid", True) else 1
+    except (subprocess.SubprocessError, OSError, ValueError, TypeError, KeyError, OverflowError, RecursionError) as error:
+        # Exceptions may quote malformed authorization/source data; do not echo them.
+        print(json.dumps({"valid": False, "command": command,
+                          "errors": ["batch_operator_failed"], "error_type": type(error).__name__,
+                          "model_invoked": "unknown" if may_dispatch else False}))
+        return 1
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="turbo", description="Turbo market research engine")
@@ -143,18 +245,58 @@ def _parser() -> argparse.ArgumentParser:
             command.add_argument("document_file", type=Path)
         command.add_argument("--input-root", type=Path)
         command.add_argument("--preparation-dirs", type=Path, nargs="+")
+    provider_init = commands.add_parser("batch-provider-registry-init",
+        help="Initialize a new explicit V2 provider registry; no model call")
+    provider_init.add_argument("registry_dir", type=Path)
+    provider_status = commands.add_parser("batch-provider-status",
+        help="Read/replay an existing V2 journal without creating state")
+    provider_status.add_argument("registry_dir", type=Path)
+    provider_status.add_argument("authorization", type=Path)
+    provider_run = commands.add_parser("batch-provider-run",
+        help="Run one authorized role attempt; repeat the same ID to resume without another call")
+    provider_run.add_argument("workflow_dir", type=Path)
+    provider_run.add_argument("registry_dir", type=Path)
+    provider_run.add_argument("authorization", type=Path)
+    provider_run.add_argument("role", choices=WORKFLOW_ROLES)
+    provider_run.add_argument("attempt_id")
+    provider_run.add_argument("--retry-of")
+    provider_run.add_argument("--input-root", type=Path, required=True)
+    provider_run.add_argument("--preparation-dirs", type=Path, nargs="+")
+    for name in ("batch-release-preview", "batch-activation", "batch-validate-activation",
+                 "batch-close", "batch-validate-closure"):
+        operation = commands.add_parser(name, help="Explicit batch review/closure operation; no model call")
+        if name == "batch-validate-activation":
+            operation.add_argument("activation_dir", type=Path)
+            operation.add_argument("config", type=Path)
+        else:
+            if name == "batch-validate-closure":
+                operation.add_argument("closure_dir", type=Path)
+            operation.add_argument("workflow_dir", type=Path)
+            if name == "batch-release-preview":
+                operation.add_argument("config", type=Path)
+            if name in ("batch-activation", "batch-close"):
+                operation.add_argument("--output-root", type=Path, required=True)
+            if name in ("batch-close", "batch-validate-closure"):
+                operation.add_argument("--graph-release-dir", type=Path)
+                operation.add_argument("--graph-release-config", type=Path)
+        operation.add_argument("--input-root", type=Path)
+        operation.add_argument("--preparation-dirs", type=Path, nargs="+")
     graph_release = commands.add_parser(
         "graph-release",
         help="Publish a cumulative canonical Market Graph from approved activations",
     )
     graph_release.add_argument("config", type=Path)
     graph_release.add_argument("--output-root", type=Path)
+    graph_release.add_argument("--input-root", type=Path)
+    graph_release.add_argument("--preparation-dirs", type=Path, nargs="+")
     graph_validate = commands.add_parser(
         "graph-validate-release",
         help="Replay a persisted cumulative canonical Market Graph release",
     )
     graph_validate.add_argument("release_dir", type=Path)
     graph_validate.add_argument("config", type=Path)
+    graph_validate.add_argument("--input-root", type=Path)
+    graph_validate.add_argument("--preparation-dirs", type=Path, nargs="+")
     family_plan = commands.add_parser(
         "family-plan",
         help="Compile and publish the deterministic operating-family schedule",
@@ -236,6 +378,10 @@ def _parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = _parser().parse_args()
+    if args.command in {"batch-provider-registry-init", "batch-provider-status", "batch-provider-run",
+                        "batch-release-preview", "batch-activation", "batch-validate-activation",
+                        "batch-close", "batch-validate-closure", "graph-release", "graph-validate-release"}:
+        return _operator_command(args)
     if args.command.startswith("batch-workflow-"):
         try:
             if args.command == "batch-workflow-init":
@@ -334,19 +480,6 @@ def main() -> int:
             return 1
         print(json.dumps(payload, indent=2, sort_keys=True))
         return 0
-    if args.command == "graph-release":
-        print(
-            json.dumps(
-                run_graph_release(args.config, output_root=args.output_root),
-                indent=2,
-                sort_keys=True,
-            )
-        )
-        return 0
-    if args.command == "graph-validate-release":
-        result = validate_graph_release(args.release_dir, args.config)
-        print(json.dumps(result, indent=2, sort_keys=True))
-        return 0 if result["valid"] else 1
     if args.command == "family-plan":
         print(
             json.dumps(
