@@ -1,8 +1,14 @@
+import json
+import os
+import tempfile
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
 from turbo.agents.boundary_review import (
     REQUIRED_CHECK_IDS,
     build_review_envelope,
+    run_independent_review,
     validate_review_output,
 )
 from turbo.pipeline_paths import ROOT
@@ -75,6 +81,32 @@ class BoundaryIndependentReviewTest(unittest.TestCase):
         ]
         errors = validate_review_output(output, self.envelope)
         self.assertIn("approval requires zero findings and every check passing", errors)
+
+    def test_transport_failure_persists_sanitized_receipt(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            output_root = Path(temporary)
+            with patch.dict(os.environ, {"OPENROUTER_API_KEY": "test-secret"}):
+                with patch(
+                    "turbo.agents.boundary_review._default_transport",
+                    side_effect=TimeoutError("sensitive transport detail"),
+                ):
+                    with self.assertRaisesRegex(
+                        RuntimeError, "independent review transport failed"
+                    ):
+                        run_independent_review(
+                            REVIEW_CONFIG,
+                            BOUNDARY_CONFIG,
+                            output_root=output_root,
+                        )
+            receipts = list(output_root.glob("*/review.receipt.json"))
+            self.assertEqual(len(receipts), 1)
+            receipt_text = receipts[0].read_text(encoding="utf-8")
+            receipt = json.loads(receipt_text)
+            self.assertEqual(receipt["status"], "failed")
+            self.assertEqual(receipt["failure_stage"], "transport")
+            self.assertEqual(receipt["failure_type"], "TimeoutError")
+            self.assertNotIn("test-secret", receipt_text)
+            self.assertNotIn("sensitive transport detail", receipt_text)
 
 
 if __name__ == "__main__":

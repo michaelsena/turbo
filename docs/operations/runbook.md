@@ -85,6 +85,15 @@ printing it, the configured provider/model slugs are expected, and the dedicated
 limit is sufficient. Receipts may record provider/model/cost metadata but never the
 credential or raw private reasoning.
 
+Independent-review runs create their run directory and a sanitized
+`review.receipt.json` before sending the metered request. The receipt begins as
+`in_progress` and is replaced in place with `valid`, `invalid`, or `failed` after
+the attempt. A killed process therefore leaves an inspectable interrupted-run
+receipt instead of an untraceable gap. Receipts contain hashes and provider
+metadata, never the credential, raw private reasoning, or unsanitized exception
+text. Diagnose an interrupted, invalid, or failed receipt before authorizing a
+new metered attempt.
+
 ## Agent coordination
 
 The GM/PM owns decomposition and integration. Parallel agents receive non-overlapping

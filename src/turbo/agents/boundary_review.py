@@ -42,6 +42,12 @@ def _load_json(path: Path) -> dict[str, Any]:
     return value
 
 
+def _write_receipt(review_dir: Path, receipt: dict[str, Any]) -> None:
+    (review_dir / "review.receipt.json").write_text(
+        json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+
+
 def build_review_envelope(
     review_config_path: Path,
     boundary_config_path: Path,
@@ -170,21 +176,14 @@ def run_independent_review(
     }
     started_at = utc_now()
     started_monotonic = time.monotonic()
+    invocation_digest = canonical_sha256({"invocation_id": invocation_id})[:20]
+    review_run_id = f"independent-review-{invocation_digest}"
+    destination = output_root or root / "data/agent_reviews"
+    review_dir = destination / review_run_id
+    review_dir.mkdir(parents=True, exist_ok=False)
     status_code = 0
     response_bytes = b""
     attempts = 0
-    for attempts in range(1, config["max_attempts"] + 1):
-        status_code, _, response_bytes = _default_transport(
-            OPENROUTER_CHAT_COMPLETIONS_URL,
-            headers,
-            request_bytes,
-            float(timeout_seconds),
-        )
-        if status_code == 200:
-            break
-        if status_code not in RETRYABLE_STATUS_CODES or attempts == config["max_attempts"]:
-            break
-        time.sleep(min(2 ** (attempts - 1), 8))
     receipt: dict[str, Any] = {
         "schema_version": 1,
         "review_id": config["review_id"],
@@ -193,8 +192,8 @@ def run_independent_review(
         "reasoning_effort": config["reasoning_effort"],
         "invocation_id": invocation_id,
         "started_at_utc": started_at,
-        "completed_at_utc": utc_now(),
-        "elapsed_ms": round((time.monotonic() - started_monotonic) * 1000),
+        "completed_at_utc": None,
+        "elapsed_ms": None,
         "attempts": attempts,
         "http_status": status_code,
         "git_commit": _git_head(root),
@@ -205,18 +204,80 @@ def run_independent_review(
         "schema_sha256": canonical_sha256(schema),
         "provider_schema_sha256": canonical_sha256(provider_schema),
         "request_sha256": sha256_text(request_text),
-        "response_sha256": sha256_text(response_bytes.decode("utf-8", errors="replace")),
+        "response_sha256": None,
         "raw_reasoning_persisted": False,
         "credential_persisted": False,
-        "status": "failed",
+        "status": "in_progress",
     }
+    _write_receipt(review_dir, receipt)
+    try:
+        for attempts in range(1, config["max_attempts"] + 1):
+            receipt["attempts"] = attempts
+            _write_receipt(review_dir, receipt)
+            status_code, _, response_bytes = _default_transport(
+                OPENROUTER_CHAT_COMPLETIONS_URL,
+                headers,
+                request_bytes,
+                float(timeout_seconds),
+            )
+            receipt["http_status"] = status_code
+            receipt["response_sha256"] = sha256_text(
+                response_bytes.decode("utf-8", errors="replace")
+            )
+            _write_receipt(review_dir, receipt)
+            if status_code == 200:
+                break
+            if (
+                status_code not in RETRYABLE_STATUS_CODES
+                or attempts == config["max_attempts"]
+            ):
+                break
+            time.sleep(min(2 ** (attempts - 1), 8))
+    except Exception as error:
+        receipt.update(
+            {
+                "completed_at_utc": utc_now(),
+                "elapsed_ms": round((time.monotonic() - started_monotonic) * 1000),
+                "failure_stage": "transport",
+                "failure_type": type(error).__name__,
+                "status": "failed",
+            }
+        )
+        _write_receipt(review_dir, receipt)
+        raise RuntimeError(
+            f"independent review transport failed; receipt={review_dir / 'review.receipt.json'}"
+        ) from error
+    receipt.update(
+        {
+            "completed_at_utc": utc_now(),
+            "elapsed_ms": round((time.monotonic() - started_monotonic) * 1000),
+            "attempts": attempts,
+            "http_status": status_code,
+        }
+    )
     if status_code != 200:
+        receipt.update({"failure_stage": "provider", "status": "failed"})
+        _write_receipt(review_dir, receipt)
         raise RuntimeError(
             f"independent review failed with HTTP {status_code}; "
             f"error={_safe_error_summary(response_bytes)}; "
-            f"receipt={json.dumps(receipt, sort_keys=True)}"
+            f"receipt={review_dir / 'review.receipt.json'}"
         )
-    response = json.loads(response_bytes)
+    try:
+        response = json.loads(response_bytes)
+    except (json.JSONDecodeError, UnicodeDecodeError) as error:
+        receipt.update(
+            {
+                "failure_stage": "provider_response_parse",
+                "failure_type": type(error).__name__,
+                "status": "failed",
+            }
+        )
+        _write_receipt(review_dir, receipt)
+        raise RuntimeError(
+            f"independent review response was not valid JSON; "
+            f"receipt={review_dir / 'review.receipt.json'}"
+        ) from error
     receipt.update(
         {
             "generation_id": response.get("id"),
@@ -225,23 +286,36 @@ def run_independent_review(
             "usage": _usage_receipt(response.get("usage")),
         }
     )
-    output = json.loads(_message_content(response))
+    try:
+        output = json.loads(_message_content(response))
+    except (json.JSONDecodeError, ValueError) as error:
+        receipt.update(
+            {
+                "failure_stage": "structured_output_parse",
+                "failure_type": type(error).__name__,
+                "status": "failed",
+            }
+        )
+        _write_receipt(review_dir, receipt)
+        raise RuntimeError(
+            f"independent review structured output was invalid; "
+            f"receipt={review_dir / 'review.receipt.json'}"
+        ) from error
     errors = validate_review_output(output, envelope, root=root)
     receipt["output_sha256"] = canonical_sha256(output)
     receipt["validation_errors"] = errors
     receipt["status"] = "valid" if not errors else "invalid"
     if errors:
-        raise RuntimeError(f"independent review output invalid: {json.dumps(errors)}")
-    review_run_id = f"independent-review-{canonical_sha256({'invocation_id': invocation_id})[:20]}"
-    destination = output_root or root / "data/agent_reviews"
-    review_dir = destination / review_run_id
-    review_dir.mkdir(parents=True, exist_ok=False)
+        receipt["failure_stage"] = "local_validation"
+        _write_receipt(review_dir, receipt)
+        raise RuntimeError(
+            f"independent review output invalid; "
+            f"receipt={review_dir / 'review.receipt.json'}"
+        )
     (review_dir / "review.json").write_text(
         json.dumps(output, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
-    (review_dir / "review.receipt.json").write_text(
-        json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    _write_receipt(review_dir, receipt)
     return {
         "review_run_id": review_run_id,
         "review_dir": str(review_dir),

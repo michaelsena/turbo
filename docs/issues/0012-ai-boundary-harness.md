@@ -162,3 +162,11 @@ review must test boundary evidence, all identity dispositions, zero-gap calibrat
 family-local candidate semantics, and activation safety. Approval requires every
 registered check to pass with zero P0/P1/P2 findings. A non-approval must state
 concrete activation conditions; no review output may directly activate the graph.
+
+The first independent-review process ended without a local result or durable error
+receipt. The dedicated key's cumulative usage remained exactly `$3.538212`, so no
+completed provider generation was billed. Before retrying, the runner was hardened to
+write a sanitized `in_progress` receipt before network execution and to preserve a
+`failed` or `invalid` receipt for transport, provider, parse, and local-validation
+failures. This makes every later metered attempt auditable even if its process is
+interrupted.
