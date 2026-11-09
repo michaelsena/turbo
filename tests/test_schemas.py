@@ -33,6 +33,25 @@ class SchemaParityTest(unittest.TestCase):
         ]
         self.assertEqual(errors, [])
 
+    def test_scheduler_and_graph_release_configs_satisfy_closed_schemas(self) -> None:
+        fixtures = (
+            ("family-partition-config.schema.json", "config/universe/family-partition-v1.json"),
+            (
+                "graph-release-config.schema.json",
+                "config/universe/graph-releases/canonical-universe-v1.json",
+            ),
+        )
+        for schema_name, config_path in fixtures:
+            schema = self.load(schema_name)
+            config = json.loads((ROOT / config_path).read_text(encoding="utf-8"))
+            validator = Draft202012Validator(
+                schema,
+                format_checker=Draft202012Validator.FORMAT_CHECKER,
+            )
+            with self.subTest(schema=schema_name):
+                self.assertFalse(schema["additionalProperties"])
+                self.assertEqual(list(validator.iter_errors(config)), [])
+
     def test_event_schema_enums_and_market_version_match_runtime(self) -> None:
         schema = self.load("reconciliation-event.schema.json")
         properties = schema["properties"]

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "method_version": "naics-leaf-rendezvous-v1",
+  "source_run_id": "run-2ea0f00db84148de663f",
+  "as_of_utc": "2026-11-09T03:30:00Z",
+  "limits": {
+    "max_required_identities_per_family": 96,
+    "max_context_identities_per_shard": 250,
+    "max_families_per_batch": 8,
+    "max_required_identities_per_batch": 256,
+    "max_required_candidates_per_batch": 256
+  },
+  "pilot_regression": {
+    "seed_identity_id": "identity:naics:561110",
+    "source_family_config": "config/universe/families/office-administrative-services-v2.json",
+    "source_pack_sha256": "eccc87570dc259f3cea6449a5a87455ccba4e690ccb82851e28822c3a64346e5",
+    "expected_required_identities": 66
+  },
+  "neutral_priority_policy": [
+    "coverage challenges before ordinary families",
+    "more unresolved or unmatched required identities first",
+    "more cross-family shared required identities first",
+    "larger required work item count first",
+    "family ID lexical tie break"
+  ],
+  "expected_counts": {
+    "normalized_identities": 11543,
+    "naics_leaves": 1012,
+    "aggregate_naics": 1113,
+    "linked_collection_identities": 7115,
+    "unlinked_collection_identities": 121,
+    "trilateral_identities": 2182,
+    "required_review_identities": 8248,
+    "context_only_identities": 3295,
+    "industry_product_relationships": 37232,
+    "napcs_concordance_relationships": 3516,
+    "napcs_concordance_non_mappings": 7,
+    "prior_candidates": 978,
+    "retrieved_candidates": 920,
+    "unretrieved_candidates": 58,
+    "families": 1026,
+    "schedulable_families": 1018,
+    "batches": 129,
+    "pilot_required_identities": 66
+  },
+  "prohibited_actions": [
+    "target-universe filtering",
+    "market evaluation or scoring",
+    "company discovery or evaluation",
+    "investment-attractiveness scheduling",
+    "model invocation"
+  ]
+}

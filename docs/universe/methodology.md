@@ -179,6 +179,35 @@ The global audit then detects cross-family duplicates, incompatible mappings,
 hierarchy cycles, task-level false markets, residual buckets hiding missing markets,
 one-source-only nodes, and boundaries that are too broad or too narrow.
 
+### Complete-family partition
+
+The first full partition is intentionally mechanical and neutral:
+
+1. Each of 1,012 six-digit NAICS identities anchors one review family, including the
+   110 leaves with no observed industry-product relationship.
+2. Each of 7,115 linked collection identities appears in every officially related
+   family but receives one required-review owner using stable rendezvous hashing.
+3. The 121 unlinked collection identities enter prefix-grouped, bounded coverage-
+   challenge families instead of receiving invented industry mappings.
+4. The 1,113 aggregate NAICS identities are hierarchy context and inherit descendant
+   family appearances.
+5. All 2,182 trilateral hierarchy identities are context-only and inherit family
+   appearances through collection concordances and hierarchy descendants. Nodes with
+   no inherited operating family remain in explicit section-level context buckets;
+   the published missing-parent anomaly is not repaired.
+6. The exact 561110 pilot required surface is pinned before general assignment so a
+   method upgrade cannot silently invalidate the completed review.
+
+This produces 8,248 required-review and 3,295 context-only identities, exactly the
+11,543-node source universe. A separate collision ledger routes all 978 prior-market
+hypotheses, including 58 with no retrieval collision. These are coverage and workload
+facts, not canonical-market decisions.
+
+The queue favors integrity exceptions, unresolved or unmatched source burden, and
+cross-family collision risk. It cannot inspect strategy configuration, market demand,
+AI potential, valuation, Target eligibility, or companies. Any future change to the
+partition method creates a new plan and receipt; it does not rewrite this version.
+
 Completeness requires both 100% typed source-row disposition and a coverage challenge.
 Disposition alone does not prove that no American operating market is missing.
 

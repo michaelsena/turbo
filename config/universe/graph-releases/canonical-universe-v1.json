@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "release_name": "canonical-universe-v1",
+  "source_universe_run_id": "run-2ea0f00db84148de663f",
+  "as_of_utc": "2026-11-09T02:36:06Z",
+  "activations": [
+    {
+      "activation_id": "boundary-activation-9d3772f0364b4632dc62",
+      "activation_dir": "data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62",
+      "activation_config": "config/universe/activations/office-administrative-services-v2.json",
+      "activation_config_sha256": "e2229c0b84d2889378e23d20f037c2f03f0c47070b7a42d291dea0c475ef12bc",
+      "events_sha256": "3e9c3f4f09c8f5ada2301fcfd9a8e04d18e8ba509afcfb2db5cb22ccacc22d51",
+      "projection_sha256": "5341b24b07e24dc40130affeefe7d5c8937abc9c69bab0f6589e5c4bfcae3646"
+    }
+  ],
+  "prohibited_actions": [
+    "target-universe filtering",
+    "market evaluation or scoring",
+    "company discovery or evaluation",
+    "model invocation"
+  ]
+}

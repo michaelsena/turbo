@@ -462,6 +462,42 @@ byte-identical files and repository growth remains bounded. Three pilot-family
 markets now exist in the graph, but the American Market Universe remains incomplete
 until the remaining operating families and global coverage audit are finished.
 
+### Deterministic full-universe review plan
+
+Issue #14 converts the complete normalized source universe into a neutral operating-
+family work plan before another model is called. One family is anchored on each of
+the 1,012 six-digit NAICS industries. A shared NAPCS collection identity can appear
+as context in every officially linked family, but a stable rendezvous-hash rule gives
+it exactly one administrative review owner. Ownership is workload routing only; it
+does not assert that the product belongs economically to one industry, maps to a
+canonical market, fits the strategy, or is attractive.
+
+The plan accounts for every identity exactly once:
+
+- 8,248 require an operating-boundary disposition: 1,012 six-digit NAICS anchors,
+  7,115 linked collection products, and 121 unlinked collection coverage challenges.
+- 3,295 are context-only: 1,113 aggregate NAICS identities and all 2,182 trilateral
+  NAPCS hierarchy identities.
+- all 978 prior-market candidates have a separate collision record; 920 collide with
+  at least one current source identity and 58 remain explicit global challengers.
+
+The first compiled topology has 1,026 administrative families, of which 1,018 remain
+queued for review after excluding the completed pilot, and 129 bounded batches. The largest family has 81 required identities,
+below the preregistered limit of 96. Context is paged into deterministic shards rather
+than duplicated as required work. The reviewed 561110 pilot remains pinned at its
+exact 66-identity surface and is labeled a completed regression fixture. The queue is
+ordered only by coverage exceptions, unresolved source burden, cross-family sharing,
+workload, and a lexical tie-break—never by demand, AI potential, buyability, multiples,
+Target eligibility, or company evidence.
+
+Accepted activations are published through an explicit cumulative graph release. A
+release replays every named activation, rejects duplicates or source-run mismatches,
+unions their accepted events, and projects the graph once. This prevents a later
+single-family activation from replacing earlier accepted markets. `turbo context`
+composes and hash-verifies the source run, family plan, and cumulative graph as
+separate layers; the source receipt's historical `canonical_markets: 0` is retained
+only as source-run-local state, not misreported as current system state.
+
 The current machine-readable pointer and receipt is
 [`data/generated/latest-run.json`](data/generated/latest-run.json). Full source
 nodes, reconciliation worklists, and immutable receipts live in content-addressed directories under
@@ -475,8 +511,11 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | `src/turbo/universe/naics_identity_sources.py` | Coordinate-aware NAICS index and definition, vintage-lineage, and bridge parsers |
 | `src/turbo/universe/napcs_hierarchy.py` | Fail-closed parser for the 24-page official six-level NAPCS hierarchy capture |
 | `src/turbo/universe/multisource.py` | Multi-list normalization and reconciliation worklist |
+| `src/turbo/universe/family_scheduler.py` | Deterministic identity ownership, candidate collision, family, and batch planner |
 | `src/turbo/universe/boundary_pack.py` | Hash-verified frozen evidence-pack compiler for bounded operating families |
 | `src/turbo/universe/boundary_activation.py` | Exact-run/review gate and deterministic approved-event compiler/replay validator |
+| `src/turbo/universe/graph_release.py` | Cumulative replay and publication of accepted Market Graph activations |
+| `src/turbo/system_context.py` | Hash-verified composed source, schedule, graph, Target, and evaluation view |
 | `src/turbo/agents/boundary_harness.py` | Schema and closed-world validation for specialists and adjudication |
 | `src/turbo/agents/boundary_runner.py` | Provider-neutral two-specialist/one-adjudicator orchestration and durable outputs |
 | `src/turbo/agents/openrouter_runner.py` | Metered OpenRouter requests, structured-output enforcement, retries, and redacted receipts |
@@ -487,6 +526,8 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | `data/source_snapshots/` | Immutable official source captures and manifests |
 | `data/agent_runs/` | Immutable model outputs and per-call receipts awaiting activation review |
 | `data/market_graph/activations/` | Immutable accepted graph events, projections, and exact execution receipts |
+| `data/market_graph/versions/` | Immutable cumulative graph releases and receipts |
+| `data/family_schedules/` | Immutable coverage, collision, family, batch, and schedule artifacts |
 | `data/runs/` | Immutable, content-addressed universe artifacts |
 | `data/generated/` | Mutable pointer to the most recent immutable run |
 | `docs/universe/` | Universe sources, identity rules, normalization, and roadmap |
@@ -511,6 +552,12 @@ python3 -m pip install -e .
 turbo validate
 turbo run
 turbo context
+turbo family-plan config/universe/family-partition-v1.json
+turbo family-validate-plan data/family_schedules/<partition-id> \
+  config/universe/family-partition-v1.json
+turbo graph-release config/universe/graph-releases/canonical-universe-v1.json
+turbo graph-validate-release data/market_graph/versions/<release-id> \
+  config/universe/graph-releases/canonical-universe-v1.json
 turbo boundary-pack
 # Deliberately invokes three metered model calls after the pack validates:
 cp .env.example .env

@@ -9,12 +9,15 @@ from turbo.agents.boundary_review import (
     run_independent_review,
     validate_independent_review_run,
 )
-from turbo.pipeline import GENERATED, run, validate
+from turbo.pipeline import run, validate
 from turbo.pipeline_paths import ROOT
+from turbo.system_context import compile_system_context
 from turbo.universe.boundary_activation import (
     run_boundary_activation,
     validate_boundary_activation,
 )
+from turbo.universe.graph_release import run_graph_release, validate_graph_release
+from turbo.universe.family_scheduler import run_family_plan, validate_family_plan
 from turbo.universe.boundary_pack import (
     build_boundary_pack,
     validate_boundary_pack,
@@ -33,6 +36,30 @@ def _parser() -> argparse.ArgumentParser:
     commands.add_parser("run", help="Build the source universe and reconciliation worklist")
     commands.add_parser("validate", help="Validate immutable inputs and market hierarchy")
     commands.add_parser("context", help="Render the current run receipt")
+    graph_release = commands.add_parser(
+        "graph-release",
+        help="Publish a cumulative canonical Market Graph from approved activations",
+    )
+    graph_release.add_argument("config", type=Path)
+    graph_release.add_argument("--output-root", type=Path)
+    graph_validate = commands.add_parser(
+        "graph-validate-release",
+        help="Replay a persisted cumulative canonical Market Graph release",
+    )
+    graph_validate.add_argument("release_dir", type=Path)
+    graph_validate.add_argument("config", type=Path)
+    family_plan = commands.add_parser(
+        "family-plan",
+        help="Compile and publish the deterministic operating-family schedule",
+    )
+    family_plan.add_argument("config", type=Path)
+    family_plan.add_argument("--output-root", type=Path)
+    family_validate = commands.add_parser(
+        "family-validate-plan",
+        help="Replay a persisted deterministic operating-family schedule",
+    )
+    family_validate.add_argument("schedule_dir", type=Path)
+    family_validate.add_argument("config", type=Path)
     boundary_pack = commands.add_parser(
         "boundary-pack",
         help="Compile and validate a frozen operating-market family evidence pack",
@@ -97,13 +124,39 @@ def main() -> int:
         print(json.dumps({"valid": True, "errors": []}, indent=2))
         return 0
     if args.command == "context":
-        latest = Path(GENERATED) / "latest-run.json"
-        if not latest.exists():
-            print(json.dumps({"error": "No run exists. Execute `turbo run`."}, indent=2))
+        try:
+            payload = compile_system_context()
+        except (KeyError, OSError, ValueError, json.JSONDecodeError) as error:
+            print(json.dumps({"error": f"Context validation failed: {error}"}, indent=2))
             return 1
-        payload = json.loads(latest.read_text(encoding="utf-8"))
         print(json.dumps(payload, indent=2, sort_keys=True))
         return 0
+    if args.command == "graph-release":
+        print(
+            json.dumps(
+                run_graph_release(args.config, output_root=args.output_root),
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "graph-validate-release":
+        result = validate_graph_release(args.release_dir, args.config)
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return 0 if result["valid"] else 1
+    if args.command == "family-plan":
+        print(
+            json.dumps(
+                run_family_plan(args.config, output_root=args.output_root),
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "family-validate-plan":
+        result = validate_family_plan(args.schedule_dir, args.config)
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return 0 if result["valid"] else 1
     if args.command == "boundary-pack":
         pack = build_boundary_pack(args.config)
         errors = validate_boundary_pack(pack)
