@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelsena/turbo/schemas/family-evidence-pack-v2.schema.json",
+  "title": "Turbo frozen family evidence pack V2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "metadata", "scope", "counts", "identity_cards",
+    "source_record_cards", "mapping_cards", "required_candidate_cards",
+    "context_edges", "graph_context"
+  ],
+  "properties": {
+    "schema_version": {"const": 2},
+    "metadata": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "family_id", "family_kind", "partition_id", "source_run_id",
+        "graph_release_id", "config_sha256", "pack_sha256", "model_invoked"
+      ],
+      "properties": {
+        "family_id": {"type": "string", "pattern": "^family:"},
+        "family_kind": {"type": "string"},
+        "partition_id": {"type": "string", "pattern": "^family-partition:"},
+        "source_run_id": {"type": "string", "pattern": "^run-"},
+        "graph_release_id": {"type": "string", "pattern": "^graph-release-"},
+        "config_sha256": {"$ref": "#/$defs/hash"},
+        "pack_sha256": {"$ref": "#/$defs/hash"},
+        "model_invoked": {"const": false}
+      }
+    },
+    "scope": {"type": "object"},
+    "counts": {"type": "object"},
+    "identity_cards": {"type": "array", "items": {"type": "object"}},
+    "source_record_cards": {"type": "array", "items": {"type": "object"}},
+    "mapping_cards": {"type": "array", "items": {"type": "object"}},
+    "required_candidate_cards": {"type": "array", "items": {"type": "object"}},
+    "context_edges": {"type": "array", "items": {"type": "object"}},
+    "graph_context": {"type": "object"}
+  },
+  "$defs": {"hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

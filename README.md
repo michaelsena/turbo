@@ -513,6 +513,15 @@ compiled without model calls from exact clean commit
 `6e335069a275c26adf9b42d7bcade1735798ed07`. Its persisted artifacts replay with zero
 errors, and the mutable latest pointer contains only its path, receipt hash, and counts.
 
+Issue #15 adds the deterministic preparation layer for that schedule. A V2 family
+config resolves to one exact schedulable manifest entry and binds the schedule, source
+run, cumulative graph, required identities, authored context shards, required
+candidates, counts, and pack limits. Its frozen evidence pack consumes the corrected
+context-edge ledger directly. Required identities receive full evidence; context
+remains compact orientation and never becomes duplicate primary work. Preparation is
+model-free, content-addressed, replayable, and fails closed on hash, count, or size
+drift. Batch execution and spend authorization remain separate unfinished tracks.
+
 The current machine-readable pointer and receipt is
 [`data/generated/latest-run.json`](data/generated/latest-run.json). Full source
 nodes, reconciliation worklists, and immutable receipts live in content-addressed directories under
@@ -527,6 +536,7 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | `src/turbo/universe/napcs_hierarchy.py` | Fail-closed parser for the 24-page official six-level NAPCS hierarchy capture |
 | `src/turbo/universe/multisource.py` | Multi-list normalization and reconciliation worklist |
 | `src/turbo/universe/family_scheduler.py` | Deterministic identity ownership, relationship routing, candidate collision, family, and batch planner |
+| `src/turbo/universe/family_pack_v2.py` | Hash-verified schedule-driven V2 configs, compact frozen packs, fail-closed gates, and exact preparation replay |
 | `src/turbo/universe/boundary_pack.py` | Hash-verified frozen evidence-pack compiler for bounded operating families |
 | `src/turbo/universe/boundary_activation.py` | Exact-run/review gate and deterministic approved-event compiler/replay validator |
 | `src/turbo/universe/graph_release.py` | Cumulative replay and publication of accepted Market Graph activations |
@@ -570,6 +580,9 @@ turbo context
 turbo family-plan config/universe/family-partition-v1.json
 turbo family-validate-plan data/family_schedules/<partition-id> \
   config/universe/family-partition-v1.json
+turbo family-dry-run family:coverage:napcs-collection:10:001
+turbo family-prepare family:coverage:napcs-collection:10:001
+turbo family-validate-preparation data/family_preparations/<preparation-id>
 turbo graph-release config/universe/graph-releases/canonical-universe-v1.json
 turbo graph-validate-release data/market_graph/versions/<release-id> \
   config/universe/graph-releases/canonical-universe-v1.json

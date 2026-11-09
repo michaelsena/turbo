@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelsena/turbo/schemas/family-config-v2.schema.json",
+  "title": "Turbo schedule-driven family configuration V2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "method_version", "family_id", "family_kind", "status",
+    "schedule_binding", "graph_binding", "scope", "expected_counts", "limits",
+    "prohibited_actions", "model_invoked"
+  ],
+  "properties": {
+    "schema_version": {"const": 2},
+    "method_version": {"const": "schedule-driven-family-v2"},
+    "family_id": {"type": "string", "pattern": "^family:"},
+    "family_kind": {
+      "enum": [
+        "naics_leaf_anchor", "unlinked_collection_coverage_challenge",
+        "global_prior_candidate_challenge"
+      ]
+    },
+    "status": {"const": "prepared_no_model_call"},
+    "schedule_binding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["partition_id", "source_run_id", "receipt_sha256", "artifact_hashes"],
+      "properties": {
+        "partition_id": {"type": "string", "pattern": "^family-partition:"},
+        "source_run_id": {"type": "string", "pattern": "^run-[0-9a-f]{20}$"},
+        "receipt_sha256": {"$ref": "#/$defs/hash"},
+        "artifact_hashes": {
+          "type": "object", "minProperties": 5,
+          "additionalProperties": {"$ref": "#/$defs/hash"}
+        }
+      }
+    },
+    "graph_binding": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "release_id", "graph_version_id", "source_universe_run_id",
+        "receipt_sha256", "projection_sha256"
+      ],
+      "properties": {
+        "release_id": {"type": "string", "pattern": "^graph-release-"},
+        "graph_version_id": {"type": "string", "pattern": "^graph-"},
+        "source_universe_run_id": {"type": "string", "pattern": "^run-[0-9a-f]{20}$"},
+        "receipt_sha256": {"$ref": "#/$defs/hash"},
+        "projection_sha256": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "scope": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "required_disposition_identity_ids", "context_shards",
+        "required_prior_candidate_ids"
+      ],
+      "properties": {
+        "required_disposition_identity_ids": {"$ref": "#/$defs/uniqueStrings"},
+        "context_shards": {
+          "type": "array", "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["shard_id", "identity_ids"],
+            "properties": {
+              "shard_id": {"type": "string", "pattern": "^context-shard:"},
+              "identity_ids": {"$ref": "#/$defs/uniqueStrings"}
+            }
+          }
+        },
+        "required_prior_candidate_ids": {"$ref": "#/$defs/uniqueStrings"}
+      }
+    },
+    "expected_counts": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "required_identities", "context_identities", "context_shards",
+        "required_candidates", "context_edges"
+      ],
+      "properties": {
+        "required_identities": {"type": "integer", "minimum": 0},
+        "context_identities": {"type": "integer", "minimum": 0},
+        "context_shards": {"type": "integer", "minimum": 0},
+        "required_candidates": {"type": "integer", "minimum": 0},
+        "context_edges": {"type": "integer", "minimum": 0}
+      }
+    },
+    "limits": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "max_required_identities", "max_context_identities", "max_required_candidates",
+        "max_context_edges", "max_evidence_items", "max_pack_bytes"
+      ],
+      "properties": {
+        "max_required_identities": {"type": "integer", "minimum": 1},
+        "max_context_identities": {"type": "integer", "minimum": 1},
+        "max_required_candidates": {"type": "integer", "minimum": 1},
+        "max_context_edges": {"type": "integer", "minimum": 1},
+        "max_evidence_items": {"type": "integer", "minimum": 1},
+        "max_pack_bytes": {"type": "integer", "minimum": 1024}
+      }
+    },
+    "prohibited_actions": {
+      "type": "array", "uniqueItems": true, "minItems": 6, "maxItems": 6,
+      "items": {"enum": [
+        "model invocation", "market graph mutation", "target-universe filtering",
+        "market evaluation or scoring", "company discovery or evaluation",
+        "silent evidence truncation"
+      ]}
+    },
+    "model_invoked": {"const": false}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "uniqueStrings": {
+      "type": "array", "uniqueItems": true,
+      "items": {"type": "string", "pattern": "\\S"}
+    }
+  }
+}

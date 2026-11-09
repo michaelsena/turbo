@@ -195,6 +195,21 @@ the resulting cumulative projection hash. `latest-graph.json` and
 `latest-family-schedule.json` are verification pointers only; their referenced
 receipts and artifacts must rehash before they enter composed context.
 
+### Schedule-driven family config and evidence pack V2
+
+A family config V2 resolves to exactly one schedulable family-manifest entry. It binds
+the schedule receipt and artifact hashes, cumulative graph receipt and projection,
+exact required identities, authored context shards, exact required candidates,
+expected context-edge count, and fail-closed limits. The config is a deterministic
+research-input declaration, not a decision or execution authorization.
+
+A family evidence pack V2 is a disposable, frozen view over those immutable inputs.
+It includes complete cards for required source identities, compact cards for context,
+exact ledger relationship IDs and locators, required candidate cards, and relevant
+existing graph context. Context-only identities cannot become primary obligations.
+The content hash excludes only its own hash field. Persisted preparations are
+content-addressed and replayed by regenerating the config and pack.
+
 
 ## Factor definition, evaluator result, and score event
 
