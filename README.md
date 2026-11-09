@@ -203,8 +203,10 @@ Issue 39's first provider increment connects only primary and verifier roles thr
 a new V2 shared-role journal, one-attempt OpenRouter adapter, output validation, and
 workflow submission. Escalation/adjudication/release dispatch remains blocked until
 later integration. All 40 focused controlled-transport checks pass, and independent
-review found no issues; the full suite is still running. No paid calls or new market
-activation occurred. This is not production readiness. The six
+review found no issues. All 357 Python tests pass; repository validation and local
+documentation links also pass. See [PR 40](https://github.com/michaelsena/turbo/pull/40)
+and its [verification receipt](docs/operations/receipts/2026-11-09-batch-provider-verification.json).
+No paid calls or new market activation occurred. This is not production readiness. The six
 exploratory manual hypotheses remain provisional and cannot bypass the gates. Approve
 and evaluate one neutral metered canary before authorizing broad execution. Then
 complete cross-family coverage, publish the canonical universe, add Target filtering,
@@ -216,7 +218,8 @@ draft runner. An explicitly authorized frozen batch can use the
 [local Codex research runner](docs/operations/real-batch-research.md). It consumes
 account quota, retains exact inputs and final-output receipts, and never
 automatically retries; structural validity still requires substantive review. This
-route is separate from simulation accounting.
+draft-only route is separate from simulation accounting and is not the governed
+OpenRouter batch canary.
 
 ## Working protocol and navigation
 

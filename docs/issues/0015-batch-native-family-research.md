@@ -241,3 +241,17 @@ callback or file change. The canonical graph remained unchanged. See the
 No real provider, live execution CLI, score, graph activation, or frontend change
 is included. See
 [ADR 0011](../decisions/0011-batch-output-artifacts.md).
+
+## Governed provider integration: first increment
+
+[PR 40](https://github.com/michaelsena/turbo/pull/40) connects primary and verifier
+roles to a V2 shared authorization journal and one-attempt OpenRouter adapter.
+All 357 Python tests pass, including the 40 focused provider/accounting/integration
+checks; independent review has no outstanding P0/P1/P2 findings. Repository
+validation and documentation links pass. See the
+[exact verification receipt](../operations/receipts/2026-11-09-batch-provider-verification.json).
+
+No real provider call or graph activation occurred. Escalation, adjudicator, and
+release-review provider dispatch remain blocked pending their integration. The
+offline workflow/closure APIs do not establish an end-to-end metered canary.
+Issue 39 and this parent remain open.
