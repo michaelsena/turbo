@@ -153,7 +153,14 @@ The corrected code passed 162 Python tests, frontend unit/type/build checks, and
 host-run browser screenshot/accessibility checks. All 14 desktop/mobile images were
 reviewed, including corrected family counts and Audit provenance. See the
 [verification receipt](docs/operations/receipts/2026-11-09-dashboard-corrections.json)
-for exact hashes and the minor Overview status-badge clipping follow-up.
+for that historical result and its Overview status-badge clipping finding.
+The follow-up changes Overview market rows to keep full status text beneath their
+descriptions and uses neutral collection copy for provisional boundaries;
+direct desktop/mobile inspection confirms readable statuses and bounded descriptions.
+The packaged browser suite now passes at the exact tested tree after a reviewed
+16-image desktop/mobile baseline refresh and comparison-only rerun. The run used an
+owned loopback server while preserving both pre-existing servers; see the
+[browser acceptance receipt](docs/operations/receipts/2026-11-09-app-browser-acceptance.json).
 
 The simulation execution foundation is merged: [B1 / PR #21](https://github.com/michaelsena/turbo/pull/21)
 provides authorization, reservation, and replay within one journal; [B2 / PR #23](https://github.com/michaelsena/turbo/pull/23)
@@ -182,7 +189,7 @@ bridge that retains confidence-bearing output in immutable artifacts and settles
 compact references through the managed journal. Known bounded usage is charged even
 for invalid output; uncertain usage or dispatch retains its reservation. This does
 not accept research or enable a real provider. [PR 35](https://github.com/michaelsena/turbo/pull/35)
-is verified and unmerged: 23 focused and 282 full-suite tests pass, independent review
+is merged: 23 focused and 282 full-suite tests passed, independent review
 found no P0/P1/P2 issues, and synthetic retry/replay preserved the graph. See
 [ADR 0011](docs/decisions/0011-batch-output-artifacts.md) and the
 [B4 verification receipt](docs/operations/receipts/2026-11-09-batch-research-verification.json).
@@ -201,6 +208,14 @@ automatically retries; structural validity still requires substantive review. Th
 route is separate from simulation accounting.
 
 ## Working protocol and navigation
+
+The [App/UI GM charter](https://github.com/michaelsena/turbo/issues/26) assigns
+frontend delivery, usability, accessibility, and app backlog ownership separately
+from Platform GM research/execution ownership. Shared API changes require linked
+contract issues. App claims name their owner and branch in GitHub. Automatic issue
+pickup is implemented in the local dispatcher, but its installed runtime reports
+no attempts and has not been verified running. See [dispatcher issue #27](https://github.com/michaelsena/turbo/issues/27).
+A ready issue alone does not start an agent.
 
 Every material change starts with a scoped GitHub issue and acceptance criteria.
 Use a named branch, keep README and detailed docs synchronized, record decisions and

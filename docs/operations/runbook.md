@@ -76,6 +76,9 @@ those runtime details in the acceptance receipt. Investigate a mismatch before
 changing baselines. Use `npm run test:visual:update` only when an intentional reviewed visual
 change requires new baselines. Commit the deterministic files under
 `frontend/e2e/__screenshots__/`; never commit `test-results` or `playwright-report`.
+The route loop explicitly restores `window.scrollY` to zero before axe and viewport
+capture. This keeps the separate Overview market-panel element screenshot—which
+scrolls its subject into view—from shifting the next route's viewport baseline.
 
 If the test executor cannot bind a server, start the compiled product from a shell
 that can bind loopback. From the repository root:
@@ -411,4 +414,3 @@ The GM/PM owns decomposition and integration. Parallel agents receive non-overla
 issues or review scopes. Each returns evidence, files changed, local test results, and
 open risks. One agent's output is not accepted merely because another agent produced
 it; integration and independent review remain explicit.
-

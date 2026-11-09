@@ -20,7 +20,7 @@ function payload(url: string) {
   const selected = query.get("partition_id") === historical.partition_id ? historical : provenance;
   if (url.includes("/versions")) return { data: { source_runs: [], partitions: [], graph_releases: [], compatible_snapshots: [{ ...provenance, current: true }, historical], current: provenance }, provenance: selected };
   if (url.includes("/context")) return { data: { source_universe: { normalized_identities: 11543 }, family_schedule: { counts: { families: 1026, schedulable_families: 1018 } }, canonical_market_graph: { open_research_gaps: 2 }, canonical_markets: 3 }, provenance: selected };
-  if (url.includes("/markets")) return { data: { items: [{ market_id: "market:1", market_version_id: "v1", canonical_name: "Office administrative services", definition: "A tested market boundary.", activation_status: "activated", research_gap_ids: [], parent_market_id: null }], page: 1, page_size: 10, total: 1, pages: 1 }, provenance: selected };
+  if (url.includes("/markets")) return { data: { items: [{ market_id: "market:1", market_version_id: "v1", canonical_name: "Office administrative services", definition: "A tested market boundary.", activation_status: "provisional", research_gap_ids: [], parent_market_id: null }], page: 1, page_size: 10, total: 1, pages: 1 }, provenance: selected };
   if (url.includes("/batches")) return { data: { items: [{ batch_id: "batch:1", ordinal: 1, status: "scheduled", family_ids: ["family:1"], required_identities: 1, required_candidates: 0 }], page: 1, page_size: 5, total: 1, pages: 1 }, provenance: selected };
   throw new Error(`Unexpected URL: ${url}`);
 }
@@ -47,6 +47,21 @@ describe("Turbo research console", () => {
     expect(await screen.findByRole("heading", { name: /see the market universe/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /this is not a ranking/i })).toBeInTheDocument();
     expect(screen.getByText(/universe construction stays separate/i)).toBeInTheDocument();
+  });
+
+  it("keeps provisional boundaries explicit under a neutral collection heading", async () => {
+    renderApp();
+    expect(await screen.findByRole("heading", { name: "Canonical markets" })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Accepted markets" })).not.toBeInTheDocument();
+    expect(screen.getByText("provisional", { exact: true })).toBeInTheDocument();
+    expect(screen.getByText(/graph includes provisional boundaries/i)).toBeInTheDocument();
+  });
+
+  it("describes the selected graph when browsing historical markets", async () => {
+    renderApp(`/universe?partition_id=${historical.partition_id}`);
+    expect(await screen.findByText(/market boundaries in the selected graph, including provisional records/i)).toBeInTheDocument();
+    expect(await screen.findByText("provisional", { exact: true })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /office administrative services/i })).toHaveAttribute("href", `/markets/market:1?partition_id=${encodeURIComponent(historical.partition_id)}`);
   });
 
   it("shows exact snapshot provenance", async () => {
