@@ -1,0 +1,55 @@
+{
+  "verified_at_utc": "2026-11-09T12:53:09.230137+00:00",
+  "scope": "Issue27 local App/UI GM dispatcher; no live model dispatch performed",
+  "local_code_commit": "f2fead3240ed739ff0f864792b2ce2b6c181d20d",
+  "published_code_commit": "2a5b50eb14dadad0ec0e707fca20dd2bddfe7f39",
+  "code_tree_sha": "7a9b664935db8cae2fa6ef5773abe8d6ec7db1d0",
+  "verification_note": "Final follow-up adds the real process-group regression and this receipt; dispatcher/launcher/charter source is unchanged.",
+  "runtime": {
+    "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+    "platform": "darwin",
+    "codex_cli": "0.147.0"
+  },
+  "checks": {
+    "focused": {
+      "command": "python3 -m unittest discover -s tests -p test_app_dispatcher.py -v",
+      "passed": 22,
+      "seconds": 1.097,
+      "log_sha256": "6d458b3596a02bcc9e890c29091151426b7930b602247fee2263643a96dc16be"
+    },
+    "launcher_shell_syntax": "passed",
+    "launcher_fake_preflights": "valid authentication proceeds; invalid authentication exits before worker",
+    "live_readonly_once": {
+      "status": "error",
+      "reason": "github_request_failed"
+    },
+    "full_platform_suite": "Not rerun: no platform Python source, schemas, canonical data, or frontend changed; isolated stdlib dispatcher suite and subprocess checks cover this change.",
+    "model_calls": 0
+  },
+  "independent_review": {
+    "remaining_p0": 0,
+    "remaining_p1": 0,
+    "remaining_p2": 0,
+    "corrected_findings": [
+      "Kill surviving process-group descendants after leader exits",
+      "Reject malformed later readiness toggles instead of retaining an earlier authorized event"
+    ]
+  },
+  "reviewed_files_sha256": {
+    "scripts/app_dispatcher.py": "a06baf978aa1548b886df770faa45f015e0d359f12482c2076e884aafd7007a0",
+    "scripts/start-app-dispatcher.sh": "0daeeba00698c84301228ad8ff7ab5fcc74f44730669664225e6f800355b6be2",
+    "docs/operations/app-gm-worker.md": "be0b3643bd8da85247ac30624981f8b30378051798f7aacd7f1daf441ce385d7",
+    "docs/operations/app-dispatcher.md": "5457bb4a0e543f41ac5cdf8637d10904d13262d65e584826a7be74cf2fb9f3e2",
+    "tests/test_app_dispatcher.py": "eebf5e7adf4c851bf41d368573e64a804b952dedc7eb6557540608ea02b55465"
+  },
+  "operational_state": {
+    "local_copy_installed": true,
+    "started": false,
+    "live_worker_verified": false,
+    "github_access": "Execution session still receives401/404; user reports terminal login completed. Verify in launching terminal.",
+    "idle_inference": "No worker/model call for empty or previously handled queue",
+    "single_worker_scope": "One retained local state directory; no distributed coordination across independent installations",
+    "recovery": "Interrupted attempts require explicit locked acknowledgment; requeue requires a new authorized ready-label event",
+    "no_automatic_merge": true
+  }
+}

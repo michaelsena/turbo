@@ -363,6 +363,73 @@ or privileged mid-operation filesystem mutation. Production authorization, provi
 integration, and spending remain excluded. See
 [ADR 0009](../decisions/0009-trusted-local-execution-registry.md).
 
+## Standalone batch-output contract (Track B3)
+
+B3 regenerates its validation context from 2–8 verified V2 family preparations in
+one scheduled batch, retaining manifest order. The files
+`schemas/batch-primary-output.schema.json` and `prompts/universe/batch-primary-v1.md`
+define the `batch-primary-v1` contract. A caller-supplied context is not authoritative.
+Request and invocation IDs, prompt/schema bindings, context digest, and byte limits
+bind a response to the intended obligations. Request IDs have 1–128 permitted
+identifier characters; invocation IDs are `invocation:` plus 24 lowercase hexadecimal
+characters. Defaults bound output to 1,000,000 bytes and context to 100,000,000 bytes.
+The file validator checks raw file size and canonical JSON output size, rejects
+duplicate object keys and nonfinite numbers, and never silently truncates.
+Context construction and output
+validation are read-only; neither dispatches a model nor changes a journal or graph.
+
+Each family has its own frozen evidence catalog. References bind the family, pack,
+JSON pointer, item hash, full evidence value, and subject IDs. A citation must resolve
+within the output family's catalog. Every disposition needs supporting evidence
+anchored to its own subject; gaps need such support for every affected subject.
+Supporting and counterevidence lists cannot overlap. Contextual
+material can support reasoning but cannot replace a required identity or candidate
+as primary coverage. A candidates-only family may have no identity dispositions.
+Required identities and candidates must each receive exactly
+one disposition; duplicates, omissions, and extra primary subjects are invalid.
+
+Reasoning uses `fact`, `inference`, `assumption`, or `unknown` with finite confidence
+from zero through one. This range check does not calibrate confidence or prove a
+claim. Unresolved, provisional, and unknown outcomes require applicable gaps with
+retry triggers. An unknown dimension in a referenced proposal also requires an
+applicable gap for that disposition. No fixed confidence threshold triggers a gap.
+Supplementary gaps may describe required subjects without being referenced by a
+disposition; they must still satisfy the same scope, citation, and retry-trigger
+checks. Whenever a disposition supplies a gap ID, that gap must name its subject.
+
+Proposals describe all seven operating-identity dimensions: buyer, job-to-be-done,
+delivery model, workforce, economics/risk, acquisition universe, and Ambient AI
+workflow. Each dimension carries a statement, reasoning label, confidence, and
+citations. The `explicit_exclusions` field is required but may be an empty array. Local proposal/gap IDs follow the namespace
+supplied by the context, and related graph-market references must resolve within
+that family's known graph context. Structural validation cannot establish that a
+proposal is supported well enough for acceptance; substantive evidence review
+remains necessary.
+
+Disposition-to-proposal cardinality is explicit:
+
+| Subject | Disposition | Proposal references |
+| --- | --- | --- |
+| Identity | `map_to_proposals`, `provisional_map_to_proposals` | At least one |
+| Identity | `no_mapping_to_family`, `non_market_source_identity`, `unresolved` | None |
+| Candidate | `adopt`, `change`, `merge_input` | Exactly one |
+| Candidate | `split_input` | At least two |
+| Candidate | `provisional_map_to_proposals` | At least one |
+| Candidate | `reject`, `unresolved` | None |
+
+Every proposal must be referenced by a required disposition in its own family;
+an empty proposal list is valid when no disposition maps to a proposal.
+`merge_input` is a structural label, not proof that an actual merge is justified or
+that multiple required candidates participated. Public validation returns `valid`,
+`errors`, `structural_validation_only: true`, and `model_invoked: false`, with the
+regenerated context hash when context construction succeeds.
+
+B3 is separate from B1/B2 execution settlement. B1 rejects floats anywhere in its
+fake response output, while B3 permits finite confidence values. A later adapter
+must reconcile the envelope and output contracts explicitly. Synthetic validation
+does not authorize a real provider, metered canary, score, or market activation.
+See [ADR 0010](../decisions/0010-batch-output-contract.md).
+
 ## Factor definition, evaluator result, and score event
 
 A factor definition contains anchors, evidence expectations, weight, confidence

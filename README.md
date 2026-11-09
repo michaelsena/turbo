@@ -149,36 +149,32 @@ reviewed, including corrected family counts and Audit provenance. See the
 for that historical result and its Overview status-badge clipping finding.
 The follow-up changes Overview market rows to keep full status text beneath their
 descriptions and uses neutral collection copy for provisional boundaries; current
-browser acceptance and refreshed screenshots are still pending.
+direct desktop/mobile inspection confirms readable statuses and bounded descriptions.
+The packaged browser suite and refreshed screenshot baselines remain pending.
 
-[PR #21](https://github.com/michaelsena/turbo/pull/21), merged at
-`247b8c25822147c36f8eae0aece16d3214db4095`, adds Track B1: a replayable batch
-authorization and execution ledger exercised only through a fake transport. It binds
-exact prepared families, model/provider/price assumptions and time bounds; reserves integer
-microdollar budgets before dispatch; and preserves ambiguous attempts without
-automatic retry or refund. It does not run real research or change any market.
-Budgets and idempotency cover one trusted simulation journal only; copying an
-authorization to another directory does not share counters. Shared authorization
-consumption is required before a live adapter or paid canary.
-See [ADR 0008](docs/decisions/0008-batch-authorization-execution-ledger.md) and the
-[B1 verification receipt](docs/operations/receipts/2026-11-09-batch-ledger-verification.json)
-for that increment's pinned results.
+The simulation execution foundation is merged: [B1 / PR #21](https://github.com/michaelsena/turbo/pull/21)
+provides authorization, reservation, and replay within one journal; [B2 / PR #23](https://github.com/michaelsena/turbo/pull/23)
+adds a trusted local registry at `639c3216ac5d3e3baf28fcffbeac8af5bf8e478d`.
+Repeated managed clients share one exact authorization's journal. Ambiguous dispatch
+retains its reservation; missing claimed state fails closed. Different registries,
+new unsigned authorizations, and privileged deletion/rollback remain outside this
+guarantee. Standalone B1 stays per-journal. See the
+[B1 receipt](docs/operations/receipts/2026-11-09-batch-ledger-verification.json) and
+[B2 receipt](docs/operations/receipts/2026-11-09-shared-registry-verification.json)
+for pinned tests, simulation replay, and review results.
 
-[PR #23](https://github.com/michaelsena/turbo/pull/23) adds Track B2: a trusted local
-registry that binds the same exact authorization to one canonical journal across
-managed clients. Reopening preserves prior costs, attempts, and unresolved work;
-missing or partial claimed state fails closed. Separate registries, new unsigned
-authorizations, and privileged deletion or rollback of trusted state remain outside
-its guarantee. Standalone B1 journals remain per-journal.
+[PR #25](https://github.com/michaelsena/turbo/pull/25) implements Track B3, a
+standalone batch-output contract over verified family preparations. It checks
+structural coverage, evidence references, reasoning labels,
+confidence, gaps, and boundary proposals; synthetic validation is not research
+acceptance. It does not dispatch models or feed B1 settlement automatically.
+All 237 Python tests passed, including 22 focused checks; independent review found
+no blocking issues. A synthetic two-family validation covered all 59 required
+subjects without changing the market graph. PR #25 is merged. See
+[ADR 0010](docs/decisions/0010-batch-output-contract.md) and the
+[verification receipt](docs/operations/receipts/2026-11-09-batch-output-verification.json).
 
-B2 passed 215 Python tests, including 25 focused registry checks, and a two-client,
-two-family simulation proving that reopening cannot reset the journal's budget.
-Independent code and closeout review passed. See
-[ADR 0009](docs/decisions/0009-trusted-local-execution-registry.md) and the
-[verification receipt](docs/operations/receipts/2026-11-09-shared-registry-verification.json).
-PR #23 is merged at `639c3216ac5d3e3baf28fcffbeac8af5bf8e478d`; this remains simulation-only.
-
-Real model dispatch, validated output contracts, selective independent verification,
+Real model dispatch and adapter integration, selective independent verification,
 disagreement escalation, and deterministic family closure remain later work. Approve
 and evaluate one neutral metered canary before authorizing broad execution. Then
 complete cross-family coverage, publish the canonical universe, add Target filtering,
@@ -191,8 +187,9 @@ The [App/UI GM charter](https://github.com/michaelsena/turbo/issues/26) assigns
 frontend delivery, usability, accessibility, and app backlog ownership separately
 from Platform GM research/execution ownership. Shared API changes require linked
 contract issues. App claims name their owner and branch in GitHub. Automatic issue
-pickup is not verified active; [dispatcher issue #27](https://github.com/michaelsena/turbo/issues/27)
-tracks the separate local runtime. A ready issue alone does not start an agent.
+pickup is implemented in the local dispatcher, but its installed runtime reports
+no attempts and has not been verified running. See [dispatcher issue #27](https://github.com/michaelsena/turbo/issues/27).
+A ready issue alone does not start an agent.
 
 Every material change starts with a scoped GitHub issue and acceptance criteria.
 Use a named branch, keep README and detailed docs synchronized, record decisions and
@@ -212,5 +209,6 @@ Metered model runs have separate explicit configuration and spending gates.
 | Current verified pointers | `data/generated/latest-run.json`, `latest-family-schedule.json`, `latest-graph.json` |
 | Model execution and review | `src/turbo/agents/`, `data/agent_runs/`, `data/agent_reviews/` |
 | Read API and UI | `src/turbo/web/`, `frontend/`, [application guide](docs/application/read-api-dashboard.md) |
+| App worker and local issue intake | [Worker charter](docs/operations/app-gm-worker.md), [dispatcher guide](docs/operations/app-dispatcher.md) |
 | Commands and acceptance | `src/turbo/cli.py`, `tests/`, [runbook](docs/operations/runbook.md) |
 | Consequential design choices | [Architecture decisions](docs/INDEX.md#architecture-decisions) |

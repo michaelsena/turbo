@@ -216,6 +216,38 @@ journals and does not join the registry implicitly. Production authorization and
 trusted-state governance remain blocking work before a live provider or paid canary.
 See [ADR 0009](../decisions/0009-trusted-local-execution-registry.md).
 
+### Batch-output contract inspection (Track B3)
+
+Use 2–8 verified V2 preparations from the same scheduled batch in manifest order. Keep the
+request and invocation IDs fixed when generating the context and validating the
+corresponding synthetic output. Invocation IDs use `invocation:` followed by 24
+lowercase hexadecimal characters; the example below is a synthetic placeholder:
+
+```bash
+PYTHONPATH=src python3 -m turbo.cli batch-output-context request-example invocation:000000000000000000000001 \
+  path/to/preparation-1 path/to/preparation-2 --max-output-bytes 1000000
+PYTHONPATH=src python3 -m turbo.cli batch-output-validate path/to/output.json \
+  request-example invocation:000000000000000000000001 path/to/preparation-1 path/to/preparation-2 \
+  --max-output-bytes 1000000
+```
+
+Both commands are read-only and write JSON to stdout. They neither save a context
+file nor dispatch a model; shell redirection is a separate caller choice. Validation
+regenerates the context from the verified preparations. Reuse the same output-byte
+limit and IDs; an output bound to another context must not pass by changing only
+its family labels.
+
+A valid result establishes structural coverage and reference integrity. Finite
+confidence in the range zero through one is not proof of calibration or factual
+truth. A proposal with valid fields still needs substantive evidence and quality
+review. Synthetic examples are not research executions or accepted boundaries.
+
+This contract is not connected to B1 settlement or a real provider. B1's fake
+response envelope rejects floating-point values throughout its output; do not assume
+that a B3 confidence-bearing document can be embedded there unchanged. Adapter and
+settlement integration require a later reviewed contract. See
+[ADR 0010](../decisions/0010-batch-output-contract.md).
+
 ### Existing metered pilot lane
 
 For metered model runs, create an ignored local `.env` from `.env.example` and place

@@ -174,8 +174,12 @@ status badge, wrapping when necessary. Overview and Universe call the collection
 canonical markets in the selected graph and explicitly retain provisional boundaries;
 listing a boundary does not imply it is settled. No status value or graph record is
 changed. Regression checks assert status geometry at desktop/mobile widths and use
-an explicitly synthetic long-status stress case. Current browser acceptance and
-intentional screenshot refresh remain pending; the historical baselines are retained.
+an explicitly synthetic long-status stress case. Direct connected-Chrome inspection
+at desktop (1440 × 1000) and mobile (390 × 844) confirms all three full statuses and
+bounded descriptions; historical Universe → Audit navigation retains the exact tuple.
+This interactive check is distinct from executing the packaged Playwright/axe suite.
+That suite and intentional screenshot refresh remain pending; historical baselines
+are retained until the suite can run in a permitted process environment.
 PR #19 is merged at `a9aef2befbc61208431ce4b546d6bed15d6edef1`.
 
 ## App ownership and intake
@@ -185,8 +189,10 @@ UX, accessibility, frontend tests, app documentation, and the app backlog. Platf
 retains research and execution ownership. Propose shared read/API changes through a
 linked issue specifying contracts, compatibility, and acceptance checks before editing.
 Each app issue names `Owner: App/UI GM`; its claim records branch and immediate scope.
-Existing `status:ready` routing is not a dispatcher. `area:app` has not been established
-as a verified routing label. Automatic pickup is not verified active; its local runtime
-is tracked separately in [#27](https://github.com/michaelsena/turbo/issues/27).
+The merged dispatcher implements `area:app` plus `status:ready` routing and requires
+an authorized readiness event. Label existence and live pickup are separate checks.
+The installed runtime currently reports no attempts and has not been verified running;
+see [#27](https://github.com/michaelsena/turbo/issues/27) and the
+[dispatcher guide](../operations/app-dispatcher.md).
 During an active session, resume owned work before claiming another issue. No merge
 occurs without explicit chairman authorization.

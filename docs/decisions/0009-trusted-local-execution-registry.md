@@ -3,7 +3,7 @@
 ## Status
 
 Implemented and locally verified in [PR #23](https://github.com/michaelsena/turbo/pull/23),
-which remains unmerged. This extends [ADR 0008](0008-batch-authorization-execution-ledger.md).
+merged at `639c3216ac5d3e3baf28fcffbeac8af5bf8e478d`. This extends [ADR 0008](0008-batch-authorization-execution-ledger.md).
 The [B2 receipt](../operations/receipts/2026-11-09-shared-registry-verification.json) records
 its own replay, independent review, and exact input/output hashes.
 

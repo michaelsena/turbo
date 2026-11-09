@@ -1,0 +1,148 @@
+{
+  "verified_at_utc": "2026-11-09T12:28:25.209256+00:00",
+  "local_execution_commit": "39c169744a0a828656889de2c60faa9ce9a51f35",
+  "published_execution_commit": "ef7a9904646a08695f130a9b00f8725a351a7cf5",
+  "execution_tree_sha": "24de2373dd1cf6105d316467e87f3de94fdc64b7",
+  "scope": "Track B3 standalone structural output contract; synthetic validation only.",
+  "runtime": {
+    "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 16.0.0 (clang-1600.0.26.6)]",
+    "platform": "darwin",
+    "jsonschema": "4.26.0"
+  },
+  "checks": {
+    "focused": {
+      "passed": 22,
+      "seconds": 71.554,
+      "output_sha256": "8b7ed4b3940030d0480d31b9010237eb1bc4f2119b7b5acfcd360d21bc1b5e7c",
+      "command": "PYTHONPATH=src /tmp/turbo-resume-venv/bin/python -m unittest discover -s tests -p test_batch_output.py -v"
+    },
+    "full": {
+      "passed": 237,
+      "seconds": 675.858,
+      "output_sha256": "d4c1655c7afe623c96997cbb5009f434f7ccb016c00f81ec444287332472528e",
+      "command": "PYTHONPATH=src /tmp/turbo-resume-venv/bin/python -m unittest discover -s tests -v"
+    },
+    "validate": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  "independent_review": {
+    "p0": 0,
+    "p1": 0,
+    "p2": 0,
+    "reviewed_sha256": {
+      "src/turbo/agents/batch_output.py": "7b8447ecef2b94a81fc83d3045acf295cbe2e82c952db02dcf4b19968ee19433",
+      "schemas/batch-primary-output.schema.json": "d654015d4bb53f42eb146dfabc5bca0469f40db4ae0e9646667ca6b73419e2eb",
+      "prompts/universe/batch-primary-v1.md": "5eebb02c211c0f15cf3d47fc42108cf6f896a341a02ec2c57e7dad2184fa1441",
+      "src/turbo/cli.py": "db866a5eedfe5d97045cd2d7b8a4e772f66019da8a1cd891fd13292f587a2a07"
+    },
+    "probes": [
+      "Strict duplicate-key/nonfinite JSON rejection",
+      "Boolean/nonfinite confidence rejection",
+      "Unknown proposal dimension requires an applicable gap"
+    ],
+    "scope": "Core, schema, prompt, CLI; public preparation replay covered separately by integration tests."
+  },
+  "synthetic_canary": {
+    "canonical_graph_projection_after_sha256": "a22336b3711ba1095607aa03850607cb50a801c49abcd3e3cd0b3d914b87b8ca",
+    "canonical_graph_projection_before_sha256": "a22336b3711ba1095607aa03850607cb50a801c49abcd3e3cd0b3d914b87b8ca",
+    "code_tree_sha": "24de2373dd1cf6105d316467e87f3de94fdc64b7",
+    "context_sha256": "59133d7a602be7adacf4e91a82afe3946c674a593d6f8871cbeb480a65ba76c2",
+    "coverage": [
+      {
+        "family_id": "family:coverage:napcs-collection:10:001",
+        "proposed_markets": 0,
+        "required_candidates": 0,
+        "required_identities": 1,
+        "research_gaps": 1,
+        "unresolved": 1
+      },
+      {
+        "family_id": "family:coverage:prior-candidate:global-challenger:001",
+        "proposed_markets": 0,
+        "required_candidates": 58,
+        "required_identities": 0,
+        "research_gaps": 58,
+        "unresolved": 58
+      }
+    ],
+    "file_bytes": {
+      "context.json": 120139,
+      "output.json": 53136,
+      "preparations/family-preparation:59e0c2a67000b5cc99bd11fa/family-config-v2.json": 8894,
+      "preparations/family-preparation:59e0c2a67000b5cc99bd11fa/family-evidence-pack-v2.json": 49819,
+      "preparations/family-preparation:59e0c2a67000b5cc99bd11fa/preparation-receipt.json": 817,
+      "preparations/family-preparation:c5ba8884a1f6de604aaba8a1/family-config-v2.json": 6654,
+      "preparations/family-preparation:c5ba8884a1f6de604aaba8a1/family-evidence-pack-v2.json": 24244,
+      "preparations/family-preparation:c5ba8884a1f6de604aaba8a1/preparation-receipt.json": 801,
+      "result.json": 167
+    },
+    "file_sha256": {
+      "context.json": "bc3105998de1e3abbeabc2a5ea9d2d7912add0e88e84b5634cbc3afb0b5e2d11",
+      "output.json": "29fabb28a6a156814bcacbb824ba1ba014096a47a8c49df3307c802cf80e19ff",
+      "preparations/family-preparation:59e0c2a67000b5cc99bd11fa/family-config-v2.json": "247d4dd8cd04c511f60318e3c7954185f4346689f3908b53e4c47156dffeab3a",
+      "preparations/family-preparation:59e0c2a67000b5cc99bd11fa/family-evidence-pack-v2.json": "1113791d993f8da293955e1f6c096d1e603e3dc338996b44494a6dd1b57be849",
+      "preparations/family-preparation:59e0c2a67000b5cc99bd11fa/preparation-receipt.json": "19c6d2f7427ea810eaf1f8aac33f8fea106c32627753b28e4cbac212458208f2",
+      "preparations/family-preparation:c5ba8884a1f6de604aaba8a1/family-config-v2.json": "e7529bdbbf6346b6a37be62ec25fbdc3ce5a0673384ff0f22048f3780ff12c39",
+      "preparations/family-preparation:c5ba8884a1f6de604aaba8a1/family-evidence-pack-v2.json": "548bc0d3eda66ce69375c4a46ec676c434dcd74bd2796c68e2eaa9a23679812b",
+      "preparations/family-preparation:c5ba8884a1f6de604aaba8a1/preparation-receipt.json": "c86e66b41bd02bfde7ea59e5304aec8d8c26f0962be8ac37a9d0bfae055ac4ad",
+      "result.json": "cf3206210a1dc7eb52bd7677881beb24a957bc294b1661cf2c0a63af7b3c1588"
+    },
+    "graph_after_sha256": {
+      "data/generated/latest-graph.json": "6e106fe62b2f95741a56f2e4af057b897e7024925c7eebead5ce3089565a7ff6",
+      "data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62/activation-receipt.json": "6c896666f1ba576d0ea2e6782a23479c7393c96405bcd750183bb2f423f17603",
+      "data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62/events.json": "43b3159b46de2c3f5db74978931d13e5edc258c0c7e906893022339dd776a028",
+      "data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62/projection.json": "c50ba049b95768e87c71f0d3963b4c393efa3c928549e0e2e07e250755315698",
+      "data/market_graph/versions/graph-release-aa5b6f83e7a06e073d3a/graph-receipt.json": "2adeaee5f3b3e097f412c7ca15dece98db11c0d209edd34869be29e258eda7f0",
+      "data/market_graph/versions/graph-release-aa5b6f83e7a06e073d3a/projection.json": "6216f81ab6b3011c095fa3086581e6a05b05d9d3f11e56d4b90816173d230469"
+    },
+    "graph_before_sha256": {
+      "data/generated/latest-graph.json": "6e106fe62b2f95741a56f2e4af057b897e7024925c7eebead5ce3089565a7ff6",
+      "data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62/activation-receipt.json": "6c896666f1ba576d0ea2e6782a23479c7393c96405bcd750183bb2f423f17603",
+      "data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62/events.json": "43b3159b46de2c3f5db74978931d13e5edc258c0c7e906893022339dd776a028",
+      "data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62/projection.json": "c50ba049b95768e87c71f0d3963b4c393efa3c928549e0e2e07e250755315698",
+      "data/market_graph/versions/graph-release-aa5b6f83e7a06e073d3a/graph-receipt.json": "2adeaee5f3b3e097f412c7ca15dece98db11c0d209edd34869be29e258eda7f0",
+      "data/market_graph/versions/graph-release-aa5b6f83e7a06e073d3a/projection.json": "6216f81ab6b3011c095fa3086581e6a05b05d9d3f11e56d4b90816173d230469"
+    },
+    "graph_unchanged": true,
+    "input_bindings": [
+      {
+        "config_sha256": "e7529bdbbf6346b6a37be62ec25fbdc3ce5a0673384ff0f22048f3780ff12c39",
+        "family_id": "family:coverage:napcs-collection:10:001",
+        "pack_file_sha256": "548bc0d3eda66ce69375c4a46ec676c434dcd74bd2796c68e2eaa9a23679812b",
+        "preparation_id": "family-preparation:c5ba8884a1f6de604aaba8a1",
+        "receipt_sha256": "c86e66b41bd02bfde7ea59e5304aec8d8c26f0962be8ac37a9d0bfae055ac4ad"
+      },
+      {
+        "config_sha256": "247d4dd8cd04c511f60318e3c7954185f4346689f3908b53e4c47156dffeab3a",
+        "family_id": "family:coverage:prior-candidate:global-challenger:001",
+        "pack_file_sha256": "1113791d993f8da293955e1f6c096d1e603e3dc338996b44494a6dd1b57be849",
+        "preparation_id": "family-preparation:59e0c2a67000b5cc99bd11fa",
+        "receipt_sha256": "19c6d2f7427ea810eaf1f8aac33f8fea106c32627753b28e4cbac212458208f2"
+      }
+    ],
+    "interpretation": "Synthetic all-unresolved structural canary only; no research acceptance, scoring, or activation.",
+    "invocation_id": "invocation:bbbbbbbbbbbbbbbbbbbbbbbb",
+    "local_execution_commit": "39c169744a0a828656889de2c60faa9ce9a51f35",
+    "model_invoked": false,
+    "network_calls": 0,
+    "output_schema_sha256": "d654015d4bb53f42eb146dfabc5bca0469f40db4ae0e9646667ca6b73419e2eb",
+    "prompt_sha256": "5eebb02c211c0f15cf3d47fc42108cf6f896a341a02ec2c57e7dad2184fa1441",
+    "published_code_commit": "ef7a9904646a08695f130a9b00f8725a351a7cf5",
+    "request_id": "b3-canary-20261109",
+    "result": {
+      "context_sha256": "59133d7a602be7adacf4e91a82afe3946c674a593d6f8871cbeb480a65ba76c2",
+      "errors": [],
+      "model_invoked": false,
+      "structural_validation_only": true,
+      "valid": true
+    },
+    "verified_at_utc": "2026-11-09T12:19:37.088513+00:00"
+  },
+  "limitations": [
+    "Structural validity does not establish evidence truth, confidence calibration, or research acceptance.",
+    "No model/provider calls, execution settlement, graph activation, or scoring.",
+    "B1 fake response envelope rejects floats; B3 integration requires a separate reviewed change."
+  ]
+}

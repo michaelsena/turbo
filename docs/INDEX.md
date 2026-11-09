@@ -19,12 +19,15 @@ the README and the relevant document whenever behavior or architecture changes.
 - [Data contracts](architecture/data-contracts.md)
 - [Read API and React research console](application/read-api-dashboard.md)
 - [Local operating runbook](operations/runbook.md)
+- [App/UI GM worker charter](operations/app-gm-worker.md)
+- [Local App/UI issue dispatcher](operations/app-dispatcher.md)
 - [Issue 14: deterministic family partition and scheduler](issues/0014-family-partition-scheduler.md)
 - [Issue 15: batch-native family research](issues/0015-batch-native-family-research.md)
 - [Family-preparation correction audit](operations/receipts/2026-11-09-family-pack-corrections.json)
 - [Dashboard verification](operations/receipts/2026-11-09-dashboard-corrections.json)
 - [Batch-ledger simulation verification](operations/receipts/2026-11-09-batch-ledger-verification.json)
 - [Shared-registry simulation verification](operations/receipts/2026-11-09-shared-registry-verification.json)
+- [Batch-output contract verification](operations/receipts/2026-11-09-batch-output-verification.json)
 
 ## Architecture decisions
 
@@ -37,4 +40,5 @@ the README and the relevant document whenever behavior or architecture changes.
 - [ADR 0007: Schedule-driven family preparations](decisions/0007-schedule-driven-family-preparations.md)
 - [ADR 0008: Batch authorization and execution ledger](decisions/0008-batch-authorization-execution-ledger.md)
 - [ADR 0009: Trusted local execution registry](decisions/0009-trusted-local-execution-registry.md)
+- [ADR 0010: Standalone batch-output contract](decisions/0010-batch-output-contract.md)
 - [Prior-model crosswalk](decisions/prior-model-crosswalk.md)

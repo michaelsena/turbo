@@ -148,6 +148,14 @@ new unsigned authorizations, and deletion of all trusted state are outside this 
 guarantee. B2 remains simulation-only; see
 [ADR 0009](../decisions/0009-trusted-local-execution-registry.md).
 
+Track B3 adds a standalone output-validation context over verified preparations.
+Request/invocation identity, schema and prompt hashes, evidence references, and
+coverage obligations bind each synthetic output to its intended batch. Validation
+checks structure and references; it does not establish factual truth or calibrated
+confidence. It is not connected to B1 settlement or a provider adapter, and it
+creates no accepted market event. See
+[ADR 0010](../decisions/0010-batch-output-contract.md).
+
 ## Comparison topology
 
 Pairwise comparison is a domain operation. Every submodel has its own comparator and
