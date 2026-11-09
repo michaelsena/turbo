@@ -47,3 +47,22 @@ One citation for one subject does not support a gap naming many subjects. Either
 cite sufficient subject-anchored evidence for the complete group or create separate
 subject-specific gaps. Never invent citations or claim that an anchor establishes
 operating-market evidence that the source does not contain.
+
+Evaluate evidence-supported operating-boundary hypotheses rather than requiring
+all seven dimensions to be directly established facts. When the frozen evidence
+supports a defensible boundary but some dimensions are thin, use a provisional
+proposal with explicitly labeled inference, assumption, or unknown dimensions,
+lower confidence, and specific research gaps. Do not invent factual support or
+force a proposal when no defensible boundary is available.
+
+Missing evidence is not evidence of non-mapping. Use unresolved with a research
+gap when insufficient evidence prevents a boundary judgment. Use no_mapping_to_family
+only for an affirmative, family-local non-mapping supported by the cited evidence;
+it does not establish that the identity cannot represent an operating market
+elsewhere. A product relationship alone proves neither operating-market membership
+nor non-market status. Use fact only when a cited record directly states the
+particular claim; otherwise label the reasoning inference, assumption, or unknown.
+
+For every disposition, proposal, and research gap, supporting_evidence_ids and
+counterevidence_ids must be disjoint. Explain mixed evidence in the rationale
+without placing the same evidence ID in both arrays.

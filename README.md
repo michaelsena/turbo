@@ -230,6 +230,10 @@ canary returned zero proposed markets and 110 unresolved identities; grouped-gap
 citations failed acceptance, so no verifier, reviewer, or activation followed.
 [Issue 48](https://github.com/michaelsena/turbo/issues/48) clarifies the prompt and
 checks evidence sufficiency before another paid attempt.
+The anchored follow-up also failed acceptance; no new markets were activated.
+The batch prompt now explicitly preserves pilot-style provisional inference and
+distinguishes insufficient evidence from affirmative family non-mapping.
+
 These verification checks made no paid calls or production market activation. This is not production readiness. The six
 exploratory manual hypotheses remain provisional and cannot bypass the gates. Run and evaluate one explicitly authorized neutral metered canary before
 authorizing broad execution. Then
