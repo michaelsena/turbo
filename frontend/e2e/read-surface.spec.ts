@@ -43,10 +43,6 @@ test("required read surfaces remain accessible and visually stable", async ({ pa
           })).toBe(true);
         }
       }
-      if (name === "overview") {
-        const panel = page.locator(".panel").filter({ has: page.getByRole("heading", { name: "Canonical markets", exact: true }) });
-        await expect(panel).toHaveScreenshot("overview-markets.png");
-      }
       if (name === "family-detail") {
         await expect(page.locator(".metric-grid.small .metric strong").nth(0)).toHaveText("80");
         await expect(page.locator(".metric-grid.small .metric strong").nth(2)).toHaveText("1");
@@ -59,6 +55,10 @@ test("required read surfaces remain accessible and visually stable", async ({ pa
       });
       expect(results.violations, results.violations.map(item => `${item.id}: ${item.help}`).join("\n")).toEqual([]);
       await expect(page).toHaveScreenshot(`${name}.png`);
+      if (name === "overview") {
+        const panel = page.locator(".panel").filter({ has: page.getByRole("heading", { name: "Canonical markets", exact: true }) });
+        await expect(panel).toHaveScreenshot("overview-markets.png");
+      }
     });
   }
 
