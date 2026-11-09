@@ -181,7 +181,7 @@ to a model provider. A bounded correction sequence retains one nested call recei
 per model call plus the number of validation repairs used. Receipts explicitly state
 that credentials and raw model reasoning were not persisted.
 
-A boundary run receipt also records the exact execution commit, config hash, frozen
+For the executed Issue 12 pilot, a boundary run receipt also records the exact execution commit, config hash, frozen
 pack hash, both specialist output hashes, adjudication hash, and non-activation
 status. `boundary-validate-run` rebuilds the exact pack, reruns all three local
 validators, and checks every receipt binding before review.
@@ -198,6 +198,73 @@ events, projects the graph, and records exact event/projection hashes plus its
 execution commit. `boundary-validate-activation` recompiles the events and projection
 and fails on any drift. Family-local non-mappings cannot be compiled as global
 candidate rejections.
+
+## Scaled universe workflow boundary
+
+Issue 15's chairman-confirmed scaled process uses a batch primary, selective
+independent verification, conditional blind escalation, and adjudication for material
+disagreement. Its exact verification/QA criteria must be preregistered. Mandatory
+independent release review binds the exact planned movements before deterministic
+closure and cumulative publication. Complete supported no-movement dispositions
+still require review; no output may self-approve.
+
+This is distinct from the executed Issue 12 pilot's mandatory two-blind/adjudicator
+chain and from later factor evaluation and submodel comparators. See
+[ADR 0012](../decisions/0012-research-workflow-scope.md). The implemented offline workflow binds six distinct declared actors, frozen input
+commit/tree, context, contract hashes, and canary selection policy in `plan.json`.
+Role submissions retain dependency and submission hashes. These bindings prove
+artifact consistency, not cryptographic actor identity or isolated execution; the
+coordinator must supply genuine independent actors.
+
+The canary policy fixes confidence below 0.7 and deterministic 10% QA sampling with
+at least one subject per family alongside explicit risk triggers. Verifier material
+disagreement gates blind escalation and adjudication. Release review binds the exact
+compiled preview hash. Workflow `approved` is not canonical activation: graph-moving
+closure must prove the approved events are active in a validated cumulative release.
+See the [operator commands](../operations/runbook.md#scaled-workflow-assignments-and-submissions).
+A single primary output or manually authored hypothesis is not a completed reviewed
+family. Offline commands invoke no model and claim no spend telemetry.
+
+## V2 shared-role provider attempt boundary
+
+The new `batch-authorization-v2.schema.json` contract and `BatchExecutionV2` preserve
+the existing V1 simulation schemas and journals. V2 binds one workflow plan, exact
+role prompt/schema/model settings, execution implementation hashes, validity bounds,
+per-role attempts/token-price bounds, and shared calls/costs. Concurrency is one;
+any reserved, dispatched, or unresolved attempt blocks another admission. Scope is
+one trusted registry and exact authorization, not signed/global spend authority.
+The registry durably claims `claims/<authorization-digest>.json` before creating
+`journals/<authorization-digest>/` with authorization, ready receipt, lock, and event
+journal. Missing claimed state is never recreated automatically. Role eligibility
+and workflow acceptance are checked by the provider bridge, not inferred by the ledger.
+
+Each role reserves its configured maximum token exposure before dispatch. Known
+settlement charges the greater of provider-reported cost (rounded upward to integer
+microUSD) and the configured token-price calculation. Unknown usage/cost or exposure
+above the reservation remains unresolved; it does not establish a provider-enforced
+billing cap or a zero-cost failure. Retrying a settled failed role requires an explicit
+same-role predecessor and consumes remaining shared and per-role allowances.
+
+`batch_provider.run_batch_role` currently supports only primary and verifier, with
+distinct configured models. Admission conservatively bounds serialized UTF-8 request
+bytes plus 4,096 against `max_input_tokens`; it does not claim exact model tokenization.
+The served model identifier must exactly match authorization, with no alias mapping;
+a known-cost mismatch settles failed and cannot submit a workflow document.
+The assignment includes a batched envelope retaining
+individual family obligations, not a replacement single-family evidence pack.
+`openrouter_attempt.invoke_openrouter_once` performs one physical request without an
+automatic correction/retry loop. Exact output-schema and workflow coverage checks,
+durable response artifacts, and known-cost settlement precede workflow submission.
+Raw confidence-bearing output remains in artifacts; journal output contains string
+references. Reopening an attempt cannot cause another provider request.
+
+Escalation/adjudication/release dispatch is deliberately unavailable in this first
+increment, although offline workflow/closure APIs remain. Validation uses controlled
+transports; paid execution and production readiness are not claimed. The legacy
+single-family provider runner is unchanged. The new default HTTP transport refuses
+redirects and reads at most 4,000,001 bytes to detect the 4,000,000-byte response
+limit; final content is separately bounded to 1,000,000 bytes. Schema validation
+accepts local references only, preventing external reference retrieval. See the [operator boundary](../operations/runbook.md#partial-primaryverifier-provider-integration).
 
 ## Family partition, schedule, and graph release
 

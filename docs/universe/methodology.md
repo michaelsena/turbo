@@ -139,11 +139,19 @@ scored market in place.
 ## Operating-family review
 
 The 11,543 normalized NAICS/NAPCS identities are partitioned into bounded operating
-families rather than
-reviewed as one flat list. For each family, one specialist proposes boundaries, a
-second independently tests them and searches for countercases, and adjudication
-resolves disagreements or keeps the mapping explicitly unresolved. Accepted events
-are appended only after review.
+families. The chairman-confirmed scaled workflow in Issue 15 runs one primary pass
+per batch, then independently verifies graph-moving proposals, weak-confidence
+cases, conflicts, and a preregistered QA sample. Material ambiguity can escalate to
+two blind specialists; materially disagreeing independently valid results require
+adjudication. Independent release review of exact planned movements remains mandatory
+before deterministic activation or approved no-movement closure. Batch packing must
+preserve each family's coverage and lineage.
+
+The completed Issue 12 pilot used a different, deliberately bounded topology: two
+concurrent blind specialists and a mandatory adjudicator. That history is preserved
+below; it is not the default call pattern for every scaled batch. Neither universe
+flow is the later scoring/comparator protocol. See the
+[decision map](../decisions/0012-research-workflow-scope.md).
 
 The first pre-registered pilot is the `identity:naics:561110` Office Administrative
 Services family. The seed was chosen neutrally to exercise a difficult boundary; it
@@ -159,8 +167,8 @@ catalog. Expected counts are executable gates; a mismatch aborts compilation.
 
 The pack is compiled only from hash-verified immutable run artifacts. It does not
 rerun parsers, browse, filter for strategy fit, score attractiveness, or create graph
-events. Two blind specialists must disposition every required identity and candidate
-hypothesis. The mandatory adjudicator is cryptographically bound to both exact
+events. In this pilot, two blind specialists dispositioned every required identity
+and candidate hypothesis. Its mandatory adjudicator was cryptographically bound to both exact
 specialist outputs. Weak evidence produces a provisional inference or assumption with
 lower confidence and a retry gap, never a blank. Even a schema-valid adjudication is
 only a proposal until independent review activates deterministic graph events.

@@ -37,6 +37,22 @@ Every important object has two views derived from the same truth:
 Public explanations may simplify language but may not introduce a second source of
 truth. Private or unsupported evidence must never leak into publication artifacts.
 
+## Research workflow selection
+
+Use Issue 15's chairman-confirmed scaled batch flow for new universe construction:
+batch primary → selective independent verification → conditional blind escalation
+and disagreement adjudication → mandatory independent review of exact planned
+movements → deterministic closure and cumulative publication. Preregister verification
+and QA triggers. Zero proposals still require complete supported dispositions and
+approved no-movement review. Issue 39 implements the remaining stage contracts;
+do not replace them with manual drafts or infer completion from structural validity.
+
+The original `boundary-run` pilot below intentionally uses two concurrent blind
+specialists and a mandatory adjudicator. Later factor scoring instead averages close
+independent evaluations and adjudicates material disagreement, with separate
+submodel comparators. Do not transfer call patterns between these scopes. See the
+[decision map](../decisions/0012-research-workflow-scope.md).
+
 ## Local verification
 
 ### Read API and React console
@@ -120,6 +136,96 @@ TypeScript check, production build, full Python suite, repository validation, an
 current-context compile. Record the exact commit and counts in the issue/PR. Do not
 commit `node_modules`, `frontend/dist`, `.venv`, or `*.tsbuildinfo`; do commit
 `package-lock.json`.
+
+### Scaled workflow assignments and submissions
+
+The offline workflow CLI preregisters and validates role artifacts; it makes no model
+calls and claims no spend telemetry. Prepare an `actors.json` object mapping exactly
+`primary`, `verifier`, `escalation_a`, `escalation_b`, `adjudicator`, and
+`release_reviewer` to six distinct, genuine actor IDs. The coordinator must provide
+fresh independent actors and preserve honest provenance: distinct strings and hashes
+alone do not prove identity or session isolation.
+
+```bash
+PYTHONPATH=src python3 -m turbo.cli batch-workflow-init path/to/new-workflow \
+  batch-example invocation:000000000000000000000001 path/to/actors.json \
+  path/to/preparation-1 path/to/preparation-2 --input-root path/to/frozen-input-checkout
+PYTHONPATH=src python3 -m turbo.cli batch-workflow-assignment path/to/new-workflow primary
+PYTHONPATH=src python3 -m turbo.cli batch-workflow-submit path/to/new-workflow \
+  primary "$PRIMARY_ACTOR_ID" path/to/primary-document.json
+PYTHONPATH=src python3 -m turbo.cli batch-workflow-status path/to/new-workflow
+```
+
+Initialization requires a new workflow directory and records the frozen input
+commit/tree, exact context, actors, contracts, and selection policy. Assignment
+renders the eligible role's context and schema; submit validates and persists its
+immutable role document. Status replays stage state. The last three commands accept
+`--input-root` and `--preparation-dirs` to relocate exact inputs; overrides must pass
+the recorded tree/context checks, not substitute changed evidence.
+
+After primary submission, obtain the verifier assignment. The fixed canary policy
+selects confidence below 0.7 and deterministic 10% QA sampling (rounded up), with at least
+one subject per family, plus proposal, linked-disposition, unresolved/provisional,
+counterevidence, and explicit conflict/competing-mapping triggers. Mere connectivity
+is not a conflict. These are preregistered canary settings, not
+calibrated production thresholds. A verifier's material disagreement enables
+`escalation_a` and `escalation_b`, then adjudication; otherwise the primary remains
+the final proposal. Keep escalation actors blind using their supplied assignments.
+
+Before requesting `release_reviewer`, compile and bind the exact release preview
+through `turbo.universe.batch_closure.prepare_batch_release`. Approval requires the
+exact preview, all five registered checks passing, and zero open findings. After
+exact independent approval, `persist_batch_activation` persists the approved activation, and
+`finalize_batch_closure` records closure. Graph-moving closure requires the exact
+approved events in a validated persisted cumulative graph release. These closure
+operations currently have Python APIs, not a new closure CLI. An `approved` workflow
+status is not itself graph activation or family closure.
+
+The offline commands above remain model-free. Their `model_invoked: false` describes
+that local command, not proof that no research actor was used elsewhere. The separate
+provider integration below supplies only the first two roles so far.
+
+### Partial primary/verifier provider integration
+
+This increment exposes Python APIs only; no new live provider CLI is available.
+`turbo.agents.batch_provider.run_batch_role` binds an eligible workflow assignment,
+role schema, and frozen family coverage to a V2 managed attempt. It dispatches only
+`primary` and `verifier`; escalation, adjudication, and release-review dispatch are
+blocked here. Offline role APIs still exist, but cannot masquerade as a settled
+provider attempt. End-to-end provider operation remains incomplete and acceptance
+is pending. Tests use controlled transports, not paid calls.
+
+Use `batch_execution_v2.initialize_registry` and its `build_authorization` for this
+versioned lane, with the workflow-plan hash, exact role configurations, validity,
+shared call/cost limits, and `batch_provider.contract_bindings` plus
+`execution_contract_hashes`. `run_batch_role` requires an explicit input root and
+stable attempt ID; repeat calls replay instead of issuing another HTTP request.
+The primary and verifier require distinct configured models. Before admission,
+the serialized UTF-8 request bytes plus a 4,096-unit wrapper allowance must fit
+`max_input_tokens`; this is deliberately conservative, not a model tokenizer or
+provider-dollar guarantee. A returned model identifier must exactly equal the
+authorized model: aliases are not accepted in this increment. Known bounded cost
+for a mismatched model is charged as failed, and its document is not submitted. Role output validation
+and durable artifacts precede settlement, and only a successful settled attempt is
+submitted to the workflow. Full batch envelopes preserve separate family obligations;
+this is not the legacy single-family pack runner.
+
+The authorization document comes from a trusted operator; `authorized_by` is not a
+signature or independent proof of human spend approval. Local reservations are
+conservative accounting controls, not an externally enforced provider billing ceiling.
+Known bounded usage and provider cost settle even when the output is invalid.
+Missing/invalid telemetry, over-reservation cost, or ambiguous transport/persistence
+retains exposure and blocks further admission. Do not refund or retry automatically;
+a permitted new attempt must consume its own allowance and reference a settled failed
+same-role predecessor. Never change the registry or authorization to reset counters.
+
+`openrouter_attempt.invoke_openrouter_once` makes at most one physical HTTP attempt;
+it does not hide retries or repairs, follow redirects, or read an unbounded HTTP
+body. It reads `OPENROUTER_API_KEY` at runtime unless
+a caller supplies an explicit key and returns sanitized telemetry. The existing
+single-family OpenRouter runner and its documented bounded repair behavior are
+unchanged. No real call, activated market, or production-readiness claim follows from
+passing controlled-transport checks.
 
 ### Batch authorization and ledger inspection (Track B1)
 

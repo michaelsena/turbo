@@ -95,7 +95,7 @@ keys, retry counts, evidence cutoffs, model/prompt versions, validation results,
 human gates are durable fields. A failed agent leaves the last accepted score active
 and creates an inspectable exception or retry item.
 
-The first operating-boundary harness implements that contract without binding the
+The executed Issue 12 operating-boundary pilot implements that contract without binding the
 architecture to one model vendor. A deterministic compiler selects a bounded family
 from a hash-verified universe run and produces a canonical pack hash. Two specialists
 run concurrently in separate ephemeral, empty, read-only sessions and cannot see one
@@ -121,6 +121,12 @@ evaluations.
 The same records render into a concise public explanation and a detailed audit view.
 This keeps the system understandable to the chairman and an interviewer without
 forking the truth into a presentation database and a hidden research database.
+
+The scaled universe process is separately governed by Issue 15: primary batch pass,
+selective verification, conditional blind escalation/disagreement adjudication, and
+mandatory independent graph-release review before deterministic closure. The pilot
+is not its default call topology. Later ranking evaluators/comparators are another
+scope; see [ADR 0012](../decisions/0012-research-workflow-scope.md).
 
 ## Batch execution foundation
 
@@ -165,6 +171,13 @@ charged even when structural output validation fails. Ambiguous transport, usage
 or persistence retains its reservation without automatic retry. This integration
 uses fake transport only, creates no accepted research, and leaves B1/B2 schemas
 unchanged. See [ADR 0011](../decisions/0011-batch-output-artifacts.md).
+
+Issue 39's first provider integration is a separate V2 shared-role execution journal
+plus one-attempt OpenRouter adapter and `batch_provider` bridge. Only primary and
+verifier can dispatch; escalation, adjudication, and release dispatch remain blocked.
+The existing offline workflow/closure APIs and legacy single-family runner retain
+their separate scope. Controlled-transport testing does not establish paid-run or
+production readiness, and no new market activation is claimed.
 
 ## Comparison topology
 

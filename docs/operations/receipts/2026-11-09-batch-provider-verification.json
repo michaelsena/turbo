@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "issue": 39,
+  "pull_request": 40,
+  "scope": "batch workflow and controlled-transport primary/verifier provider integration",
+  "completed_at_utc": "2026-11-09T14:55:06.371749+00:00",
+  "python_version": "3.14.2",
+  "tested_local_commit": "11d5b63610a09ae339b31a1fe27967487490a9fa",
+  "equivalent_published_commit": "e126d87bc028015b8f87ddbd2437cf17a26c11a3",
+  "tested_tree": "f830e4d99a5da3bb6df4a01787f13807e019818f",
+  "base_main": "f2e4d3564f2acfcf9e9be88988563b86178e503b",
+  "full_suite": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -v",
+    "passed": 357,
+    "failed": 0,
+    "elapsed_seconds": 1038.345,
+    "log_sha256": "3c71dd217a351c321a61e1a8eb1590b107f4bc88e337ba6b5c8180f8a53fb787"
+  },
+  "focused": {
+    "journal": 12,
+    "adapter": 17,
+    "provider_integration": 11,
+    "workflow": 14,
+    "closure": 15
+  },
+  "repository_validation": {
+    "valid": true,
+    "errors": []
+  },
+  "documentation_links": {
+    "broken": 0
+  },
+  "independent_review": {
+    "scope": "primary/verifier controlled-transport integration",
+    "outstanding_P0": 0,
+    "outstanding_P1": 0,
+    "outstanding_P2": 0,
+    "independently_passed_tests": 40
+  },
+  "source_sha256": {
+    "src/turbo/agents/batch_provider.py": "1b78c945297b1c5130a555861fd0848fd57f65d2d005a6de84de2baf99c23832",
+    "src/turbo/agents/batch_execution_v2.py": "dfc01bf3352aa41c71fba85fe9445ebda6ea6a9f16df0b35f33d0c19ad4bb386",
+    "src/turbo/agents/openrouter_attempt.py": "944dffe83985be4003ce33bacedc9752dfec5113556a54e13b0695a424f46608",
+    "src/turbo/agents/batch_workflow.py": "d9762d6981abc8027ba526e025c2759b75afa9d7512a319dc13fbf280713c609",
+    "src/turbo/universe/batch_closure.py": "f20e549ba55e591b2a6f02e008162d9c8557913ee0e278078903b8e815f3940c",
+    "src/turbo/universe/graph_release.py": "542aa4929b342cdb0f340d44ba8cf4ddb5b53c6083a4f80a1eab6e0656aa4ff3",
+    "schemas/batch-authorization-v2.schema.json": "776da41dde5f91f4bc4f12f644af4cbc9f355c85da61127e95d5732ecf9defd8",
+    "schemas/batch-workflow-submission.schema.json": "2d6150052d2c65906c6c3db5b0457186d3a4ef3a9ba7aac66a633b3ff8a8f2f7",
+    "prompts/universe/batch-workflow-v1.md": "561932c6fbd4856afa6b79435b5b7d2142b35bd9f5b0958bc45263fb36cc5b5e"
+  },
+  "synthetic_integration": {
+    "roles": [
+      "primary",
+      "verifier"
+    ],
+    "shared_journal": true,
+    "charged_microusd": 40,
+    "outstanding_microusd": 0,
+    "replay_additional_http_calls": 0
+  },
+  "real_provider_calls": 0,
+  "new_research_conclusions": 0,
+  "graph_activation": false,
+  "limitations": [
+    "Provider dispatch supports primary/verifier only; escalation/adjudication/release dispatch remains blocked.",
+    "Live-provider compatibility and an end-to-end paid canary are not verified.",
+    "Trusted local authorization and conservative reservations are not signed grants or provider-enforced financial ceilings.",
+    "Controlled-transport research outputs demonstrate contract behavior, not substantive research acceptance."
+  ]
+}

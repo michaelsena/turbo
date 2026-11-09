@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 from pathlib import Path
 
 from turbo.agents.batch_authorization import validate_authorization
@@ -11,8 +12,16 @@ from turbo.agents.batch_registry import (
     inspect_registry,
     validate_registry_execution,
 )
-from turbo.agents.batch_output import build_batch_context, validate_batch_output_file
+from turbo.agents.batch_output import _strict_json, build_batch_context, validate_batch_output_file
 from turbo.agents.batch_research import validate_batch_research
+from turbo.agents.batch_workflow import (
+    MAX_DOCUMENT_BYTES,
+    ROLES as WORKFLOW_ROLES,
+    assignment as workflow_assignment,
+    initialize_workflow,
+    inspect_workflow,
+    submit as submit_workflow,
+)
 
 from turbo.agents.boundary_runner import run_boundary_pilot, validate_boundary_run
 from turbo.agents.boundary_review import (
@@ -43,6 +52,17 @@ from turbo.universe.boundary_pack import (
 DEFAULT_BOUNDARY_CONFIG = (
     ROOT / "config/universe/families/office-administrative-services-v1.json"
 )
+
+
+def _workflow_document(path: Path, limit: int = MAX_DOCUMENT_BYTES) -> dict:
+    with path.open("rb") as handle:
+        raw = handle.read(limit + 1)
+    if len(raw) > limit:
+        raise ValueError("workflow document exceeds its byte limit")
+    document = _strict_json(raw)
+    if not isinstance(document, dict):
+        raise ValueError("workflow document must be an object")
+    return document
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -100,6 +120,29 @@ def _parser() -> argparse.ArgumentParser:
     research_validate.add_argument("registry_dir", type=Path)
     research_validate.add_argument("authorization_sha256")
     research_validate.add_argument("preparation_dirs", type=Path, nargs="+")
+    workflow_init = commands.add_parser(
+        "batch-workflow-init", help="Preregister a selective-verification research workflow; no model calls"
+    )
+    workflow_init.add_argument("workflow_dir", type=Path)
+    workflow_init.add_argument("request_id")
+    workflow_init.add_argument("invocation_id")
+    workflow_init.add_argument("actors_file", type=Path)
+    workflow_init.add_argument("preparation_dirs", type=Path, nargs="+")
+    workflow_init.add_argument("--input-root", type=Path, required=True)
+    for name, help_text in (
+        ("batch-workflow-assignment", "Render the next eligible role's exact research assignment"),
+        ("batch-workflow-submit", "Validate and persist a completed role document"),
+        ("batch-workflow-status", "Replay workflow stages, selection, and approval state"),
+    ):
+        command = commands.add_parser(name, help=help_text)
+        command.add_argument("workflow_dir", type=Path)
+        if name != "batch-workflow-status":
+            command.add_argument("role", choices=WORKFLOW_ROLES)
+        if name == "batch-workflow-submit":
+            command.add_argument("actor_id")
+            command.add_argument("document_file", type=Path)
+        command.add_argument("--input-root", type=Path)
+        command.add_argument("--preparation-dirs", type=Path, nargs="+")
     graph_release = commands.add_parser(
         "graph-release",
         help="Publish a cumulative canonical Market Graph from approved activations",
@@ -193,12 +236,34 @@ def _parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = _parser().parse_args()
+    if args.command.startswith("batch-workflow-"):
+        try:
+            if args.command == "batch-workflow-init":
+                actors = _workflow_document(args.actors_file, 65536)
+                result = initialize_workflow(
+                    args.workflow_dir, args.preparation_dirs, input_root=args.input_root,
+                    request_id=args.request_id, invocation_id=args.invocation_id, actors=actors,
+                )
+            else:
+                locations = {"input_root": args.input_root, "preparation_dirs": args.preparation_dirs}
+                if args.command == "batch-workflow-assignment":
+                    result = workflow_assignment(args.workflow_dir, args.role, **locations)
+                elif args.command == "batch-workflow-submit":
+                    document = _workflow_document(args.document_file)
+                    result = submit_workflow(args.workflow_dir, args.role, args.actor_id, document, **locations)
+                else:
+                    result = inspect_workflow(args.workflow_dir, **locations)
+            print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))
+            return 0
+        except (subprocess.SubprocessError, OSError, ValueError, TypeError, KeyError, OverflowError, RecursionError) as error:
+            print(json.dumps({"valid": False, "errors": [str(error)], "model_invoked": False}))
+            return 1
     if args.command == "batch-research-validate":
         try:
             result = validate_batch_research(
                 args.registry_dir, args.authorization_sha256, args.preparation_dirs
             )
-        except (OSError, ValueError, TypeError, KeyError, OverflowError, RecursionError) as error:
+        except (subprocess.SubprocessError, OSError, ValueError, TypeError, KeyError, OverflowError, RecursionError) as error:
             result = {"valid": False, "errors": [str(error)],
                       "structural_validation_only": True, "model_invoked": False}
         print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))
@@ -217,7 +282,7 @@ def main() -> int:
                     expected_invocation_id=args.invocation_id,
                     max_output_bytes=args.max_output_bytes,
                 )
-        except (OSError, ValueError, TypeError, KeyError) as error:
+        except (subprocess.SubprocessError, OSError, ValueError, TypeError, KeyError) as error:
             print(json.dumps({"valid": False, "errors": [str(error)]}, indent=2))
             return 1
         print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))
@@ -232,7 +297,7 @@ def main() -> int:
                 result = validate_registry_execution(
                     args.registry_dir, args.authorization_sha256, args.preparation_dirs
                 )
-        except (OSError, ValueError, TypeError, KeyError) as error:
+        except (subprocess.SubprocessError, OSError, ValueError, TypeError, KeyError) as error:
             print(json.dumps({"valid": False, "errors": [str(error)]}, indent=2))
             return 1
         print(json.dumps(result, indent=2, sort_keys=True))
@@ -246,7 +311,7 @@ def main() -> int:
                 result = inspect_execution(args.execution_dir)
             else:
                 result = validate_execution(args.execution_dir, args.preparation_dirs)
-        except (OSError, ValueError, TypeError, KeyError) as error:
+        except (subprocess.SubprocessError, OSError, ValueError, TypeError, KeyError) as error:
             print(json.dumps({"valid": False, "errors": [str(error)]}, indent=2))
             return 1
         print(json.dumps(result, indent=2, sort_keys=True))

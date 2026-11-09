@@ -28,6 +28,10 @@ evidence would change the result.
 
 ## Evaluation protocol
 
+This is the later market-factor scoring protocol, not the universe-construction
+pilot or scaled batch review flow. See
+[ADR 0012](../decisions/0012-research-workflow-scope.md) for the scope distinction.
+
 1. Freeze market definition, factor version, evidence cutoff, and scoring anchors.
 2. Give the same evidence pack independently to two specialists.
 3. Record raw answer, rationale, evidence links, counterevidence, and confidence.
