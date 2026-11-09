@@ -159,18 +159,25 @@ guarantee. Standalone B1 stays per-journal. See the
 [B2 receipt](docs/operations/receipts/2026-11-09-shared-registry-verification.json)
 for pinned tests, simulation replay, and review results.
 
-[PR #25](https://github.com/michaelsena/turbo/pull/25) implements Track B3, a
+[PR #25](https://github.com/michaelsena/turbo/pull/25), merged at `73bf1f8`, adds B3, a
 standalone batch-output contract over verified family preparations. It checks
 structural coverage, evidence references, reasoning labels,
 confidence, gaps, and boundary proposals; synthetic validation is not research
 acceptance. It does not dispatch models or feed B1 settlement automatically.
 All 237 Python tests passed, including 22 focused checks; independent review found
 no blocking issues. A synthetic two-family validation covered all 59 required
-subjects without changing the market graph. PR #25 remains unmerged. See
+subjects without changing the market graph. These are the pinned B3 results. See
 [ADR 0010](docs/decisions/0010-batch-output-contract.md) and the
 [verification receipt](docs/operations/receipts/2026-11-09-batch-output-verification.json).
 
-Real model dispatch and adapter integration, selective independent verification,
+[Issue 33](https://github.com/michaelsena/turbo/issues/33) develops B4: a simulation
+bridge that retains confidence-bearing output in immutable artifacts and settles
+compact references through the managed journal. Known bounded usage is charged even
+for invalid output; uncertain usage or dispatch retains its reservation. This does
+not accept research or enable a real provider. Tests and independent review remain
+pending; see [ADR 0011](docs/decisions/0011-batch-output-artifacts.md).
+
+Real provider integration, selective independent verification,
 disagreement escalation, and deterministic family closure remain later work. Approve
 and evaluate one neutral metered canary before authorizing broad execution. Then
 complete cross-family coverage, publish the canonical universe, add Target filtering,

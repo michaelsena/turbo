@@ -41,4 +41,5 @@ the README and the relevant document whenever behavior or architecture changes.
 - [ADR 0008: Batch authorization and execution ledger](decisions/0008-batch-authorization-execution-ledger.md)
 - [ADR 0009: Trusted local execution registry](decisions/0009-trusted-local-execution-registry.md)
 - [ADR 0010: Standalone batch-output contract](decisions/0010-batch-output-contract.md)
+- [ADR 0011: Batch-output artifacts and managed settlement](decisions/0011-batch-output-artifacts.md)
 - [Prior-model crosswalk](decisions/prior-model-crosswalk.md)
