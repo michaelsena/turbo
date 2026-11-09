@@ -9,6 +9,9 @@ from turbo.universe.boundary_pack import build_boundary_pack, validate_boundary_
 
 
 CONFIG = ROOT / "config/universe/families/office-administrative-services-v1.json"
+CORRECTION_CONFIG = (
+    ROOT / "config/universe/families/office-administrative-services-v2.json"
+)
 
 
 class BoundaryPackTest(unittest.TestCase):
@@ -86,6 +89,32 @@ class BoundaryPackTest(unittest.TestCase):
             validate_boundary_pack(tampered),
             ["pack_sha256 does not match canonical pack content"],
         )
+
+    def test_correction_pack_adds_required_candidate_anchors(self) -> None:
+        corrected = build_boundary_pack(CORRECTION_CONFIG)
+        required = {
+            "candidate-market:83c901691f2d7e1f17cf8604",
+            "candidate-market:a1b56327512348614f589ebc",
+            "candidate-market:ecd0f6e0ed43d167e2c16afb",
+        }
+        retrieved = {
+            item["candidate_market_id"]
+            for item in corrected["retrieved_prior_candidate_details"]
+        }
+        anchors = {
+            item["content"]["candidate_market_id"]
+            for item in corrected["evidence_catalog"]
+            if item["evidence_kind"] == "required-prior-candidate-anchor"
+        }
+        self.assertEqual(
+            corrected["summary"]["counts"]["retrieved_prior_candidates"], 130
+        )
+        self.assertEqual(
+            set(corrected["scope"]["required_prior_candidate_ids"]), required
+        )
+        self.assertTrue(required <= retrieved)
+        self.assertEqual(anchors, required)
+        self.assertEqual(validate_boundary_pack(corrected), [])
 
     def test_compiler_rejects_a_tampered_run_artifact(self) -> None:
         original = boundary_pack._sha256_path

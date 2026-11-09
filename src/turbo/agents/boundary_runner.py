@@ -83,8 +83,12 @@ def run_boundary_pilot(
     pack = build_boundary_pack(config_path, root=root)
     config = json.loads(config_path.read_text(encoding="utf-8"))
     execution = config["baseline_execution"]
-    specialist_prompt = root / "prompts/universe/boundary-specialist-v1.md"
-    adjudicator_prompt = root / "prompts/universe/boundary-adjudicator-v1.md"
+    specialist_prompt = root / execution.get(
+        "specialist_prompt_path", "prompts/universe/boundary-specialist-v1.md"
+    )
+    adjudicator_prompt = root / execution.get(
+        "adjudicator_prompt_path", "prompts/universe/boundary-adjudicator-v1.md"
+    )
 
     def run_specialist(role_id: str) -> InvocationResult:
         return invoke_configured_role(

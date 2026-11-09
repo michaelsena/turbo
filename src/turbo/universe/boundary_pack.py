@@ -327,12 +327,20 @@ def build_boundary_pack(
     ]
 
     selected_mappings = [mappings[identity_id] for identity_id in required_ids]
+    required_prior_candidate_ids = set(config.get("required_prior_candidate_ids", []))
+    missing_required_candidates = required_prior_candidate_ids - set(candidates)
+    if missing_required_candidates:
+        raise ValueError(
+            "unknown required prior candidates: "
+            + json.dumps(sorted(missing_required_candidates))
+        )
     retrieved_candidate_ids = sorted(
         {
             candidate["candidate_market_id"]
             for mapping in selected_mappings
             for candidate in mapping["candidates"]
         }
+        | required_prior_candidate_ids
     )
 
     prevalence = Counter(
@@ -475,6 +483,24 @@ def build_boundary_pack(
                 source_record_ids=mapping["supporting_source_record_ids"],
             )
         )
+    for candidate_id in sorted(required_prior_candidate_ids):
+        candidate = candidates[candidate_id]
+        evidence.append(
+            _evidence_item(
+                "required-prior-candidate-anchor",
+                {
+                    "candidate_market_id": candidate_id,
+                    "name": candidate["name"],
+                    "status": candidate["status"],
+                    "interpretation_boundary": (
+                        "Pre-registered prior seed requiring explicit family-local "
+                        "reconciliation; not an accepted mapping or market decision."
+                    ),
+                },
+                subject_ids=[candidate_id],
+                source_record_ids=candidate["source_record_ids"],
+            )
+        )
 
     evidence.sort(key=lambda item: item["evidence_id"])
     evidence_ids = [item["evidence_id"] for item in evidence]
@@ -564,6 +590,10 @@ def build_boundary_pack(
             )
         ],
     }
+    if "required_prior_candidate_ids" in config:
+        pack["scope"]["required_prior_candidate_ids"] = sorted(
+            required_prior_candidate_ids
+        )
     pack["metadata"]["pack_sha256"] = _pack_hash(pack)
     return pack
 

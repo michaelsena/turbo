@@ -411,6 +411,14 @@ The exact review is
 and replays with zero validation errors. The proposal remains outside the Market
 Graph; accepted canonical markets, Target markets, and research scores remain zero.
 
+The correction cycle is preregistered in a successor V2 pack rather than mutating the
+reviewed evidence. It adds the three missed prior seeds as mandatory anchors, expands
+the required candidate set from 127 to 130, and makes family-local rejection scope,
+all 13 index entries, explicit research gaps, complete exclusions, and stronger NAPCS
+citations part of the model completion contract. Its frozen pack hash is
+`eccc87570dc259f3cea6449a5a87455ccba4e690ccb82851e28822c3a64346e5`; it has not yet
+produced or activated a replacement proposal.
+
 These counts and every reconciliation proposal are in the deterministic
 `multisource-reconciliation.json.gz` artifact inside the immutable run directory.
 Large derived views are compressed with a fixed timestamp so replay produces

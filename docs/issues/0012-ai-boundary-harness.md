@@ -238,3 +238,21 @@ Activation conditions require family-local candidate semantics, direct reconcili
 of the missed prior seeds, treatment of all 13 index entries, explicit research gaps,
 stronger NAPCS citations, corrected evidence labels, and complete exclusions. No
 Market Graph event was created; accepted canonical markets remain zero.
+
+### Correction-cycle preregistration
+
+The correction cycle is versioned as
+`config/universe/families/office-administrative-services-v2.json`; the reviewed V1
+config, pack, outputs, and review remain immutable. Its deterministic pack has SHA-256
+`eccc87570dc259f3cea6449a5a87455ccba4e690ccb82851e28822c3a64346e5`, 550 evidence
+items, 66 required source identities, and 130 required prior-candidate dispositions.
+It adds explicit required-anchor evidence for the missed horizontal office
+administration, medical practice administration, and dental practice administration
+seeds while retaining the previously retrieved hotel-administration seed.
+
+Versioned V2 specialist and adjudicator prompts require every `reject` rationale to
+state family-local non-mapping semantics, every required prior seed to be reconciled,
+all seed manual-index entries to be audited, weak dimensions and unresolved splits to
+create research gaps, each NAPCS disposition to cite interpretation evidence beyond a
+product link, and direct manual cross-reference exclusions to be preserved. These are
+completion-contract changes for a new run, not edits to the reviewed V1 result.
