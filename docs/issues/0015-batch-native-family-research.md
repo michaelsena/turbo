@@ -68,7 +68,7 @@ There is no silent truncation, inferred substitution, activation, or graph mutat
 - Track B1: merged authorization and execution-ledger foundation, exercised with
   fake transport only; its scope and acceptance are described below.
 - Track B2: trusted local registry for managed authorization consumption; simulation
-  only, with local replay and independent review still required.
+  only, locally verified and awaiting merge.
 - Later Track B: real model adapter, output contract, selective verification,
   disagreement escalation, and provider-cost reconciliation.
 - Track C: progress events, closure receipts, cross-family conflict checks, and
