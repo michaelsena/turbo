@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from turbo.agents import batch_workflow as workflow
+from turbo.agents import model_view as view
 from turbo.agents.batch_output import PROMPT_PATH, SCHEMA_PATH, _strict_json
 from turbo.agents.batch_execution_v2 import BatchExecutionV2
 from turbo.agents.openrouter_attempt import bounded_request_body, invoke_openrouter_once
@@ -22,16 +23,18 @@ from turbo.agents.openrouter_runner import openrouter_schema
 from turbo.pipeline_paths import ROOT
 
 SUPPORTED_ROLES = workflow.ROLES
-EXECUTION_FILES = ('src/turbo/agents/batch_recovery.py', 'src/turbo/agents/batch_provider.py', 'src/turbo/agents/openrouter_attempt.py',
+EXECUTION_FILES = ('src/turbo/agents/model_view.py', 'src/turbo/agents/batch_recovery.py', 'src/turbo/agents/batch_provider.py', 'src/turbo/agents/openrouter_attempt.py',
                    'src/turbo/agents/openrouter_runner.py', 'src/turbo/agents/batch_output.py',
                    'src/turbo/agents/batch_authorization.py', 'src/turbo/agents/runtime.py',
                    'src/turbo/agents/boundary_harness.py', 'src/turbo/universe/batch_closure.py',
                    'src/turbo/universe/graph_release.py', 'schemas/graph-release-config.schema.json')
 
 
-def execution_contract_hashes() -> dict:
-    return {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
-            for name in EXECUTION_FILES}
+def execution_contract_hashes(*, model_view: str | None = None) -> dict:
+    if model_view not in (None, view.VERSION): raise ValueError('unknown model view')
+    result = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in EXECUTION_FILES}
+    if model_view is not None: result[view.CONTRACT_KEY] = view.POLICY_SHA256
+    return result
 
 
 def _bytes(value: Any) -> bytes:
@@ -63,17 +66,19 @@ def role_schema(role: str, *, input_root: Path) -> dict:
     return schema
 
 
-def role_prompt(*, input_root: Path) -> str:
+def role_prompt(*, input_root: Path, model_view: str | None = None) -> str:
+    if model_view not in (None, view.VERSION): raise ValueError('unknown model view')
     return ((ROOT / workflow.PROMPT).read_text() + '\n\n# B3 payload instructions\n\n'
             + (Path(input_root) / PROMPT_PATH).read_text()
             + '\n\nReturn the assigned role document, not the coordinator envelope. '
               'For research roles put the complete B3 object inside payload. '
-              'For verifier return input_hashes and assessments only.\n')
+              'For verifier return input_hashes and assessments only.\n'
+            + (view.INSTRUCTIONS if model_view is not None else ''))
 
 
-def contract_bindings(*, input_root: Path) -> dict:
+def contract_bindings(*, input_root: Path, model_view: str | None = None) -> dict:
     """Bindings to include in each preregistered V2 role configuration."""
-    prompt = role_prompt(input_root=input_root)
+    prompt = role_prompt(input_root=input_root, model_view=model_view)
     return {role: {'prompt_sha256': hashlib.sha256(prompt.encode()).hexdigest(),
                    'schema_sha256': _hash(role_schema(role, input_root=input_root))}
             for role in workflow.ROLES}
@@ -205,7 +210,10 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
     input_root = Path(input_root).resolve()
     task = workflow.assignment(directory, role, input_root=input_root,
                                preparation_dirs=preparation_dirs)
-    expected_contracts = execution_contract_hashes()
+    enabled_view = view.VERSION if view.CONTRACT_KEY in authorization['execution_contract_hashes'] else None
+    if enabled_view is not None and recovery_checkpoint is not None:
+        raise ValueError('model view requires a fresh workflow authorization, not recovery')
+    expected_contracts = execution_contract_hashes(model_view=enabled_view)
     if recovery_checkpoint is not None:
         from turbo.agents.batch_recovery import checkpoint_binding
         from turbo.agents.batch_execution_v2 import _read
@@ -214,7 +222,7 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         raise ValueError('execution implementation changed')
     if authorization['workflow_plan_sha256'] != task['plan_sha256']:
         raise ValueError('authorization does not bind workflow plan')
-    bindings = contract_bindings(input_root=input_root)
+    bindings = contract_bindings(input_root=input_root, model_view=enabled_view)
     for name, binding in bindings.items():
         if any(authorization['roles'][name].get(k) != v for k, v in binding.items()):
             raise ValueError('role prompt/schema authorization mismatch')
@@ -227,8 +235,9 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
     if role == 'release_reviewer':
         _replay_preview(directory, input_root=input_root, preparation_dirs=preparation_dirs)
     config = authorization['roles'][role]
-    prompt = role_prompt(input_root=input_root)
-    runtime = prompt + '\n# Frozen assignment\n' + _bytes(task).decode()
+    prompt = role_prompt(input_root=input_root, model_view=enabled_view)
+    rendered_task = view.encode(task) if enabled_view is not None else task
+    runtime = prompt + '\n# Frozen assignment\n' + _bytes(rendered_task).decode()
     schema = role_schema(role, input_root=input_root)
     # Conservative admission: UTF-8 request bytes plus an explicit wrapper allowance.
     # This deliberately overestimates normal tokenization, not a provider dollar cap.

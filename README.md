@@ -230,6 +230,10 @@ restrictions, price caps, and supported cache policy in the same request used fo
 admission and dispatch. Combined verification passed 384 full-suite tests,
 16 focused checks, and repository validation; see the
 [verification receipt](docs/operations/receipts/2026-11-09-batch-routing-activation-verification.json).
+Optional [lossless model views](docs/decisions/0014-lossless-model-view.md) preserve
+the complete assignment while reducing repeated JSON structure. An offline anchored
+request measured 41.1% fewer bytes; token savings and research quality remain unqualified.
+The view requires explicit fresh authorization and cannot alter an existing recovery run.
 These controls do not authorize a paid canary. The first authorized selective
 canary returned zero proposed markets and 110 unresolved identities; grouped-gap
 citations failed acceptance, so no verifier, reviewer, or activation followed.
