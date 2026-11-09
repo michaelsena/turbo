@@ -19,6 +19,8 @@ the README and the relevant document whenever behavior or architecture changes.
 - [Data contracts](architecture/data-contracts.md)
 - [Read API and React research console](application/read-api-dashboard.md)
 - [Local operating runbook](operations/runbook.md)
+- [App/UI GM worker charter](operations/app-gm-worker.md)
+- [Local App/UI issue dispatcher](operations/app-dispatcher.md)
 - [Issue 14: deterministic family partition and scheduler](issues/0014-family-partition-scheduler.md)
 - [Issue 15: batch-native family research](issues/0015-batch-native-family-research.md)
 - [Family-preparation correction audit](operations/receipts/2026-11-09-family-pack-corrections.json)
