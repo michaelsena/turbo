@@ -159,12 +159,16 @@ guarantee. Standalone B1 stays per-journal. See the
 [B2 receipt](docs/operations/receipts/2026-11-09-shared-registry-verification.json)
 for pinned tests, simulation replay, and review results.
 
-Track B3 is developing a standalone batch-output contract over verified family
-preparations. It checks structural coverage, evidence references, reasoning labels,
+[PR #25](https://github.com/michaelsena/turbo/pull/25) implements Track B3, a
+standalone batch-output contract over verified family preparations. It checks
+structural coverage, evidence references, reasoning labels,
 confidence, gaps, and boundary proposals; synthetic validation is not research
 acceptance. It does not dispatch models or feed B1 settlement automatically.
-See [ADR 0010](docs/decisions/0010-batch-output-contract.md). Local replay and
-independent review remain required for this increment.
+All 237 Python tests passed, including 22 focused checks; independent review found
+no blocking issues. A synthetic two-family validation covered all 59 required
+subjects without changing the market graph. PR #25 remains unmerged. See
+[ADR 0010](docs/decisions/0010-batch-output-contract.md) and the
+[verification receipt](docs/operations/receipts/2026-11-09-batch-output-verification.json).
 
 Real model dispatch and adapter integration, selective independent verification,
 disagreement escalation, and deterministic family closure remain later work. Approve

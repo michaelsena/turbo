@@ -69,8 +69,8 @@ There is no silent truncation, inferred substitution, activation, or graph mutat
   fake transport only; its scope and acceptance are described below.
 - Track B2: trusted local registry for managed authorization consumption; simulation
   only, merged and locally verified.
-- Track B3: standalone batch-output contract and synthetic structural validation;
-  local replay and independent review remain required.
+- Track B3: implemented in PR #25; all 237 Python tests, 22 focused checks, synthetic
+  replay, and independent review passed. The PR remains unmerged.
 - Later Track B: real model adapter and contract integration, selective verification,
   disagreement escalation, and provider-cost reconciliation.
 - Track C: progress events, closure receipts, cross-family conflict checks, and
@@ -173,6 +173,14 @@ cannot reset its cost/call state. The public-wrapper binding regression is cover
 No real provider call, approval authentication, or research activation is included.
 
 ## Track B3: standalone output validation
+
+[PR #25](https://github.com/michaelsena/turbo/pull/25) implements B3. All 237 Python
+tests passed in 675.858 seconds, including 22 focused checks that separately passed
+in 71.554 seconds. Independent review found no blocking issues. Synthetic replay
+covered one required identity and 58 candidates with explicit unresolved gaps and
+no graph mutation. The PR remains unmerged. The
+[verification receipt](../operations/receipts/2026-11-09-batch-output-verification.json)
+records exact tested commits, hashes, runtime, and limitations.
 
 B3 adds a structural contract over verified V2 family preparations, preserving
 required identity/candidate coverage and family-specific frozen evidence references.

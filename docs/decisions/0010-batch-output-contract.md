@@ -2,7 +2,9 @@
 
 ## Status
 
-Proposed for Issue #15 Track B3. Local replay and independent review are required.
+Proposed for Issue #15 Track B3 in [PR #25](https://github.com/michaelsena/turbo/pull/25).
+Local tests, synthetic replay, and independent review passed; the PR remains unmerged.
+See the [verification receipt](../operations/receipts/2026-11-09-batch-output-verification.json).
 This increment validates synthetic output structure only; it makes no provider call
 and does not accept research, alter scores, or activate market boundaries.
 

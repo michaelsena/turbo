@@ -25,6 +25,7 @@ the README and the relevant document whenever behavior or architecture changes.
 - [Dashboard verification](operations/receipts/2026-11-09-dashboard-corrections.json)
 - [Batch-ledger simulation verification](operations/receipts/2026-11-09-batch-ledger-verification.json)
 - [Shared-registry simulation verification](operations/receipts/2026-11-09-shared-registry-verification.json)
+- [Batch-output contract verification](operations/receipts/2026-11-09-batch-output-verification.json)
 
 ## Architecture decisions
 
