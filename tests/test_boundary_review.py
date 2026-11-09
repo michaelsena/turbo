@@ -19,6 +19,10 @@ REVIEW_CONFIG = (
     ROOT
     / "config/universe/reviews/office-administrative-services-v1-boundary-review.json"
 )
+GEMINI_REVIEW_CONFIG = (
+    ROOT
+    / "config/universe/reviews/office-administrative-services-v1-boundary-review-gemini.json"
+)
 
 
 class BoundaryIndependentReviewTest(unittest.TestCase):
@@ -60,6 +64,25 @@ class BoundaryIndependentReviewTest(unittest.TestCase):
             "boundary-run-1d9b04b683a3544c2644",
         )
         self.assertEqual(len(self.envelope["review_input_sha256"]), 64)
+
+    def test_successor_review_preserves_target_and_changes_model(self) -> None:
+        successor = build_review_envelope(GEMINI_REVIEW_CONFIG, BOUNDARY_CONFIG)
+        self.assertEqual(
+            successor["review_config"]["target_run_id"],
+            self.envelope["review_config"]["target_run_id"],
+        )
+        self.assertEqual(
+            successor["review_config"]["target_pack_sha256"],
+            self.envelope["review_config"]["target_pack_sha256"],
+        )
+        self.assertEqual(
+            successor["review_config"]["target_adjudication_sha256"],
+            self.envelope["review_config"]["target_adjudication_sha256"],
+        )
+        self.assertEqual(
+            successor["review_config"]["review_model"],
+            "google/gemini-4-argon",
+        )
 
     def test_complete_zero_finding_approval_validates(self) -> None:
         self.assertEqual(validate_review_output(self.valid_output(), self.envelope), [])

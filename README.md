@@ -395,6 +395,13 @@ appropriately scoped to this family rather than accidentally implying global rem
 of unrelated prior seeds. No Target Market filter, attractiveness score, shortlist,
 or company work has begun.
 
+The first independent reviewer configuration used Claude Opus 5.5. A tiny strict-JSON
+diagnostic succeeded, but two full frozen-packet attempts returned HTTP 200 with no
+model choice and zero billed usage; both failed closed and the Claude route is retired
+for this review. The append-only successor configuration uses Gemini 4 Argon against
+the identical frozen run and activation rule. No reviewer result has yet been accepted,
+and the proposal remains outside the Market Graph.
+
 These counts and every reconciliation proposal are in the deterministic
 `multisource-reconciliation.json.gz` artifact inside the immutable run directory.
 Large derived views are compressed with a fixed timestamp so replay produces

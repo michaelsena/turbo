@@ -182,3 +182,24 @@ parser exception exposed a missing catch path, its exact completion time and pro
 generation metadata were unavailable and are explicitly left unknown. The receipt
 records the later failure-observation time instead. A regression test now covers an
 HTTP-200 response with an empty choice list.
+
+A tiny same-model structured-output diagnostic then succeeded through Claude
+Platform on AWS: one choice, exact `{"ok":true}` content, 226 total tokens, and
+`$0.001048` cost. This isolated the problem to the large review request path rather
+than model naming or JSON Schema support. A final full request at exact head
+`5558d0052e4989d3e2f18279e0b0f299f65a5d4f` again returned HTTP 200 with no choice
+after 725,773 ms. Its generation ID is
+`gen-1794188091-Gaiev23k5J2UYESwr379`; it reported no served model, provider, token
+usage, or cost. The durable failed receipt is
+`independent-review-3bcfd22da5c9b201574a/review.receipt.json`. The account usage
+rose only by the `$0.001048` diagnostic cost, to `$3.539260`, confirming that neither
+failed full request was billed. The Claude full-packet route is retired for this
+review; it will not be retried again without a separately documented method change.
+
+The successor review configuration is
+`config/universe/reviews/office-administrative-services-v1-boundary-review-gemini.json`.
+It binds the same run, pack, adjudication, questions, and activation rule, but names
+`google/gemini-4-argon` as the reviewer. At selection time, OpenRouter reported a
+1,048,576-token context, structured-output and high-reasoning support, at least one
+healthy Google endpoint, and sufficient completion capacity. This is an explicit
+successor attempt, not a mutation of the failed Claude preregistration.
