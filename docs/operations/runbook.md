@@ -169,6 +169,53 @@ and [ADR 0008](../decisions/0008-batch-authorization-execution-ledger.md). Recor
 exact code/input hashes and local test results in GitHub before accepting this lane;
 fake-transport tests must not be reported as a metered research run.
 
+### Managed local registry (Track B2)
+
+Choose one trusted registry directory for same-host simulation clients. Its parent
+must already exist and the selected directory must not exist. Initialize it once:
+
+```bash
+PYTHONPATH=src python3 -m turbo.cli batch-registry-init path/to/new-registry
+PYTHONPATH=src python3 -m turbo.cli batch-registry-status path/to/new-registry
+PYTHONPATH=src python3 -m turbo.cli batch-registry-validate path/to/new-registry \
+  "$AUTHORIZATION_SHA256" path/to/preparation-1 path/to/preparation-2
+```
+
+Set `AUTHORIZATION_SHA256` to the existing claim's full authorization digest shown by
+registry status. Initialization explicitly writes local registry state. Status and
+validation only inspect existing state; validation also replays the exact preparation
+inputs. Neither creates a claim or dispatches a transport. There is no registry claim
+or dispatch CLI. A new registry has no claims to validate.
+
+The Python API `initialize_registry` creates a registry. `BatchRegistry` opens an
+existing registry; its `open(authorization, preparation_dirs)` creates or reuses the
+canonical journal and returns a managed client for B1's simulation operations. It has
+no execution-directory argument. Managed clients using the same exact authorization
+and registry share that journal's attempt history and counters. The new
+`managed_budget_scope: single_registry_exact_authorization` describes this selection
+boundary; B1's `budget_scope: single_journal_simulation` remains unchanged.
+
+Keep the registry at its bound resolved path and use its pinned registry module and
+schema versions. Its metadata binds a UUID and those hashes; moving the directory or
+changing the bound implementation/schema fails validation. Same-host POSIX locks
+coordinate claims and inspection. B1's journal locks coordinate attempts after the
+registry lock is released, including before a fake transport callback.
+
+A claim is durable before its journal is created. The ready receipt follows durable
+journal initialization. Missing ready receipts, missing or partial claimed journals,
+unclaimed journals at derived paths, and invalid bindings fail closed. Do not delete
+or rebuild files to clear that failure. There is no automatic adoption, reset,
+refund, claim deletion/rebinding, or implemented manual-recovery procedure. A partial
+registry initialization likewise cannot be adopted by rerunning initialization.
+
+This is one trusted local registry, not global spending authority. Separate
+registries and edited or newly minted unsigned authorizations have independent
+identities. Deleting/replacing all trusted state and privileged filesystem mutation
+during operations are outside the guarantee. Standalone B1 still permits separate
+journals and does not join the registry implicitly. Production authorization and
+trusted-state governance remain blocking work before a live provider or paid canary.
+See [ADR 0009](../decisions/0009-trusted-local-execution-registry.md).
+
 ### Existing metered pilot lane
 
 For metered model runs, create an ignored local `.env` from `.env.example` and place

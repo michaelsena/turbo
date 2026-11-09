@@ -24,6 +24,7 @@ the README and the relevant document whenever behavior or architecture changes.
 - [Family-preparation correction audit](operations/receipts/2026-11-09-family-pack-corrections.json)
 - [Dashboard verification](operations/receipts/2026-11-09-dashboard-corrections.json)
 - [Batch-ledger simulation verification](operations/receipts/2026-11-09-batch-ledger-verification.json)
+- [Shared-registry simulation verification](operations/receipts/2026-11-09-shared-registry-verification.json)
 
 ## Architecture decisions
 
@@ -35,4 +36,5 @@ the README and the relevant document whenever behavior or architecture changes.
 - [ADR 0006: OpenRouter model-provider layer](decisions/0006-openrouter-model-provider.md)
 - [ADR 0007: Schedule-driven family preparations](decisions/0007-schedule-driven-family-preparations.md)
 - [ADR 0008: Batch authorization and execution ledger](decisions/0008-batch-authorization-execution-ledger.md)
+- [ADR 0009: Trusted local execution registry](decisions/0009-trusted-local-execution-registry.md)
 - [Prior-model crosswalk](decisions/prior-model-crosswalk.md)

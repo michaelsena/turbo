@@ -324,6 +324,45 @@ The implementation uses fake transport only. Real-provider settlement, model-out
 contracts, selective verification, disagreement escalation, and reviewed activation
 or no-movement closure remain separate contracts. No live-dispatch CLI is exposed.
 
+## Trusted local registry (Track B2)
+
+A managed registry binds the digest of an exact canonical authorization document to
+one canonical journal under its trusted root. This adds local journal selection above
+B1; it does not change the authorization's `single_journal_simulation` scope or turn
+it into a signed spending grant. The same exact document resolves the same journal
+within that registry. Editing the document produces another digest and is outside
+the same-authorization guarantee.
+
+| Durable record | Binding and purpose |
+| --- | --- |
+| `registry.json` | Registry UUID, resolved root path, registry schema and implementation hashes |
+| `.lock` | Same-host POSIX coordination for claims and validation |
+| `claims/<authorization-digest>.json` | Immutable claim linking the exact authorization to its canonical journal |
+| `claims/<authorization-digest>.ready.json` | Receipt written after durable journal initialization |
+| `journals/<authorization-digest>/` | B1's canonical authorization, event journal, and per-journal lock |
+
+Initialization requires a new directory beneath an existing parent and writes
+metadata last; existing or partially initialized directories are not adopted.
+Registry status exposes `registry_id`, `registry_sha256`, `registry_path`,
+`managed_budget_scope: single_registry_exact_authorization`, and per-claim journal
+paths, call counts, committed/outstanding costs, and event counts. Managed journal
+status adds registry identity, managed scope, and journal path to B1 status, while
+retaining `budget_scope: single_journal_simulation`. Both remain simulation-only.
+
+The claim is persisted before journal creation; the ready receipt follows durable
+initialization. An existing claim without its ready receipt, a missing or partial
+claimed journal, or an unclaimed journal at the derived path fails closed. The
+registry never automatically adopts or recreates that state. Recovery requires a
+future reviewed policy. Fixed paths reject symlinks; no delete or rebind API exists.
+
+The registry lock is released before B1 operations and fake transport. Attempt
+serialization and budget arithmetic remain B1's per-journal responsibility. This
+same-host local design assumes trusted filesystem state; it provides no guarantee
+across different registries, new unsigned authorizations, wholesale state deletion,
+or privileged mid-operation filesystem mutation. Production authorization, provider
+integration, and spending remain excluded. See
+[ADR 0009](../decisions/0009-trusted-local-execution-registry.md).
+
 ## Factor definition, evaluator result, and score event
 
 A factor definition contains anchors, evidence expectations, weight, confidence

@@ -3,7 +3,7 @@
 ## Status
 
 Implemented and locally verified in [PR #21](https://github.com/michaelsena/turbo/pull/21),
-which remains unmerged. The [verification receipt](../operations/receipts/2026-11-09-batch-ledger-verification.json)
+merged at `247b8c25822147c36f8eae0aece16d3214db4095`. The [verification receipt](../operations/receipts/2026-11-09-batch-ledger-verification.json)
 records exact replay and independent review. This increment exercises a fake transport only. It authorizes no live model
 call, research spend, market decision, or graph activation.
 

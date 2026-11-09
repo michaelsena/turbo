@@ -65,8 +65,10 @@ There is no silent truncation, inferred substitution, activation, or graph mutat
 
 ## Remaining tracks
 
-- Track B1: authorization and execution-ledger foundation, exercised with fake
-  transport only; its scope and acceptance are described below.
+- Track B1: merged authorization and execution-ledger foundation, exercised with
+  fake transport only; its scope and acceptance are described below.
+- Track B2: trusted local registry for managed authorization consumption; simulation
+  only, locally verified and awaiting merge.
 - Later Track B: real model adapter, output contract, selective verification,
   disagreement escalation, and provider-cost reconciliation.
 - Track C: progress events, closure receipts, cross-family conflict checks, and
@@ -137,8 +139,32 @@ and the [runbook](../operations/runbook.md) for the implemented inspection comma
 ## Track B1 verification
 
 [PR #21](https://github.com/michaelsena/turbo/pull/21) implements the scoped
-single-journal simulation foundation and remains unmerged. The
+single-journal simulation foundation, merged at
+`247b8c25822147c36f8eae0aece16d3214db4095`. The
 [verification receipt](../operations/receipts/2026-11-09-batch-ledger-verification.json)
 records 190 passing Python tests (28 focused), exact two-family simulation replay,
 independent review, code/input/output hashes, and unchanged research state.
 No live provider call or production spend authority is included.
+
+## Track B2: trusted local registry
+
+B2 binds each canonical authorization digest to one claimed execution journal within
+one explicitly trusted local registry. Managed clients resolve that journal rather
+than supplying arbitrary output directories. Reopening the same authorization must
+retain its attempts and consumption; a missing claimed journal must fail closed.
+
+This does not coordinate different registries or prevent new unsigned authorizations,
+and it cannot establish continuity after deletion of the entire trusted state.
+Standalone B1 remains per-journal. Real providers, spending authority, and research
+execution remain outside B2; production authorization and state governance require
+separate review before any paid canary. See
+[ADR 0009](../decisions/0009-trusted-local-execution-registry.md).
+
+## Track B2 verification
+
+[PR #23](https://github.com/michaelsena/turbo/pull/23) remains unmerged. Its
+[verification receipt](../operations/receipts/2026-11-09-shared-registry-verification.json)
+records 215 passing Python tests (25 focused registry checks), independent review,
+and a two-family simulation in which two managed clients share one journal and
+cannot reset its cost/call state. The public-wrapper binding regression is covered.
+No real provider call, approval authentication, or research activation is included.

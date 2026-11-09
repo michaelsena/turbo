@@ -140,6 +140,14 @@ another directory has separate counters. Shared spent-authorization tracking or 
 deterministic governed namespace must precede any live adapter or paid canary.
 See [ADR 0008](../decisions/0008-batch-authorization-execution-ledger.md).
 
+Track B2 adds a managed path through one explicitly trusted local registry. The
+registry binds each canonical authorization digest to a canonical journal, so repeat
+managed clients cannot select fresh counters for that authorization. A missing
+claimed journal fails closed. Standalone B1 remains per-journal. Different registries,
+new unsigned authorizations, and deletion of all trusted state are outside this local
+guarantee. B2 remains simulation-only; see
+[ADR 0009](../decisions/0009-trusted-local-execution-registry.md).
+
 ## Comparison topology
 
 Pairwise comparison is a domain operation. Every submodel has its own comparator and
