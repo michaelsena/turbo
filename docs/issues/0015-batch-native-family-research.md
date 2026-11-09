@@ -245,7 +245,7 @@ is included. See
 
 ## Governed provider integration: first increment
 
-[PR 40](https://github.com/michaelsena/turbo/pull/40), still unmerged, connected primary and verifier
+[PR 40](https://github.com/michaelsena/turbo/pull/40), now merged, connected primary and verifier
 roles to a V2 shared authorization journal and one-attempt OpenRouter adapter.
 Its historical acceptance recorded 357 Python tests, including 40 focused
 provider/accounting/integration checks; independent review has no outstanding P0/P1/P2 findings. Repository
@@ -256,8 +256,20 @@ No real provider call or graph activation occurred in that verification. The new
 stacked increment supports all six eligible roles and verifies same-journal upstream
 provenance plus exact release-preview replay. Routine agreement still uses three
 roles; material disagreement adds the two blind roles and adjudicator. Its 22 focused
-checks passed in 95.040 seconds with clear independent review; the full suite is still
-running. New runs require a fresh workflow and authorization, not earlier-source
+checks passed in 95.040 seconds with clear independent review; the later integrated full suite passed 384 tests and repository validation. New runs require a fresh workflow and authorization, not earlier-source
 accepted submissions. Neither offline APIs nor controlled transports establish a
 metered canary.
 Issue 39 and this parent remain open.
+
+## First selective canary acceptance failure
+
+The first authorized two-family primary returned no proposed markets and marked
+110 identities unresolved. Two grouped identity gaps named 80 and 30 subjects but
+each cited an anchor for only one. Existing per-subject validation rejected the
+output; no downstream role or graph activation occurred. Issue 48 clarifies that
+gap citations must collectively anchor every affected subject, or gaps must be
+separated by subject. Validation and the failed artifact remain unchanged.
+
+This prompt clarification does not establish evidence sufficiency, authorize a
+paid retry, or convert the rejected output into accepted research. Compare the
+frozen evidence with the successful corrected pilot before further dispatch.

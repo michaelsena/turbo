@@ -225,7 +225,11 @@ restrictions, price caps, and supported cache policy in the same request used fo
 admission and dispatch. Combined verification passed 384 full-suite tests,
 16 focused checks, and repository validation; see the
 [verification receipt](docs/operations/receipts/2026-11-09-batch-routing-activation-verification.json).
-These controls do not authorize a paid canary.
+These controls do not authorize a paid canary. The first authorized selective
+canary returned zero proposed markets and 110 unresolved identities; grouped-gap
+citations failed acceptance, so no verifier, reviewer, or activation followed.
+[Issue 48](https://github.com/michaelsena/turbo/issues/48) clarifies the prompt and
+checks evidence sufficiency before another paid attempt.
 These verification checks made no paid calls or production market activation. This is not production readiness. The six
 exploratory manual hypotheses remain provisional and cannot bypass the gates. Run and evaluate one explicitly authorized neutral metered canary before
 authorizing broad execution. Then

@@ -39,3 +39,11 @@ unknown dimension in a referenced proposal, also requires an applicable gap. Gap
 may name required identities and candidates only, and must retain current judgment,
 typed reasoning, confidence, and citations. Preserve uncertainty instead of turning
 source categories or retrieval matches into accepted operating markets.
+
+For every research gap, supporting_evidence_ids must collectively cover every
+affected_identity_id and affected_candidate_id: each named subject must appear
+in subject_ids of at least one cited supporting evidence item from this family.
+One citation for one subject does not support a gap naming many subjects. Either
+cite sufficient subject-anchored evidence for the complete group or create separate
+subject-specific gaps. Never invent citations or claim that an anchor establishes
+operating-market evidence that the source does not contain.
