@@ -19,15 +19,18 @@ evidence, inference, score policy, and exact run.
 7. Global rank, research priority, challenger intake, and shortlist are distinct.
 8. The repository—not chat history—is the source of truth.
 
-## V1 definition of done
+## Universe-first completion sequence
 
-- Preserve and validate one authoritative American industry hierarchy.
-- Generate a provisional candidate set and explicit exclusions.
-- Score every six-digit source category on one initial factor group.
-- Produce raw score, confidence, risk-adjusted score, evidence reference, rationale,
-  and active gap for every factor.
+- Preserve and validate the complete identity-source stack.
+- Construct and independently review the canonical American Market Universe, with
+  explicit boundaries, exclusions, lineage, and gaps.
+- Apply separately versioned strategy/size gates to create the Target Market Universe.
+- Only then research and score eligible operating markets, retaining raw score,
+  confidence, risk adjustment, evidence, rationale, and gaps for each factor.
 - Produce deterministic machine-readable outputs and local tests.
 - Document what the first result does and does not mean.
 
-V1 proves the loop; it does not claim that source taxonomies are finished markets.
+This follows ADRs 0002 and 0004. Source taxonomies are inputs to market construction,
+not finished operating markets or eligible scoring rows. The earlier bootstrap
+source-category-scoring criteria are superseded.
 

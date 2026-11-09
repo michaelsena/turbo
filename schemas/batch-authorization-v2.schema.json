@@ -1,0 +1,509 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "mode",
+    "provider",
+    "budget_scope",
+    "workflow_plan_sha256",
+    "authorized_by",
+    "valid_from_utc",
+    "expires_at_utc",
+    "max_calls",
+    "max_cost_microusd",
+    "max_concurrency",
+    "pricing_unit",
+    "roles",
+    "execution_contract",
+    "execution_contract_hashes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "mode": {
+      "const": "authorized_live_v2"
+    },
+    "provider": {
+      "const": "openrouter"
+    },
+    "budget_scope": {
+      "const": "single_trusted_registry_exact_authorization"
+    },
+    "workflow_plan_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authorized_by": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "\\S"
+    },
+    "valid_from_utc": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "\\S"
+    },
+    "expires_at_utc": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "\\S"
+    },
+    "max_calls": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_cost_microusd": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_concurrency": {
+      "const": 1
+    },
+    "pricing_unit": {
+      "const": "microusd_per_token_ceiling"
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary",
+        "verifier",
+        "escalation_a",
+        "escalation_b",
+        "adjudicator",
+        "release_reviewer"
+      ],
+      "properties": {
+        "primary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "model",
+            "prompt_sha256",
+            "schema_sha256",
+            "max_input_tokens",
+            "max_output_tokens",
+            "input_microusd_per_token",
+            "output_microusd_per_token",
+            "max_attempts",
+            "reasoning_effort",
+            "timeout_seconds",
+            "allow_fallbacks"
+          ],
+          "properties": {
+            "model": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "\\S"
+            },
+            "prompt_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "schema_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "max_input_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "max_output_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "input_microusd_per_token": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "output_microusd_per_token": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_attempts": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "reasoning_effort": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 86400
+            },
+            "allow_fallbacks": {
+              "const": false
+            }
+          }
+        },
+        "verifier": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "model",
+            "prompt_sha256",
+            "schema_sha256",
+            "max_input_tokens",
+            "max_output_tokens",
+            "input_microusd_per_token",
+            "output_microusd_per_token",
+            "max_attempts",
+            "reasoning_effort",
+            "timeout_seconds",
+            "allow_fallbacks"
+          ],
+          "properties": {
+            "model": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "\\S"
+            },
+            "prompt_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "schema_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "max_input_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "max_output_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "input_microusd_per_token": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "output_microusd_per_token": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_attempts": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "reasoning_effort": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 86400
+            },
+            "allow_fallbacks": {
+              "const": false
+            }
+          }
+        },
+        "escalation_a": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "model",
+            "prompt_sha256",
+            "schema_sha256",
+            "max_input_tokens",
+            "max_output_tokens",
+            "input_microusd_per_token",
+            "output_microusd_per_token",
+            "max_attempts",
+            "reasoning_effort",
+            "timeout_seconds",
+            "allow_fallbacks"
+          ],
+          "properties": {
+            "model": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "\\S"
+            },
+            "prompt_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "schema_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "max_input_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "max_output_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "input_microusd_per_token": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "output_microusd_per_token": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_attempts": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "reasoning_effort": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 86400
+            },
+            "allow_fallbacks": {
+              "const": false
+            }
+          }
+        },
+        "escalation_b": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "model",
+            "prompt_sha256",
+            "schema_sha256",
+            "max_input_tokens",
+            "max_output_tokens",
+            "input_microusd_per_token",
+            "output_microusd_per_token",
+            "max_attempts",
+            "reasoning_effort",
+            "timeout_seconds",
+            "allow_fallbacks"
+          ],
+          "properties": {
+            "model": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "\\S"
+            },
+            "prompt_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "schema_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "max_input_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "max_output_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "input_microusd_per_token": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "output_microusd_per_token": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_attempts": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "reasoning_effort": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 86400
+            },
+            "allow_fallbacks": {
+              "const": false
+            }
+          }
+        },
+        "adjudicator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "model",
+            "prompt_sha256",
+            "schema_sha256",
+            "max_input_tokens",
+            "max_output_tokens",
+            "input_microusd_per_token",
+            "output_microusd_per_token",
+            "max_attempts",
+            "reasoning_effort",
+            "timeout_seconds",
+            "allow_fallbacks"
+          ],
+          "properties": {
+            "model": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "\\S"
+            },
+            "prompt_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "schema_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "max_input_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "max_output_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "input_microusd_per_token": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "output_microusd_per_token": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_attempts": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "reasoning_effort": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 86400
+            },
+            "allow_fallbacks": {
+              "const": false
+            }
+          }
+        },
+        "release_reviewer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "model",
+            "prompt_sha256",
+            "schema_sha256",
+            "max_input_tokens",
+            "max_output_tokens",
+            "input_microusd_per_token",
+            "output_microusd_per_token",
+            "max_attempts",
+            "reasoning_effort",
+            "timeout_seconds",
+            "allow_fallbacks"
+          ],
+          "properties": {
+            "model": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "\\S"
+            },
+            "prompt_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "schema_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "max_input_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "max_output_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "input_microusd_per_token": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "output_microusd_per_token": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_attempts": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "reasoning_effort": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 86400
+            },
+            "allow_fallbacks": {
+              "const": false
+            }
+          }
+        }
+      }
+    },
+    "execution_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_sha256",
+        "implementation_sha256"
+      ],
+      "properties": {
+        "schema_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "implementation_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "execution_contract_hashes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "batch-authorization-v2.schema.json",
+  "title": "Explicit live shared-role batch authorization v2"
+}

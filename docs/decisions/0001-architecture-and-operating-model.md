@@ -10,6 +10,14 @@ research memory, complete confidence-weighted scoring, independent specialist
 evaluation with mandatory adjudication, and GitHub-native issue/branch/PR governance.
 All validation and testing will run locally rather than in hosted CI.
 
+## Scope clarification
+
+The bootstrap phrase "mandatory adjudication" above is broader than the later
+specific protocols. It must not be read as an always-on gate for every universe
+batch or ranking evaluation. See [ADR 0012](0012-research-workflow-scope.md) for the
+executed pilot, chairman-confirmed scaled universe flow, and documented ranking
+protocol. ADR 0002 separately supersedes this ADR's scoring-timing provisions.
+
 ## Why
 
 A ranked list is useful only if the universe is credible, scores are comparable,

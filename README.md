@@ -189,19 +189,30 @@ bridge that retains confidence-bearing output in immutable artifacts and settles
 compact references through the managed journal. Known bounded usage is charged even
 for invalid output; uncertain usage or dispatch retains its reservation. This does
 not accept research or enable a real provider. [PR 35](https://github.com/michaelsena/turbo/pull/35)
-is merged: 23 focused and 282 full-suite tests passed, independent review
+is merged: its pinned verification recorded 23 focused and 282 full-suite test passes; independent review
 found no P0/P1/P2 issues, and synthetic retry/replay preserved the graph. See
 [ADR 0011](docs/decisions/0011-batch-output-artifacts.md) and the
 [B4 verification receipt](docs/operations/receipts/2026-11-09-batch-research-verification.json).
 
-Real provider integration, selective independent verification,
-disagreement escalation, and deterministic family closure remain later work. Approve
+The chairman-confirmed scaled universe flow is a batch primary with selective
+independent verification, conditional blind escalation and disagreement adjudication,
+then mandatory independent review of planned graph movements and deterministic
+closure/release. The original two-blind pilot and later ranking evaluators are
+different scopes; see the [decision map](docs/decisions/0012-research-workflow-scope.md).
+Issue 39's first provider increment connects only primary and verifier roles through
+a new V2 shared-role journal, one-attempt OpenRouter adapter, output validation, and
+workflow submission. Escalation/adjudication/release dispatch remains blocked until
+later integration. All 40 focused controlled-transport checks pass, and independent
+review found no issues; the full suite is still running. No paid calls or new market
+activation occurred. This is not production readiness. The six
+exploratory manual hypotheses remain provisional and cannot bypass the gates. Approve
 and evaluate one neutral metered canary before authorizing broad execution. Then
 complete cross-family coverage, publish the canonical universe, add Target filtering,
 and begin production scoring.
 The read product can expand only as those durable projections become available.
 
-An explicitly authorized frozen batch can use the
+The merged [PR 37](https://github.com/michaelsena/turbo/pull/37) supplies a single-pass
+draft runner. An explicitly authorized frozen batch can use the
 [local Codex research runner](docs/operations/real-batch-research.md). It consumes
 account quota, retains exact inputs and final-output receipts, and never
 automatically retries; structural validity still requires substantive review. This

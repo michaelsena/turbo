@@ -1,5 +1,21 @@
 # Issue 15: Batch-native family research
 
+## Governing universe workflow
+
+The chairman explicitly reaffirmed this issue's later batch plan for universe
+construction. Use one batch primary, selective independent verification for
+preregistered risk/QA triggers, conditional two-blind escalation for material
+ambiguity, and adjudication when independently valid results materially disagree.
+Mandatory independent review of exact planned graph movements precedes deterministic
+activation or reviewed no-movement closure and cumulative publication. Packing
+families into calls does not remove per-family coverage, lineage, or review gates.
+
+The original Issue 12 two-blind/mandatory-adjudicator pilot and the later market
+scoring/comparator protocol have different scopes. The six exploratory manual
+hypotheses remain provisional drafts, not accepted results. See
+[ADR 0012](../decisions/0012-research-workflow-scope.md) and
+[Issue 39](https://github.com/michaelsena/turbo/issues/39) for implementation.
+
 ## Outcome
 
 Issue #15 turns the corrected Issue #14 schedule into replayable family research
@@ -72,10 +88,13 @@ There is no silent truncation, inferred substitution, activation, or graph mutat
 - Track B3: implemented in PR #25; all 237 Python tests, 22 focused checks, synthetic
   replay, and independent review passed. Merged at `73bf1f8`.
 - Track B4: artifact-backed managed simulation integration in Issue #33 is verified
-  in [PR 35](https://github.com/michaelsena/turbo/pull/35), unmerged; see the
+  in merged [PR 35](https://github.com/michaelsena/turbo/pull/35); see the
   [B4 receipt](../operations/receipts/2026-11-09-batch-research-verification.json).
-- Later Track B: real provider integration, selective verification,
-  disagreement escalation, and provider-cost reconciliation.
+- Current Issue #39 increment: V2 shared-role accounting, one-attempt provider
+  adapter, and primary/verifier integration. Controlled-transport acceptance remains
+  pending; no paid calls or new market activations are claimed.
+- Later integration: escalation/adjudication/release dispatch and a complete
+  independently reviewed provider-backed run.
 - Track C: progress events, closure receipts, cross-family conflict checks, and
   cumulative graph-release integration.
 - Metered canary: only after exact local replay, independent review, and separate
@@ -213,7 +232,7 @@ without automatic retry or refund. Replay checks artifact ownership, bytes, inpu
 and context bindings, verdict, and journal references. Structural validity is not
 substantive evidence review or research acceptance.
 
-[PR 35](https://github.com/michaelsena/turbo/pull/35) is verified and unmerged:
+[PR 35](https://github.com/michaelsena/turbo/pull/35) is merged; its pinned verification recorded:
 23 focused and 282 full-suite tests pass; independent review found no P0/P1/P2
 issues. The synthetic canary charged 20 microUSD for invalid coverage and 24 for a
 valid retry, retained zero outstanding reservation, and replayed without another

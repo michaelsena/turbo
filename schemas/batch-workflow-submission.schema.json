@@ -1,0 +1,373 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "batch-workflow-submission.schema.json",
+  "title": "Issue15 batch primary and selective verification role documents",
+  "$defs": {
+    "research": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "payload"
+      ],
+      "properties": {
+        "payload": {
+          "type": "object"
+        }
+      }
+    },
+    "verifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_hashes",
+        "assessments"
+      ],
+      "properties": {
+        "input_hashes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "primary"
+          ],
+          "properties": {
+            "primary": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "assessments": {
+          "type": "array",
+          "maxItems": 20000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "family_id",
+              "target_kind",
+              "target_id",
+              "verdict",
+              "rationale",
+              "supporting_evidence_ids"
+            ],
+            "properties": {
+              "family_id": {
+                "type": "string",
+                "pattern": "\\S",
+                "maxLength": 12000
+              },
+              "target_kind": {
+                "enum": [
+                  "identity",
+                  "candidate",
+                  "proposal"
+                ]
+              },
+              "target_id": {
+                "type": "string",
+                "pattern": "\\S",
+                "maxLength": 12000
+              },
+              "verdict": {
+                "enum": [
+                  "agree",
+                  "material_disagreement"
+                ]
+              },
+              "rationale": {
+                "type": "string",
+                "pattern": "\\S",
+                "maxLength": 12000
+              },
+              "supporting_evidence_ids": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "pattern": "^evidence:[0-9a-f]{64}$"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "adjudicator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "payload",
+        "input_hashes",
+        "comparisons",
+        "proposal_comparisons"
+      ],
+      "properties": {
+        "payload": {
+          "type": "object"
+        },
+        "input_hashes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "primary",
+            "verifier",
+            "escalation_a",
+            "escalation_b"
+          ],
+          "properties": {
+            "primary": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "verifier": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "escalation_a": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "escalation_b": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "comparisons": {
+          "type": "array",
+          "maxItems": 20000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "family_id",
+              "subject_kind",
+              "subject_id",
+              "rationale"
+            ],
+            "properties": {
+              "family_id": {
+                "type": "string",
+                "pattern": "\\S",
+                "maxLength": 12000
+              },
+              "subject_kind": {
+                "enum": [
+                  "identity",
+                  "candidate"
+                ]
+              },
+              "subject_id": {
+                "type": "string",
+                "pattern": "\\S",
+                "maxLength": 12000
+              },
+              "rationale": {
+                "type": "string",
+                "pattern": "\\S",
+                "maxLength": 12000
+              }
+            }
+          }
+        },
+        "proposal_comparisons": {
+          "type": "array",
+          "maxItems": 20000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "family_id",
+              "proposal_id",
+              "rationale"
+            ],
+            "properties": {
+              "family_id": {
+                "type": "string",
+                "pattern": "\\S",
+                "maxLength": 12000
+              },
+              "proposal_id": {
+                "type": "string",
+                "pattern": "\\S",
+                "maxLength": 12000
+              },
+              "rationale": {
+                "type": "string",
+                "pattern": "\\S",
+                "maxLength": 12000
+              }
+            }
+          }
+        }
+      }
+    },
+    "release_reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_hashes",
+        "approved_plan_sha256",
+        "verdict",
+        "findings",
+        "checks"
+      ],
+      "properties": {
+        "input_hashes": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "primary",
+                "verifier"
+              ],
+              "properties": {
+                "primary": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "verifier": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "primary",
+                "verifier",
+                "escalation_a",
+                "escalation_b",
+                "adjudicator"
+              ],
+              "properties": {
+                "primary": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "verifier": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "escalation_a": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "escalation_b": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "adjudicator": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              }
+            }
+          ]
+        },
+        "approved_plan_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "verdict": {
+          "enum": [
+            "approve",
+            "reject"
+          ]
+        },
+        "findings": {
+          "type": "array",
+          "maxItems": 20000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "finding_id",
+              "status",
+              "rationale"
+            ],
+            "properties": {
+              "finding_id": {
+                "type": "string",
+                "pattern": "\\S",
+                "maxLength": 12000
+              },
+              "status": {
+                "enum": [
+                  "resolved",
+                  "unresolved"
+                ]
+              },
+              "rationale": {
+                "type": "string",
+                "pattern": "\\S",
+                "maxLength": 12000
+              }
+            }
+          }
+        },
+        "checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "coverage",
+            "operating_identity",
+            "evidence",
+            "cross_family_conflicts",
+            "closure_outcomes"
+          ],
+          "properties": {
+            "coverage": {
+              "enum": [
+                "pass",
+                "fail"
+              ]
+            },
+            "operating_identity": {
+              "enum": [
+                "pass",
+                "fail"
+              ]
+            },
+            "evidence": {
+              "enum": [
+                "pass",
+                "fail"
+              ]
+            },
+            "cross_family_conflicts": {
+              "enum": [
+                "pass",
+                "fail"
+              ]
+            },
+            "closure_outcomes": {
+              "enum": [
+                "pass",
+                "fail"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/research"
+    },
+    {
+      "$ref": "#/$defs/verifier"
+    },
+    {
+      "$ref": "#/$defs/adjudicator"
+    },
+    {
+      "$ref": "#/$defs/release_reviewer"
+    }
+  ]
+}

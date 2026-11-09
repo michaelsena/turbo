@@ -96,6 +96,8 @@ def compile_graph_release(
     *,
     execution_commit: str,
     root: Path = ROOT,
+    input_root: Path | None = None,
+    preparation_dirs=None,
 ) -> dict[str, Any]:
     if FULL_GIT_COMMIT.fullmatch(execution_commit) is None:
         raise ValueError("execution_commit must be a complete lowercase hexadecimal Git commit")
@@ -146,9 +148,13 @@ def compile_graph_release(
             raise ValueError("graph release activation entry must be an object")
         activation_dir = _resolve(root, item["activation_dir"])
         activation_config = _resolve(root, item["activation_config"])
-        replay = validate_boundary_activation(
-            activation_dir, activation_config, root=root
-        )
+        is_batch = item.get("kind") == "batch"
+        if is_batch:
+            from turbo.universe.batch_closure import validate_batch_activation
+            replay = validate_batch_activation(activation_dir, activation_config, root=root,
+                                               input_root=input_root, preparation_dirs=preparation_dirs)
+        else:
+            replay = validate_boundary_activation(activation_dir, activation_config, root=root)
         if not replay["valid"]:
             raise ValueError(
                 f"activation {activation_dir.name} failed replay: {replay['errors']}"
@@ -167,13 +173,18 @@ def compile_graph_release(
         ):
             if item.get(field) != receipt.get(field):
                 raise ValueError(f"activation {activation_id} {field} mismatch")
-        family_config = _load_object(
-            _resolve(root, _load_object(activation_config)["source_family_config"])
-        )
-        if family_config.get("source_run_id") != source_run_id:
-            raise ValueError(
-                f"activation {activation_id} belongs to another source-universe run"
+        if is_batch:
+            if receipt.get("source_universe_run_id") != source_run_id:
+                raise ValueError("batch activation belongs to another source-universe run")
+            if (sorted(e["event_id"] for e in events) != receipt["required_base_event_ids"]
+                    or canonical_sha256(sorted(events, key=lambda e: e["event_id"])) != receipt["required_base_events_sha256"]):
+                raise ValueError("batch activation requires its exact reviewed cumulative base")
+        else:
+            family_config = _load_object(
+                _resolve(root, _load_object(activation_config)["source_family_config"])
             )
+            if family_config.get("source_run_id") != source_run_id:
+                raise ValueError(f"activation {activation_id} belongs to another source-universe run")
         activation_events = _load_array(activation_dir / "events.json")
         if canonical_sha256(activation_events) != receipt["events_sha256"]:
             raise ValueError(f"activation {activation_id} event hash mismatch")
@@ -188,6 +199,9 @@ def compile_graph_release(
                 "projection_sha256": receipt["projection_sha256"],
             }
         )
+
+        if is_batch:
+            activation_bindings[-1]["kind"] = "batch"
 
     config_sha256 = canonical_sha256(config)
     projection = project_graph(
@@ -248,6 +262,8 @@ def run_graph_release(
     output_root: Path | None = None,
     pointer_path: Path | None = None,
     root: Path = ROOT,
+    input_root: Path | None = None,
+    preparation_dirs=None,
 ) -> dict[str, Any]:
     if not _git_worktree_clean(root):
         raise RuntimeError(
@@ -258,7 +274,8 @@ def run_graph_release(
     if execution_commit is None:
         raise RuntimeError("cannot determine exact Git commit for graph release")
     compiled = compile_graph_release(
-        config_path, execution_commit=execution_commit, root=root
+        config_path, execution_commit=execution_commit, root=root,
+        input_root=input_root, preparation_dirs=preparation_dirs
     )
     destination = output_root or root / "data" / "market_graph" / "versions"
     release_dir = destination / compiled["release_id"]
@@ -299,6 +316,8 @@ def validate_graph_release(
     config_path: Path,
     *,
     root: Path = ROOT,
+    input_root: Path | None = None,
+    preparation_dirs=None,
 ) -> dict[str, Any]:
     errors: list[str] = []
     try:
@@ -308,7 +327,8 @@ def validate_graph_release(
         if not _git_commit_exists(root, execution_commit):
             raise ValueError("execution_commit is not a resolvable full Git commit")
         compiled = compile_graph_release(
-            config_path, execution_commit=execution_commit, root=root
+            config_path, execution_commit=execution_commit, root=root,
+        input_root=input_root, preparation_dirs=preparation_dirs
         )
     except (KeyError, OSError, ValueError, json.JSONDecodeError) as error:
         return {
