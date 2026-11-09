@@ -146,7 +146,10 @@ The corrected code passed 162 Python tests, frontend unit/type/build checks, and
 host-run browser screenshot/accessibility checks. All 14 desktop/mobile images were
 reviewed, including corrected family counts and Audit provenance. See the
 [verification receipt](docs/operations/receipts/2026-11-09-dashboard-corrections.json)
-for exact hashes and the minor Overview status-badge clipping follow-up.
+for that historical result and its Overview status-badge clipping finding.
+The follow-up changes Overview market rows to keep full status text beneath their
+descriptions and uses neutral collection copy for provisional boundaries; current
+browser acceptance and refreshed screenshots are still pending.
 
 [PR #21](https://github.com/michaelsena/turbo/pull/21), merged at
 `247b8c25822147c36f8eae0aece16d3214db4095`, adds Track B1: a replayable batch
@@ -173,7 +176,7 @@ two-family simulation proving that reopening cannot reset the journal's budget.
 Independent code and closeout review passed. See
 [ADR 0009](docs/decisions/0009-trusted-local-execution-registry.md) and the
 [verification receipt](docs/operations/receipts/2026-11-09-shared-registry-verification.json).
-PR #23 remains unmerged; this is still simulation-only.
+PR #23 is merged at `639c3216ac5d3e3baf28fcffbeac8af5bf8e478d`; this remains simulation-only.
 
 Real model dispatch, validated output contracts, selective independent verification,
 disagreement escalation, and deterministic family closure remain later work. Approve
@@ -183,6 +186,13 @@ and begin production scoring.
 The read product can expand only as those durable projections become available.
 
 ## Working protocol and navigation
+
+The [App/UI GM charter](https://github.com/michaelsena/turbo/issues/26) assigns
+frontend delivery, usability, accessibility, and app backlog ownership separately
+from Platform GM research/execution ownership. Shared API changes require linked
+contract issues. App claims name their owner and branch in GitHub. Automatic issue
+pickup is not verified active; [dispatcher issue #27](https://github.com/michaelsena/turbo/issues/27)
+tracks the separate local runtime. A ready issue alone does not start an agent.
 
 Every material change starts with a scoped GitHub issue and acceptance criteria.
 Use a named branch, keep README and detailed docs synchronized, record decisions and

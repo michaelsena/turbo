@@ -168,5 +168,25 @@ The corrected code passed host-run browser comparisons and accessibility checks 
 required identities and Audit reports read-model 1.1.0. The executor's loopback and
 Chrome restrictions were handled with the runbook's external-server path. See the
 [exact verification receipt](../operations/receipts/2026-11-09-dashboard-corrections.json).
-One minor visual follow-up remains: the desktop Overview clips a long market-status
-badge; full statuses remain available in list/detail views. PR #19 is merged at `a9aef2befbc61208431ce4b546d6bed15d6edef1`.
+That receipt records the earlier desktop Overview badge clipping. The follow-up
+uses a bounded single-column market row: name/description first, then the complete
+status badge, wrapping when necessary. Overview and Universe call the collection
+canonical markets in the selected graph and explicitly retain provisional boundaries;
+listing a boundary does not imply it is settled. No status value or graph record is
+changed. Regression checks assert status geometry at desktop/mobile widths and use
+an explicitly synthetic long-status stress case. Current browser acceptance and
+intentional screenshot refresh remain pending; the historical baselines are retained.
+PR #19 is merged at `a9aef2befbc61208431ce4b546d6bed15d6edef1`.
+
+## App ownership and intake
+
+The [App/UI GM charter](https://github.com/michaelsena/turbo/issues/26) governs frontend,
+UX, accessibility, frontend tests, app documentation, and the app backlog. Platform GM
+retains research and execution ownership. Propose shared read/API changes through a
+linked issue specifying contracts, compatibility, and acceptance checks before editing.
+Each app issue names `Owner: App/UI GM`; its claim records branch and immediate scope.
+Existing `status:ready` routing is not a dispatcher. `area:app` has not been established
+as a verified routing label. Automatic pickup is not verified active; its local runtime
+is tracked separately in [#27](https://github.com/michaelsena/turbo/issues/27).
+During an active session, resume owned work before claiming another issue. No merge
+occurs without explicit chairman authorization.
