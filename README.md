@@ -37,6 +37,13 @@ The first reviewed family produced **Integrated outsourced office administration
 model and vertical-boundary gaps remain open; family-local non-mappings have not
 removed any of the 978 prior candidates globally.
 
+The [first batch research pilot](data/research_pilots/anchored-20261109/README.md)
+adds six independently reviewed **provisional manufacturing hypotheses**, covering
+82 identity dispositions and one candidate with 16 explicit gaps. These artifacts
+are outside the canonical graph and the counts above. They were authored by a
+collaboration agent after the local CLI attempt failed; no CLI success, canonical
+acceptance, or investment eligibility is claimed.
+
 Current immutable layers:
 
 | Layer | Version |
@@ -186,6 +193,12 @@ and evaluate one neutral metered canary before authorizing broad execution. Then
 complete cross-family coverage, publish the canonical universe, add Target filtering,
 and begin production scoring.
 The read product can expand only as those durable projections become available.
+
+An explicitly authorized frozen batch can use the
+[local Codex research runner](docs/operations/real-batch-research.md). It consumes
+account quota, retains exact inputs and final-output receipts, and never
+automatically retries; structural validity still requires substantive review. This
+route is separate from simulation accounting.
 
 ## Working protocol and navigation
 

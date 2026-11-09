@@ -459,7 +459,7 @@
       "properties": {
         "record_id": {
           "type": "string",
-          "pattern": "^source-row:"
+          "pattern": "^(source-row:.+|source-observation:census-napcs-2022-(collection-to-trilateral|trilateral-to-collection):data-sheet:[1-9][0-9]*:(collection|trilateral)-label)$"
         },
         "snapshot_id": {
           "type": "string",
