@@ -208,7 +208,17 @@ It includes complete cards for required source identities, compact cards for con
 exact ledger relationship IDs and locators, required candidate cards, and relevant
 existing graph context. Context-only identities cannot become primary obligations.
 The content hash excludes only its own hash field. Persisted preparations are
-content-addressed and replayed by regenerating the config and pack.
+content-addressed and replayed by regenerating the config and pack. Replay also
+requires each persisted config, pack, and receipt file to equal its canonical JSON
+bytes exactly; parsing to the same object is insufficient.
+
+Pack compilation requires two independent bindings for every consumed source artifact:
+the source-run receipt hash and the family schedule receipt's frozen source hash must
+be identical before the file is read. Graph context likewise requires the latest
+pointer, immutable graph receipt, and projection to agree on the release, graph
+version, source run, projection hash, and recomputed counts. Standalone validation
+recompiles the full expected pack and compares every top-level evidence and lineage
+collection, rather than treating a recomputed pack self-hash as proof of completeness.
 
 
 ## Factor definition, evaluator result, and score event

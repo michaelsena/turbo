@@ -21,6 +21,15 @@ Track A contains no model calls. It:
 6. validates count, item, canonical-byte, lineage, role-separation, and content hashes;
 7. optionally persists a content-addressed preparation and replays it exactly.
 
+Independent review of the first Track A increment identified four fail-open risks.
+The corrected implementation now also requires graph pointer/receipt/projection
+agreement and recomputed graph counts; requires consumed source artifacts to match the
+schedule's immutable source hashes in addition to the source-run receipt; regenerates
+and compares every pack section during standalone validation; and rejects semantically
+identical persisted JSON whose file bytes are not canonical. Regression tests mutate
+graph lineage, graph counts, candidate evidence, raw evidence, context sets, card
+collections, edge membership, pack counts, graph context, and file formatting.
+
 The pack includes full source/mapping evidence only for required identities. Context
 identities retain labels and exact relationship edges for orientation. This is an
 intentional contract boundary: context is not a second primary disposition queue.
@@ -47,6 +56,10 @@ turbo family-validate-preparation <preparation-directory>
 - required/context overlap or duplicate IDs;
 - evidence-item or canonical pack-byte limit exceeded;
 - persisted config, pack, receipt, or content address fails replay.
+- graph pointer, receipt, projection, source run, version, hash, or counts disagree;
+- source-run hashes disagree with the schedule's frozen source hashes;
+- any regenerated pack section differs, even when a tampered self-hash is recomputed;
+- any persisted config, pack, or receipt is not canonical JSON bytes.
 
 There is no silent truncation, inferred substitution, activation, or graph mutation.
 

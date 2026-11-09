@@ -112,27 +112,56 @@ def _verified_schedule(
     return pointer, receipt, artifacts
 
 
-def _verified_graph(*, root: Path) -> tuple[dict[str, Any], dict[str, Any]]:
+def _verified_graph(
+    *, root: Path
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     pointer = _object(root / "data/generated/latest-graph.json")
     release_dir = root / pointer["release_path"]
+    if release_dir.name != pointer.get("release_id"):
+        raise ValueError("graph pointer release path does not match release_id")
     receipt = _object(release_dir / "graph-receipt.json")
     projection = _object(release_dir / "projection.json")
     if canonical_sha256(receipt) != pointer["receipt_sha256"]:
         raise ValueError("graph receipt hash mismatch")
     if canonical_sha256(projection) != pointer["projection_sha256"]:
         raise ValueError("graph projection hash mismatch")
-    if receipt.get("release_id") != pointer["release_id"]:
-        raise ValueError("graph release pointer mismatch")
-    if projection.get("graph_version_id") != pointer["graph_version_id"]:
-        raise ValueError("graph version pointer mismatch")
-    return pointer, projection
+    for field in ("release_id", "graph_version_id", "source_universe_run_id"):
+        if receipt.get(field) != pointer.get(field):
+            raise ValueError(f"graph pointer/receipt {field} mismatch")
+    if receipt.get("projection_sha256") != pointer["projection_sha256"]:
+        raise ValueError("graph receipt does not bind pointer projection hash")
+    if projection.get("graph_version_id") != receipt["graph_version_id"]:
+        raise ValueError("graph receipt/projection graph_version_id mismatch")
+    if receipt.get("status") != "published_cumulative_canonical_graph":
+        raise ValueError("graph receipt is not a published cumulative graph")
+    if receipt.get("model_invoked") is not False:
+        raise ValueError("graph receipt must state model_invoked=false")
+    projection_counts = {
+        "activations": len(receipt.get("activation_bindings", [])),
+        "active_events": len(projection.get("active_event_ids", [])),
+        "canonical_markets": len(projection.get("markets", [])),
+        "mappings": len(projection.get("mappings", [])),
+        "retired_markets": len(projection.get("retired_market_ids", [])),
+    }
+    if receipt.get("counts") != projection_counts:
+        raise ValueError("graph receipt counts do not match projection")
+    return pointer, receipt, projection
 
 
 def _load_run_artifact(
-    root: Path, run_id: str, receipt: dict[str, Any], name: str
+    root: Path,
+    run_id: str,
+    receipt: dict[str, Any],
+    schedule_source_hashes: dict[str, str],
+    name: str,
 ) -> dict[str, Any]:
     path = root / "data/runs" / run_id / name
     expected = receipt.get("output_hashes", {}).get(name)
+    schedule_expected = schedule_source_hashes.get(name)
+    if not isinstance(schedule_expected, str):
+        raise ValueError(f"schedule receipt does not govern source artifact: {name}")
+    if expected != schedule_expected:
+        raise ValueError(f"source run/schedule hash disagreement: {name}")
     if not isinstance(expected, str) or _sha256_path(path) != expected:
         raise ValueError(f"source run artifact hash mismatch: {name}")
     return _gzip_object(path)
@@ -206,7 +235,7 @@ def generate_family_config_v2(
     limits: dict[str, int] | None = None,
 ) -> dict[str, Any]:
     pointer, receipt, artifacts = _verified_schedule(root=root, pointer_path=pointer_path)
-    graph, _ = _verified_graph(root=root)
+    graph, _, _ = _verified_graph(root=root)
     if graph["source_universe_run_id"] != pointer["source_run_id"]:
         raise ValueError("schedule and cumulative graph source runs disagree")
     families = {
@@ -283,12 +312,24 @@ def _enforce_count_limits(config: dict[str, Any]) -> None:
 def compile_family_evidence_pack_v2(
     config: dict[str, Any], *, root: Path = ROOT
 ) -> dict[str, Any]:
+    pack = _assemble_family_evidence_pack_v2(config, root=root)
+    validation_errors = _validate_family_evidence_pack_v2(
+        pack, config, root=root, expected_pack=pack
+    )
+    if validation_errors:
+        raise ValueError("invalid family evidence pack V2: " + "; ".join(validation_errors))
+    return pack
+
+
+def _assemble_family_evidence_pack_v2(
+    config: dict[str, Any], *, root: Path = ROOT
+) -> dict[str, Any]:
     errors = _schema_errors(config, "family-config-v2.schema.json", root)
     if errors:
         raise ValueError("invalid family config V2: " + "; ".join(errors))
     _enforce_count_limits(config)
     pointer, receipt, artifacts = _verified_schedule(root=root)
-    graph_pointer, graph_projection = _verified_graph(root=root)
+    graph_pointer, _, graph_projection = _verified_graph(root=root)
     if config["schedule_binding"] != {
         "partition_id": pointer["partition_id"],
         "source_run_id": pointer["source_run_id"],
@@ -315,7 +356,11 @@ def compile_family_evidence_pack_v2(
     if run_receipt.get("run_id") != run_id:
         raise ValueError("source run receipt run_id mismatch")
     reconciliation = _load_run_artifact(
-        root, run_id, run_receipt, "multisource-reconciliation.json.gz"
+        root,
+        run_id,
+        run_receipt,
+        receipt["source_hashes"],
+        "multisource-reconciliation.json.gz",
     )
     identities = {item["identity_id"]: item for item in reconciliation["source_identities"]}
     records = {item["record_id"]: item for item in reconciliation["source_records"]}
@@ -438,6 +483,10 @@ def compile_family_evidence_pack_v2(
             "partition_id": pointer["partition_id"],
             "source_run_id": run_id,
             "graph_release_id": graph_pointer["release_id"],
+            "schedule_receipt_sha256": pointer["receipt_sha256"],
+            "graph_receipt_sha256": graph_pointer["receipt_sha256"],
+            "graph_projection_sha256": graph_pointer["projection_sha256"],
+            "source_artifact_hashes": receipt["source_hashes"],
             "config_sha256": canonical_sha256(config),
             "pack_sha256": "",
             "model_invoked": False,
@@ -462,9 +511,6 @@ def compile_family_evidence_pack_v2(
         },
     }
     pack["metadata"]["pack_sha256"] = _pack_hash(pack)
-    validation_errors = validate_family_evidence_pack_v2(pack, config, root=root)
-    if validation_errors:
-        raise ValueError("invalid family evidence pack V2: " + "; ".join(validation_errors))
     return pack
 
 
@@ -477,9 +523,28 @@ def _pack_hash(pack: dict[str, Any]) -> str:
 def validate_family_evidence_pack_v2(
     pack: dict[str, Any], config: dict[str, Any], *, root: Path = ROOT
 ) -> list[str]:
+    try:
+        expected_pack = _assemble_family_evidence_pack_v2(config, root=root)
+    except (KeyError, OSError, ValueError, json.JSONDecodeError) as error:
+        return [f"pack cannot be regenerated from exact inputs: {error}"]
+    return _validate_family_evidence_pack_v2(
+        pack, config, root=root, expected_pack=expected_pack
+    )
+
+
+def _validate_family_evidence_pack_v2(
+    pack: dict[str, Any],
+    config: dict[str, Any],
+    *,
+    root: Path,
+    expected_pack: dict[str, Any],
+) -> list[str]:
     errors = _schema_errors(pack, "family-evidence-pack-v2.schema.json", root)
-    if pack.get("metadata", {}).get("pack_sha256") != _pack_hash(pack):
-        errors.append("pack_sha256 does not match canonical pack content")
+    try:
+        if pack.get("metadata", {}).get("pack_sha256") != _pack_hash(pack):
+            errors.append("pack_sha256 does not match canonical pack content")
+    except (KeyError, TypeError, ValueError):
+        errors.append("pack content cannot be canonically hashed")
     if pack.get("metadata", {}).get("config_sha256") != canonical_sha256(config):
         errors.append("pack config hash does not match config")
     scope = pack.get("scope", {})
@@ -493,6 +558,19 @@ def validate_family_evidence_pack_v2(
         errors.append("pack required candidates do not match config")
     if len(_canonical_bytes(pack)) > config["limits"]["max_pack_bytes"]:
         errors.append("pack canonical byte-size limit exceeded")
+    for field in (
+        "metadata",
+        "scope",
+        "counts",
+        "identity_cards",
+        "source_record_cards",
+        "mapping_cards",
+        "required_candidate_cards",
+        "context_edges",
+        "graph_context",
+    ):
+        if pack.get(field) != expected_pack[field]:
+            errors.append(f"pack {field} does not match exact regenerated content")
     return sorted(errors)
 
 
@@ -564,9 +642,19 @@ def validate_family_preparation_v2(
 ) -> dict[str, Any]:
     errors: list[str] = []
     try:
-        config = _object(preparation_dir / "family-config-v2.json")
-        pack = _object(preparation_dir / "family-evidence-pack-v2.json")
-        receipt = _object(preparation_dir / "preparation-receipt.json")
+        config_path = preparation_dir / "family-config-v2.json"
+        pack_path = preparation_dir / "family-evidence-pack-v2.json"
+        receipt_path = preparation_dir / "preparation-receipt.json"
+        config = _object(config_path)
+        pack = _object(pack_path)
+        receipt = _object(receipt_path)
+        for name, path, value in (
+            ("config", config_path, config),
+            ("pack", pack_path, pack),
+            ("receipt", receipt_path, receipt),
+        ):
+            if path.read_bytes() != _canonical_bytes(value):
+                errors.append(f"persisted {name} bytes are not canonical")
         regenerated_config = generate_family_config_v2(
             config["family_id"], root=root, limits=config["limits"]
         )

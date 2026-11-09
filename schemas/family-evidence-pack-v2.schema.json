@@ -4,38 +4,96 @@
   "title": "Turbo frozen family evidence pack V2",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "schema_version", "metadata", "scope", "counts", "identity_cards",
-    "source_record_cards", "mapping_cards", "required_candidate_cards",
-    "context_edges", "graph_context"
-  ],
+  "required": ["schema_version", "metadata", "scope", "counts", "identity_cards", "source_record_cards", "mapping_cards", "required_candidate_cards", "context_edges", "graph_context"],
   "properties": {
     "schema_version": {"const": 2},
     "metadata": {
       "type": "object", "additionalProperties": false,
-      "required": [
-        "family_id", "family_kind", "partition_id", "source_run_id",
-        "graph_release_id", "config_sha256", "pack_sha256", "model_invoked"
-      ],
+      "required": ["family_id", "family_kind", "partition_id", "source_run_id", "graph_release_id", "schedule_receipt_sha256", "graph_receipt_sha256", "graph_projection_sha256", "source_artifact_hashes", "config_sha256", "pack_sha256", "model_invoked"],
       "properties": {
         "family_id": {"type": "string", "pattern": "^family:"},
-        "family_kind": {"type": "string"},
+        "family_kind": {"enum": ["naics_leaf_anchor", "unlinked_collection_coverage_challenge", "global_prior_candidate_challenge"]},
         "partition_id": {"type": "string", "pattern": "^family-partition:"},
-        "source_run_id": {"type": "string", "pattern": "^run-"},
+        "source_run_id": {"type": "string", "pattern": "^run-[0-9a-f]{20}$"},
         "graph_release_id": {"type": "string", "pattern": "^graph-release-"},
+        "schedule_receipt_sha256": {"$ref": "#/$defs/hash"},
+        "graph_receipt_sha256": {"$ref": "#/$defs/hash"},
+        "graph_projection_sha256": {"$ref": "#/$defs/hash"},
+        "source_artifact_hashes": {"type": "object", "minProperties": 3, "additionalProperties": {"$ref": "#/$defs/hash"}},
         "config_sha256": {"$ref": "#/$defs/hash"},
         "pack_sha256": {"$ref": "#/$defs/hash"},
         "model_invoked": {"const": false}
       }
     },
-    "scope": {"type": "object"},
-    "counts": {"type": "object"},
-    "identity_cards": {"type": "array", "items": {"type": "object"}},
-    "source_record_cards": {"type": "array", "items": {"type": "object"}},
-    "mapping_cards": {"type": "array", "items": {"type": "object"}},
-    "required_candidate_cards": {"type": "array", "items": {"type": "object"}},
-    "context_edges": {"type": "array", "items": {"type": "object"}},
-    "graph_context": {"type": "object"}
+    "scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["required_disposition_identity_ids", "context_shards", "required_prior_candidate_ids", "context_only_identity_ids", "purpose", "prohibited_actions"],
+      "properties": {
+        "required_disposition_identity_ids": {"$ref": "#/$defs/uniqueStrings"},
+        "context_shards": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["shard_id", "identity_ids"], "properties": {"shard_id": {"type": "string", "pattern": "^context-shard:"}, "identity_ids": {"$ref": "#/$defs/uniqueStrings"}}}},
+        "required_prior_candidate_ids": {"$ref": "#/$defs/uniqueStrings"},
+        "context_only_identity_ids": {"$ref": "#/$defs/uniqueStrings"},
+        "purpose": {"const": "operating-market boundary construction only"},
+        "prohibited_actions": {"type": "array", "minItems": 6, "maxItems": 6, "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["required_identities", "context_identities", "context_shards", "required_candidates", "context_edges", "identity_cards", "source_record_cards", "mapping_cards", "graph_mappings", "graph_markets", "evidence_items"],
+      "properties": {
+        "required_identities": {"type": "integer", "minimum": 0}, "context_identities": {"type": "integer", "minimum": 0},
+        "context_shards": {"type": "integer", "minimum": 0}, "required_candidates": {"type": "integer", "minimum": 0},
+        "context_edges": {"type": "integer", "minimum": 0}, "identity_cards": {"type": "integer", "minimum": 0},
+        "source_record_cards": {"type": "integer", "minimum": 0}, "mapping_cards": {"type": "integer", "minimum": 0},
+        "graph_mappings": {"type": "integer", "minimum": 0}, "graph_markets": {"type": "integer", "minimum": 0},
+        "evidence_items": {"type": "integer", "minimum": 0}
+      }
+    },
+    "identity_cards": {"type": "array", "items": {"$ref": "#/$defs/identityCard"}},
+    "source_record_cards": {"type": "array", "items": {"$ref": "#/$defs/sourceRecordCard"}},
+    "mapping_cards": {"type": "array", "items": {"$ref": "#/$defs/mappingCard"}},
+    "required_candidate_cards": {"type": "array", "items": {"$ref": "#/$defs/candidateCard"}},
+    "context_edges": {"type": "array", "items": {"$ref": "#/$defs/contextEdge"}},
+    "graph_context": {"type": "object", "additionalProperties": false, "required": ["graph_version_id", "mappings", "markets", "interpretation_boundary"], "properties": {"graph_version_id": {"type": "string", "pattern": "^graph-"}, "mappings": {"type": "array", "items": {"type": "object"}}, "markets": {"type": "array", "items": {"type": "object"}}, "interpretation_boundary": {"type": "string", "minLength": 1}}}
   },
-  "$defs": {"hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "uniqueStrings": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "\\S"}},
+    "observation": {"type": "object", "additionalProperties": false, "required": ["snapshot_id", "locator"], "properties": {"snapshot_id": {"type": "string", "minLength": 1}, "locator": {"type": "string", "minLength": 1}}},
+    "identityCard": {
+      "type": "object", "additionalProperties": false,
+      "required": ["identity_id", "identity_type", "source_code", "labels", "analysis_labels", "source_record_ids", "assignment_role", "owner_family_id", "reason_code"],
+      "properties": {"identity_id": {"type": "string", "pattern": "^identity:"}, "identity_type": {"type": "string", "minLength": 1}, "source_code": {"type": "string", "minLength": 1}, "labels": {"$ref": "#/$defs/uniqueStrings"}, "analysis_labels": {"$ref": "#/$defs/uniqueStrings"}, "source_record_ids": {"$ref": "#/$defs/uniqueStrings"}, "assignment_role": {"enum": ["required_review", "context_only"]}, "owner_family_id": {"type": "string", "pattern": "^family:"}, "reason_code": {"type": "string", "minLength": 1}}
+    },
+    "sourceRecordCard": {
+      "type": "object", "additionalProperties": false,
+      "required": ["record_id", "snapshot_id", "locator", "record_kind", "raw_label", "raw_definition", "source_indicator", "parent_ids", "hierarchy_path"],
+      "properties": {"record_id": {"type": "string", "pattern": "^source-row:"}, "snapshot_id": {"type": "string", "minLength": 1}, "locator": {"type": "string", "minLength": 1}, "record_kind": {"type": "string", "minLength": 1}, "raw_label": {"type": "string"}, "raw_definition": {"type": "string"}, "source_indicator": {"type": ["string", "null"]}, "parent_ids": {"$ref": "#/$defs/uniqueStrings"}, "hierarchy_path": {"$ref": "#/$defs/uniqueStrings"}}
+    },
+    "mappingCard": {
+      "type": "object", "additionalProperties": false,
+      "required": ["identity_id", "status", "reason", "ambiguous", "top_similarity", "retrieved_candidate_ids"],
+      "properties": {"identity_id": {"type": "string", "pattern": "^identity:"}, "status": {"type": "string", "minLength": 1}, "reason": {"type": "string", "minLength": 1}, "ambiguous": {"type": "boolean"}, "top_similarity": {"type": ["number", "null"]}, "retrieved_candidate_ids": {"$ref": "#/$defs/uniqueStrings"}}
+    },
+    "retrievalOccurrence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["identity_id", "rank", "similarity", "relationship_type", "semantic_conflicts", "exact_normalized_label", "owner_family_id", "appearance_family_ids"],
+      "properties": {"identity_id": {"type": "string", "pattern": "^identity:"}, "rank": {"type": "integer", "minimum": 1}, "similarity": {"type": "number"}, "relationship_type": {"type": "string", "minLength": 1}, "semantic_conflicts": {"type": "array", "items": {"type": "string"}}, "exact_normalized_label": {"type": "boolean"}, "owner_family_id": {"type": "string", "pattern": "^family:"}, "appearance_family_ids": {"$ref": "#/$defs/uniqueStrings"}}
+    },
+    "candidateCard": {
+      "type": "object", "additionalProperties": false,
+      "required": ["candidate_market_id", "name", "status", "source_record_ids", "coverage_status", "primary_family_id", "relevant_retrieval_occurrences"],
+      "properties": {"candidate_market_id": {"type": "string", "pattern": "^candidate-market:"}, "name": {"type": "string", "minLength": 1}, "status": {"type": "string", "minLength": 1}, "source_record_ids": {"$ref": "#/$defs/uniqueStrings"}, "coverage_status": {"type": "string", "minLength": 1}, "primary_family_id": {"type": "string", "pattern": "^family:"}, "relevant_retrieval_occurrences": {"type": "array", "items": {"$ref": "#/$defs/retrievalOccurrence"}}}
+    },
+    "contextEdge": {
+      "type": "object", "additionalProperties": false,
+      "required": ["relationship_id", "relationship_type", "observed_in", "source_observations"],
+      "properties": {"relationship_id": {"type": "string", "pattern": "^relationship:"}, "relationship_type": {"enum": ["industry_product", "napcs_collection_to_trilateral", "napcs_explicit_non_mapping"]}, "industry_identity_id": {"type": "string", "pattern": "^identity:"}, "product_identity_id": {"type": "string", "pattern": "^identity:"}, "collection_identity_id": {"type": "string", "pattern": "^identity:"}, "trilateral_identity_id": {"type": "string", "pattern": "^identity:"}, "disposition": {"type": "string"}, "observed_in": {"$ref": "#/$defs/uniqueStrings"}, "part_indicators": {"$ref": "#/$defs/uniqueStrings"}, "source_observations": {"type": "array", "items": {"$ref": "#/$defs/observation"}}},
+      "oneOf": [
+        {"required": ["industry_identity_id", "product_identity_id"], "not": {"anyOf": [{"required": ["collection_identity_id"]}, {"required": ["trilateral_identity_id"]}, {"required": ["disposition"]}]}},
+        {"required": ["collection_identity_id", "trilateral_identity_id", "part_indicators"], "not": {"anyOf": [{"required": ["industry_identity_id"]}, {"required": ["product_identity_id"]}, {"required": ["disposition"]}]}},
+        {"required": ["collection_identity_id", "disposition"], "not": {"anyOf": [{"required": ["industry_identity_id"]}, {"required": ["product_identity_id"]}, {"required": ["trilateral_identity_id"]}, {"required": ["part_indicators"]}]}}
+      ]
+    }
+  }
 }

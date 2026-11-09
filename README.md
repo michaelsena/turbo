@@ -520,7 +520,11 @@ candidates, counts, and pack limits. Its frozen evidence pack consumes the corre
 context-edge ledger directly. Required identities receive full evidence; context
 remains compact orientation and never becomes duplicate primary work. Preparation is
 model-free, content-addressed, replayable, and fails closed on hash, count, or size
-drift. Batch execution and spend authorization remain separate unfinished tracks.
+drift. Graph context must agree across pointer, immutable receipt, and projection;
+consumed source evidence must match both run and schedule hashes; standalone pack
+validation regenerates every evidence collection; and persisted files must retain
+canonical JSON bytes. Batch execution and spend authorization remain separate
+unfinished tracks.
 
 The current machine-readable pointer and receipt is
 [`data/generated/latest-run.json`](data/generated/latest-run.json). Full source

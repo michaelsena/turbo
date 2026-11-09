@@ -1,10 +1,17 @@
+import copy
+import gzip
+import hashlib
 import json
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
 
 from turbo.pipeline_paths import ROOT
 from turbo.universe.family_pack_v2 import (
+    _load_run_artifact,
+    _pack_hash,
+    _verified_graph,
     compile_family_evidence_pack_v2,
     dry_run_family_preparation_v2,
     generate_family_config_v2,
@@ -12,6 +19,7 @@ from turbo.universe.family_pack_v2 import (
     validate_family_evidence_pack_v2,
     validate_family_preparation_v2,
 )
+from turbo.agents.boundary_harness import canonical_sha256
 
 
 UNLINKED_FAMILY = "family:coverage:napcs-collection:10:001"
@@ -77,6 +85,93 @@ class FamilyPackV2Test(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "receipt hash mismatch"):
                 generate_family_config_v2(UNLINKED_FAMILY, pointer_path=path)
 
+    def test_graph_projection_is_bound_to_receipt_and_internal_counts(self) -> None:
+        def copied_graph_root(raw: str) -> tuple[Path, Path, Path, Path]:
+            root = Path(raw) / "root"
+            generated = root / "data/generated"
+            generated.mkdir(parents=True)
+            source_pointer = json.loads(
+                (ROOT / "data/generated/latest-graph.json").read_text(encoding="utf-8")
+            )
+            release_dir = root / source_pointer["release_path"]
+            release_dir.parent.mkdir(parents=True)
+            shutil.copytree(ROOT / source_pointer["release_path"], release_dir)
+            pointer_path = generated / "latest-graph.json"
+            pointer_path.write_text(json.dumps(source_pointer), encoding="utf-8")
+            return root, pointer_path, release_dir / "graph-receipt.json", release_dir / "projection.json"
+
+        with tempfile.TemporaryDirectory() as raw:
+            root, pointer_path, _, projection_path = copied_graph_root(raw)
+            pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
+            projection = json.loads(projection_path.read_text(encoding="utf-8"))
+            projection["graph_version_id"] = "graph-tampered"
+            projection_path.write_text(json.dumps(projection), encoding="utf-8")
+            pointer["projection_sha256"] = canonical_sha256(projection)
+            pointer_path.write_text(json.dumps(pointer), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "receipt does not bind"):
+                _verified_graph(root=root)
+
+        with tempfile.TemporaryDirectory() as raw:
+            root, pointer_path, receipt_path, _ = copied_graph_root(raw)
+            pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            receipt["counts"]["canonical_markets"] = 0
+            receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+            pointer["receipt_sha256"] = canonical_sha256(receipt)
+            pointer_path.write_text(json.dumps(pointer), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "counts do not match"):
+                _verified_graph(root=root)
+
+        with tempfile.TemporaryDirectory() as raw:
+            root, pointer_path, _, _ = copied_graph_root(raw)
+            pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
+            pointer["source_universe_run_id"] = "run-00000000000000000000"
+            pointer_path.write_text(json.dumps(pointer), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "source_universe_run_id mismatch"):
+                _verified_graph(root=root)
+
+    def test_schedule_source_hash_rejects_candidate_and_raw_evidence_tampering(self) -> None:
+        run_id = self.config["schedule_binding"]["source_run_id"]
+        name = "multisource-reconciliation.json.gz"
+        source_path = ROOT / "data/runs" / run_id / name
+        with gzip.open(source_path, "rt", encoding="utf-8") as handle:
+            original = json.load(handle)
+        run_receipt = json.loads(
+            (ROOT / "data/runs" / run_id / "run-receipt.json").read_text(encoding="utf-8")
+        )
+        schedule_receipt = json.loads(
+            (
+                ROOT
+                / "data/family_schedules/family-partition:60517981ab96e7f243c7033e/schedule-receipt.json"
+            ).read_text(encoding="utf-8")
+        )
+        for label, mutate in (
+            ("candidate", lambda value: value["candidate_markets"][0].update(name="tampered candidate")),
+            ("raw evidence", lambda value: value["source_records"][0].update(raw_label="tampered raw label")),
+        ):
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as raw:
+                root = Path(raw)
+                run_dir = root / "data/runs" / run_id
+                run_dir.mkdir(parents=True)
+                tampered = copy.deepcopy(original)
+                mutate(tampered)
+                payload = gzip.compress(
+                    (json.dumps(tampered, sort_keys=True, separators=(",", ":")) + "\n").encode(),
+                    compresslevel=9,
+                    mtime=0,
+                )
+                (run_dir / name).write_bytes(payload)
+                changed_receipt = copy.deepcopy(run_receipt)
+                changed_receipt["output_hashes"][name] = hashlib.sha256(payload).hexdigest()
+                with self.assertRaisesRegex(ValueError, "run/schedule hash disagreement"):
+                    _load_run_artifact(
+                        root,
+                        run_id,
+                        changed_receipt,
+                        schedule_receipt["source_hashes"],
+                        name,
+                    )
+
     def test_count_and_size_gates_fail_closed_without_truncation(self) -> None:
         with self.assertRaisesRegex(ValueError, "context_edges"):
             generate_family_config_v2(
@@ -90,6 +185,39 @@ class FamilyPackV2Test(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "byte-size limit"):
             compile_family_evidence_pack_v2(small)
 
+    def test_standalone_pack_validation_rejects_completeness_tampering(self) -> None:
+        mutations = {
+            "context set": lambda pack: pack["scope"]["context_only_identity_ids"].pop(),
+            "identity cards": lambda pack: pack["identity_cards"].pop(),
+            "source record cards": lambda pack: pack["source_record_cards"].pop(),
+            "mapping cards": lambda pack: pack["mapping_cards"].pop(),
+            "context edges": lambda pack: pack["context_edges"].clear(),
+            "counts": lambda pack: pack["counts"].update(context_edges=0),
+            "metadata lineage": lambda pack: pack["metadata"].update(graph_release_id="graph-release-tampered"),
+            "graph context": lambda pack: pack["graph_context"].update(graph_version_id="graph-tampered"),
+        }
+        for label, mutate in mutations.items():
+            with self.subTest(label=label):
+                tampered = copy.deepcopy(self.pack)
+                mutate(tampered)
+                tampered["metadata"]["pack_sha256"] = _pack_hash(tampered)
+                errors = validate_family_evidence_pack_v2(tampered, self.config)
+                self.assertTrue(
+                    any("exact regenerated content" in error for error in errors),
+                    errors,
+                )
+        candidate_config = generate_family_config_v2(CANDIDATE_FAMILY)
+        candidate_pack = compile_family_evidence_pack_v2(candidate_config)
+        candidate_pack["required_candidate_cards"].pop()
+        candidate_pack["metadata"]["pack_sha256"] = _pack_hash(candidate_pack)
+        candidate_errors = validate_family_evidence_pack_v2(
+            candidate_pack, candidate_config
+        )
+        self.assertTrue(
+            any("required_candidate_cards" in error for error in candidate_errors),
+            candidate_errors,
+        )
+
     def test_persisted_preparation_replays_and_tampering_is_detected(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
             output_root = Path(raw) / "preparations"
@@ -97,6 +225,22 @@ class FamilyPackV2Test(unittest.TestCase):
             preparation_dir = Path(result["preparation_path"])
             valid = validate_family_preparation_v2(preparation_dir)
             self.assertTrue(valid["valid"], valid["errors"])
+            for filename, label in (
+                ("family-config-v2.json", "config"),
+                ("family-evidence-pack-v2.json", "pack"),
+                ("preparation-receipt.json", "receipt"),
+            ):
+                path = preparation_dir / filename
+                canonical_bytes = path.read_bytes()
+                value = json.loads(canonical_bytes)
+                path.write_text(json.dumps(value, indent=2), encoding="utf-8")
+                noncanonical = validate_family_preparation_v2(preparation_dir)
+                self.assertFalse(noncanonical["valid"])
+                self.assertIn(
+                    f"persisted {label} bytes are not canonical",
+                    noncanonical["errors"],
+                )
+                path.write_bytes(canonical_bytes)
             pack_path = preparation_dir / "family-evidence-pack-v2.json"
             pack = json.loads(pack_path.read_text(encoding="utf-8"))
             pack["metadata"]["family_kind"] = "tampered"
