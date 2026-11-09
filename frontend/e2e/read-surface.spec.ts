@@ -26,6 +26,11 @@ test("required read surfaces remain accessible and visually stable", async ({ pa
         const rows = page.locator(".market-row");
         await expect(rows).toHaveCount(marketPayload.data.items.length);
         for (const row of await rows.all()) {
+          expect(await row.locator(":scope > span").first().evaluate(element => {
+            const content = element.getBoundingClientRect();
+            const row = element.closest(".market-row")!.getBoundingClientRect();
+            return content.left >= row.left - 1 && content.right <= row.right + 1;
+          })).toBe(true);
           const status = row.locator(".status");
           await expect(status).toBeVisible();
           // Visibility alone does not detect clipped text inside a flex/grid child.
@@ -37,6 +42,10 @@ test("required read surfaces remain accessible and visually stable", async ({ pa
               && element.scrollHeight <= element.clientHeight + 1;
           })).toBe(true);
         }
+      }
+      if (name === "overview") {
+        const panel = page.locator(".panel").filter({ has: page.getByRole("heading", { name: "Canonical markets", exact: true }) });
+        await expect(panel).toHaveScreenshot("overview-markets.png");
       }
       if (name === "family-detail") {
         await expect(page.locator(".metric-grid.small .metric strong").nth(0)).toHaveText("80");

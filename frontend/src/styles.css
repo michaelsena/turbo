@@ -14,3 +14,4 @@
 /* Keep market uncertainty readable within narrow Overview panels. */
 .market-row{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;justify-items:start}
 .market-row>.status{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.market-row>span:first-child{width:100%;min-width:0}
