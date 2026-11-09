@@ -10,6 +10,8 @@
 - [AI-first autonomous operation](governance/ai-first.md)
 - [Public and interview communication](governance/public-communication.md)
 - [ADR 0001: Architecture and operating model](decisions/0001-architecture-and-operating-model.md)
+- [ADR 0005: Model-agnostic boundary harness](decisions/0005-model-agnostic-boundary-harness.md)
+- [ADR 0006: OpenRouter model-provider layer](decisions/0006-openrouter-model-provider.md)
 - [Prior-model crosswalk](decisions/prior-model-crosswalk.md)
 
 `README.md` is the executive guide. These documents contain the durable detail.

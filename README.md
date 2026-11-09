@@ -403,7 +403,9 @@ nodes, reconciliation worklists, and immutable receipts live in content-addresse
 | `src/turbo/universe/multisource.py` | Multi-list normalization and reconciliation worklist |
 | `src/turbo/universe/boundary_pack.py` | Hash-verified frozen evidence-pack compiler for bounded operating families |
 | `src/turbo/agents/boundary_harness.py` | Schema and closed-world validation for specialists and adjudication |
-| `src/turbo/agents/codex_runner.py` | Isolated two-specialist/one-adjudicator execution and receipts |
+| `src/turbo/agents/boundary_runner.py` | Provider-neutral two-specialist/one-adjudicator orchestration and durable outputs |
+| `src/turbo/agents/openrouter_runner.py` | Metered OpenRouter requests, structured-output enforcement, retries, and redacted receipts |
+| `src/turbo/agents/codex_runner.py` | Isolated local Codex CLI provider fallback |
 | `src/turbo/pipeline.py` | Replayable source-universe and reconciliation generation |
 | `src/turbo/cli.py` | Local run, validation, and context commands |
 | `data/source_snapshots/` | Immutable official source captures and manifests |
@@ -433,6 +435,8 @@ turbo run
 turbo context
 turbo boundary-pack
 # Deliberately invokes three metered model calls after the pack validates:
+cp .env.example .env
+# Add the dedicated key locally, then: set -a; source .env; set +a
 turbo boundary-run
 python3 -m unittest discover -s tests -v
 ```
@@ -452,13 +456,23 @@ specialist hashes, and blank provisional judgments fail validation. Only final J
 and invocation receipts are durable; private reasoning streams are neither required
 nor persisted.
 
-Model choice is a measured configuration decision, not architecture. The pilot uses
-one strong provisional baseline to verify the surface. Candidate models will then be
-benchmarked by role on the same frozen cases for boundary correctness, grounding,
-schema reliability, stability, disagreement quality, latency, and cost. Specialist
-and adjudicator roles may select different models. A valid adjudication remains a
-proposal until deterministic compilation and independent exact-head review activate
-append-only graph events.
+Model choice is a measured configuration decision, not architecture. OpenRouter is
+the primary metered provider layer because it exposes multiple vendors behind one API,
+but Turbo never delegates model choice to an opaque cross-model router. Specialist A,
+specialist B, and adjudicator each have an explicit versioned model slug. The current
+pilot requests `openai/gpt-5.6-terra` for all three roles only as a provisional
+baseline; candidate models will be benchmarked by role on the same frozen cases for
+boundary correctness, grounding, schema reliability, stability, disagreement
+quality, latency, and cost.
+
+Requests require a provider endpoint that honors structured JSON Schema and are then
+validated again locally. Same-model provider fallback is allowed and receipted.
+Credentials live only in the ignored `OPENROUTER_API_KEY` environment variable. The
+dedicated pilot key has a $50 monthly cap and 180-day lifetime. Receipts preserve
+request/response hashes, requested/served model, provider when reported, usage/cost,
+and validation status—never the key or raw private reasoning. A valid adjudication
+remains a proposal until deterministic compilation and independent exact-head review
+activate append-only graph events.
 
 The V1 bootstrap still performs no market-attractiveness scoring. Universe decisions
 must precede the Target Market filter, which must precede evaluation.

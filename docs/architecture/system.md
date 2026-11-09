@@ -56,11 +56,19 @@ for complete identity and candidate disposition, known evidence, known proposals
 valid provisional-gap links, and distinct invocation identities. Only then may the
 adjudicator run. Its receipt binds the exact hashes of both specialist outputs.
 
-The runner retains final structured JSON and small receipts containing the model,
-reasoning effort, CLI version, prompt/schema/pack hashes, UTC bounds, exit status, and
-output hash. Raw private reasoning and CLI event streams are deliberately not durable
-research records. Model assignments remain versioned configuration and are selected
-later through role-specific frozen-case evaluations.
+The provider-neutral runner dispatches each role from versioned configuration. The
+primary metered path uses OpenRouter with one explicit model slug, strict structured
+output routing, and local validation; the isolated Codex CLI remains a fallback path.
+Cross-model auto-routing is not used. Same-model provider fallback is allowed and the
+reported provider is retained when available.
+
+The runner retains final structured JSON and small receipts containing requested and
+served model, served provider when reported, reasoning effort, prompt/schema/pack and
+request/response hashes, UTC bounds, latency, attempts, generation ID, token/cost
+usage when reported, validation status, and output hash. Raw private reasoning and
+credentials are deliberately not durable research records. Model assignments remain
+versioned configuration and are selected later through role-specific frozen-case
+evaluations.
 
 The same records render into a concise public explanation and a detailed audit view.
 This keeps the system understandable to the chairman and an interviewer without

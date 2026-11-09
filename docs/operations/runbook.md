@@ -39,6 +39,23 @@ truth. Private or unsupported evidence must never leak into publication artifact
 
 ## Local verification
 
+For metered model runs, create an ignored local `.env` from `.env.example` and place
+the dedicated Turbo OpenRouter key there. Never paste the key into GitHub, a prompt,
+or a committed configuration file.
+
+```bash
+cp .env.example .env
+# Edit .env locally, then load it only into the current shell.
+set -a
+source .env
+set +a
+turbo boundary-run
+```
+
+`boundary-run` makes two concurrent specialist calls and, only after both validate,
+one adjudicator call. It is intentionally explicit and metered; validators and tests
+never call OpenRouter. Model slugs are versioned in the family execution config.
+
 ```bash
 PYTHONPATH=src python3 -m turbo.cli validate
 PYTHONPATH=src python3 -m turbo.cli run
@@ -57,6 +74,11 @@ Before accepting a material run, verify:
 - rerunning produces the same substantive projection
 - README and relevant detailed docs are current
 - exact Git commit and output hashes are recorded
+
+Before a metered run, also verify that `OPENROUTER_API_KEY` is present without
+printing it, the configured provider/model slugs are expected, and the dedicated key
+limit is sufficient. Receipts may record provider/model/cost metadata but never the
+credential or raw private reasoning.
 
 ## Agent coordination
 

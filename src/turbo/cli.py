@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from turbo.agents.codex_runner import run_boundary_pilot
+from turbo.agents.boundary_runner import run_boundary_pilot
 from turbo.pipeline import GENERATED, run, validate
 from turbo.pipeline_paths import ROOT
 from turbo.universe.boundary_pack import (

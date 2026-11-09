@@ -35,6 +35,15 @@ Chairman gates govern strategy, evidence boundaries, company discovery, external
 communication, spend, and gated merges. Assumptions are allowed only when labeled
 and discounted.
 
+## Model-provider boundary
+
+OpenRouter supplies the primary metered model surface, but it does not choose Turbo's
+research policy. Each role uses an explicit versioned model slug; cross-model routing
+requires a reviewed configuration change. Every response remains untrusted until
+schema, identity, citation, and complete-coverage validation pass locally. The API
+credential is read only from `OPENROUTER_API_KEY`, never persisted in Git or receipts,
+and current account controls cap the dedicated key at $50 per month for 180 days.
+
 ## Explainability
 
 Every conclusion must answer: what is this object, what version is it, what supports

@@ -38,9 +38,19 @@
     "prior_candidate_catalog": 978
   },
   "baseline_execution": {
-    "specialist_model": "gpt-5.6-terra",
-    "adjudicator_model": "gpt-5.6-terra",
+    "provider": "openrouter",
+    "role_models": {
+      "specialist-a": "openai/gpt-5.6-terra",
+      "specialist-b": "openai/gpt-5.6-terra",
+      "adjudicator": "openai/gpt-5.6-terra"
+    },
     "reasoning_effort": "high",
+    "openrouter": {
+      "api_url": "https://openrouter.ai/api/v1/chat/completions",
+      "allow_fallbacks": true,
+      "max_attempts": 3,
+      "max_completion_tokens": 128000
+    },
     "status": "pilot_baseline_not_final_model_selection"
   }
 }

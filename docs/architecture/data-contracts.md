@@ -132,9 +132,14 @@ for each specialist and the two exact specialist-output hashes. Neither output i
 accepted Market Graph event. A deterministic compiler and independent review are
 separate activation gates.
 
-Invocation receipts store role, model, reasoning effort, CLI version, prompt, schema,
-pack and output hashes, UTC start/end, exit status, and validation result. They state
-that raw model reasoning was not persisted.
+Invocation receipts store provider, role, requested and served model, served provider
+when reported, reasoning effort, prompt, schema, pack, request, response, and output
+hashes, model-facing provider-schema hash, UTC start/end, latency, attempts,
+generation ID, sanitized token/cost usage, and validation result. Provider-specific
+fields such as CLI version or HTTP status are retained where relevant. The full
+canonical schema remains the acceptance contract even when a portable subset is sent
+to a model provider. Receipts explicitly state that credentials and raw model
+reasoning were not persisted.
 
 
 ## Factor definition, evaluator result, and score event

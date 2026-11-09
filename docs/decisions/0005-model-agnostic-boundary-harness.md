@@ -34,6 +34,10 @@ follows role-specific frozen-case evaluation of boundary correctness, evidence
 grounding, schema and ID reliability, repeatability, disagreement quality, latency,
 and cost. Model configuration is versioned and periodically rebenchmarked.
 
+The provider decision is recorded separately in
+[ADR 0006](0006-openrouter-model-provider.md). OpenRouter broadens model access but
+does not replace explicit per-role model assignments or local output validation.
+
 ## Activation consequence
 
 A valid adjudication is not an accepted universe decision. Deterministic event

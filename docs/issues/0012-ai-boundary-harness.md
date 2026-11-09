@@ -66,8 +66,25 @@ The parser gate, pack compiler, schemas, closed-world validator, isolated runner
 focused contract tests are implemented. No model output, canonical market, Target
 Market admission, company work, or attractiveness score has yet been accepted.
 
-The original `gpt-6.1-sol` baseline was rejected before inference because that model
-is not exposed through the local ChatGPT-authenticated Codex CLI. No output was
-persisted and the adjudicator did not run. The supported `gpt-5.6-terra` high-
-reasoning handshake passed, so both pilot roles now use it as an explicitly
-provisional baseline. This is an access correction, not production model selection.
+The original `gpt-6.1-sol` local-CLI baseline was rejected before inference because
+that model was not exposed through the local ChatGPT-authenticated Codex CLI. No
+output was persisted and the adjudicator did not run. A later `gpt-5.6-terra`
+specialist call passed schema preflight but was stopped before completion when the
+project adopted OpenRouter as its metered provider layer; its temporary directory was
+discarded and no model output entered the repository.
+
+The pilot now requests `openai/gpt-5.6-terra` through OpenRouter for all three roles
+as an explicitly provisional baseline. The provider is configuration-driven, so
+specialist A, specialist B, and adjudicator may later use different vendors or models
+after frozen-case evaluation. Requests require structured-output-capable endpoints,
+exclude returned private reasoning, and remain subject to Turbo's own closed-world
+validation. This is a provider-access decision, not production model selection.
+
+### Provider-access receipt
+
+Recorded at `2026-11-09T00:28:09Z`, a deliberately tiny structured-output handshake
+confirmed the dedicated key and endpoint without running a boundary specialist or
+adjudicator. OpenRouter served `openai/gpt-5.6-terra` through OpenAI, returned exactly
+`{"ok":true}`, used 53 total tokens, and reported a cost of `$0.000256`. No reasoning
+tokens or research evidence were used, no market conclusion was produced, and no
+result entered the Market Graph. The live key was never written to this receipt.
