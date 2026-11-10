@@ -115,6 +115,10 @@ composition. Historical source-run counts are not current cumulative graph count
 The [workload report](docs/operations/universe-workload-envelope.md) distinguishes
 completed dispositions from unresolved gaps and remaining schedule obligations.
 
+The reviewed lease boundary is [staged for cumulative publication](data/research_pilots/lease-qualification-20261110/README.md).
+Its provisional activation and replay inputs are preserved; the current graph remains
+at five markets until the cumulative release is generated and verified.
+
 The next implementation priority is the governed end-to-end path for that service
 cohort: accepted market identity, explicit target eligibility, then independently
 reviewed investment evaluation. Governed eligibility and single-submodel execution
