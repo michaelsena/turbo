@@ -40,7 +40,7 @@ class WorkloadEnvelopeTest(unittest.TestCase):
             shutil.copyfile(ROOT / name, destination)
         release = 'data/market_graph/versions/graph-release-a09c97692a785c2a9711'
         receipt = json.loads((cls.historical_root / release / 'graph-receipt.json').read_text())
-        # Same canonical pointer construction as graph_release.compile_graph_release.
+        # Same canonical pointer construction as graph_release.run_graph_release.
         pointer = {'schema_version': 1,
                    **{key: receipt[key] for key in ('release_id', 'graph_version_id', 'source_universe_run_id', 'projection_sha256')},
                    'release_path': release, 'receipt_sha256': canonical_sha256(receipt)}
