@@ -86,11 +86,24 @@ def assignment_navigation(task: dict) -> dict:
                         'assignment_role', 'owner_family_id', 'primary_family_id', 'status')
                         if name in card['value']}})
         families.append(index)
-    return {'schema_version': 1, 'kind': 'literal-local-scope-navigation-v1',
-            'payload_bindings': bindings,
-            'role_input_hashes': {role: envelope['submission_sha256']
-                                  for role, envelope in task['inputs'].items()},
-            'families': families}
+    navigation = {'schema_version': 1, 'kind': 'literal-local-scope-navigation-v1',
+                  'payload_bindings': bindings,
+                  'role_input_hashes': {role: envelope['submission_sha256']
+                                       for role, envelope in task['inputs'].items()},
+                  'families': families}
+    if task['role'] == 'release_reviewer':
+        preview_hash = task['release_preview']['preview_sha256']
+        if (not isinstance(preview_hash, str) or len(preview_hash) != 64
+                or any(character not in '0123456789abcdef' for character in preview_hash)):
+            raise ValueError('release reviewer requires the exact preview SHA-256')
+        navigation['approved_plan_sha256'] = preview_hash
+        navigation['approval_binding_instruction'] = (
+            'Copy approved_plan_sha256 verbatim into the release review document. '
+            'It is task.release_preview.preview_sha256, not the base-events hash '
+            '(release_preview.preview.base_events_sha256), configuration hash, '
+            'workflow plan hash, or an upstream submission hash. This binding does '
+            'not imply approval; independently review the complete preview.')
+    return navigation
 
 
 def render_assignment(task: dict, *, input_root: Path, model_view: str | None = None,

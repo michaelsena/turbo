@@ -25,7 +25,10 @@ class AssignmentNavigationHashesTest(unittest.TestCase):
                 inputs = {r: {'submission_sha256': str(i + 1) * 64,
                     'plan_sha256': '9' * 64, 'document': {'untouched': r}}
                     for i, r in enumerate(dependencies)}
-                task = self.task(role, inputs); before = copy.deepcopy(task)
+                task = self.task(role, inputs)
+                if role == 'release_reviewer':
+                    task['release_preview'] = {'preview_sha256': 'e' * 64}
+                before = copy.deepcopy(task)
                 rendered = provider.render_assignment(task, input_root=ROOT, model_view=model_view.VERSION)
                 literal, encoded = rendered.split('\n# Literal assignment navigation\n')[1].split('\n# Frozen assignment\n')
                 expected = {r: e['submission_sha256'] for r, e in inputs.items()}

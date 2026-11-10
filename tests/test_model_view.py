@@ -93,6 +93,13 @@ class ModelViewProviderTest(unittest.TestCase):
         with self.assertRaises(ValueError): provider.contract_bindings(input_root=self.input_root,model_view='v99')
         with self.assertRaises(ValueError): provider.execution_contract_hashes(model_view='v99')
 
+    def test_changed_navigation_implementation_requires_fresh_authority(self):
+        self.enable()
+        self.authorization['execution_contract_hashes']['src/turbo/agents/batch_provider.py'] = '0'*64
+        with self.assertRaisesRegex(ValueError, 'implementation changed'):
+            self.run_role('primary', {'payload':self.payload()})
+        self.assertEqual(self.calls, [])
+
     def test_encoded_byte_gate_cannot_dispatch_over_limit(self):
         self.enable(); self.authorization['roles']['primary']['max_input_tokens']=100
         with self.assertRaisesRegex(ValueError,'token bound'): self.run_role('primary',{'payload':self.payload()})

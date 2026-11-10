@@ -252,6 +252,17 @@ class BatchProviderTest(unittest.TestCase):
         self.assertEqual(self.run_role("release_reviewer", document)["status"], "succeeded")
         self.assertEqual(len(self.calls), 3)
 
+    def test_model_view_reviewer_literal_compiles_closure_and_replays(self):
+        from turbo.agents import model_view
+        self.authorization['execution_contract_hashes'] = batch_provider.execution_contract_hashes(model_view=model_view.VERSION)
+        for role, binding in batch_provider.contract_bindings(input_root=self.input_root, model_view=model_view.VERSION).items():
+            self.authorization['roles'][role].update(binding)
+        self.test_routine_provider_review_compiles_and_replays_real_no_movement_closure()
+        content = self.calls[-1]['messages'][0]['content']
+        literal, encoded = content.split('\n# Literal assignment navigation\n', 1)[1].split('\n# Frozen assignment\n', 1)
+        task = model_view.decode(json.loads(encoded))
+        self.assertEqual(json.loads(literal)['approved_plan_sha256'], task['release_preview']['preview_sha256'])
+
     def test_disagreement_dispatches_blind_pair_adjudicator_and_exact_review_once(self):
         for role in ("escalation_a", "escalation_b", "adjudicator"):
             self.authorization["roles"][role]["model"] = self.authorization["roles"]["primary"]["model"]
@@ -285,16 +296,26 @@ class BatchProviderTest(unittest.TestCase):
         self.assertEqual(len(self.calls), 6)
 
     def test_release_wrong_preview_is_charged_failed_and_not_published(self):
+        from turbo.agents import model_view
+        self.authorization['execution_contract_hashes'] = batch_provider.execution_contract_hashes(model_view=model_view.VERSION)
+        for role, binding in batch_provider.contract_bindings(input_root=self.input_root, model_view=model_view.VERSION).items():
+            self.authorization['roles'][role].update(binding)
         self.paid_verified()
         preview = self.compiled_preview()
         document = self.review_document(preview)
-        document["approved_plan_sha256"] = "0" * 64
+        document["approved_plan_sha256"] = preview['preview']['base_events_sha256']
+        self.assertNotEqual(document['approved_plan_sha256'], preview['preview_sha256'])
         result = self.run_role("release_reviewer", document)
         self.assertEqual(result["status"], "failed", result)
+        content = self.calls[-1]['messages'][0]['content']
+        literal = json.loads(content.split('\n# Literal assignment navigation\n', 1)[1].split('\n# Frozen assignment\n', 1)[0])
+        self.assertEqual(literal['approved_plan_sha256'], preview['preview_sha256'])
         self.assertFalse((self.directory / "release_reviewer.json").exists())
         self.assertEqual(self.ledger().status()["committed_microusd"], 60)
         with self.assertRaises(ValueError):
             batch_workflow.closure_payload(self.directory)
+        self.assertEqual(self.run_role('release_reviewer', document)['status'], 'failed')
+        self.assertEqual(len(self.calls), 3)
 
     def test_rejected_paid_review_is_settled_but_prevents_closure(self):
         from turbo.pipeline_paths import ROOT
