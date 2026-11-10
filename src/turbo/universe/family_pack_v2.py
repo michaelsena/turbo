@@ -12,6 +12,7 @@ from jsonschema import Draft202012Validator
 from turbo.agents.boundary_harness import canonical_sha256
 from turbo.pipeline_paths import ROOT
 from turbo.system_context import _source_context
+from turbo.universe.family_supplement import binding_for, load_supplement
 
 
 DEFAULT_LIMITS = {
@@ -251,6 +252,7 @@ def generate_family_config_v2(
     root: Path = ROOT,
     pointer_path: Path | None = None,
     limits: dict[str, int] | None = None,
+    supplemental_manifest: Path | None = None,
 ) -> dict[str, Any]:
     pointer, receipt, artifacts = _verified_schedule(root=root, pointer_path=pointer_path)
     graph, _, _ = _verified_graph(root=root)
@@ -306,6 +308,13 @@ def generate_family_config_v2(
         "prohibited_actions": PROHIBITED_ACTIONS,
         "model_invoked": False,
     }
+    if supplemental_manifest is not None:
+        config["supplemental_evidence"] = binding_for(root, supplemental_manifest)
+        load_supplement(root, config["supplemental_evidence"], family_id=family_id,
+                        source_run_id=pointer["source_run_id"],
+                        subject_ids=selected_ids | set(family["required_prior_candidate_ids"]))
+        config["implementation_hashes"]["schemas/family-supplement-v1.schema.json"] = _sha256_path(
+            root / "schemas/family-supplement-v1.schema.json")
     errors = _schema_errors(config, "family-config-v2.schema.json", root)
     if errors:
         raise ValueError("invalid generated family config V2: " + "; ".join(errors))
@@ -367,7 +376,9 @@ def _assemble_family_evidence_pack_v2(
         raise ValueError("family config graph binding is stale or tampered")
 
     regenerated = generate_family_config_v2(
-        config["family_id"], root=root, limits=config["limits"]
+        config["family_id"], root=root, limits=config["limits"],
+        supplemental_manifest=(Path(config["supplemental_evidence"]["manifest_path"])
+                               if "supplemental_evidence" in config else None)
     )
     if regenerated != config:
         raise ValueError("family config does not match its exact schedule entry")
@@ -564,6 +575,14 @@ def _assemble_family_evidence_pack_v2(
             "interpretation_boundary": "Existing canonical graph context only; it does not decide this family.",
         },
     }
+    if "supplemental_evidence" in config:
+        extra = load_supplement(root, config["supplemental_evidence"],
+            family_id=config["family_id"], source_run_id=run_id,
+            subject_ids=set(required_ids + context_ids + required_candidate_ids))
+        pack.update(extra)
+        pack["counts"]["evidence_items"] += sum(len(rows) for rows in extra.values())
+        if pack["counts"]["evidence_items"] > config["limits"]["max_evidence_items"]:
+            raise ValueError("family pack evidence-item limit exceeded")
     pack["metadata"]["pack_sha256"] = _pack_hash(pack)
     return pack
 
@@ -631,13 +650,18 @@ def _validate_family_evidence_pack_v2(
     ):
         if pack.get(field) != expected_pack[field]:
             errors.append(f"pack {field} does not match exact regenerated content")
+    for field in ("supplemental_sources", "supplemental_claims", "supplemental_gaps"):
+        if (field in pack) != (field in expected_pack) or pack.get(field) != expected_pack.get(field):
+            errors.append(f"pack {field} does not match exact regenerated content")
     return sorted(errors)
 
 
 def dry_run_family_preparation_v2(
-    family_id: str, *, root: Path = ROOT, limits: dict[str, int] | None = None
+    family_id: str, *, root: Path = ROOT, limits: dict[str, int] | None = None,
+    supplemental_manifest: Path | None = None
 ) -> dict[str, Any]:
-    config = generate_family_config_v2(family_id, root=root, limits=limits)
+    config = generate_family_config_v2(family_id, root=root, limits=limits,
+                                       supplemental_manifest=supplemental_manifest)
     pack = compile_family_evidence_pack_v2(config, root=root)
     return {
         "valid": True,
@@ -658,8 +682,10 @@ def prepare_family_v2(
     root: Path = ROOT,
     output_root: Path | None = None,
     limits: dict[str, int] | None = None,
+    supplemental_manifest: Path | None = None,
 ) -> dict[str, Any]:
-    config = generate_family_config_v2(family_id, root=root, limits=limits)
+    config = generate_family_config_v2(family_id, root=root, limits=limits,
+                                       supplemental_manifest=supplemental_manifest)
     pack = compile_family_evidence_pack_v2(config, root=root)
     preparation_id = "family-preparation:" + canonical_sha256({
         "config_sha256": canonical_sha256(config),
@@ -722,7 +748,9 @@ def validate_family_preparation_v2(
         if schema_errors:
             raise ValueError("persisted schema validation failed: " + "; ".join(schema_errors))
         regenerated_config = generate_family_config_v2(
-            config["family_id"], root=root, limits=config["limits"]
+            config["family_id"], root=root, limits=config["limits"],
+            supplemental_manifest=(Path(config["supplemental_evidence"]["manifest_path"])
+                                   if "supplemental_evidence" in config else None)
         )
         regenerated_pack = compile_family_evidence_pack_v2(regenerated_config, root=root)
         if config != regenerated_config:

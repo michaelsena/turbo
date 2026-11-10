@@ -1,0 +1,9 @@
+URL: https://hughesmarino.com/services/lease-administration-services/
+Retrieved at UTC: 2026-11-10T15:05:37.931551Z
+Capture kind: retrieved_excerpt
+Capture method: Direct public HTTP GET; HTML text whitespace normalized.
+This file retains selected verbatim excerpts only, not the full page.
+HTTP response SHA256 (unretained original HTML): 89abfc82c096d2cc1a99e8756cae5ae53a13362d258774fad143117cb3e131da
+
+Retained excerpts:
+We monitor dates, validate charges and provide comprehensive reporting so stakeholders always see accurate, current data on a monthly basis.

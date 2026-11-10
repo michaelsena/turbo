@@ -1,0 +1,34 @@
+{
+  "checked_at_utc": "2026-11-10T16:52:20.922535+00:00",
+  "method": "Fresh web open/find. Retained short excerpts and researcher paraphrase checked against visible source content; no original files overwritten. Source fact vs advertiser claim and survey limitations remain explicit.",
+  "results": [
+    {
+      "source_id": "s1",
+      "url": "https://hoaresources.caionline.org/responsibilities-of-a-community-manager/",
+      "source_sha256": "3bf2e7a80c46baa4e07b95109169c3d59d477022a90cfd4925dec8fab290dfb7",
+      "web_ref": "turn6282828view0",
+      "result": "retained excerpt and described workflow/survey content corroborated"
+    },
+    {
+      "source_id": "s3",
+      "url": "https://foundation.caionline.org/research/mcbenchmarking/",
+      "source_sha256": "0bf20a9e1ac0f693f294d7b23ec8eebd2ebcac73038dc52c8d846953b31cb0e3",
+      "web_ref": "turn6282828view1",
+      "result": "retained excerpt and described workflow/survey content corroborated"
+    },
+    {
+      "source_id": "s5",
+      "url": "https://www.fsresidential.com/corporate/what-we-do/property-management/high-rise-no-manager/",
+      "source_sha256": "ccb99938c704a7e01b2e22bd06eb3472df5316df70c7116b3244053d8b069442",
+      "web_ref": "turn2233969view2",
+      "result": "retained excerpt and described workflow/survey content corroborated"
+    },
+    {
+      "source_id": "s6",
+      "url": "https://www.townsq.io/new-releases-and-updates/townsq-ai-suggested-reply",
+      "source_sha256": "cce755859b84532ae8cfe2dad6e8affb14d9a5e0e73ba9acb34a987ae2cbd5b3",
+      "web_ref": "turn2233969view3",
+      "result": "retained excerpt and described workflow/survey content corroborated"
+    }
+  ]
+}

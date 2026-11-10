@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "family_id": "family:naics-2022:531390",
+  "source_run_id": "run-2ea0f00db84148de663f",
+  "sources": [
+    {
+      "source_id": "s1",
+      "path": "data/research/service-cohort/lease/sources/s1.txt",
+      "url": "https://www.colliers.com/en/services/lease-administration",
+      "retrieved_at_utc": "2026-11-10T15:05:33.331463Z",
+      "sha256": "836096966f1cfb0bfe9601513ddf5294495e3ffea9e20623138e17f36baeef36",
+      "representation": "excerpt",
+      "subject_ids": [
+        "identity:naics:531390"
+      ]
+    },
+    {
+      "source_id": "s2",
+      "path": "data/research/service-cohort/lease/sources/s2.txt",
+      "url": "https://www.mrisoftware.com/ie/services/lease-administration/",
+      "retrieved_at_utc": "2026-11-10T15:03:35.289250Z",
+      "sha256": "6a15e89547ea199e075d2afd430fd6c8f748b5777e79b756754e4942e075e172",
+      "representation": "excerpt",
+      "subject_ids": [
+        "identity:naics:531390"
+      ]
+    },
+    {
+      "source_id": "s3",
+      "path": "data/research/service-cohort/lease/sources/s3.txt",
+      "url": "https://mohrpartners.com/lease-administration/",
+      "retrieved_at_utc": "2026-11-10T15:03:34.698595Z",
+      "sha256": "8b9b2ed0f728edaa3bcd43dac85148ad832e8fdcbabef03a887adfbc0125e7fe",
+      "representation": "excerpt",
+      "subject_ids": [
+        "identity:naics:531390"
+      ]
+    },
+    {
+      "source_id": "s4",
+      "path": "data/research/service-cohort/lease/sources/s4.txt",
+      "url": "https://www.savills.co.uk/services/global-occupier-services/lease-administration.aspx",
+      "retrieved_at_utc": "2026-11-10T15:03:34.204530Z",
+      "sha256": "9142f0ed8945397f85acfa4c7df7c79c5e7b9976a044ea66426002cb73f3dbfd",
+      "representation": "excerpt",
+      "subject_ids": [
+        "identity:naics:531390"
+      ]
+    },
+    {
+      "source_id": "s5",
+      "path": "data/research/service-cohort/lease/sources/s5.txt",
+      "url": "https://loricoreis.com/lease-administration/",
+      "retrieved_at_utc": "2026-11-10T15:03:35.879057Z",
+      "sha256": "c0f451fa705741ee703070f70bd6adb9d22cd5dc5b579085605a9c95fc3483c7",
+      "representation": "excerpt",
+      "subject_ids": [
+        "identity:naics:531390"
+      ]
+    },
+    {
+      "source_id": "s6",
+      "path": "data/research/service-cohort/lease/sources/s6.txt",
+      "url": "https://www.iremlearning.org/local/catalog/view/product.php?productid=26",
+      "retrieved_at_utc": "2026-11-10T15:03:35.071856Z",
+      "sha256": "237e0f8ac74cee63707f77c0aee47e4b26a6595aaffaf615fdda3e7be9f13ce1",
+      "representation": "excerpt",
+      "subject_ids": [
+        "identity:naics:531390"
+      ]
+    },
+    {
+      "source_id": "s7",
+      "path": "data/research/service-cohort/lease/sources/s7.txt",
+      "url": "https://www.corenetglobal.org/about-corenet-global/news/2024/11/26/ai-will-disrupt-corporate-real-estate--corenet-global-polls-attendees-at-two-recent-global-summits-on-ai-s-impact",
+      "retrieved_at_utc": "2026-11-10T15:03:34.701631Z",
+      "sha256": "440e5caa1862636fa01d24723bc150abe950c1146faf1c6866fe1b5a0a8ffa02",
+      "representation": "excerpt",
+      "subject_ids": [
+        "identity:naics:531390"
+      ]
+    },
+    {
+      "source_id": "s8",
+      "path": "data/research/service-cohort/lease/sources/s8.txt",
+      "url": "https://hughesmarino.com/services/lease-administration-services/",
+      "retrieved_at_utc": "2026-11-10T15:05:37.931551Z",
+      "sha256": "8414344865b57ca2e084baf45d35a3adaa0be4f86bb83c09a6e98fab5781a89a",
+      "representation": "excerpt",
+      "subject_ids": [
+        "identity:naics:531390"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "lease-observation-1",
+      "kind": "fact",
+      "text": "The retained Colliers excerpt advertises abstraction quality-control measures and annual expense reconciliations; it does not establish measured accuracy or recovery outcomes.",
+      "subject_ids": [
+        "identity:naics:531390"
+      ],
+      "source_ids": [
+        "s1"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "lease-observation-2",
+      "kind": "fact",
+      "text": "The retained MRI Ireland excerpt says its lease administration serves occupiers only and mentions monthly reconciliation. This is an international operating-model analogue, not US market-size evidence.",
+      "subject_ids": [
+        "identity:naics:531390"
+      ],
+      "source_ids": [
+        "s2"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "lease-observation-3",
+      "kind": "fact",
+      "text": "The retained Mohr excerpt advertises per-location, per-transaction, resource-based and performance-driven pricing and senior review of AI-generated findings; no measured savings are retained.",
+      "subject_ids": [
+        "identity:naics:531390"
+      ],
+      "source_ids": [
+        "s3"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "lease-observation-4",
+      "kind": "fact",
+      "text": "The retained Savills UK excerpt advertises recurring portfolio/database maintenance and monthly reporting. It does not establish US revenues or renewal quality.",
+      "subject_ids": [
+        "identity:naics:531390"
+      ],
+      "source_ids": [
+        "s4"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "lease-observation-5",
+      "kind": "fact",
+      "text": "The retained LORICO excerpt lists rent/common-area collections, payment-obligation enforcement and date calendars. Buyer ownership and contractual risk allocation are not established by these lines.",
+      "subject_ids": [
+        "identity:naics:531390"
+      ],
+      "source_ids": [
+        "s5"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "lease-observation-6",
+      "kind": "fact",
+      "text": "The retained IREM course excerpt names commercial lease administration and its effect on workload; it does not establish mandatory credentials or workforce availability.",
+      "subject_ids": [
+        "identity:naics:531390"
+      ],
+      "source_ids": [
+        "s6"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "lease-observation-7",
+      "kind": "fact",
+      "text": "The retained CoreNet excerpt only lists lease management administration alongside location intelligence and facilities management. The extract alone does not establish AI adoption or measured productivity.",
+      "subject_ids": [
+        "identity:naics:531390"
+      ],
+      "source_ids": [
+        "s7"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "lease-observation-8",
+      "kind": "fact",
+      "text": "The retained Hughes Marino excerpt advertises date monitoring, charge validation and monthly reporting; it does not independently establish market size, acquisition availability, or operating performance.",
+      "subject_ids": [
+        "identity:naics:531390"
+      ],
+      "source_ids": [
+        "s8"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "lease-workflow-hypothesis",
+      "kind": "inference",
+      "text": "The advertised recurring record updates, dates, charge validation and reporting suggest a desk-based administrative workflow worth testing as an operating-market boundary. This does not establish that NAICS531390 owns that market, or replace exclusions in the official source.",
+      "subject_ids": [
+        "identity:naics:531390"
+      ],
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s8"
+      ],
+      "gap_ids": [
+        "lease-boundary"
+      ]
+    },
+    {
+      "claim_id": "lease-economics-unknown",
+      "kind": "unknown",
+      "text": "These retained excerpts do not establish US demand magnitude, acquisition supply, company values, margins, labor representation or eligibility. No eligibility exception or target status is supplied.",
+      "subject_ids": [
+        "identity:naics:531390"
+      ],
+      "source_ids": [],
+      "gap_ids": [
+        "lease-market-economics"
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "gap_id": "lease-boundary",
+      "question": "Do recurring occupier-side lease administration services constitute a distinct operating market related to this family, or should they be mapped elsewhere, left unresolved or rejected? No family membership is asserted by this research attachment.",
+      "subject_ids": [
+        "identity:naics:531390"
+      ]
+    },
+    {
+      "gap_id": "lease-market-economics",
+      "question": "What US demand, customer retention, margins, workforce/labor exposure, independent acquisition population, EV and deal-price evidence supports this proposed service boundary?",
+      "subject_ids": [
+        "identity:naics:531390"
+      ]
+    },
+    {
+      "gap_id": "lease-source-verification",
+      "question": "Re-verify retained excerpts against source pages where fuller context is necessary; original HTML bodies were not retained, and checksums establish frozen excerpt bytes only.",
+      "subject_ids": [
+        "identity:naics:531390"
+      ]
+    }
+  ]
+}
