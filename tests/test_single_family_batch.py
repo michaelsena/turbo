@@ -3,6 +3,7 @@ import copy
 import json
 import tempfile
 import unittest
+from datetime import datetime, timedelta
 from pathlib import Path
 from unittest.mock import patch
 
@@ -54,6 +55,12 @@ class SingleFamilyManagedTest(unittest.TestCase):
     def setUpClass(cls):
         cls.fixture = tempfile.TemporaryDirectory(prefix='turbo-single-family-input-')
         cls.input_root = ROOT
+        # This fixture uses the current graph, unlike the historical provider fixture.
+        # Keep its synthetic clock after that graph rather than pinning a stale date.
+        pointer = json.loads((ROOT/'data/generated/latest-graph.json').read_text())
+        projection = json.loads((ROOT/pointer['release_path']/'projection.json').read_text())
+        cls.now = datetime.fromisoformat(projection['as_of'].replace('Z', '+00:00')) + timedelta(hours=1)
+        cls.now_utc = cls.now.isoformat().replace('+00:00', 'Z')
         cls.preparations = [Path(prepare_family_v2(FAMILIES[0], root=ROOT,
             output_root=Path(cls.fixture.name))['preparation_path'])]
         # Real public construction replays the full preparation; no slicing or mocked scope.
@@ -66,16 +73,16 @@ class SingleFamilyManagedTest(unittest.TestCase):
 
     def setUp(self):
         controlled.ControllerTest.setUp(self)
-        self.authorization['valid_from_utc'] = '2026-11-10T16:00:00Z'
-        self.authorization['expires_at_utc'] = '2026-11-10T18:00:00Z'
+        self.authorization['valid_from_utc'] = (self.now-timedelta(hours=1)).isoformat().replace('+00:00', 'Z')
+        self.authorization['expires_at_utc'] = (self.now+timedelta(hours=1)).isoformat().replace('+00:00', 'Z')
 
     def execute(self, **kwargs):
         return controller.execute(self.control, api_key='synthetic-only',
-            clock=lambda: '2026-11-10T17:00:00Z', transport=self.transport, **kwargs)
+            clock=lambda: self.now_utc, transport=self.transport, **kwargs)
 
     def config(self):
         value = controlled.ControllerTest.config(self)
-        value['recorded_at_utc'] = '2026-11-10T17:00:00Z'
+        value['recorded_at_utc'] = self.now_utc
         return value
     payload = provider_fixture.BatchProviderTest.payload
     transport_for = provider_fixture.BatchProviderTest.transport_for

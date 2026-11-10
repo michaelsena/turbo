@@ -3,9 +3,11 @@ import copy
 import json
 from pathlib import Path
 import shutil
+import subprocess
 import tempfile
 import unittest
 
+from turbo.agents.boundary_harness import canonical_sha256
 from turbo.pipeline_paths import ROOT
 from turbo.universe.family_pack_v2 import _verified_graph, _verified_schedule
 from turbo.universe.workload_envelope import (
@@ -23,9 +25,32 @@ class WorkloadEnvelopeTest(unittest.TestCase):
         cls.batches = artifacts['batch-manifest.json']['batches']
         _, cls.receipt, cls.projection = _verified_graph(root=ROOT)
         cls.closure, _ = _published_closure(ROOT, MANIFEST, cls.schedule, cls.families, cls.receipt, cls.projection)
+        # Preserve the real historical publication regression without treating
+        # its one manifest as coverage of the later lease activation.
+        temporary = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(temporary.cleanup)
+        cls.historical_root = Path(temporary.name).resolve()
+        names = subprocess.check_output(
+            ['git', '-C', str(ROOT), 'ls-files', '-z', 'data', 'config', 'schemas'])
+        for name in names.decode().split('\0'):
+            if not name:
+                continue
+            destination = cls.historical_root / name
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / name, destination)
+        release = 'data/market_graph/versions/graph-release-a09c97692a785c2a9711'
+        receipt = json.loads((cls.historical_root / release / 'graph-receipt.json').read_text())
+        # Same canonical pointer construction as graph_release.compile_graph_release.
+        pointer = {'schema_version': 1,
+                   **{key: receipt[key] for key in ('release_id', 'graph_version_id', 'source_universe_run_id', 'projection_sha256')},
+                   'release_path': release, 'receipt_sha256': canonical_sha256(receipt)}
+        (cls.historical_root / 'data/generated/latest-graph.json').write_text(json.dumps(pointer))
+        _, _, historical = _verified_graph(root=cls.historical_root)
+        assert len(historical['markets']) == 5
 
-    def test_real_published_counts_and_retained_gaps(self):
-        report = build_report(root=ROOT, publication_manifests=[MANIFEST])
+
+    def test_historical_five_market_published_counts_and_retained_gaps(self):
+        report = build_report(root=self.historical_root, publication_manifests=[MANIFEST])
         self.assertEqual(report['scheduled'], {'families': 1018, 'required_identities': 8182, 'required_candidates': 976, 'batches': 129})
         self.assertEqual(report['completed_batch_closure_work'], {'families': 2, 'required_identities': 8, 'required_candidates': 1})
         self.assertEqual(report['remaining'], {'families': 1016, 'required_identities': 8174, 'required_candidates': 975, 'batches_with_remaining_work': 129})
@@ -34,9 +59,14 @@ class WorkloadEnvelopeTest(unittest.TestCase):
         self.assertIsNone(report['scenario'])
         self.assertEqual(sum(report['batch_required_identity_histogram'].values()), 129)
 
-    def test_duplicate_manifest_is_idempotent(self):
-        self.assertEqual(build_report(root=ROOT, publication_manifests=[MANIFEST]),
-                         build_report(root=ROOT, publication_manifests=[MANIFEST, MANIFEST]))
+    def test_historical_duplicate_manifest_is_idempotent(self):
+        self.assertEqual(build_report(root=self.historical_root, publication_manifests=[MANIFEST]),
+                         build_report(root=self.historical_root, publication_manifests=[MANIFEST, MANIFEST]))
+
+    def test_current_six_market_graph_rejects_small_manifest_only(self):
+        self.assertEqual(len(self.projection['markets']), 6)
+        with self.assertRaisesRegex(ValueError, 'do not cover current batch activations'):
+            build_report(root=ROOT, publication_manifests=[MANIFEST])
 
     def test_missing_current_activation_manifest_fails(self):
         with self.assertRaisesRegex(ValueError, 'do not cover'):

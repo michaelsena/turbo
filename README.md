@@ -114,6 +114,9 @@ and [cumulative graph release](data/market_graph/versions/graph-release-5e509cb2
 composition. Historical source-run counts are not current cumulative graph counts.
 The [workload report](docs/operations/universe-workload-envelope.md) distinguishes
 completed dispositions from unresolved gaps and remaining schedule obligations.
+Its published completion totals describe the earlier five-market release. A
+compatible lease publication manifest is still required before that report can
+cover the current six-market graph; incomplete activation coverage is rejected.
 
 The reviewed lease boundary is [included in the cumulative release](data/research_pilots/lease-qualification-20261110/README.md).
 This release has six markets and nine mappings and binds exact published source
