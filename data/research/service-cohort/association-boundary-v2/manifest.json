@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "family_id": "family:naics-2022:531311",
+  "source_run_id": "run-2ea0f00db84148de663f",
+  "sources": [
+    {
+      "source_id": "s1",
+      "path": "data/research/service-cohort/association-boundary-v2/sources/s1.txt",
+      "url": "https://hoaresources.caionline.org/responsibilities-of-a-community-manager/",
+      "retrieved_at_utc": "2026-11-10T15:04:44.464744+00:00",
+      "sha256": "3bf2e7a80c46baa4e07b95109169c3d59d477022a90cfd4925dec8fab290dfb7",
+      "representation": "excerpt_with_paraphrase",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    },
+    {
+      "source_id": "s3",
+      "path": "data/research/service-cohort/association-boundary-v2/sources/s3.txt",
+      "url": "https://foundation.caionline.org/research/mcbenchmarking/",
+      "retrieved_at_utc": "2026-11-10T15:04:44.464744+00:00",
+      "sha256": "0bf20a9e1ac0f693f294d7b23ec8eebd2ebcac73038dc52c8d846953b31cb0e3",
+      "representation": "excerpt_with_paraphrase",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    },
+    {
+      "source_id": "s5",
+      "path": "data/research/service-cohort/association-boundary-v2/sources/s5.txt",
+      "url": "https://www.fsresidential.com/corporate/what-we-do/property-management/high-rise-no-manager/",
+      "retrieved_at_utc": "2026-11-10T15:04:44.464744+00:00",
+      "sha256": "ccb99938c704a7e01b2e22bd06eb3472df5316df70c7116b3244053d8b069442",
+      "representation": "excerpt_with_paraphrase",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    },
+    {
+      "source_id": "s6",
+      "path": "data/research/service-cohort/association-boundary-v2/sources/s6.txt",
+      "url": "https://www.townsq.io/new-releases-and-updates/townsq-ai-suggested-reply",
+      "retrieved_at_utc": "2026-11-10T15:04:44.464744+00:00",
+      "sha256": "cce755859b84532ae8cfe2dad6e8affb14d9a5e0e73ba9acb34a987ae2cbd5b3",
+      "representation": "excerpt_with_paraphrase",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    },
+    {
+      "source_id": "s9",
+      "path": "data/research/service-cohort/association-boundary-v2/sources/s9.txt",
+      "url": "https://www2.myfloridalicense.com/community-association-managers-and-firms/faqs/",
+      "retrieved_at_utc": "2026-11-10T17:18:03.844756+00:00",
+      "sha256": "e5dfa0f840e31a9e13531768b34e6e353f7036f59959f4efc212b7c6f56a1d83",
+      "representation": "excerpt_with_paraphrase",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    },
+    {
+      "source_id": "s10",
+      "path": "data/research/service-cohort/association-boundary-v2/sources/s10.txt",
+      "url": "https://foundation.caionline.org/wp-content/uploads/2026/09/Digital-2026-Management-Company-Benchmarking-Trends-Report.pdf",
+      "retrieved_at_utc": "2026-11-10T17:18:03.844756+00:00",
+      "sha256": "8d9b56cc3e5d2d03baa90f41485ea8da81a366f0cf771b16baf28b2a45366413",
+      "representation": "excerpt_with_paraphrase",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    },
+    {
+      "source_id": "s11",
+      "path": "data/research/service-cohort/association-boundary-v2/sources/s11.txt",
+      "url": "https://foundation.caionline.org/wp-content/uploads/2025/03/FBStatsReview2024web.pdf",
+      "retrieved_at_utc": "2026-11-10T17:18:03.844756+00:00",
+      "sha256": "d140996687a97d46651d2c80e1f5ca631e033263ec76b4d8c3281bc61270eac7",
+      "representation": "excerpt_with_paraphrase",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "association-observation-s1",
+      "kind": "fact",
+      "text": "The CAI role description distinguishes board policy authority from contracted manager operations. Financial records and coordination form a service hypothesis, not evidence that the association entity and management firm are the same market.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s1"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "association-observation-s3",
+      "kind": "fact",
+      "text": "The Foundation benchmarking page reports that 67% of respondents have annual client retention of at least95%, versus76% in2025. These are respondent reports, not a market-wide retention estimate or audited recurring revenue.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s3"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "association-observation-s5",
+      "kind": "fact",
+      "text": "FirstService advertises assigned community managers backed by specialist teams, with accounting, contract administration, board support, vendor oversight and communications. This is one provider configuration, not proof of representative profitability or acquisition supply.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s5"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "association-observation-s6",
+      "kind": "fact",
+      "text": "TownSq advertises suggested replies using community information with manager review/edit before sending. This is supplier-described capability, not measured savings, accuracy or retained economic value.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s6"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "association-economic-unknown",
+      "kind": "unknown",
+      "text": "The selected source excerpts do not establish market-wide economics, employer labor representation, acquisition availability or eligibility. No exception to strategy gates is granted.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [],
+      "gap_ids": [
+        "association-economics"
+      ]
+    },
+    {
+      "claim_id": "association-buyer-job-distinction",
+      "kind": "fact",
+      "text": "Florida DBPR identifies association boards as responsible for association operations, distinguishes CAM licensing from apartment/commercial/single-family property management, and lists associationfunds/budgets/meetings and maintenancecoordination as CAM tasks. This is state-specific evidence, not a national statutory classification.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s9"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "association-fee-economics",
+      "kind": "fact",
+      "text": "FCAR2026 explicitly benchmarks association-management companies using flat monthly association fees, per-unit charges, bundled services and related models, alongside ancillary revenues and communities per full-time manager. Survey categories and sample responses are not universal contract terms or population-wide economics.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s10"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "association-population-estimate",
+      "kind": "fact",
+      "text": "FCAR2024 estimates9,000\u201310,000 managementcompanies and60,000\u201365,000 managers;30\u201340% of associations self-manage. These are association-sector estimates, not proof of independently owned acquisition targets. Assessments are distinct from managementcompany revenue.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s11"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "association-split-hypothesis",
+      "kind": "inference",
+      "text": "A provisional separate operating-market hypothesis is outsourced association-board administration and community operations, with a board/association buyer and management-fee revenue, rather than landlord rental-income operations. This inference combines state-specific task distinctions and national association-management survey categories; it does not establish an accepted split or require all531311 identities to map to it.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s1",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "gap_ids": [
+        "association-boundary"
+      ]
+    },
+    {
+      "claim_id": "association-overlap-counterevidence",
+      "kind": "inference",
+      "text": "A clean exclusive provider split is not established: service scope includes financial administration and maintenance/vendor coordination shared with broader property management; survey respondents bundle ancillary work; some associations self-manage or use on-site staffing. Integrated operators can serve multiple markets, and retained evidence does not prove each managementfirm is dedicated to associations.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s5",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "gap_ids": [
+        "association-boundary",
+        "association-economics"
+      ]
+    },
+    {
+      "claim_id": "association-deal-unknown",
+      "kind": "unknown",
+      "text": "Neither the company count nor the fee-model survey establishes independent ownership, acquisition availability, company EV, purchase multiples, labor-union status or full market-level eligibility. No strategy gate is relaxed.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [],
+      "gap_ids": [
+        "association-contract-economics"
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "gap_id": "association-boundary",
+      "question": "Does outsourced HOA/condominium association management constitute a distinct operating market within or related to residential property management? Distinguish management firms from associations, property ownership, apartment management and direct maintenance. Attachment does not establish classification ownership.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    },
+    {
+      "gap_id": "association-economics",
+      "question": "What independent evidence establishes acquisition population, EV/transaction feasibility, margins, labor representation, customer mix and strategy eligibility? Do not substitute association assessments for management revenue.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    },
+    {
+      "gap_id": "association-contract-economics",
+      "question": "Obtain representative association-management contracts and comparable rental-management scopes to test buyer authority, recurring fee base, additional charges, labor intensity and risk allocation. Independent ownership, acquisition availability, EV, union exposure and economic comparability remain unresolved.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    }
+  ]
+}
