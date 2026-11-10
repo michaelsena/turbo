@@ -24,6 +24,19 @@ There is no union deferral or waiver. Documented inference or assumption may sup
 a judgment, but it requires source support, reduced confidence, and retained gaps.
 Unknown evidence may never be labeled a pass.
 
+Within each gate, `supporting_evidence_ids` and `counterevidence_ids` must be
+disjoint, including for an `unknown` judgment. The same source can inform several
+gates. If one source contains mixed evidence, cite its existing ID once in the
+array matching its role in the stated judgment, and explain the contrary aspects
+and limits in the rationale with retained uncertainty and gaps. Do not suppress
+contrary content or invent/split IDs to satisfy the contract.
+
+The frozen instructions and provider-facing schema descriptions state this rule;
+the existing strict semantic validator remains authoritative. This prospective
+guidance changes code/schema hashes and requires fresh work-unit preparation and
+authority. It does not repair, retry, or accept any previous failed response, and
+it cannot resolve substantive evidence gaps by itself.
+
 ## Frozen input and proof
 
 A work-unit plan binds an ordered `market_version_ids` list, evidence cutoff, and

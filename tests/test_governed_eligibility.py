@@ -75,6 +75,24 @@ class EligibilityTest(unittest.TestCase):
         self.assertEqual(eligibility.compile_eligibility(doc, inp)['markets'][0]['status'], 'excluded')
         self.assertEqual(inp['markets'], self.projection['markets'])
 
+    def test_mixed_source_cited_once_preserves_unknown_but_overlap_fails_every_gate(self):
+        inp = self.inputs()
+        for name in eligibility.GATES:
+            with self.subTest(gate=name):
+                doc = self.document(inp)
+                gate = doc['markets'][0]['gates'][name]
+                gate.update(status='unknown', evidence_label='unknown',
+                    rationale='The source supports service existence but does not establish the required population.',
+                    research_gaps=['Obtain representative population evidence.'])
+                original = copy.deepcopy(doc)
+                result = eligibility.compile_eligibility(doc, inp)
+                self.assertEqual(result['markets'][0]['status'], 'hold')
+                self.assertEqual(doc, original)
+                gate['counterevidence_ids'] = list(gate['supporting_evidence_ids'])
+                with self.assertRaisesRegex(ValueError, 'conflicting'):
+                    eligibility.compile_eligibility(doc, inp)
+                self.assertEqual(gate['counterevidence_ids'], ['evidence:source'])
+
     def test_source_bytes_excerpt_cutoff_and_claim_reference_are_verified(self):
         self.assertIn('Frozen source', self.inputs()['evidence']['items'][0]['source_text'])
         self.source.write_text('Changed bytes')
