@@ -1,0 +1,108 @@
+# Governed eligibility and submodel execution
+
+This adapter connects the ordered projections in ADR0004 using the existing V2
+execution ledger and bounded OpenRouter attempt implementation. It does not create
+markets, waive eligibility, publish research, or produce a global ranking. The older
+`evaluation_workflow` planning API remains closed; use `evaluation_execution` for
+the reviewed implementation described here.
+
+| Work unit | Tasks | Input and acceptance |
+|---|---|---|
+| `governed-eligibility-execution-v1` | One `eligibility` judgment | Exact replayed canonical graph versions, original strategy, and frozen source evidence; independent compiler applies every registered gate |
+| `governed-submodel-execution-v1` | Two blind evaluators, conditional adjudicator, submodel comparator | Verified settled eligibility judgment plus complete factor policy; one numeric result per market-factor pair, references and open gaps preserved |
+
+Each unit has a separate explicit authority and dedicated registry binding. Eligibility
+spending is not borrowed from a later evaluation budget. Each semantic task maps to
+one existing V2 role slot and permits one physical attempt. A failed or unresolved
+attempt blocks further dispatch; repeating a command never sends that attempt again.
+Artifacts left by a crash do not authorize replay recovery or a replacement authority.
+
+## Prepare and freeze inputs
+
+Use a frozen canonical repository containing the accepted graph release. The graph
+artifact contains `root`, its exact `pointer`, the release `config_path`, and
+`config_sha256`; the eligibility compiler replays that release. The strategy artifact
+must contain exactly the original strategy bytes. Evidence has distinct source items,
+claims and gaps as documented in [governed eligibility](governed-eligibility.md).
+Source excerpts must occur in the hash-bound UTF-8 snapshot; provider requests include
+verified source text. No caller-created `passed` flag grants admission.
+
+Place these artifacts and source snapshots under a new work-unit directory, then call
+`evaluation_execution.freeze_plan(...)`. It takes an explicit kind, ordered canonical
+`market_version_ids`, `artifacts` mapping, `evidence_cutoff`, `task_configs`, and
+`registry_path`. `task_configs` must supply every actor identity, prompt and bounded
+provider configuration; there are no default models or spending limits. The helper
+writes canonical task schemas, binds file/code hashes and validates the inputs.
+
+Evaluation additionally requires a `submodel_version_id`, a factors artifact and an
+eligibility producer descriptor. The descriptor contains the eligibility
+`work_unit_dir`, `plan_sha256`, `authorization_sha256`, task `eligibility`, and
+`output_sha256`. It is verified against the original successful provider body,
+request bytes, authority, journal and deterministic eligibility projection. Held or
+excluded markets cannot enter this work unit.
+
+## Register the scoring policy
+
+Factor artifacts must explicitly register all of the following; nothing is inferred
+from names or selected by the runner:
+
+- Submodel and factor versions, minimum/maximum, positive weight and disagreement tolerance.
+- Numeric minimum/maximum anchors with nonblank descriptions, a nonempty list of evidence expectations, and an exact task model policy for every factor.
+- Close-answer arithmetic mean, normalized weighted aggregation, raw × confidence ×
+  evidence-quality confidence adjustment, and explicit downside subtraction.
+- All unordered within-submodel pairs and a maximum additive comparator delta.
+
+This is one supported versioned policy, not a claim that its weights or formulas were
+approved for real research. A concrete research artifact must register it explicitly.
+Each factor model policy must equal `{"tasks": {task: {"model": model_id,
+"reasoning_effort": effort}}}` for the four frozen semantic task configurations.
+A policy cannot name a different model than the one dispatched. There is no default
+production factor catalog or cross-submodel weighting here.
+The comparator can affect only its owning submodel. Every pair records a deterministic ID, preferred market or tie, confidence, evidence
+for both members (or explicit gaps), and rationale. Every nonzero adjustment names
+its supporting pair IDs. A one-market cohort has no pair and must receive zero
+comparison adjustment. Unknown evidence is represented by a
+numeric inference/assumption with reduced confidence and a retained gap, not a blank.
+Material disagreement requires adjudication before comparison.
+
+## Explicit operation
+
+First initialize the existing V2 registry explicitly. Construct an authority with
+`role_bindings(directory, plan)`, `authority_contracts(plan)`, the exact plan hash,
+explicit validity window and maximum cost. The maximum call count is one for
+eligibility or four for evaluation. Unused V2 slots cannot be addressed through this
+adapter. Store the authority separately; it is not generated by the operator.
+
+```sh
+PYTHONPATH=src python scripts/run-governed-evaluation.py --input /absolute/unit
+PYTHONPATH=src python scripts/run-governed-evaluation.py --input /absolute/unit \
+  --initialize /absolute/approved-authority.json
+PYTHONPATH=src python scripts/run-governed-evaluation.py --input /absolute/unit \
+  --execute eligibility
+```
+
+For an evaluation unit, execute `evaluator_a` and `evaluator_b`, then `adjudicator`
+only for material disagreement, then `comparator`. Credentials are read only at an
+explicit dispatch from `OPENROUTER_API_KEY`. Exact request admission includes the
+complete frozen evidence and allowed dependencies. The two evaluators never receive
+each other's answers. Comparator input includes the resolved scores and provenance,
+not unrelated submodels or global rankings.
+
+`--projection` is read-only and requires complete valid provider lineage. It returns
+an eligibility projection or a fully compared single-submodel result. It does not
+publish the result, authorize company research, or claim global ranking completion.
+Subsequent canonical graph changes require preserving the original frozen graph
+checkout for replay; silently substituting current graph state is rejected.
+
+## Validation and limits
+
+Tests use synthetic transport with the real V2 accounting, successful provider-body
+replay, eligibility receipt checking, blind-input verification, conditional
+adjudication, timeout/no-resend, tamper rejection, and source/claim scope checks.
+Synthetic fixtures never become canonical evidence or accepted real-market scores.
+
+Production factor definitions and actual eligible market versions are still required
+before any real evaluation. The reference implementation intentionally has no
+automatic dispatch loop, automatic publication, cross-unit spend pooling, recovery
+from ambiguous attempts, or global aggregator. These boundaries must remain visible
+when reporting readiness.

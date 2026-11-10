@@ -1,0 +1,772 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "graph_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "strategy_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "evidence_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "evidence_cutoff": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "markets": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "market_version_id": {
+            "type": "string",
+            "pattern": "^market-version:",
+            "maxLength": 256
+          },
+          "gates": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "us_market_scope": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown"
+                    ]
+                  },
+                  "evidence_label": {
+                    "enum": [
+                      "fact",
+                      "inference",
+                      "assumption",
+                      "unknown"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "supporting_evidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "counterevidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "research_gaps": {
+                    "type": "array",
+                    "maxItems": 20,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4000
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "evidence_label",
+                  "confidence",
+                  "rationale",
+                  "supporting_evidence_ids",
+                  "counterevidence_ids",
+                  "research_gaps"
+                ]
+              },
+              "acquisition_population_ev_range": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown"
+                    ]
+                  },
+                  "evidence_label": {
+                    "enum": [
+                      "fact",
+                      "inference",
+                      "assumption",
+                      "unknown"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "supporting_evidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "counterevidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "research_gaps": {
+                    "type": "array",
+                    "maxItems": 20,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4000
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "evidence_label",
+                  "confidence",
+                  "rationale",
+                  "supporting_evidence_ids",
+                  "counterevidence_ids",
+                  "research_gaps"
+                ]
+              },
+              "buyability_feasibility": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown"
+                    ]
+                  },
+                  "evidence_label": {
+                    "enum": [
+                      "fact",
+                      "inference",
+                      "assumption",
+                      "unknown"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "supporting_evidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "counterevidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "research_gaps": {
+                    "type": "array",
+                    "maxItems": 20,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4000
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "evidence_label",
+                  "confidence",
+                  "rationale",
+                  "supporting_evidence_ids",
+                  "counterevidence_ids",
+                  "research_gaps"
+                ]
+              },
+              "healthcare_delivery": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown"
+                    ]
+                  },
+                  "evidence_label": {
+                    "enum": [
+                      "fact",
+                      "inference",
+                      "assumption",
+                      "unknown"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "supporting_evidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "counterevidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "research_gaps": {
+                    "type": "array",
+                    "maxItems": 20,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4000
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "evidence_label",
+                  "confidence",
+                  "rationale",
+                  "supporting_evidence_ids",
+                  "counterevidence_ids",
+                  "research_gaps"
+                ]
+              },
+              "government_dependent_revenue": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown"
+                    ]
+                  },
+                  "evidence_label": {
+                    "enum": [
+                      "fact",
+                      "inference",
+                      "assumption",
+                      "unknown"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "supporting_evidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "counterevidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "research_gaps": {
+                    "type": "array",
+                    "maxItems": 20,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4000
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "evidence_label",
+                  "confidence",
+                  "rationale",
+                  "supporting_evidence_ids",
+                  "counterevidence_ids",
+                  "research_gaps"
+                ]
+              },
+              "heavy_equipment_ownership": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown"
+                    ]
+                  },
+                  "evidence_label": {
+                    "enum": [
+                      "fact",
+                      "inference",
+                      "assumption",
+                      "unknown"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "supporting_evidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "counterevidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "research_gaps": {
+                    "type": "array",
+                    "maxItems": 20,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4000
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "evidence_label",
+                  "confidence",
+                  "rationale",
+                  "supporting_evidence_ids",
+                  "counterevidence_ids",
+                  "research_gaps"
+                ]
+              },
+              "significant_inventory": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown"
+                    ]
+                  },
+                  "evidence_label": {
+                    "enum": [
+                      "fact",
+                      "inference",
+                      "assumption",
+                      "unknown"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "supporting_evidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "counterevidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "research_gaps": {
+                    "type": "array",
+                    "maxItems": 20,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4000
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "evidence_label",
+                  "confidence",
+                  "rationale",
+                  "supporting_evidence_ids",
+                  "counterevidence_ids",
+                  "research_gaps"
+                ]
+              },
+              "insurance_or_credit_risk": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown"
+                    ]
+                  },
+                  "evidence_label": {
+                    "enum": [
+                      "fact",
+                      "inference",
+                      "assumption",
+                      "unknown"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "supporting_evidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "counterevidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "research_gaps": {
+                    "type": "array",
+                    "maxItems": 20,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4000
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "evidence_label",
+                  "confidence",
+                  "rationale",
+                  "supporting_evidence_ids",
+                  "counterevidence_ids",
+                  "research_gaps"
+                ]
+              },
+              "unionized_workforces": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown"
+                    ]
+                  },
+                  "evidence_label": {
+                    "enum": [
+                      "fact",
+                      "inference",
+                      "assumption",
+                      "unknown"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "supporting_evidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "counterevidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "research_gaps": {
+                    "type": "array",
+                    "maxItems": 20,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4000
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "evidence_label",
+                  "confidence",
+                  "rationale",
+                  "supporting_evidence_ids",
+                  "counterevidence_ids",
+                  "research_gaps"
+                ]
+              },
+              "reimbursement_exposure": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown"
+                    ]
+                  },
+                  "evidence_label": {
+                    "enum": [
+                      "fact",
+                      "inference",
+                      "assumption",
+                      "unknown"
+                    ]
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "supporting_evidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "counterevidence_ids": {
+                    "type": "array",
+                    "maxItems": 100,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^evidence:",
+                      "maxLength": 256
+                    }
+                  },
+                  "research_gaps": {
+                    "type": "array",
+                    "maxItems": 20,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4000
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "evidence_label",
+                  "confidence",
+                  "rationale",
+                  "supporting_evidence_ids",
+                  "counterevidence_ids",
+                  "research_gaps"
+                ]
+              }
+            },
+            "required": [
+              "us_market_scope",
+              "acquisition_population_ev_range",
+              "buyability_feasibility",
+              "healthcare_delivery",
+              "government_dependent_revenue",
+              "heavy_equipment_ownership",
+              "significant_inventory",
+              "insurance_or_credit_risk",
+              "unionized_workforces",
+              "reimbursement_exposure"
+            ]
+          }
+        },
+        "required": [
+          "market_version_id",
+          "gates"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "graph_sha256",
+    "strategy_sha256",
+    "evidence_sha256",
+    "evidence_cutoff",
+    "markets"
+  ]
+}

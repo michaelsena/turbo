@@ -20,8 +20,8 @@ a later decision cannot silently rewrite an earlier one.
 | Layer | Question and method | Current scope |
 | --- | --- | --- |
 | Canonical universe | What operating markets exist? Reconcile official NAICS/NAPCS identities and prior hypotheses; preserve splits, merges, mappings, exclusions, and gaps. | Source ingestion, scheduling, research harness, reviewed publication, and five-market graph implemented; national coverage incomplete. |
-| Target universe | Which markets meet the acquisition mandate? Apply strategy gates and size/buyability evidence without erasing ineligible canonical markets. | National filtering and SUSB/QCEW enrichment planned. |
-| Evaluation | Which eligible markets are attractive? Evaluate factors independently, adjudicate disagreements, calibrate within submodels, and aggregate deterministically. | Planned: a governed evaluation harness with durable evidence and review. No accepted investment scores. |
+| Target universe | Which markets meet the acquisition mandate? Apply strategy gates and size/buyability evidence without erasing ineligible canonical markets. | Governed market eligibility adapter implemented; national filtering and SUSB/QCEW enrichment remain planned. |
+| Evaluation | Which eligible markets are attractive? Evaluate factors independently, adjudicate disagreements, calibrate within submodels, and aggregate deterministically. | Governed single-submodel execution adapter implemented. Production factor policies and global aggregation remain pending; no accepted investment scores. |
 
 The initial mandate favors U.S. service businesses generally worth **$10M–$50M**,
 preferably at **7–8× or less normalized EBITDA**, with a **9× default ceiling** unless
@@ -117,9 +117,10 @@ completed dispositions from unresolved gaps and remaining schedule obligations.
 
 The next implementation priority is the governed end-to-end path for that service
 cohort: accepted market identity, explicit target eligibility, then independently
-reviewed investment evaluation. The target and evaluation harnesses are not yet
-built; their implementation must preserve the same governed evidence, provenance,
-independent-review, and explicit spending controls.
+reviewed investment evaluation. Governed eligibility and single-submodel execution
+adapters are implemented, but production runs still require accepted canonical
+versions, verified eligibility evidence, and explicit registered factor policies.
+No service-market eligibility decision or investment score has been accepted.
 
 ## Run the local console
 
@@ -183,6 +184,7 @@ is authorized by this repository's normal workflow.
 | Purpose, architecture, and data contracts | [Vision](docs/product/vision.md), [system](docs/architecture/system.md), [contracts](docs/architecture/data-contracts.md) |
 | Market methodology and strategy research | [Universe](docs/universe/methodology.md), [Ambient AI](docs/ambient-ai/thesis.md), [scoring](docs/scoring/model.md) |
 | Prepare, execute, and publish a batch | [Runbook](docs/operations/runbook.md), [serial controller](docs/operations/batch-controller.md), [frozen supplemental evidence](docs/operations/family-supplemental-evidence.md), [single-family runs](docs/operations/single-family-batch.md), [publication replay](docs/operations/small-qualification-publication.md) |
+| Admit eligible markets and evaluate one submodel | [Eligibility](docs/operations/governed-eligibility.md), [governed execution](docs/operations/governed-evaluation-runtime.md); production factor policies and global aggregation remain pending |
 | Recover failed execution | [Payment recovery](docs/operations/payment-rejection-recovery.md), [release-review recovery](docs/operations/release-review-recovery.md) |
 | Qualify larger workloads or reviewer changes | [Medium preflight](docs/operations/medium-primary-preflight.md), [reviewer qualification](docs/operations/reviewer-qualification.md), [readable references](docs/operations/reviewer-readable-view.md) |
 | Inspect implementation and artifacts | `src/turbo/universe/`, `src/turbo/agents/`, `src/turbo/web/`, `frontend/`; `data/source_snapshots/`, `data/runs/`, `data/family_schedules/`, `data/market_graph/` |
