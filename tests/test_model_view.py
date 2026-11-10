@@ -69,6 +69,8 @@ class ModelViewProviderTest(unittest.TestCase):
         decoded=view.decode(json.loads(content.split('\n# Frozen assignment\n',1)[1]))
         self.assertEqual(decoded['context'],self.context)
         self.assertEqual(decoded['inputs'],{})
+        navigation=json.loads(content.split('\n# Literal assignment navigation\n',1)[1].split('\n# Frozen assignment\n',1)[0])
+        self.assertEqual(navigation,provider.assignment_navigation(decoded))
         self.assertEqual(self.run_role('primary',primary)['status'],'succeeded')
         self.assertEqual(len(self.calls),1)
         verifier=self.verifier_document()
