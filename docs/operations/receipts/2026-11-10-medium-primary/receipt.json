@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "failed_medium_qualification",
+  "scope": {
+    "families": 2,
+    "required_identities": 38,
+    "required_candidates": 1
+  },
+  "attempts": 1,
+  "retries": 0,
+  "downstream_calls": 0,
+  "accepted_primary": false,
+  "canonical_graph_changed": false,
+  "input_tokens": 548407,
+  "output_tokens": 12656,
+  "wrapper_elapsed_seconds": 185.459,
+  "http_status": 200,
+  "provider_schema_valid": true,
+  "canonical_validation_valid": false,
+  "output_sha256": "9d7de8e1828bff668899fc4143c57ad8384e1b5441bd24e1ff894293996c9092",
+  "runtime_tree": "dad28b40624dbf89fab2f3c581d97b6bbbe2d5ae",
+  "workflow_plan_sha256": "9db18ac60d5d281f2ac7109d269dfdcfd66f285a8afcefab1fabb2a29b7fea53",
+  "authority_sha256": "74413d3d7aee2662072997ab9a0852434722d25ba6e13d5baead8769345914bc",
+  "failure_conditions": [
+    "corrupted evidence digest for identity2008250003",
+    "out-of-family supporting evidence for identity2036600000",
+    "no subject-anchored supporting evidence for identity2036600000"
+  ],
+  "correction_issue": 73
+}
