@@ -28,6 +28,7 @@ the README and the relevant document whenever behavior or architecture changes.
 - [Bounded serial controller](operations/batch-controller.md)
 - [Closure-aware workload report](operations/universe-workload-envelope.md)
 - [Experimental reviewer readable references](operations/reviewer-readable-view.md)
+- [Failed medium primary qualification](operations/medium-primary-result.md)
 - [Medium primary admission preflight](operations/medium-primary-preflight.md)
 - [Isolated reviewer qualification](operations/reviewer-qualification.md)
 - [Limited Flash reviewer screening](operations/flash-reviewer-screening.md)

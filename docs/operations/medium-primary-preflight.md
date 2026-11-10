@@ -1,5 +1,9 @@
 # Medium primary admission decision
 
+Later execution outcome: the approved larger admission envelope allowed one
+primary attempt, which [failed acceptance](medium-primary-result.md). The historical
+preflight below remains unchanged; no downstream call or publication followed.
+
 Issue [68](https://github.com/michaelsena/turbo/issues/68) prepares a decision, not
 execution authority. **The existing medium pair remains blocked.** It contains
 38 required identities, one required candidate, and 1,304 evidence items. The
