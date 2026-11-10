@@ -1,0 +1,189 @@
+{
+  "status": "draft research inputs; not canonical, not eligibility decision",
+  "created_at_utc": "2026-11-10T17:33:29.828834+00:00",
+  "canonical_binding": "unbound; parent must bind only after exact canonical publication",
+  "sources": [
+    {
+      "source_id": "bls",
+      "path": "sources/bls.txt",
+      "url": "https://www.bls.gov/news.release/union2.t03.htm",
+      "retrieved_at_utc": "2026-11-10T17:33:29.828834+00:00",
+      "sha256": "0acc2c21187c0368c0d7458895554c8e4a92f2fd8cbdc74b620502fb1d03284e",
+      "representation": "researcher_paraphrase_with_numeric_transcription"
+    },
+    {
+      "source_id": "census",
+      "path": "sources/census.txt",
+      "url": "https://www2.census.gov/programs-surveys/susb/tables/2022/us_6digitnaics_rcptsize_2022.xlsx",
+      "retrieved_at_utc": "2026-11-10T17:33:29.828834+00:00",
+      "sha256": "e8d063856f393c1698eaf319df19895152ce95c2861067201ae84af9e18a1587",
+      "representation": "researcher_paraphrase_with_numeric_transcription"
+    },
+    {
+      "source_id": "hughes",
+      "path": "sources/hughes.txt",
+      "url": "https://hughesmarino.com/services/lease-administration-services/",
+      "retrieved_at_utc": "2026-11-10T17:33:29.828834+00:00",
+      "sha256": "ac8b89580429afbd3b50821872344bd48e326e021052c79a62e1a4080f4a6802",
+      "representation": "researcher_paraphrase_with_numeric_transcription"
+    },
+    {
+      "source_id": "mri",
+      "path": "sources/mri.txt",
+      "url": "https://www.mrisoftware.com/ie/services/lease-administration/",
+      "retrieved_at_utc": "2026-11-10T17:33:29.828834+00:00",
+      "sha256": "e0f63f480388b4861724c04f037524e8b8fa8036322eae11869627ac93920e0f",
+      "representation": "researcher_paraphrase_with_numeric_transcription"
+    },
+    {
+      "source_id": "fcar26",
+      "path": "sources/fcar26.txt",
+      "url": "https://foundation.caionline.org/wp-content/uploads/2026/09/Digital-2026-Management-Company-Benchmarking-Trends-Report.pdf",
+      "retrieved_at_utc": "2026-11-10T17:33:29.828834+00:00",
+      "sha256": "4ab3455d5d9e1cdef79498fd360cbcf2452ab4fd28370b6f11b47aef6d6aeed2",
+      "representation": "researcher_paraphrase_with_numeric_transcription"
+    },
+    {
+      "source_id": "fcar24",
+      "path": "sources/fcar24.txt",
+      "url": "https://foundation.caionline.org/wp-content/uploads/2025/03/FBStatsReview2024web.pdf",
+      "retrieved_at_utc": "2026-11-10T17:33:29.828834+00:00",
+      "sha256": "394d9129face242fd1f334d48d6cd5f81cfec1bf750d40de63d2b7241cb269eb",
+      "representation": "researcher_paraphrase_with_numeric_transcription"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "lease-us-offering",
+      "kind": "fact",
+      "prospective_market": "commercial occupier lease administration",
+      "text": "A provider publicly advertises US commercial occupier lease administration workflows. This is evidence of service existence, not marketwide buyer mix.",
+      "source_ids": [
+        "hughes"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "lease-asset-light-hypothesis",
+      "kind": "inference",
+      "prospective_market": "commercial occupier lease administration",
+      "text": "The described data/reconciliation workflows suggest a labor-and-software delivery model. This supports an asset-light hypothesis but does not establish low inventory/equipment ownership, government revenue, reimbursement exposure or insurance/credit risk across eligible providers.",
+      "source_ids": [
+        "hughes",
+        "mri"
+      ],
+      "gap_ids": [
+        "lease-exclusions"
+      ]
+    },
+    {
+      "claim_id": "lease-payment-counterevidence",
+      "kind": "fact",
+      "prospective_market": "commercial occupier lease administration",
+      "text": "A non-US analogue advertises rent-payment processing. Custody/control and contractual obligations require examination; administrative processing alone does not establish principal credit underwriting.",
+      "source_ids": [
+        "mri"
+      ],
+      "gap_ids": [
+        "lease-exclusions"
+      ]
+    },
+    {
+      "claim_id": "lease-scale-proxy",
+      "kind": "inference",
+      "prospective_market": "commercial occupier lease administration",
+      "text": "Census 531390 shows firms at meaningful receipt scales, but the category does not isolate lease administration. No defensible number of independent US lease-admin providers or EV10-50M acquisition candidates follows.",
+      "source_ids": [
+        "census"
+      ],
+      "gap_ids": [
+        "lease-population"
+      ]
+    },
+    {
+      "claim_id": "hoa-population",
+      "kind": "fact",
+      "prospective_market": "outsourced community association management",
+      "text": "FCAR estimates 9,000-10,000 management companies; its 2026 respondent survey includes 34% reporting $5M+ revenue. These provide market population and observed revenue-scale evidence, not independent acquisition counts or EV.",
+      "source_ids": [
+        "fcar24",
+        "fcar26"
+      ],
+      "gap_ids": [
+        "hoa-population"
+      ]
+    },
+    {
+      "claim_id": "hoa-workforce-and-scope",
+      "kind": "inference",
+      "prospective_market": "outsourced community association management",
+      "text": "FCAR employment counts and hiring pressure show a material human workforce. Ancillary revenue and association maintenance/insurance obligations require separating management coordination from in-house physical services or principal risk. No union or exclusions pass is established.",
+      "source_ids": [
+        "fcar24",
+        "fcar26"
+      ],
+      "gap_ids": [
+        "hoa-exclusions",
+        "union"
+      ]
+    },
+    {
+      "claim_id": "union-proxy",
+      "kind": "fact",
+      "prospective_market": "both prospective markets",
+      "text": "BLS broad real-estate/rental/leasing rates are 3.4% membership and 4.0% representation; office/admin support is 8.7% and 9.9%. Neither is market-specific evidence satisfying an exclusion gate.",
+      "source_ids": [
+        "bls"
+      ],
+      "gap_ids": [
+        "union"
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "gap_id": "lease-population",
+      "question": "How many independent US commercial lease-administration businesses plausibly fall in EV $10-50M? Revenue bands and mixed NAICS are insufficient; no valuation multiple assumed."
+    },
+    {
+      "gap_id": "hoa-population",
+      "question": "What portion of the estimated HOA management population is independent and plausibly EV $10-50M? Revenue does not determine EV."
+    },
+    {
+      "gap_id": "union",
+      "question": "What is union representation among employees delivering each exact accepted market, including onsite/ancillary staff? Broad proxies leave the hard gate unresolved."
+    },
+    {
+      "gap_id": "lease-exclusions",
+      "question": "For the exact lease market, establish government/reimbursement revenue, insurance or credit principal exposure, custody/payment obligations, inventory and owned equipment. Marketing silence cannot prove absence."
+    },
+    {
+      "gap_id": "hoa-exclusions",
+      "question": "For the exact HOA market, distinguish association-owned assets and pass-through assessments from provider-owned equipment/inventory or principal obligations; quantify public funding/reimbursement and insurance/credit exposure."
+    }
+  ],
+  "market_source_sets": {
+    "commercial occupier lease administration": [
+      "bls",
+      "census",
+      "hughes",
+      "mri"
+    ],
+    "outsourced community association management": [
+      "bls",
+      "census",
+      "fcar26",
+      "fcar24"
+    ]
+  },
+  "raw_receipts": [
+    {
+      "path": "census-receipts.xlsx",
+      "sha256": "f2cf0cfcfee4317d50118baf0507d40492907abe73ccb78f5e76a89b99425264"
+    },
+    {
+      "path": "census-selected-rows.json",
+      "sha256": "fe0a1486614742720b65580bb206bfcf49d1caad07537f04ff11de40179bfc21"
+    }
+  ]
+}

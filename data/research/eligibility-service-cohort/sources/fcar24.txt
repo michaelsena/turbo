@@ -1,0 +1,6 @@
+URL: https://foundation.caionline.org/wp-content/uploads/2025/03/FBStatsReview2024web.pdf
+Verified UTC: 2026-11-10T17:33:29.828834+00:00
+Representation: researcher paraphrase / numeric transcription, not verbatim source
+Retrieval: official public page opened with web tool; Census workbook downloaded directly and parsed using ZIP/XML. Original HTML/PDF not retained.
+
+Researcher paraphrase of FCAR 2024 national estimates, page 2: 9,000-10,000 community association management companies; 60,000-65,000 managers including onsite and part-time portfolio managers; 105,000-110,000 people employed by management companies and onsite associations with staff. 30-40% of associations self-manage. Homeowner assessments finance management, utilities, security, insurance, maintenance and capital work; assessment volume is not management-company revenue. These estimates establish neither independent ownership nor providers in an EV band, and include employment outside outsourced management companies.

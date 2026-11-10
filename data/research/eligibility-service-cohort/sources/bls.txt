@@ -1,0 +1,6 @@
+URL: https://www.bls.gov/news.release/union2.t03.htm
+Verified UTC: 2026-11-10T17:33:29.828834+00:00
+Representation: researcher paraphrase / numeric transcription, not verbatim source
+Retrieval: official public page opened with web tool; Census workbook downloaded directly and parsed using ZIP/XML. Original HTML/PDF not retained.
+
+BLS Table 3, 2025 annual averages. Researcher transcription of numeric cells: real estate/rental/leasing union membership 3.4%, represented 4.0%; office/administrative support membership 8.7%, represented 9.9%. These are broad industry/occupation statistics, not either prospective market or individual employer rates. Office occupations include public and private employment. No inference of zero union exposure is warranted.

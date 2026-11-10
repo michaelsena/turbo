@@ -1,0 +1,6 @@
+URL: https://www2.census.gov/programs-surveys/susb/tables/2022/us_6digitnaics_rcptsize_2022.xlsx
+Verified UTC: 2026-11-10T17:33:29.828834+00:00
+Representation: researcher paraphrase / numeric transcription, not verbatim source
+Retrieval: official public page opened with web tool; Census workbook downloaded directly and parsed using ZIP/XML. Original HTML/PDF not retained.
+
+Census 2022 SUSB workbook, US enterprise receipts sizes (thousands of dollars). Researcher transcription: NAICS 531390 totals 21,244 firms and 75,174 employment. Firm counts by enterprise receipt size: $5-7.499M 242; $7.5-9.999M 118; $10-14.999M 136; $15-19.999M 52. NAICS 531311 totals 40,091 firms and 507,375 employment; corresponding receipt bands 751,390,373,180 firms. These are broad establishment-industry categories, not lease administration or HOA-only counts. Enterprise receipt bands are not enterprise value, segment receipts, independence, willingness to sell or acquisition availability. Raw workbook and complete selected rows retained separately.
