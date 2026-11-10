@@ -1,0 +1,62 @@
+{
+  "checked_at_utc": "2026-11-10T16:51:29.990957+00:00",
+  "method": "Fresh web open/find of public original URLs; matched retained excerpts against visible retrieved page lines. Original frozen files unchanged.",
+  "results": [
+    {
+      "source_id": "s1",
+      "url": "https://www.colliers.com/en/services/lease-administration",
+      "source_sha256": "836096966f1cfb0bfe9601513ddf5294495e3ffea9e20623138e17f36baeef36",
+      "result": "all retained excerpts matched",
+      "web_ref": "turn6538150view0"
+    },
+    {
+      "source_id": "s2",
+      "url": "https://www.mrisoftware.com/ie/services/lease-administration/",
+      "source_sha256": "6a15e89547ea199e075d2afd430fd6c8f748b5777e79b756754e4942e075e172",
+      "result": "all retained excerpts matched",
+      "web_ref": "turn6538150view2"
+    },
+    {
+      "source_id": "s3",
+      "url": "https://mohrpartners.com/lease-administration/",
+      "source_sha256": "8b9b2ed0f728edaa3bcd43dac85148ad832e8fdcbabef03a887adfbc0125e7fe",
+      "result": "all retained excerpts matched",
+      "web_ref": "turn6538150view4"
+    },
+    {
+      "source_id": "s4",
+      "url": "https://www.savills.co.uk/services/global-occupier-services/lease-administration.aspx",
+      "source_sha256": "9142f0ed8945397f85acfa4c7df7c79c5e7b9976a044ea66426002cb73f3dbfd",
+      "result": "all retained excerpts matched",
+      "web_ref": "turn6538150view6"
+    },
+    {
+      "source_id": "s5",
+      "url": "https://loricoreis.com/lease-administration/",
+      "source_sha256": "c0f451fa705741ee703070f70bd6adb9d22cd5dc5b579085605a9c95fc3483c7",
+      "result": "all retained excerpts matched",
+      "web_ref": "turn1387436view4"
+    },
+    {
+      "source_id": "s6",
+      "url": "https://www.iremlearning.org/local/catalog/view/product.php?productid=26",
+      "source_sha256": "237e0f8ac74cee63707f77c0aee47e4b26a6595aaffaf615fdda3e7be9f13ce1",
+      "result": "all retained excerpts matched",
+      "web_ref": "turn1387436view5"
+    },
+    {
+      "source_id": "s7",
+      "url": "https://www.corenetglobal.org/about-corenet-global/news/2024/11/26/ai-will-disrupt-corporate-real-estate--corenet-global-polls-attendees-at-two-recent-global-summits-on-ai-s-impact",
+      "source_sha256": "440e5caa1862636fa01d24723bc150abe950c1146faf1c6866fe1b5a0a8ffa02",
+      "result": "all retained excerpts matched",
+      "web_ref": "turn6538150view8"
+    },
+    {
+      "source_id": "s8",
+      "url": "https://hughesmarino.com/services/lease-administration-services/",
+      "source_sha256": "8414344865b57ca2e084baf45d35a3adaa0be4f86bb83c09a6e98fab5781a89a",
+      "result": "all retained excerpts matched",
+      "web_ref": "turn6538150view9"
+    }
+  ]
+}

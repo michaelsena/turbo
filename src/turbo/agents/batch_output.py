@@ -88,14 +88,16 @@ def _family_view(pack: dict[str, Any], binding: dict[str, str]) -> dict[str, Any
         for record in card["source_record_ids"]:
             record_owners.setdefault(record, set()).add(subject)
     catalog = []
-    for section in SECTIONS:
+    sections = SECTIONS + tuple(s for s in ("supplemental_sources", "supplemental_claims", "supplemental_gaps") if s in pack)
+    for section in sections:
         values: Any = pack
         for component in section.split("/"):
             values = values[component]
         for index, value in enumerate(values):
             pointer = "/" + section + "/" + str(index)
             item_hash = canonical_sha256(value)
-            subjects = known_subjects & _strings(value)
+            subjects = (set(value["subject_ids"]) if section.startswith("supplemental_")
+                        else known_subjects & _strings(value))
             if section == "source_record_cards":
                 subjects |= record_owners.get(value["record_id"], set())
             reference = {"family_id": family_id, "pack_sha256": pack["metadata"]["pack_sha256"],

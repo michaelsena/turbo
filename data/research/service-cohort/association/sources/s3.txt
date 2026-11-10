@@ -1,0 +1,11 @@
+Title: 2026 Community Association Management Company Benchmarking
+URL: https://foundation.caionline.org/research/mcbenchmarking/
+Retrieved at UTC: 2026-11-10T15:04:44.464744+00:00
+Capture kind: retrieved_excerpt; NOT full page
+Locator: 2026 Highlights and sample-description sections.
+
+VERBATIM RETRIEVED EXCERPT:
+67% report annual client retention of 95% or higher, compared with 76% in 2025.
+
+RESEARCHER PARAPHRASE OF ADDITIONAL RETRIEVED CONTENT (not a quotation):
+The 2026 survey covers 115 executives across 28 states and DC. It reports 51% managing at least 100 associations, 82% with portfolio growth of at least 3%, and 37% identifying technology implementation/change management as a top pressure. Self-selection and scale mix limit generalization.

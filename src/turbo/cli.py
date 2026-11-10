@@ -316,11 +316,13 @@ def _parser() -> argparse.ArgumentParser:
     )
     family_prepare.add_argument("family_id")
     family_prepare.add_argument("--output-root", type=Path)
+    family_prepare.add_argument("--supplemental-manifest", type=Path)
     family_dry_run = commands.add_parser(
         "family-dry-run",
         help="Compile and validate one V2 family preparation without persisting or invoking a model",
     )
     family_dry_run.add_argument("family_id")
+    family_dry_run.add_argument("--supplemental-manifest", type=Path)
     family_validate_preparation = commands.add_parser(
         "family-validate-preparation",
         help="Replay a persisted V2 family preparation against exact immutable inputs",
@@ -497,7 +499,8 @@ def main() -> int:
     if args.command == "family-prepare":
         print(
             json.dumps(
-                prepare_family_v2(args.family_id, output_root=args.output_root),
+                prepare_family_v2(args.family_id, output_root=args.output_root,
+                                  supplemental_manifest=args.supplemental_manifest),
                 indent=2,
                 sort_keys=True,
             )
@@ -506,7 +509,8 @@ def main() -> int:
     if args.command == "family-dry-run":
         print(
             json.dumps(
-                dry_run_family_preparation_v2(args.family_id),
+                dry_run_family_preparation_v2(args.family_id,
+                                            supplemental_manifest=args.supplemental_manifest),
                 indent=2,
                 sort_keys=True,
             )
