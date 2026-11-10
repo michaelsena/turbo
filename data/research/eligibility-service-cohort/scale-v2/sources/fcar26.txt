@@ -1,0 +1,6 @@
+URL: https://foundation.caionline.org/wp-content/uploads/2026/09/Digital-2026-Management-Company-Benchmarking-Trends-Report.pdf
+Retrieved UTC: 2026-11-10T18:05:01.045143+00:00
+Representation: researcher paraphrase, not raw quotation.
+Retrieval: public original publisher page/PDF inspected through web tool; original HTML/PDF not retained.
+
+FCAR 2026 management-company survey; researcher paraphrase of pages 1, 3, 6. August 2026 sample:115 executives from 28 US states+DC. Page 3 reports 34% annual company revenue $5M or higher. Page 6 reports 34% operating margins 16% or higher; one-third did not disclose margins. Respondent samples differ between years. The report presents separate revenue and operating-margin distributions, without a joint revenue/profit table or definition/reconciliation establishing operating margin equals adjusted EBITDA. It contains no transaction EV multiples or independent ownership census.
