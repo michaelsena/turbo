@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "status": "offline_advisory_only_no_calls_no_authority",
+  "measured_at_utc": "2026-11-10T13:08:43.216482+00:00",
+  "request_sha256": "7ac11b69b11a0122ee3ffb65ff8fc1b074272f96c394e85a02b3441be0f07afc",
+  "frozen_bindings": {
+    "assignment_sha256": "62756a706cf1e09d3b89b873787798110ea73c0bb08a71b8d95570e11fb86d3c",
+    "context_sha256": "9e4b1c76243095acca38c99ad5007f694f89b01d9d82319d1258d3f98f56002b",
+    "frozen_request_builder_sha256": "8ca2d9d10fa93505c29df30768356dda9c5da552f256650bae214a0ed67946f9",
+    "input_commit": "8ed55cbad03a20e1fb17dd00a2dac7ea398dfa38",
+    "input_tree": "6d8fd67f11ed1b31de4c155b6c9c108220bf2217",
+    "prompt_sha256": "c13f33356ae4908a64a600eb1eb7d9ae03a4c3db22c9d33e6cf8324c8c6207eb",
+    "role_schema_sha256": "002149b43d55ad3e16a9fc68dafb49f92b9239efc7ea211fa7d500d18bbfa336",
+    "workflow_plan_sha256": "9db18ac60d5d281f2ac7109d269dfdcfd66f285a8afcefab1fabb2a29b7fea53"
+  },
+  "subjects": {
+    "evidence_items": 1304,
+    "family_ids": [
+      "family:naics-2022:333112",
+      "family:naics-2022:327993"
+    ],
+    "required_candidates": 1,
+    "required_identities": 38
+  },
+  "tokenizer": {
+    "package": "tiktoken",
+    "version": "0.14.0",
+    "encoding": "o200k_base",
+    "requested_model_name": "gpt-5.6-luna",
+    "mapping_basis": "official gpt-5 prefix mapping; prefix match is not proof of routed provider tokenizer identity",
+    "model_py_sha256": "600f26902d1cf6a1a5f54e37be988b3e0d911f1ff17ba7060bb361f9b5295521",
+    "installed_matches_official_release_source": true,
+    "wheel_download": {
+      "url": "https://files.pythonhosted.org/packages/62/85/2ae74575e321148484147e10b53c3b1717c59ebaa9edb4fe18b1f5c055f8/tiktoken-0.14.0-cp314-cp314-macosx_11_0_arm64.whl",
+      "archive_info": {
+        "hash": "sha256=f2af4a336ea56d6c14f27741a0e1d8294a35dd0b038bcf990d232ebb54eb994b",
+        "hashes": {
+          "sha256": "f2af4a336ea56d6c14f27741a0e1d8294a35dd0b038bcf990d232ebb54eb994b"
+        }
+      }
+    },
+    "vocabulary_source": "https://openaipublic.blob.core.windows.net/encodings/o200k_base.tiktoken",
+    "expected_vocabulary_sha256": "446a9538cb6c348e3516120d7c08b09f57c36495e2acfffe59a5bf8b0cfb1a2d",
+    "cached_vocabulary_files": [
+      {
+        "sha256": "446a9538cb6c348e3516120d7c08b09f57c36495e2acfffe59a5bf8b0cfb1a2d",
+        "bytes": 3613922
+      }
+    ],
+    "ordinary_encoding": "encode_ordinary; no assumed special/chat tokens"
+  },
+  "official_source_snapshots": [
+    {
+      "name": "tiktoken-model-main.py",
+      "url": "https://raw.githubusercontent.com/openai/tiktoken/main/tiktoken/model.py",
+      "retrieved_at_utc": "2026-11-10T13:06:50.659411+00:00",
+      "sha256": "600f26902d1cf6a1a5f54e37be988b3e0d911f1ff17ba7060bb361f9b5295521",
+      "bytes": 3909
+    },
+    {
+      "name": "openai-cli-local-utilities.md",
+      "url": "https://raw.githubusercontent.com/openai/openai-cli/main/docs/local-utilities.md",
+      "retrieved_at_utc": "2026-11-10T13:06:54.508766+00:00",
+      "sha256": "2147da0fd67297469eee600d161a1cf6bec18becdc86ba430e43d77fd31e1105",
+      "bytes": 19179
+    },
+    {
+      "name": "tiktoken-release-model.py",
+      "url": "https://raw.githubusercontent.com/openai/tiktoken/0.14.0/tiktoken/model.py",
+      "retrieved_at_utc": "2026-11-10T13:06:59.027885+00:00",
+      "sha256": "600f26902d1cf6a1a5f54e37be988b3e0d911f1ff17ba7060bb361f9b5295521",
+      "bytes": 3909
+    }
+  ],
+  "components": [
+    {
+      "name": "full_serialized_wire_json",
+      "utf8_bytes": 1718379,
+      "sha256": "7ac11b69b11a0122ee3ffb65ff8fc1b074272f96c394e85a02b3441be0f07afc",
+      "ordinary_text_tokens": 566631
+    },
+    {
+      "name": "runtime_user_content",
+      "utf8_bytes": 1606746,
+      "sha256": "874e09e2c607e155ccc623fa62f328f77823421fe102eee3659dc12b5448c796",
+      "ordinary_text_tokens": 547015
+    },
+    {
+      "name": "base_role_prompt",
+      "utf8_bytes": 9494,
+      "sha256": "c13f33356ae4908a64a600eb1eb7d9ae03a4c3db22c9d33e6cf8324c8c6207eb",
+      "ordinary_text_tokens": 1754
+    },
+    {
+      "name": "frozen_assignment_json",
+      "utf8_bytes": 1597231,
+      "sha256": "62756a706cf1e09d3b89b873787798110ea73c0bb08a71b8d95570e11fb86d3c",
+      "ordinary_text_tokens": 545257
+    },
+    {
+      "name": "provider_response_schema_json",
+      "utf8_bytes": 10492,
+      "sha256": "122160da377a2ab3b1a97e9cd9de4606cf983d0939d8ad797e788227330c71d8",
+      "ordinary_text_tokens": 2869
+    },
+    {
+      "name": "full_response_format_json",
+      "utf8_bytes": 10583,
+      "sha256": "60023d6007ea2daceb967ea1d7afc78af53067d7eeab76deae030c23fcc83598",
+      "ordinary_text_tokens": 2892
+    }
+  ],
+  "advisory_decomposition": {
+    "message_content_plus_full_response_format_tokens": 549907,
+    "full_serialized_wire_tokens": 566631,
+    "formula": "separately tokenize actual user message content and canonical response_format JSON, then add; wire JSON tokenization is a second diagnostic, never added to that subtotal",
+    "unknown_wrapper_tokens": null,
+    "notes": [
+      "provider may transform response schema into hidden prompt structures",
+      "message-role framing and provider/OpenRouter hidden wrappers are unmeasured",
+      "wire JSON escapes and transport fields are not the provider prompt",
+      "component BPE boundaries and provider special tokens differ; no exact provider token claim"
+    ]
+  },
+  "routed_metadata": {
+    "url": "https://openrouter.ai/api/v1/models/openai/gpt-5.6-luna/endpoints",
+    "retrieved_at_utc": "2026-11-10T13:09:24.439095+00:00",
+    "raw_sha256": "d2f1745824a1dc40e4c63c9f2807926acd05b682b5b7e83b3fea5550ac4bda4e",
+    "raw_response_path": "2026-11-10-medium-openai-endpoint-response.json",
+    "path_base": "directory_containing_this_receipt",
+    "raw_response_hash_verified": true,
+    "model_id": "openai/gpt-5.6-luna",
+    "selection": "exact endpoint tag openai; excludes openai/fast and openai/flex",
+    "tag": "openai",
+    "context_length": 1050000,
+    "max_prompt_tokens": 922000,
+    "max_completion_tokens": 128000,
+    "matches_earlier_snapshot": {
+      "retrieved_at_utc": "2026-11-10T13:05:33.865850+00:00",
+      "reported_raw_sha256": "9704862ea81a68a1029605eb5a53df0ff10541f0cb02aa7a28bec6711352b0d1"
+    }
+  },
+  "headroom_advisory_not_admission": {
+    "requested_output_tokens": 32000,
+    "content_plus_response_format_to_prompt_limit": 372093,
+    "content_plus_response_format_plus_output_to_context_limit": 468093,
+    "wire_text_to_prompt_limit": 355369,
+    "wire_text_plus_output_to_context_limit": 451369,
+    "unknown_wrapper_budget_interpretation": "positive differences show overhead tolerated by each proxy, not a proven upper bound for actual hidden overhead"
+  },
+  "managed_admission_unchanged": {
+    "conservative_bytes_plus4096": 1722475,
+    "supplied_input_ceiling": 230000,
+    "admitted": false,
+    "token_estimate_substituted": false
+  },
+  "actual_provider_usage": null,
+  "cost_estimate": null,
+  "historical_preflight_receipt": "2026-11-10-medium-primary-preflight.json",
+  "reproduction": {
+    "python_package": "tiktoken==0.14.0 in a separate temporary environment",
+    "method": "encoding_for_model(\"gpt-5.6-luna\").encode_ordinary(text), complete strings without chunking or normalization",
+    "request_source": "exact plain frozen primary capture replay; canonical UTF-8 JSON serialization sort_keys=True,separators=(comma,colon),ensure_ascii=False",
+    "dependency_added_to_repository": false,
+    "measured_artifact_available_by_hash": "full request payload hash and every measured component hash below; request itself is not embedded in this receipt"
+  }
+}

@@ -150,7 +150,10 @@ throughput and model quality across workload types still need measurement.
 - The [serial controller](docs/operations/batch-controller.md) advances eligible roles
   under one existing authority with stable attempt IDs. It stops on uncertainty or
   failure and waits for an explicit release configuration; it does not invent mapping
-  relationships, reset budgets, or automatically publish a new canonical pointer.
+  relationships or reset budgets. Explicit publication continuation stages and validates
+  the approved artifacts, pauses for the required source commit, and promotes under
+  a shared writer lock. Completion proves local publication; final GitHub publication
+  and the next clean input freeze remain GM responsibilities.
 - The [workload report](docs/operations/universe-workload-envelope.md) overlays verified
   published activation closures on the immutable schedule. Completed disposition work
   and unresolved research gaps remain separate. Its scope and unmeasured scenario
@@ -160,11 +163,25 @@ throughput and model quality across workload types still need measurement.
   Plain requests remain the default. Offline byte savings are not proven token/cost
   savings or model-quality qualification, and do not fix oversized primary requests.
 
-The next operational gate is a bounded qualification proposal, not an automatic
+The [medium preflight](docs/operations/medium-primary-preflight.md) separates the
+exact admission failure from unproven model-context fit; raising a byte ceiling
+alone does not establish that the request fits. A pinned offline tokenizer gives
+an advisory content-plus-schema count of 549,907 tokens, below the routed endpoint's
+reported prompt limit; provider-added formatting remains unmeasured and admission
+is unchanged. The
+[isolated reviewer qualification runner](docs/operations/reviewer-qualification.md)
+can execute the four prepared comparison cells only with separately supplied,
+registry-bound authority. It preserves accounting and cannot publish research or
+enable the representation in production.
+
+The next operational gate is a bounded qualification decision, not an automatic
 universe-wide rollout. App work, investment ranking and company discovery remain
 outside this platform increment. See issues [64](https://github.com/michaelsena/turbo/issues/64),
 [65](https://github.com/michaelsena/turbo/issues/65) and
-[66](https://github.com/michaelsena/turbo/issues/66).
+[66](https://github.com/michaelsena/turbo/issues/66), with the concrete continuation
+scopes in [68](https://github.com/michaelsena/turbo/issues/68),
+[69](https://github.com/michaelsena/turbo/issues/69) and
+[70](https://github.com/michaelsena/turbo/issues/70).
 
 ## Implementation history
 

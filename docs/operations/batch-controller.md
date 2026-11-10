@@ -6,11 +6,11 @@ stable attempt IDs across restarts, and never creates retry or recovery authorit
 It performs primary and verifier calls, the two blind specialists and adjudicator
 only when the workflow requires them, then an exact compiled-preview review.
 
-**Approval is not publication.** The terminal success state is
-`APPROVED_PENDING_PUBLICATION`, with `canonical_published: false`. Use the existing
-clean, pinned batch-closure publication path before freezing the next batch.
-This controller does not publish pointers, reconcile unknown calls, rebase inputs,
-or schedule another batch.
+**Approval is not publication.** Role execution stops at
+`APPROVED_PENDING_PUBLICATION`, with `canonical_published: false`. The separate
+explicit `--publish` continuation stages and validates artifacts before guarded
+pointer promotion and a verified completion receipt. The controller does not
+reconcile unknown calls, rebase inputs, or schedule another batch.
 
 ## Initialize and inspect
 
@@ -97,3 +97,69 @@ release waiting, crash-after-settlement replay without duplicate dispatch,
 completed-review provenance, immutable bindings, expiry and failed/unknown attempt
 stops, and conditional blind-role routing. The full repository suite remains the
 integration gate before deployment.
+
+## Explicit publication continuation
+
+`--publish` performs no model calls. It uses the accepted preview, successful
+provider artifacts, and immutable release decisions already bound to the controller.
+Pass a publication configuration on the first call; later calls may omit it. A
+supplied replacement configuration must be identical.
+
+```json
+{
+  "schema_version": 1,
+  "output_root": "data/controller-publications/example-batch",
+  "base_graph_config": "config/universe/graph-releases/canonical-universe-small-qualification-v1.json",
+  "release_name": "example-batch-cumulative-release"
+}
+```
+
+```sh
+python scripts/run-batch-controller.py /absolute/controller --publish \
+  --publication-config /absolute/publication-config.json
+python scripts/run-batch-controller.py /absolute/controller --publish
+```
+
+The output directory must be new and inside the publication checkout; the graph
+configuration must replay its current canonical pointer. The initial checkout must
+be at the exact clean reviewed execution commit. Controller/registry state should
+live outside that checkout so operational records do not dirty source inputs.
+All recorded historical workflow and preparation paths must be restored for
+cumulative replay; the controller never applies current inputs to old approvals.
+
+For graph movement, the command persists the exact approved activation and derives
+the cumulative graph configuration from the verified base plus that activation.
+It then returns `WAITING_PUBLICATION_SOURCE_COMMIT`, listing the exact source paths.
+Commit those files in the same publication checkout. Resume accepts only a clean
+commit with exactly those additions, unchanged approved code/configuration, and the
+original canonical base. It does not create Git commits or publish a stale rebase.
+
+A graph release and closure are staged and validated before pointer promotion.
+Existing deterministic directories are validated and reused after interruption;
+changed artifacts and incomplete immutable bindings fail closed. The controller and graph-release CLI share a pointer lock stored in Git metadata.
+They compare the exact original pointer under that lock, validate and synchronize
+staged evidence, then atomically replace the pointer. A competing publication or
+changed pointer stops instead of overwriting it. The historical low-level
+`graph_release.run_graph_release` compiler remains byte-identical for approved
+contract replay: use it only with a private staging pointer. Canonical callers must
+use the guarded wrapper in `graph_publication` or this controller; direct external
+file edits and historical unguarded library calls do not participate in the lock.
+
+For a reviewed no-movement outcome, publication produces a validated closure and
+keeps the canonical pointer unchanged. `COMPLETE` then reports `graph_moved: false`.
+A movement completion requires the exact staged graph selected by the canonical
+pointer plus its validated closure. The immutable completion receipt is the GM's
+evidence for deciding when to freeze another input; no next workflow starts itself.
+
+`COMPLETE` means publication/closure finalization, not complete market coverage.
+Families marked `retry_required` and unresolved research gaps remain outstanding.
+Current and historical workflows must retain their recorded input/preparation paths
+for cumulative replay; relocation is not supported by this continuation.
+
+Completion is **validated local filesystem publication**. It does not prove that
+the generated graph, closure, or pointer was committed or pushed to GitHub. The GM
+must review and commit/publish those final artifacts and freeze the next input from
+a clean checkout. The completion receipt binds the execution/source commits and
+local artifact identities; it is not a GitHub publication receipt. Continued status
+inspection requires the controller's pinned source state; a later repository commit
+is a separate GM operation, not an automatic controller rebase.
