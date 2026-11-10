@@ -1,0 +1,100 @@
+{
+  "submodel_version_id": "submodel:base-business-cash-economics:proposal-20261110-v01",
+  "factors": [
+    {
+      "factor_version_id": "factor:quality-of-earnings:proposal-20261110-v01",
+      "minimum": 0,
+      "maximum": 100,
+      "weight": 1,
+      "tolerance": 10,
+      "anchors": {
+        "0": "Standalone cash economics are structurally unattractive or not sustainable.",
+        "25": "Revenue quality, working capital or customer concentration make cash conversion fragile.",
+        "50": "Mixed recurring revenue, margins and reinvestment requirements produce plausible standalone economics.",
+        "75": "Evidence supports durable earnings, credible cash conversion and manageable concentration/reinvestment.",
+        "100": "Multiple representative sources support highly durable standalone cash earnings with low hidden reinvestment and clear downside resilience."
+      },
+      "evidence_expectations": [
+        "Quality of earnings: Recurring/contract revenue, retention, concentration, normalized margins, cash conversion, capital intensity and working capital; exclude projected AI savings from the base case.",
+        "Seek and retain evidence against the favored interpretation; source absence is not proof of absence.",
+        "Return a numeric defensible estimate with rationale, reduced confidence/evidence quality, explicit alternatives and a gap; never call an unsupported estimate a fact.",
+        "Confidence guidance: {\"0.25\": \"Weak assumption with little direct support\", \"0.5\": \"Mixed indirect support and unresolved alternatives\", \"0.75\": \"Several relevant consistent sources with limited unresolved alternatives\", \"0.95\": \"Strong representative and independently corroborated evidence\"}. These are declared calibration anchors, not observed confidence statistics.",
+        "Evidence-quality guidance: {\"0.25\": \"Sparse, indirect or strongly selected material\", \"0.5\": \"Relevant but partial, dated or unrepresentative material\", \"0.75\": \"Current directly relevant material with known limitations\", \"0.95\": \"Current representative and independently verified material\"}. Evidence quality and confidence may overlap; report raw scores alongside adjusted scores.",
+        "Downside: 0\u2013100 points, separately justified by a named adverse scenario and score impact; do not deduct risks already reflected in raw score or eligibility a second time.",
+        "Ownership economics must work without AI gains. A high AI judgment needs named inputs, persistent entities, triggers, authorized actions, verification, failure modes, human controls, measurable output and retained economics."
+      ],
+      "model_policy": {
+        "tasks": {
+          "evaluator_a": {
+            "model": "openai/gpt-5.6-terra",
+            "reasoning_effort": "high"
+          },
+          "evaluator_b": {
+            "model": "google/gemini-4-argon",
+            "reasoning_effort": "high"
+          },
+          "adjudicator": {
+            "model": "openai/gpt-5.6-terra",
+            "reasoning_effort": "high"
+          },
+          "comparator": {
+            "model": "google/gemini-4-argon",
+            "reasoning_effort": "high"
+          }
+        }
+      }
+    },
+    {
+      "factor_version_id": "factor:displacement-resilience:proposal-20261110-v01",
+      "minimum": 0,
+      "maximum": 100,
+      "weight": 1,
+      "tolerance": 10,
+      "anchors": {
+        "0": "The paid service is plausibly eliminated by substitution or AI rather than improved.",
+        "25": "Material portions of the paid outcome may commoditize without a credible response.",
+        "50": "Some tasks are substitutable but durable human/accountability/customer obligations remain.",
+        "75": "The paid outcome remains valuable across credible technology and business-model changes.",
+        "100": "Evidence supports durable accountability and customer value despite substitution of component tasks."
+      },
+      "evidence_expectations": [
+        "Resilience to displacement: Substitution pathways, buyer willingness to pay, insourcing and platform threats, obligation/accountability requirements; assess the service outcome rather than incumbent tooling.",
+        "Seek and retain evidence against the favored interpretation; source absence is not proof of absence.",
+        "Return a numeric defensible estimate with rationale, reduced confidence/evidence quality, explicit alternatives and a gap; never call an unsupported estimate a fact.",
+        "Confidence guidance: {\"0.25\": \"Weak assumption with little direct support\", \"0.5\": \"Mixed indirect support and unresolved alternatives\", \"0.75\": \"Several relevant consistent sources with limited unresolved alternatives\", \"0.95\": \"Strong representative and independently corroborated evidence\"}. These are declared calibration anchors, not observed confidence statistics.",
+        "Evidence-quality guidance: {\"0.25\": \"Sparse, indirect or strongly selected material\", \"0.5\": \"Relevant but partial, dated or unrepresentative material\", \"0.75\": \"Current directly relevant material with known limitations\", \"0.95\": \"Current representative and independently verified material\"}. Evidence quality and confidence may overlap; report raw scores alongside adjusted scores.",
+        "Downside: 0\u2013100 points, separately justified by a named adverse scenario and score impact; do not deduct risks already reflected in raw score or eligibility a second time.",
+        "Ownership economics must work without AI gains. A high AI judgment needs named inputs, persistent entities, triggers, authorized actions, verification, failure modes, human controls, measurable output and retained economics."
+      ],
+      "model_policy": {
+        "tasks": {
+          "evaluator_a": {
+            "model": "openai/gpt-5.6-terra",
+            "reasoning_effort": "high"
+          },
+          "evaluator_b": {
+            "model": "google/gemini-4-argon",
+            "reasoning_effort": "high"
+          },
+          "adjudicator": {
+            "model": "openai/gpt-5.6-terra",
+            "reasoning_effort": "high"
+          },
+          "comparator": {
+            "model": "google/gemini-4-argon",
+            "reasoning_effort": "high"
+          }
+        }
+      }
+    }
+  ],
+  "policy": {
+    "close_resolution": "arithmetic_mean",
+    "confidence_adjustment": "raw_times_confidence_times_evidence_quality",
+    "downside_adjustment": "subtract_downside",
+    "aggregation": "normalized_weighted_mean",
+    "pair_selection": "all_unordered_pairs",
+    "comparison_effect": "bounded_additive_submodel"
+  },
+  "comparison_max_delta": 5
+}
