@@ -1,0 +1,16 @@
+{
+  "source_id": "cresa-government",
+  "url": "https://www.cresa.com/locations/north-america/massachusetts/boston-ma/associate-bios-boston-ma/lisa-hayes",
+  "published_date": null,
+  "retrieved_at": "2026-11-10T22:24:36.556200Z",
+  "source_type": "primary public issuer/government page",
+  "retrieval_method": "web search/open; selected verbatim excerpt and researcher paraphrase; original HTML not retained",
+  "retrieval_reference": "turn962759919view2",
+  "locator": "lines 12-20",
+  "verbatim_excerpt": "Lease Administration",
+  "researcher_fact_paraphrase": "Cresa lists a Boston senior lease-administration manager whose expertise tags include Government alongside lease administration, law firms and retail.",
+  "limitations_and_inference": "Narrow signal of government-facing expertise in a US occupier provider; does not establish a contract, revenue share, dependency or reimbursement. Prevents assuming an exclusively private buyer base from generic corporate marketing.",
+  "relevant_gates": [
+    "government"
+  ]
+}

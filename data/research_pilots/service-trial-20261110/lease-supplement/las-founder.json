@@ -1,0 +1,17 @@
+{
+  "source_id": "las-founder",
+  "url": "https://leaseadminsolutions.com/about-us",
+  "published_date": null,
+  "retrieved_at": "2026-11-10T22:24:36.556200Z",
+  "source_type": "primary public issuer/government page",
+  "retrieval_method": "web search/open; selected verbatim excerpt and researcher paraphrase; original HTML not retained",
+  "retrieval_reference": "turn962759919view1",
+  "locator": "lines 99-104",
+  "verbatim_excerpt": "Prior to founding Lease Administration Solutions, LLC, in 1998",
+  "researcher_fact_paraphrase": "The provider identifies its founder and describes office/retail landlord and tenant experience.",
+  "limitations_and_inference": "Founder history is not proof of current independence, sale willingness, current employee count or enterprise value. Older biographies and inconsistent addresses on pages limit freshness.",
+  "relevant_gates": [
+    "acquisition_population_ev_range",
+    "buyability"
+  ]
+}

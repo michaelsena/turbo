@@ -1,0 +1,17 @@
+{
+  "source_id": "ntrust-controls",
+  "url": "https://ntrustinfotech.com/nusource/lease-administration/",
+  "published_date": null,
+  "retrieved_at": "2026-11-10T22:24:36.556200Z",
+  "source_type": "primary public issuer/government page",
+  "retrieval_method": "web search/open; selected verbatim excerpt and researcher paraphrase; original HTML not retained",
+  "retrieval_reference": "turn511008649view1",
+  "locator": "lines 99,359-363,392-398",
+  "verbatim_excerpt": "All approval thresholds remain yours.",
+  "researcher_fact_paraphrase": "NTrust advertises occupier lease payments, insurance tracking and accounts-payable processing, including corporate occupier clients. It describes client-owned systems and approval thresholds, with operational execution by salaried NTrust specialists.",
+  "limitations_and_inference": "Supports an administrative agency/control model inference, not demonstrated absence of principal credit/insurance exposure. Marketing description is not a signed contract, custody policy, guarantee schedule or audited segment disclosure. Salaried employment says nothing about union coverage.",
+  "relevant_gates": [
+    "insurance_or_credit_risk",
+    "unionized_workforces"
+  ]
+}
