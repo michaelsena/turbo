@@ -153,6 +153,7 @@ this read product. See the [application guide](docs/application/read-api-dashboa
 ## Operate and contribute
 
 Start material work with a scoped, scored GitHub issue and acceptance criteria.
+A narrowly [bound release-review successor](docs/operations/release-review-recovery.md) preserves accepted research after a supported HTTP400 while retaining unknown cost exposure.
 Fresh managed runs may opt into [traced citation-set normalization](docs/operations/citation-set-output.md);
 canonical semantic checks and independent review remain mandatory.
 Use a named branch, immutable evidence, synchronized documentation, local verification

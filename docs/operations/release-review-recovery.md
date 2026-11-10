@@ -59,3 +59,32 @@ unknown. The endpoint capability catalog alone cannot prove a request compatible
 The older [HTTP402 procedure](payment-rejection-recovery.md) is unchanged and must
 not be used for this HTTP400 state. Optional lossless model views are not supported
 for either recovery path.
+
+## Pinned model-view and citation continuation (Issue101)
+
+The earlier plain-contract procedures above retain their original limits. The
+`prepare_bound_successor` entry point additionally supports the exact clean service
+runtime commit `f5fcbbd82c0fd5b847b26be96ac2a65522ef308a` and its registered lossless
+model-view/citation policy. Pass `source_runtime`, the original registry/authority,
+workflow/input paths, one new attempt ID, validity window/operator, and an explicit
+`replacement_reviewer` role configuration. Only `openai/gpt-5.6-luna` with high reasoning
+is supported by this increment; prompt/schema hashes, single-attempt limit and disabled
+fallbacks must remain unchanged. Other role configurations are preserved.
+
+Preparation verifies the original source in an isolated interpreter, reconstructs the
+original failed request, replays accepted provider outputs and normalization traces,
+and binds the parent journal tip and exact preview. It does not claim or dispatch.
+The successor retains the unknown reservation and reduces its maximum cost by original
+ledger charges plus that reservation; its call limit is one. Use `claim_successor` and
+existing `run_batch_role(..., recovery_checkpoint=...)` after independent review,
+explicit authority and measurement of the actual replacement request/endpoint. A
+same-tree source checkout with a different commit is not a substitute for the pin.
+
+After a settled approving replacement, call
+`verify_bound_release_approval(registry, authority, checkpoint_path)`. This read-only
+proof verifies the successor journal, raw provider artifact, exact upstream lineage,
+and compiler approval. The old controller correctly stays STOPPED; never edit its
+manifest/journal or report it approved. With this proof, existing lower-level closure
+and guarded graph publication APIs may continue in a separate publication clone at
+the exact reviewed execution commit. Preserve all historical input/preparation paths.
+The new proof is not canonical publication, market eligibility, or an investment score.
