@@ -1,0 +1,91 @@
+{
+  "accepted_eligibility_projections": 0,
+  "accounting": {
+    "authority_ceiling": 5000000,
+    "calls_remaining": 0,
+    "currency": "USD",
+    "ledger_charge": 100212,
+    "note": "Unspent allowance does not authorize another call; the single physical attempt is consumed.",
+    "outstanding_reservation": 0,
+    "provider_cost": 61704,
+    "unit": "microusd",
+    "unspent_ledger_allowance": 4899788
+  },
+  "bindings": {
+    "authorization_sha256": "d2a2e0ae4dba67b11c09b76a13c5b2681f4826c42ff203894e2ba7b839a7b9cb",
+    "canonical_schema_sha256": "a8cc77eb44315fd6838e427f324f53b5b40ed4b0ef5723fcce4a53a3e1a97625",
+    "diagnostic_sha256": "9277906be96001e0db1b46fd4c1f0f87d75724dc32c86d5512d22784256b5403",
+    "input_sha256": "a9d852d32e9153041aa96ed67f47f6f67da1b7aee82dd12651283399d78399bf",
+    "journal_sha256": "1fac439136a18743e1f0fd0e758a6ad3664940c406b41e8613dfb4ecef067bf3",
+    "plan_sha256": "ed2def44fba5e72570847538f7ced7a9b35fc55367c9d04bc89c11b912c8a3c2",
+    "provider_artifact_sha256": "11897f79a3ffa1228096740178b959f6f013d856a7ba9e88a948e0896e3c77a0",
+    "provider_body_sha256": "665d1065ec10672786e245a2937594f4ffa053447999192ca781ea4921baa02b",
+    "provider_response_sha256": "292a4a48b8206088a7f7128804cd75a2859714935900e1d718041f92d5260925",
+    "provider_schema_sha256": "366b92188eae8e7283a09d997d066aaa8b5c53d39d2f13937f8880bd5eb1473a",
+    "request_sha256": "3032bf149a208f0f16a3f7d735c8d97694b995b16e9c0f05c9fbdcbc46f75235"
+  },
+  "execution_commit": "f8b6c9645c50ca37beedc4eeeeb9ed91fc53a041",
+  "execution_tree": "395210a41b3251bb3ca2ba6debe416e6f4ee3af6",
+  "factor_evaluation_calls": 0,
+  "followup": {
+    "fix_pr": "https://github.com/michaelsena/turbo/pull/104",
+    "historical_result_reaccepted": false,
+    "merged_commit": "a1272e0ef0228f2755d78dd036744bc86f80b8a5",
+    "paid_retry_performed": false,
+    "remaining_work": "Gather evidence for unresolved eligibility gates, then prepare a fresh explicitly authorized work unit if appropriate.",
+    "scope": "Prospective disjoint-citation instructions and schema descriptions; strict semantic validator unchanged."
+  },
+  "investment_scores_created": 0,
+  "kind": "sanitized_governed_eligibility_trial_closeout",
+  "market_name": "Occupier-side commercial lease administration",
+  "market_version_id": "market-version:dbfc373d38a7a39fcaa670da",
+  "physical_attempts": 1,
+  "provider": {
+    "http_status": 200,
+    "reasoning_effort": "high",
+    "requested_model": "openai/gpt-5.6-terra",
+    "served_model": "openai/gpt-5.6-terra",
+    "served_provider": "OpenAI",
+    "structured_response_status": "valid",
+    "usage": {
+      "input_tokens": 7656,
+      "output_tokens": 3866
+    }
+  },
+  "recorded_at_utc": "2026-11-10T21:54:13.288164Z",
+  "sanitization": {
+    "credentials_included": false,
+    "full_authority_included": false,
+    "local_private_paths_included": false,
+    "raw_provider_body_included": false,
+    "reasoning_included": false
+  },
+  "schema_version": 1,
+  "settled_at_utc": "2026-11-10T21:44:40.288947Z",
+  "status": "failed_semantic_validation",
+  "task": "eligibility",
+  "unaccepted_research_signal": {
+    "meaning": "Substantive evidence gaps would prevent eligibility even if citation formatting were corrected.",
+    "status": "diagnostic_only_not_an_eligibility_projection",
+    "unknown_gates": [
+      "acquisition_population_ev_range",
+      "buyability_feasibility",
+      "government_dependent_revenue",
+      "insurance_or_credit_risk",
+      "unionized_workforces"
+    ]
+  },
+  "validation": {
+    "accepted": false,
+    "affected_gates": [
+      "acquisition_population_ev_range",
+      "insurance_or_credit_risk",
+      "unionized_workforces"
+    ],
+    "error": "unknown, conflicting, or other-market eligibility evidence",
+    "input_bindings_matched": true,
+    "raw_result_repaired": false,
+    "specific_failure": "The same market-owned evidence ID occurred in both supporting_evidence_ids and counterevidence_ids within three gates.",
+    "unknown_or_foreign_evidence_ids": false
+  }
+}

@@ -32,6 +32,39 @@ class AssignmentNavigationTest(unittest.TestCase):
         self.task={'role':'primary','actor_id':'actor-never-a-request','role_invocation_id':'workflow-role:not-payload',
                    'context':self.context,'inputs':{}}
 
+    def test_release_reviewer_literal_is_exact_preview_not_nested_base_hash(self):
+        self.task.update(role='release_reviewer',
+            release_preview={'preview_sha256':'e'*64, 'plan_sha256':'f'*64,
+                'preview':{'base_events_sha256':'1'*64, 'config':{'value':'unchanged'}}})
+        before = copy.deepcopy(self.task)
+        navigation = provider.assignment_navigation(self.task)
+        self.assertEqual(navigation['approved_plan_sha256'], 'e'*64)
+        self.assertIn('release_preview.preview_sha256', navigation['approval_binding_instruction'])
+        self.assertIn('base_events_sha256', navigation['approval_binding_instruction'])
+        rendered = provider.render_assignment(self.task, input_root=ROOT, model_view=model_view.VERSION)
+        literal, encoded = rendered.split('\n# Literal assignment navigation\n', 1)[1].split('\n# Frozen assignment\n', 1)
+        self.assertEqual(json.loads(literal), navigation)
+        self.assertEqual(model_view.decode(json.loads(encoded)), before)
+        self.assertEqual(self.task, before)
+        # Changing only a misleading neighboring hash cannot change the copied binding.
+        self.task['release_preview']['preview']['base_events_sha256'] = '2'*64
+        self.assertEqual(provider.assignment_navigation(self.task)['approved_plan_sha256'], 'e'*64)
+        self.task['release_preview']['preview_sha256'] = '3'*64
+        changed = provider.render_assignment(self.task, input_root=ROOT, model_view=model_view.VERSION)
+        self.assertEqual(provider.assignment_navigation(self.task)['approved_plan_sha256'], '3'*64)
+        self.assertNotEqual(provider._hash(rendered), provider._hash(changed))
+
+    def test_release_binding_is_reviewer_only_and_missing_hash_fails_closed(self):
+        for role in ('primary', 'verifier', 'escalation_a', 'escalation_b', 'adjudicator'):
+            with self.subTest(role=role):
+                task = dict(self.task, role=role, release_preview={'preview_sha256':'e'*64})
+                navigation = provider.assignment_navigation(task)
+                self.assertNotIn('approved_plan_sha256', navigation)
+                self.assertNotIn('approval_binding_instruction', navigation)
+        for malformed in (None, {}, {'preview_sha256':'short'}, {'preview_sha256':'G'*64}):
+            with self.subTest(preview=malformed), self.assertRaises((KeyError, TypeError, ValueError)):
+                provider.assignment_navigation(dict(self.task, role='release_reviewer', release_preview=malformed))
+
     def test_exact_payload_bindings_not_actor_or_global_card_scope(self):
         navigation=provider.assignment_navigation(self.task)
         bindings=navigation['payload_bindings']

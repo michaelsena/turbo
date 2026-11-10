@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-10T21:54:57.295616Z",
+  "status": "STOPPED_RELEASE_REVIEW_BINDING_VALIDATION_FAILED",
+  "research_scope": "Complete family:naics-2022:531311, six required identities and two prior candidates; seven supplemental sources, eleven claims, three supplemental gaps",
+  "source_commit": "f8b6c9645c50ca37beedc4eeeeb9ed91fc53a041",
+  "source_tree": "395210a41b3251bb3ca2ba6debe416e6f4ee3af6",
+  "source_graph_release": "graph-release-661ff81db5f90782a432",
+  "supplement_manifest_sha256": "939646be935760a91dd2cd6c971d14f8405d1765f1204b774ced6bbb20ef2a60",
+  "authority_sha256": "7051f93726c9bcb25acf2efd288254a0f4fffcf2914fa5d8043b2f0ed3e32d0c",
+  "workflow_plan_sha256": "58e7057cf30a211768acbfb2bbdf1e0afd3e5b7954e7c810c1c0a411e5059cb9",
+  "controller_manifest_sha256": "f888a3d7b13b32af202bbd99a1b6c4a521afd9ba95b68d5dc3a71ac6936f450b",
+  "successful_upstream": {
+    "primary_submission_sha256": "c9a49f8016c4e51fff88077a8429328a571ad5ea3d548c8dd89f901136311f4e",
+    "verifier_submission_sha256": "36c5d488ceac05210a8909ee54a7fa147df0452f2abcc1e61cab1287f0e60076",
+    "verifier_assessments": [
+      "agree",
+      "agree",
+      "agree"
+    ]
+  },
+  "provisional_proposal": {
+    "name": "Residential property management for others",
+    "hoa_specific_market_established": false,
+    "unresolved_gap": "gap:200be65658a98d2e:001",
+    "description": "Distinct outsourced association-management boundary, acquisition economics and labor questions remain unresolved. Broad proposal must not substitute for a distinct HOA market."
+  },
+  "release_review_failure": {
+    "classification": "model copied a legitimate but wrong hash despite explicit instruction",
+    "expected_preview_sha256": "066a41e412c53549ad9f028598a444475cad2099fe9aad08df656d824970057a",
+    "returned_approved_plan_sha256": "d5a85866b598c6ef3e6e3a0795775e769b37be99d36d7d8ce7e26b58fabe8a60",
+    "returned_hash_source": "/release_preview/preview/base_events_sha256",
+    "returned_verdict": "approve",
+    "returned_findings_count": 0,
+    "returned_upstream_hashes_correct": true,
+    "accepted_release_review": false,
+    "canonical_validation_error": "release review does not bind exact compiler preview",
+    "full_correct_preview_was_present": true,
+    "prompt_already_requires_exact_preview_hash": true,
+    "literal_navigation_did_not_repeat_preview_output_binding": true
+  },
+  "provider_calls": [
+    {
+      "role": "primary",
+      "attempt_id": "controller-57b988e92cb2c8846ba1567d",
+      "artifact_sha256": "9b266410acf81fb2f694aaa25ee0410c63f95f5768f581c034b3c90ae96cf8db",
+      "request_sha256": "48ee105067a9343da5d7e912b7dec8b7d4b8e5a31382febd1d192e62703f6884",
+      "response_sha256": "74968a17aeb8f60c2b79977a95e4533fb4f0e8f2a0b3dc96b9199a81bb9e1476",
+      "body_sha256": "d22ce5441732855fd0d80ac40728af72912a625ecd74c90638139c37e11e10ca",
+      "http_status": 200,
+      "provider_status": "valid",
+      "canonical_valid": true,
+      "requested_model": "openai/gpt-5.6-terra",
+      "served_model": "openai/gpt-5.6-terra",
+      "usage": {
+        "input_tokens": 849339,
+        "output_tokens": 4661
+      },
+      "provider_cost_microusd": 3481254
+    },
+    {
+      "role": "verifier",
+      "attempt_id": "controller-07353535690324b9bc8f7173",
+      "artifact_sha256": "2edce1d07a45c38ec6ec4c7f03b8737810862ee976f263804c7c4edde45abe9a",
+      "request_sha256": "fd6c75704fa216b51a1f180a8c9842b2787af7b2e7fb892fd4d29142227d02f1",
+      "response_sha256": "fbb2b6cfc77cf8ffc935047225729cb4d3f75f34ce3ce27963281be7ee2f9819",
+      "body_sha256": "3a122d84de5810f9a139fc0b6650d8d95cd64dcce6ae2efbbf374d2dc7b648b5",
+      "http_status": 200,
+      "provider_status": "valid",
+      "canonical_valid": true,
+      "requested_model": "meta/muse-ember",
+      "served_model": "meta/muse-ember",
+      "usage": {
+        "input_tokens": 841496,
+        "output_tokens": 1633
+      },
+      "provider_cost_microusd": 84967
+    },
+    {
+      "role": "release_reviewer",
+      "attempt_id": "controller-a88f280e0537c7edb8498b6c",
+      "artifact_sha256": "0d656341f962fd82458aa5940cf556277dac107878a3df7248b3898a38170b3b",
+      "request_sha256": "bedd360574b3bdaec0e7a0098f4efc0e1b7f9afe57f84c396313f2210e4fb5af",
+      "response_sha256": "1012a1b61fcdf4e56d488ab647bccaab35511d705c21571699d76055dcbae490",
+      "body_sha256": "222b34f0597e31c1e4d516a686953c0c2065c6ca8ec8e64b825d64eadbb7f59c",
+      "http_status": 200,
+      "provider_status": "valid",
+      "canonical_valid": false,
+      "requested_model": "openai/gpt-5.6-luna",
+      "served_model": "openai/gpt-5.6-luna",
+      "usage": {
+        "input_tokens": 886472,
+        "output_tokens": 5238
+      },
+      "provider_cost_microusd": 364018
+    }
+  ],
+  "accounting": {
+    "unit_ceiling_microusd": 30000000,
+    "max_calls": 6,
+    "physical_calls": 3,
+    "ledger_committed_microusd": 5221331,
+    "outstanding_microusd": 0,
+    "provider_total_microusd": 3930239
+  },
+  "prospective_recommendation": {
+    "literal_binding": "Expose exact reviewer output binding from release_preview.preview_sha256 and distinguish base-events/config/plan hashes, while retaining complete task and unchanged canonical validation.",
+    "request_schema_option": "Consider request-time singleton enum for approved_plan_sha256 only after source/schema/provenance design review and qualification; no current-run change.",
+    "tests": [
+      "literal binding derives exact preview hash",
+      "non-review/blind roles do not receive review outputs",
+      "prompt and execution contract changes invalidate stale authorities",
+      "wrong base-events hash remains rejected and charged with no publication",
+      "exact correct binding completes release review and replays",
+      "if dynamic enum adopted, bind and replay exact wire schema and reject mismatched preview/schema"
+    ]
+  },
+  "boundaries": {
+    "retries": 0,
+    "output_repair": false,
+    "new_authority_after_failure": false,
+    "activation_persisted": false,
+    "canonical_publication": false,
+    "eligibility_created": false,
+    "scores_created": false,
+    "credentials_or_private_reasoning_included": false
+  }
+}
