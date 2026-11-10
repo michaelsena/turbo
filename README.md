@@ -8,7 +8,7 @@ Ambient AI, and retain the resulting earnings.
 The repository holds the evidence, market definitions, executable methods,
 decisions, and results. A local research console exposes the same versioned
 artifacts through a read-only API. Turbo is currently building and qualifying its
-market universe; it has **five canonical markets, zero national target markets,
+market universe; it has **six canonical markets, zero national target markets,
 and zero national investment scores**. A taxonomy category or provisional market
 boundary is not an investment recommendation.
 
@@ -19,7 +19,7 @@ a later decision cannot silently rewrite an earlier one.
 
 | Layer | Question and method | Current scope |
 | --- | --- | --- |
-| Canonical universe | What operating markets exist? Reconcile official NAICS/NAPCS identities and prior hypotheses; preserve splits, merges, mappings, exclusions, and gaps. | Source ingestion, scheduling, research harness, reviewed publication, and five-market graph implemented; national coverage incomplete. |
+| Canonical universe | What operating markets exist? Reconcile official NAICS/NAPCS identities and prior hypotheses; preserve splits, merges, mappings, exclusions, and gaps. | Source ingestion, scheduling, research harness, reviewed publication, and six-market graph implemented; national coverage incomplete. |
 | Target universe | Which markets meet the acquisition mandate? Apply strategy gates and size/buyability evidence without erasing ineligible canonical markets. | Governed market eligibility adapter implemented; national filtering and SUSB/QCEW enrichment remain planned. |
 | Evaluation | Which eligible markets are attractive? Evaluate factors independently, adjudicate disagreements, calibrate within submodels, and aggregate deterministically. | Governed single-submodel execution adapter implemented. Production factor policies and global aggregation remain pending; no accepted investment scores. |
 
@@ -81,14 +81,14 @@ Structural validation is necessary, but cannot prove semantic correctness.
 | Identities requiring boundary review / context-only identities | 8,248 / 3,295 |
 | Administrative families / queued families / deterministic batches | 1,026 / 1,018 / 129 |
 | Prior-market candidates / unretrieved challengers | 978 / 58 |
-| Canonical markets / accepted mapping events | 5 / 8 |
-| Distinct market-linked boundary gaps / gaps in full closure lineage | 4 / 5 |
+| Canonical markets / accepted mapping events | 6 / 9 |
+| Distinct market-linked boundary gaps / gaps in full closure lineage | 5 / 10 |
 | National target markets / national investment scores | 0 / 0 |
 
 The canonical graph contains Integrated outsourced office administration (accepted
 with open gaps), Medical practice administration and Dental practice administration
 (provisional), and Industrial Sand Mining and Preparation and Copper, Nickel, Lead,
-and Zinc Ore Mining (provisional). The original NAICS 561110 mapping is provisionally
+and Zinc Ore Mining (provisional), plus Occupier-side commercial lease administration (provisional). The original NAICS 561110 mapping is provisionally
 `broader_than_market`; family-local non-mappings do not remove prior candidates globally.
 
 | Capability or experiment | Status and limitation |
@@ -98,7 +98,7 @@ and Zinc Ore Mining (provisional). The original NAICS 561110 mapping is provisio
 | Managed execution and serial controller | Implemented within one trusted local registry. Stable attempt IDs and retained reservations prevent automatic resend after uncertainty. Publication pauses for an explicit source commit; local completion does not imply GitHub publication or the next input freeze. |
 | Reviewer readable references and cheaper-model screening | Experimental opt-in. Flash passed four cells over two fixtures; this is not general quality qualification or production-default enablement. [Screening report](docs/operations/flash-reviewer-screening.md). |
 | Medium primary qualification | Failed citation validation and independent semantic review; zero accepted coverage. Correction is tracked in [#73](https://github.com/michaelsena/turbo/issues/73); the [result documentation PR](https://github.com/michaelsena/turbo/pull/74) is separate from this README update. |
-| Next service cohort | Association management and lease administration are priority research candidates under [#78](https://github.com/michaelsena/turbo/issues/78). Neither is an accepted canonical market; neither has accepted eligibility decisions or scores. They must pass the governed boundary, target, and evaluation stages. |
+| Next service cohort | Association management and lease administration are priority research candidates under [#78](https://github.com/michaelsena/turbo/issues/78). Lease administration now has a provisional canonical boundary in the cumulative release; association management still awaits boundary acceptance. Neither has accepted eligibility or scores. |
 | Broad universe rollout, national eligibility, and investment ranking | Not complete. Larger-workload quality, output headroom, throughput, and total spend still require qualification. No universe-wide 5× cost reduction is established. |
 
 The separate [anchored research pilot](data/research_pilots/anchored-20261109/README.md)
@@ -109,11 +109,16 @@ failure; it is not accepted canonical coverage or a successful CLI run.
 Current immutable layers are the
 [source run](data/runs/run-2ea0f00db84148de663f/),
 [family schedule](data/family_schedules/family-partition:60517981ab96e7f243c7033e/),
-and [cumulative graph release](data/market_graph/versions/graph-release-a09c97692a785c2a9711/)
-(graph version `graph-9838996c8153c20c7f86c37a`). `turbo context` verifies their
+and [cumulative graph release](data/market_graph/versions/graph-release-5e509cb21490ef9930ea/)
+(graph version `graph-e1a5f65e3dab83a9be7d6004`). `turbo context` verifies their
 composition. Historical source-run counts are not current cumulative graph counts.
 The [workload report](docs/operations/universe-workload-envelope.md) distinguishes
 completed dispositions from unresolved gaps and remaining schedule obligations.
+
+The reviewed lease boundary is [included in the cumulative release](data/research_pilots/lease-qualification-20261110/README.md).
+This release has six markets and nine mappings and binds exact published source
+commit `bb4d96cf88a6ba9bcf1ff75e6d15dc4cdf6157f1`. No eligibility pass or
+investment score is implied.
 
 The next implementation priority is the governed end-to-end path for that service
 cohort: accepted market identity, explicit target eligibility, then independently

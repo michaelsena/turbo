@@ -1,7 +1,11 @@
 # Issue 86: Governed submodel evaluation work unit
 
-Status: contract independently reviewed; 86a packaging/request-planning increment
-implemented for source review. No live evaluation enabled.
+Status: historical 86a contract and packaging/request-planning record. The reviewed
+governed eligibility and evaluation runtime has since been merged; see
+[the current evaluation runtime](../operations/governed-evaluation-runtime.md) and
+[the executive capability summary](../../README.md). Production execution still
+requires accepted eligibility, registered factor policies, and bound authority.
+The admission blocker and unimplemented capabilities below describe 86a only.
 Issue: https://github.com/michaelsena/turbo/issues/86
 
 This implements ADR 0004 and ADR 0012's evaluation layer, not a parallel pilot
@@ -10,7 +14,7 @@ canonical market versions. It cannot claim a global ranking or reuse an authorit
 for another submodel. The isolated service-pilot implementation and its proposed
 policy exceptions are not dependencies.
 
-## Admission and provenance
+## Historical 86a admission and provenance
 
 The immutable plan binds a validated canonical graph release receipt and exact
 selected `market_version_id` values, graph source commit/tree, strategy version
@@ -29,8 +33,8 @@ strategy hard gates through a supported governed eligibility validator, checking
 its compiler/input/event/provider provenance and exact graph/strategy bindings.
 A caller-provided `passed` JSON, hash alone, or mutable approval flag is not proof.
 Unknown or failed gates hold the market. No unionized-workforce deferral applies.
-**The current repository has no such eligibility publisher/validator. Therefore
-production preflight returns `BLOCKED_ELIGIBILITY_IMPLEMENTATION`; no authority
+**At the 86a increment, the repository had no such eligibility publisher/validator. Therefore
+86a production preflight returned `BLOCKED_ELIGIBILITY_IMPLEMENTATION`; no authority
 claim, registry initialization, credential access or transport is permitted.**
 Connecting a later eligibility implementation requires an explicit code change
 and review. No CLI flag, environment variable or input field bypasses this gate.
@@ -112,7 +116,7 @@ fixtures cannot become production eligibility via a flag. Independent review is
 required before source implementation and again before integration. Root owns
 full-suite execution and publication decisions.
 
-## Current increment (86a)
+## Historical increment (86a)
 
 The module checks frozen plan/file/code bindings, exact four-task mapping, canonical
 identifier syntax (not canonical existence), one-attempt role settings, exact
@@ -131,7 +135,7 @@ packaging reports `INVALID_WORK_UNIT` and exit 2. The command never initializes 
 registry, reads credentials, dispatches, accepts scores or publishes a projection.
 There is no production execute CLI or test-bypass flag.
 
-Still unimplemented: governed graph/eligibility admission, registry-owner creation,
+Still unimplemented in 86a: governed graph/eligibility admission, registry-owner creation,
 provider dispatch/artifact recovery, conditional resolution, pair selection,
 comparison validation and deterministic submodel publication. The preceding
 sections define their contract, not a claim that they already exist. Their tests
@@ -139,3 +143,12 @@ sections define their contract, not a claim that they already exist. Their tests
 execution. Seven current tests cover blocked production admission, fabricated
 pass/pilot identifiers, binding mutation, blind requests, disabled slots, bounded
 request admission, semantic dependency views and blocked CLI exit behavior.
+
+
+## Canonical lease release
+
+The reviewed occupier-side lease boundary is included in cumulative release
+`graph-release-5e509cb21490ef9930ea`, generated from exact GitHub source
+`bb4d96cf88a6ba9bcf1ff75e6d15dc4cdf6157f1`. The graph contains six markets and nine
+mappings, preserving all prior entries. The lease boundary remains provisional.
+Canonical acceptance does not establish strategy eligibility or investment scores.

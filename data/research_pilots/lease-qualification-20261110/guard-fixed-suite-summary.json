@@ -1,0 +1,15 @@
+{
+  "commit": "9321e80adc7e19d44d66410a07ced27d6f61f30e",
+  "elapsed_seconds": 370.587,
+  "exact_discovery_coverage": true,
+  "exact_executed_id_coverage": true,
+  "expected_tests": 538,
+  "failed_modules": [],
+  "modules": 63,
+  "passed": true,
+  "reported_tests": 538,
+  "shared_readonly_inputs_unchanged": true,
+  "skipped_modules": [],
+  "tree": "560a807e93d5f5ebb9e8fcc8b2c753a63657adbb",
+  "workers": 6
+}

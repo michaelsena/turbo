@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "purpose": "Separate exact research approval runtime from prospective guard-fixed test coverage",
+  "approval_runtime_commit": "2693d4c6c8734654fc9e22db415816109854b98c",
+  "approval_runtime_tree": "97f400309e8eea664256cd427abcb2acfa848582",
+  "original_suite_result": "FAILED; two legacy guard tests; this remains a failure, not retroactively changed",
+  "original_suite_summary_sha256": "1ccfa528af9d3264f70ab4cb6cff6cc0e31b16b7cf1f3ba9f1eb93b4daaf7f56",
+  "guard_fixed_suite_summary": "guard-fixed-suite-summary.json",
+  "guard_fixed_suite_summary_sha256": "5b59dffcc6e54b6a04b4ebc46807447e0d85aad70b4cad624abc24efb6415bf8",
+  "guard_fixed_suite_commit": "9321e80adc7e19d44d66410a07ced27d6f61f30e",
+  "guard_fixed_suite_tree": "560a807e93d5f5ebb9e8fcc8b2c753a63657adbb",
+  "guard_delta_path": "src/turbo/agents/batch_provider.py",
+  "guard_delta_sha256": "0c5073673bbd4e81e684716383bf771a41c37da5fbfb6c20ac5f92f8e46ac028",
+  "accepted_preview_sha256": "2fb624d01b356c63327fc5e930113f8c7ae3a76fbdca40a8cb56bec7db09c6f3",
+  "accepted_review_sha256": "0e2333ac360a4b50887894c94329cb5dae31b757c89ca5e9a20035213beade20",
+  "model_invoked_for_publication": false
+}

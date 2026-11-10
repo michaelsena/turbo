@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "archive": "lease-canonical-replay.zip",
+  "archive_bytes": 614379,
+  "archive_sha256": "351fb82a7caf362e74f92401f470912d050bc17aa910d15ac75abf66512c22ed",
+  "entry_count": 12,
+  "files": {
+    "workflow/plan.json": {
+      "bytes": 1783,
+      "sha256": "0d3b0f2b893ab6dd22fd7ac7a0c8578dba30a65158422a6124e8c45a2a4fa59f",
+      "restore_path": "/private/tmp/turbo-service-qualified-v2-ember/workflow/plan.json"
+    },
+    "workflow/context.json": {
+      "bytes": 2573310,
+      "sha256": "fad2f78c2955f2bc31703e2f3efe8a8a46e04a17ab6b7ef3bf2047a36f54ff1d",
+      "restore_path": "/private/tmp/turbo-service-qualified-v2-ember/workflow/context.json"
+    },
+    "workflow/primary.json": {
+      "bytes": 16033,
+      "sha256": "4b4e24456fdd2f53ab83cd8b3bcd1a49bafbba726efc243617f8c8cf0e094a46",
+      "restore_path": "/private/tmp/turbo-service-qualified-v2-ember/workflow/primary.json"
+    },
+    "workflow/verifier.json": {
+      "bytes": 4930,
+      "sha256": "0f4d0b80d8dc5fba5a05f2685fcd0770f105724f7b14bf6e1b9afe3966248e8e",
+      "restore_path": "/private/tmp/turbo-service-qualified-v2-ember/workflow/verifier.json"
+    },
+    "workflow/release-preview.json": {
+      "bytes": 192470,
+      "sha256": "1342ba173cfb209d7038a21001a427956aa3d8fc9ad9dcbbac9bd6fd34789787",
+      "restore_path": "/private/tmp/turbo-service-qualified-v2-ember/workflow/release-preview.json"
+    },
+    "workflow/release_reviewer.json": {
+      "bytes": 755,
+      "sha256": "0ed1accf119e874169c0818409311a2e4f2606fb8ad49b242cee42b7445f4364",
+      "restore_path": "/private/tmp/turbo-service-qualified-v2-ember/workflow/release_reviewer.json"
+    },
+    "preparations/family-preparation:7e7d6b8b53a5730ee7368ffc/family-config-v2.json": {
+      "bytes": 15231,
+      "sha256": "51b5fc5eb0ed8c0f9385a2bbecae7e8284ad8aa45ebb45172f37fe4be9351714",
+      "restore_path": "/private/tmp/turbo-service-qualified-v2-run/preparations/family-preparation:7e7d6b8b53a5730ee7368ffc/family-config-v2.json"
+    },
+    "preparations/family-preparation:7e7d6b8b53a5730ee7368ffc/family-evidence-pack-v2.json": {
+      "bytes": 1949537,
+      "sha256": "bff1e6d9b1b215f3f026ac5c80ee703ea92c593e46414ca93e84959d154ca6bf",
+      "restore_path": "/private/tmp/turbo-service-qualified-v2-run/preparations/family-preparation:7e7d6b8b53a5730ee7368ffc/family-evidence-pack-v2.json"
+    },
+    "preparations/family-preparation:7e7d6b8b53a5730ee7368ffc/preparation-receipt.json": {
+      "bytes": 799,
+      "sha256": "b124f88c845dc32908ff061cbc8e399a6fe6990b4933c32decbf07ea305d5d53",
+      "restore_path": "/private/tmp/turbo-service-qualified-v2-run/preparations/family-preparation:7e7d6b8b53a5730ee7368ffc/preparation-receipt.json"
+    },
+    "source-restoration/turbo-service-source-minimal.pack": {
+      "bytes": 138906,
+      "sha256": "dd4abf56b74b56f73f65a61d8013dd1f24d9bbe0bc6d50126cc6c719eeb53d41",
+      "restore_path": null
+    },
+    "source-restoration/turbo-service-minimal-SHA256.json": {
+      "bytes": 656,
+      "sha256": "adfdd2b71f3097d4521ecd6a8a3bbfa46eff0151d19faa1ebffb1a9857261a17",
+      "restore_path": null
+    },
+    "source-restoration/turbo-service-minimal-restore.md": {
+      "bytes": 3485,
+      "sha256": "eca612b493e4a331361cf52dff83a93ad6a95f8e4baccec6888a7fd985772e54",
+      "restore_path": null
+    }
+  },
+  "source_pack_manifest_preserved_byte_identical": true,
+  "private_provider_or_account_records_included": false,
+  "source_restoration_required_commits": [
+    "f5fcbbd82c0fd5b847b26be96ac2a65522ef308a",
+    "de04aca6da6735eceae5e8ddec2cbec31c0a732a",
+    "243fbc385cad66e5bc6cbbcbd511b8a47397dc6f"
+  ]
+}
