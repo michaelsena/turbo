@@ -1,0 +1,100 @@
+{
+  "status": "prospective research input only; no canonical binding or eligibility pass",
+  "created_at_utc": "2026-11-10T18:05:01.045143+00:00",
+  "extends_draft_sha256": "7cbf06ee6b5a185b3cb046921e81a33e151a4f39341b13bd4050af8f2182e852",
+  "prospective_market": "outsourced community association management",
+  "sources": [
+    {
+      "source_id": "fcar26",
+      "path": "sources/fcar26.txt",
+      "url": "https://foundation.caionline.org/wp-content/uploads/2026/09/Digital-2026-Management-Company-Benchmarking-Trends-Report.pdf",
+      "retrieved_at_utc": "2026-11-10T18:05:01.045143+00:00",
+      "sha256": "2d16a2d83db243828278f4bbf3c8aaa7250fb5993d540ed6820aef1feee0350a",
+      "representation": "researcher_paraphrase"
+    },
+    {
+      "source_id": "amb",
+      "path": "sources/amb.txt",
+      "url": "https://ambadvisoryservices.com/association-management",
+      "retrieved_at_utc": "2026-11-10T18:05:01.045143+00:00",
+      "sha256": "1dad9a380707924b484f154165048250bb615f5eb6f2351e549e723f32483b28",
+      "representation": "researcher_paraphrase"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "hoa-observed-profitability",
+      "kind": "fact",
+      "source_ids": [
+        "fcar26"
+      ],
+      "text": "The survey reports 34% of respondents at operating margins 16%+, alongside one-third nondisclosure. It provides an observed profitability signal for the sample, not EBITDA or a marketwide distribution."
+    },
+    {
+      "claim_id": "hoa-joint-scale-unknown",
+      "kind": "unknown",
+      "source_ids": [
+        "fcar26"
+      ],
+      "gap_ids": [
+        "joint-scale"
+      ],
+      "text": "The 34% reporting revenue $5M+ cannot be assumed to be the same 34% reporting margin 16%+. No joint distribution or independent ownership information is provided."
+    },
+    {
+      "claim_id": "hoa-multiple-opinion",
+      "kind": "fact",
+      "source_ids": [
+        "amb"
+      ],
+      "text": "AMB publicly advertises 7\u201310x EBITDA for quality operators. This establishes its stated practitioner view only; no inspectable comps or sample support is supplied."
+    },
+    {
+      "claim_id": "hoa-price-counterevidence",
+      "kind": "inference",
+      "source_ids": [
+        "amb"
+      ],
+      "gap_ids": [
+        "observed-transactions"
+      ],
+      "text": "The advertised range overlaps both sides of a 9x ceiling, so it supports plausibility at some prices but does not support assuming all quality operators are available within the ceiling."
+    },
+    {
+      "claim_id": "hoa-scale-scenario",
+      "kind": "assumption",
+      "source_ids": [],
+      "gap_ids": [
+        "joint-scale",
+        "observed-transactions"
+      ],
+      "text": "Arithmetic scenario only: at assumed 8x EV/EBITDA, EV $10\u201350M corresponds to EBITDA $1.25\u20136.25M. If additionally assuming 20% EBITDA margin, revenue would be $6.25\u201331.25M. Neither assumption is a measured typical HOA multiple/margin, and FCAR operating margin is not silently treated as EBITDA. This scenario demonstrates numeric compatibility, not population size or eligibility."
+    },
+    {
+      "claim_id": "hoa-deposit-revenue-counterevidence",
+      "kind": "inference",
+      "source_ids": [
+        "amb"
+      ],
+      "gap_ids": [
+        "revenue-risk"
+      ],
+      "text": "Advertised bank-deposit revenue streams warrant distinguishing provider fees/incentives from principal banking, custody or credit exposure. They do not establish any particular risk allocation or violation of the strategy."
+    }
+  ],
+  "gaps": [
+    {
+      "gap_id": "joint-scale",
+      "question": "What joint revenue, adjusted-EBITDA and independent ownership population exists in the exact HOA market, including low-profit and undisclosed observations?"
+    },
+    {
+      "gap_id": "observed-transactions",
+      "question": "What auditable aggregate completed HOA-management transactions establish EV $10\u201350M availability at or below 9x EBITDA, with comparable adjustments and dates?"
+    },
+    {
+      "gap_id": "revenue-risk",
+      "question": "How do ancillary deposit-linked fees affect provider economics and contractual financial exposure without conflating client assets with provider assets?"
+    }
+  ],
+  "search_stop": "Two sources admitted. No auditable public aggregate transaction dataset found in bounded lookup. Generic property-management paid report, secondary news and unsupported broker ranges not treated as measured HOA comps. No direct lease aggregate found; no further search authorized in this bounded task."
+}
