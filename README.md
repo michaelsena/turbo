@@ -172,7 +172,10 @@ is unchanged. The
 [isolated reviewer qualification runner](docs/operations/reviewer-qualification.md)
 can execute the four prepared comparison cells only with separately supplied,
 registry-bound authority. It preserves accounting and cannot publish research or
-enable the representation in production.
+enable the representation in production. The initial
+[Flash screening](docs/operations/flash-reviewer-screening.md) passed all four
+positive/negative and plain/reference cells. This limited result leaves production
+defaults unchanged; larger-workload quality and output headroom remain unqualified.
 
 The next operational gate is a bounded qualification decision, not an automatic
 universe-wide rollout. App work, investment ranking and company discovery remain

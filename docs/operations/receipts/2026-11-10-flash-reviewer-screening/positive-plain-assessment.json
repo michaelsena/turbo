@@ -1,0 +1,15 @@
+{
+  "case": "case-b",
+  "assessment": "PASS",
+  "scope": "This fixture only; concise approval rationale does not prove depth of latent review.",
+  "evidence": [
+    "Approve is supported: industrial-sand job matches evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065, with water-resource construction excluded.",
+    "Metal-ore job matches evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff; gold exclusion has positive product/industry evidence:b18ebe234ceaeedc5d4f6a5f598636683a108fae7697036b31efa1beb2536df7.",
+    "Both proposals state all seven dimensions and label unsupported operating details unknown; acquisition universes are inference.",
+    "Both families cover all required identities and candidates once. Supplied verifier has ten agreement assessments and no material disagreement.",
+    "Exact preview a2af41b94b6ee59b2f04e88a57cfede8faa6d4aa204f6bb391cd0298c675b438 preserves provisional markets and attached research gaps; family closure reasons distinguish containing industries from products sold.",
+    "All five required checks pass, with no unresolved findings. No unsupported material rationale or overlooked material constraint demonstrated."
+  ],
+  "unsupported_material_findings": [],
+  "missed_material_checks": []
+}

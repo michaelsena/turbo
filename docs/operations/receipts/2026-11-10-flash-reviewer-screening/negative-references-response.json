@@ -1,0 +1,22 @@
+{
+  "input_hashes": {
+    "primary": "30149aa5d420041d437bdc791d902b5fea04d6c325815dbd8812727b695e4ac9",
+    "verifier": "92dcea89df6c32675cf73cbfbf293a642d21e34b7b7640a21712170eb3ca1306"
+  },
+  "approved_plan_sha256": "456b896a0df9777fd49ef17e901ac20b706e98e04f0ca21797c68799add698ca",
+  "verdict": "reject",
+  "findings": [
+    {
+      "finding_id": "finding:proposal-212322-inverted-job-dimension",
+      "status": "unresolved",
+      "rationale": "In proposal:9a0a16bfbc735598:industrial-sand-mining, the job dimension statement explicitly claims that the operating job is constructing water-resource projects including dredging and land drainage performed as construction, and asserts that industrial-grade sand extraction and preparation are outside this market. This directly contradicts the NAICS 212322 definition in evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065 (which classifies water-resource construction projects under NAICS 237990 as an explicit cross-reference exclusion) as well as the proposal's own boundary and explicit exclusions. The verifier agreed erroneously, allowing a corrupt operating identity to propagate into the compiler release preview."
+    }
+  ],
+  "checks": {
+    "coverage": "pass",
+    "operating_identity": "fail",
+    "evidence": "fail",
+    "cross_family_conflicts": "pass",
+    "closure_outcomes": "fail"
+  }
+}

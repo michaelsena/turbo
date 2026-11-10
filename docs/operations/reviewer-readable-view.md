@@ -1,8 +1,9 @@
 # Opt-in readable references for the release reviewer
 
 This representation is available only through a fresh, explicit authorization.
-Plain requests remain the default. It has not passed a model-quality qualification
-and must not be enabled automatically or used to justify projected spend savings.
+Plain requests remain the default. A [limited Flash screening](flash-reviewer-screening.md)
+passed two fixtures in both representations. Broader quality remains unqualified;
+this must not be enabled automatically or used to justify universe-wide spend savings.
 Primary, verifier, escalation and adjudicator assignments remain plain JSON.
 
 Use `batch_provider.execution_contract_hashes(reviewer_view=readable.FORMAT)` and

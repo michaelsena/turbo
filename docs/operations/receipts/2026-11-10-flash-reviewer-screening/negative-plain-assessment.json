@@ -1,0 +1,14 @@
+{
+  "case": "case-a",
+  "assessment": "PASS",
+  "scope": "This fixture only; no inference of generalized quality or verifier performance.",
+  "evidence": [
+    "Correct reject for industrial-sand job inversion against evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065: narrative supports sand extraction/preparation; cross-reference assigns water-resource construction to 237990.",
+    "Proposal boundary and explicit exclusions also contradict corrupted job.",
+    "Exact preview 456b896a0df9777fd49ef17e901ac20b706e98e04f0ca21797c68799add698ca carries corrupted job_to_be_done into market:54843713795bf51f02888c20 and requests family activation.",
+    "Extra citation and preview findings supported; supplied verifier agreement is inconsistent with payload, but agreement was synthetically retained and cannot establish actual verifier failure.",
+    "All five required checks present; required identities and candidates covered in both families."
+  ],
+  "unsupported_material_findings": [],
+  "missed_material_checks": []
+}
