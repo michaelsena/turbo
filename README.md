@@ -293,7 +293,12 @@ The eight-identity, two-family plain qualification passed primary and selective
 verification for **$0.033487** combined provider cost. It proposes two provisional
 markets and seven mappings, retaining research gaps. The independent release call
 returned HTTP 400 with unknown usage and cost, so **no new markets were activated**.
-Its $2.270 reservation remains held; it is not reported as actual spend. This compact
+A replacement also returned HTTP400. Controlled diagnostic probes subsequently
+identified the Google-facing findings-array bound as the request blocker; the
+[narrow compatibility fix](docs/operations/reviewer-request-compatibility.md) retains
+full canonical validation. No corrected production review has completed. Earlier
+unknown exposure remains held and further execution requires explicit aggregate
+authority covering every attempt. This compact
 case does not establish universe-wide quality or the targeted 5× cost reduction.
 See the [qualification receipt](docs/operations/receipts/2026-11-09-small-qualification.json)
 and [issue 52](https://github.com/michaelsena/turbo/issues/52).

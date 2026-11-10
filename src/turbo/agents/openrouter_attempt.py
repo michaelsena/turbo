@@ -20,7 +20,7 @@ from jsonschema import Draft202012Validator
 from turbo.agents.batch_output import _strict_json
 from turbo.agents.openrouter_runner import (
     OPENROUTER_CHAT_COMPLETIONS_URL, Transport,
-    _message_content, openrouter_request_body, openrouter_schema,
+    _message_content, openrouter_request_body, openrouter_role_schema,
 )
 
 MAX_RESPONSE_BYTES = 4_000_000
@@ -313,7 +313,7 @@ def invoke_openrouter_once(
         _local_references(schema)
         Draft202012Validator.check_schema(schema)
         schema_bytes = _canonical(schema)
-        provider_schema = openrouter_schema(schema)
+        provider_schema = openrouter_role_schema(schema, role_id=role, model=model)
         request = bounded_request_body(routing=routing, role_id=role, model=model, reasoning_effort=reasoning_effort,
             runtime_prompt_text=runtime_prompt_text, schema=provider_schema,
             invocation_id=invocation_id, max_completion_tokens=max_completion_tokens,

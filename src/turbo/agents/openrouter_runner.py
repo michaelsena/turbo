@@ -61,6 +61,23 @@ def openrouter_schema(value: object) -> object:
     return value
 
 
+
+def openrouter_role_schema(value: object, *, role_id: str, model: str) -> object:
+    """Provider-facing compatibility only; callers still validate the original.
+
+    Gemini compiles array bounds into its output grammar. The release schema's
+    large findings bound can exceed that compiler's state budget. Omit only this
+    bound for Google release reviewers; the canonical schema remains authoritative.
+    """
+    adapted = openrouter_schema(value)
+    if role_id == "release_reviewer" and model.startswith("google/") and isinstance(adapted, dict):
+        properties = adapted.get("properties")
+        findings = properties.get("findings") if isinstance(properties, dict) else None
+        if isinstance(findings, dict) and findings.get("type") == "array":
+            findings.pop("maxItems", None)
+    return adapted
+
+
 def _json_schema_type(value: object) -> str:
     if value is None:
         return "null"
