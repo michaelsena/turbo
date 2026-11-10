@@ -1,0 +1,16 @@
+{
+  "source_id": "gsa-interim",
+  "url": "https://www.gsa.gov/about-gsa/newsroom/news-releases/gsa-awards-interim-leasing-support-services-contract-01132026",
+  "published_date": "2026-01-13",
+  "retrieved_at": "2026-11-10T22:24:36.556200Z",
+  "source_type": "primary public issuer/government page",
+  "retrieval_method": "web search/open; selected verbatim excerpt and researcher paraphrase; original HTML not retained",
+  "retrieval_reference": "turn962759919view3",
+  "locator": "lines 7,9-14",
+  "verbatim_excerpt": "post-award management",
+  "researcher_fact_paraphrase": "GSA announced nine interim leasing-support contracts with commercial brokers. Scope includes post-award management; compensation uses existing shell rent under a no-cost contract structure.",
+  "limitations_and_inference": "Adjacent broker/lease-procurement scope, not pure recurring occupier administration; do not count nine brokers as exact-market acquisition candidates. No direct government fee does not establish no government-related demand.",
+  "relevant_gates": [
+    "government"
+  ]
+}

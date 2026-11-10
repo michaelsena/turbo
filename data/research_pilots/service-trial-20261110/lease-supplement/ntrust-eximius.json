@@ -1,0 +1,16 @@
+{
+  "source_id": "ntrust-eximius",
+  "url": "https://www.einpresswire.com/article/606325416/ntrust-infotech-a-leader-in-commercial-real-estate-software-and-services-announces-the-acquisition-of-eximius-bpo",
+  "published_date": "2022-12-14",
+  "retrieved_at": "2026-11-10T22:24:36.556200Z",
+  "source_type": "primary public issuer/government page",
+  "retrieval_method": "web search/open; selected verbatim excerpt and researcher paraphrase; original HTML not retained",
+  "retrieval_reference": "turn479904199search1;turn511008649view2",
+  "locator": "company-issued press release",
+  "verbatim_excerpt": "announces the acquisition of Philippine-based Eximius BPO",
+  "researcher_fact_paraphrase": "NTrust issued an acquisition announcement for Philippine-based Eximius BPO, describing commercial real estate abstraction and lease administration services.",
+  "limitations_and_inference": "Primary issuer announcement hosted by a distributor. Foreign acquired business and broader customer mix; secondary analogue only, not US EV10-50M population evidence. No transaction price or EBITDA supplied.",
+  "relevant_gates": [
+    "buyability"
+  ]
+}

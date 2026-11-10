@@ -1,0 +1,448 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-10T22:27:54.782582Z",
+  "source_commit": "bbb390b4881b47ff83c8a032881f22624d20fbd1",
+  "source_tree": "4bc091518c03b5e0419e148e8d8bc66a4620dc79",
+  "source_clean": true,
+  "scope": "read-only source/policy readiness audit; no provider endpoint lookup or real-workunit admission performed",
+  "source_bindings": {
+    "config/evaluation/calibration/service-cohort-v0.1/calibration-manifest.json": "2e7c271982cce79fefbf6515804f2fb3667747a4e31232a4a47268a1cb844922",
+    "src/turbo/agents/evaluation_execution.py": "757b110338c97354fcf51a2a714d1fe459be28499bfa292158af0e9b7312729d",
+    "src/turbo/agents/evaluation_scores.py": "2c602638c7b3eefac9322426e6fbb296c5470fa02100c0363b7af386bfa5ffb7",
+    "src/turbo/agents/governed_eligibility.py": "231f73b24471ad4eee79a0510b34dd8ba012411d8da6fd3a87c6e803c9074489",
+    "src/turbo/agents/evaluation_workflow.py": "217a45ac6dde0dc6ee359a1e457bacdb90b8cdcc1fa95d8ab27673a5b7311d6f",
+    "scripts/run-governed-evaluation.py": "a7a72370b64f4d93f2be97ce133afc2f000741576058fcc18825be669f9e5545",
+    "docs/operations/governed-evaluation-runtime.md": "9a1b736e2058ecb060d5027cc4ebbe9caab967620cf8677610afbf699f81cf0d",
+    "tests/test_evaluation_execution.py": "dff058d0026b261ce564c38d097b202b028a89545828c2217ff592655be8a231"
+  },
+  "submodels": [
+    {
+      "submodel": "Demand and Market Attractiveness",
+      "version": "submodel:demand-market-attractiveness:proposal-20261110-v01",
+      "source_path": "config/evaluation/calibration/service-cohort-v0.1/demand-market-attractiveness.json",
+      "sha256": "47ad3bdc5ac17ec19bd726cd058a22b0d48833a66ab35e7ce4826db02c10a12b",
+      "runtime_policy_validation": "pass",
+      "manifest_hash_match": true,
+      "factor_count": 2,
+      "factors": [
+        {
+          "id": "factor:durable-demand:proposal-20261110-v01",
+          "weight": 1,
+          "range": [
+            0,
+            100
+          ],
+          "tolerance": 10,
+          "anchors": {
+            "0": "Demand is being structurally eliminated or customers need not pay for the outcome.",
+            "25": "Demand is discretionary, fragile or highly cyclical with weak renewal drivers.",
+            "50": "A recurring need exists, but duration, spending priority or cyclicality is mixed.",
+            "75": "Recurring essential outcomes support durable spending across normal cycles.",
+            "100": "Multiple independent lines of evidence support persistent, essential obligations and resilient spending."
+          },
+          "evidence_expectations": [
+            "Durable demand: Time series of demand/volumes, customer obligations, renewal behavior, cyclicality and substitution; distinguish industry growth from provider pricing."
+          ]
+        },
+        {
+          "id": "factor:competitive-opening:proposal-20261110-v01",
+          "weight": 1,
+          "range": [
+            0,
+            100
+          ],
+          "tolerance": 10,
+          "anchors": {
+            "0": "No credible route for an entrant/acquirer to win economically against entrenched alternatives.",
+            "25": "Opening is narrow and advantage depends on unverified exceptions.",
+            "50": "Identifiable segments are contestable but differentiation and access are mixed.",
+            "75": "Fragmentation or poor service leaves a credible defensible route to win customers.",
+            "100": "Evidence supports a repeated, reachable opening with sustainable differentiation and attractive acquisition channels."
+          },
+          "evidence_expectations": [
+            "Competitive opening: Market structure, buyer alternatives, procurement/switching constraints, win/loss evidence and provider concentration; no unsupported market-share claims."
+          ]
+        }
+      ],
+      "task_policy_match": true,
+      "comparison_max_delta": 5,
+      "admission": "BLOCKED_NO_ACCEPTED_ELIGIBILITY_AND_NO_FROZEN_AUTHORIZED_FACTOR_UNIT",
+      "accepted_scores": null
+    },
+    {
+      "submodel": "LMM Buyability and Roll-Up Potential",
+      "version": "submodel:lmm-buyability-roll-up:proposal-20261110-v01",
+      "source_path": "config/evaluation/calibration/service-cohort-v0.1/lmm-buyability-roll-up.json",
+      "sha256": "902eb20b9238b337a4cd7c7903b74877d710dc450a5a44ce154b80aef817d3bc",
+      "runtime_policy_validation": "pass",
+      "manifest_hash_match": true,
+      "factor_count": 2,
+      "factors": [
+        {
+          "id": "factor:acquisition-pricing:proposal-20261110-v01",
+          "weight": 1,
+          "range": [
+            0,
+            100
+          ],
+          "tolerance": 10,
+          "anchors": {
+            "0": "Available evidence implies no feasible acquisition under the strategy hard ceiling; refer eligibility conflict.",
+            "25": "Feasible pricing is uncommon or economics rely on optimistic adjustments.",
+            "50": "Some plausible opportunities fit the ceiling, but evidence is thin or mixed.",
+            "75": "Representative opportunities fit preferred economics without speculative AI gains.",
+            "100": "Repeated credible transaction evidence supports attractive standalone returns within the stated strategy."
+          },
+          "evidence_expectations": [
+            "Acquisition pricing: Comparable transaction or valuation evidence with date, size, EBITDA basis and representativeness; distinguish asking prices from closed prices and market hypothesis from deal fact."
+          ]
+        },
+        {
+          "id": "factor:target-availability:proposal-20261110-v01",
+          "weight": 1,
+          "range": [
+            0,
+            100
+          ],
+          "tolerance": 10,
+          "anchors": {
+            "0": "No credible population of independent eligible acquisition targets.",
+            "25": "Few or poorly accessible candidates with substantial concentration/size mismatch.",
+            "50": "Plausible population exists, but ownership, sizes or accessibility remain uncertain.",
+            "75": "Evidence supports a meaningful accessible independent population near target EV.",
+            "100": "Repeated market evidence supports a deep, replenishing pool with actionable ownership and size characteristics."
+          },
+          "evidence_expectations": [
+            "Target availability: Provider population, ownership/size distribution, succession patterns and consolidation history; do not fabricate company-specific diligence or counts."
+          ]
+        }
+      ],
+      "task_policy_match": true,
+      "comparison_max_delta": 5,
+      "admission": "BLOCKED_NO_ACCEPTED_ELIGIBILITY_AND_NO_FROZEN_AUTHORIZED_FACTOR_UNIT",
+      "accepted_scores": null
+    },
+    {
+      "submodel": "Base-Business Quality and Cash Economics",
+      "version": "submodel:base-business-cash-economics:proposal-20261110-v01",
+      "source_path": "config/evaluation/calibration/service-cohort-v0.1/base-business-cash-economics.json",
+      "sha256": "420378bd04684c3ad998761f900583e95cf2dafe7805c5da446bfce004ac7d09",
+      "runtime_policy_validation": "pass",
+      "manifest_hash_match": true,
+      "factor_count": 2,
+      "factors": [
+        {
+          "id": "factor:quality-of-earnings:proposal-20261110-v01",
+          "weight": 1,
+          "range": [
+            0,
+            100
+          ],
+          "tolerance": 10,
+          "anchors": {
+            "0": "Standalone cash economics are structurally unattractive or not sustainable.",
+            "25": "Revenue quality, working capital or customer concentration make cash conversion fragile.",
+            "50": "Mixed recurring revenue, margins and reinvestment requirements produce plausible standalone economics.",
+            "75": "Evidence supports durable earnings, credible cash conversion and manageable concentration/reinvestment.",
+            "100": "Multiple representative sources support highly durable standalone cash earnings with low hidden reinvestment and clear downside resilience."
+          },
+          "evidence_expectations": [
+            "Quality of earnings: Recurring/contract revenue, retention, concentration, normalized margins, cash conversion, capital intensity and working capital; exclude projected AI savings from the base case."
+          ]
+        },
+        {
+          "id": "factor:displacement-resilience:proposal-20261110-v01",
+          "weight": 1,
+          "range": [
+            0,
+            100
+          ],
+          "tolerance": 10,
+          "anchors": {
+            "0": "The paid service is plausibly eliminated by substitution or AI rather than improved.",
+            "25": "Material portions of the paid outcome may commoditize without a credible response.",
+            "50": "Some tasks are substitutable but durable human/accountability/customer obligations remain.",
+            "75": "The paid outcome remains valuable across credible technology and business-model changes.",
+            "100": "Evidence supports durable accountability and customer value despite substitution of component tasks."
+          },
+          "evidence_expectations": [
+            "Resilience to displacement: Substitution pathways, buyer willingness to pay, insourcing and platform threats, obligation/accountability requirements; assess the service outcome rather than incumbent tooling."
+          ]
+        }
+      ],
+      "task_policy_match": true,
+      "comparison_max_delta": 5,
+      "admission": "BLOCKED_NO_ACCEPTED_ELIGIBILITY_AND_NO_FROZEN_AUTHORIZED_FACTOR_UNIT",
+      "accepted_scores": null
+    },
+    {
+      "submodel": "Operating Scalability and Integration",
+      "version": "submodel:operating-scalability-integration:proposal-20261110-v01",
+      "source_path": "config/evaluation/calibration/service-cohort-v0.1/operating-scalability-integration.json",
+      "sha256": "d7842884f41b361eb7e3ba5847ac8106136b97c726d3117a7e7058e66be5bf24",
+      "runtime_policy_validation": "pass",
+      "manifest_hash_match": true,
+      "factor_count": 2,
+      "factors": [
+        {
+          "id": "factor:implementation-feasibility:proposal-20261110-v01",
+          "weight": 1,
+          "range": [
+            0,
+            100
+          ],
+          "tolerance": 10,
+          "anchors": {
+            "0": "Critical data, permissions, physical tasks or error controls make the proposed improvement impractical.",
+            "25": "Several major access/integration/change-management blockers lack solutions.",
+            "50": "A bounded implementation is plausible with material open dependencies.",
+            "75": "Named inputs, access, integrations, authority and verification support a practical staged implementation.",
+            "100": "A specific repeatable deployment design is supported by evidence, measurable acceptance tests and credible operational ownership."
+          },
+          "evidence_expectations": [
+            "Implementation feasibility: Bounded implementation: inputs, entity model, triggers, allowed actions, human approvals, completion verification, error modes, integration cost and deployment ownership."
+          ]
+        },
+        {
+          "id": "factor:reuse-across-acquisitions:proposal-20261110-v01",
+          "weight": 1,
+          "range": [
+            0,
+            100
+          ],
+          "tolerance": 10,
+          "anchors": {
+            "0": "Each acquisition requires a fundamentally bespoke operating stack and workflow.",
+            "25": "Limited reusable components; most value depends on customization or local exceptions.",
+            "50": "Some shared entities/processes exist but migration and exceptions vary.",
+            "75": "Common workflows, data models and integrations plausibly repeat across acquisitions.",
+            "100": "Evidence supports highly reusable operating primitives with manageable migration and clear learning/economic advantages at portfolio scale."
+          },
+          "evidence_expectations": [
+            "Reuse across acquisitions: Cross-provider workflow/process commonality, entity/schema overlap, software fragmentation, integration/migration effort and residual local variation."
+          ]
+        }
+      ],
+      "task_policy_match": true,
+      "comparison_max_delta": 5,
+      "admission": "BLOCKED_NO_ACCEPTED_ELIGIBILITY_AND_NO_FROZEN_AUTHORIZED_FACTOR_UNIT",
+      "accepted_scores": null
+    },
+    {
+      "submodel": "Ambient-AI Workflow Transformability",
+      "version": "submodel:ambient-ai-workflow:proposal-20261110-v01",
+      "source_path": "config/evaluation/calibration/service-cohort-v0.1/ambient-ai-workflow.json",
+      "sha256": "f6cd96ea50f3dda7d54315899cdbde9dfbc7166ef59137c93af004e5d7ccb657",
+      "runtime_policy_validation": "pass",
+      "manifest_hash_match": true,
+      "factor_count": 2,
+      "factors": [
+        {
+          "id": "factor:increase-completed-work:proposal-20261110-v01",
+          "weight": 1,
+          "range": [
+            0,
+            100
+          ],
+          "tolerance": 10,
+          "anchors": {
+            "0": "No credible increase in accepted customer output; benefit is only activity or speculative labor removal.",
+            "25": "Small isolated task savings have weak linkage to completed valuable work.",
+            "50": "A bounded loop can improve a bottleneck, but output conversion or verification remains uncertain.",
+            "75": "A concrete capture-connect-recognize-act-verify loop measurably increases accepted output or reduces costly failure.",
+            "100": "Evidence supports a material, verifiable improvement in completed outcomes with identified demand/capacity conversion and human controls."
+          },
+          "evidence_expectations": [
+            "Increase in completed work: Current bottleneck, output baseline, demand constraint, capture-connect-recognize-act-verify design, acceptance/error metrics and measurable before/after mechanism."
+          ]
+        },
+        {
+          "id": "factor:accumulated-context-dependence:proposal-20261110-v01",
+          "weight": 1,
+          "range": [
+            0,
+            100
+          ],
+          "tolerance": 10,
+          "anchors": {
+            "0": "Useful work is nearly stateless and standardized; persistent context adds little.",
+            "25": "A small amount of static reference data explains most work.",
+            "50": "Some recurring decisions benefit from linked historical entities and commitments.",
+            "75": "Persistent multi-source context materially changes correct actions and resolves recurring exceptions.",
+            "100": "Accumulating verified context across entities, commitments and outcomes creates a repeatable improvement unavailable from isolated documents."
+          },
+          "evidence_expectations": [
+            "Accumulated-context dependence: Persistent entities/commitments, changing source streams, historical dependencies, exception decisions and examples where the correct next action changes with context."
+          ]
+        }
+      ],
+      "task_policy_match": true,
+      "comparison_max_delta": 5,
+      "admission": "BLOCKED_NO_ACCEPTED_ELIGIBILITY_AND_NO_FROZEN_AUTHORIZED_FACTOR_UNIT",
+      "accepted_scores": null
+    },
+    {
+      "submodel": "Ownership Value Capture and Risk",
+      "version": "submodel:ownership-value-capture-risk:proposal-20261110-v01",
+      "source_path": "config/evaluation/calibration/service-cohort-v0.1/ownership-value-capture-risk.json",
+      "sha256": "3231c5f6eb51a07d4c7fb1d9bf58a30232df8d955c4b554e7dc2869ae2a837d4",
+      "runtime_policy_validation": "pass",
+      "manifest_hash_match": true,
+      "factor_count": 2,
+      "factors": [
+        {
+          "id": "factor:distinctiveness:proposal-20261110-v01",
+          "weight": 1,
+          "range": [
+            0,
+            100
+          ],
+          "tolerance": 10,
+          "anchors": {
+            "0": "The proposed capability is ordinary commodity software with no defensible operating advantage.",
+            "25": "Differentiation is temporary or readily purchased by every competitor.",
+            "50": "Some proprietary integration or process advantage is plausible but not established.",
+            "75": "Owned workflow access, feedback and execution create a credible advantage over generic tools.",
+            "100": "Evidence supports a hard-to-replicate operating capability rooted in lawful access, accumulated context, verification and execution."
+          },
+          "evidence_expectations": [
+            "Distinctiveness: Comparison against existing software/services and generic AI, access rights, operating feedback loops, integration depth and replication cost; no vague AI moat claims."
+          ]
+        },
+        {
+          "id": "factor:retained-economic-value:proposal-20261110-v01",
+          "weight": 1,
+          "range": [
+            0,
+            100
+          ],
+          "tolerance": 10,
+          "anchors": {
+            "0": "Customers/vendors capture the benefit or implementation costs exceed sustained gains.",
+            "25": "Most gains are competed away, require constant reinvestment or depend on optimistic revenue conversion.",
+            "50": "Some retained value is plausible but pricing, demand conversion and recurring costs are uncertain.",
+            "75": "Owner plausibly retains material net earnings after deployment, review, ongoing operation and customer pass-through.",
+            "100": "Evidence supports durable retained incremental cash earnings under explicit conservative costs, pricing and competitive responses."
+          },
+          "evidence_expectations": [
+            "Retained economic value: Mechanistic earnings bridge, utilization/revenue conversion, pricing/pass-through, software/model/integration/review costs and competitive response; avoid double-counting base earnings and task savings."
+          ]
+        }
+      ],
+      "task_policy_match": true,
+      "comparison_max_delta": 5,
+      "admission": "BLOCKED_NO_ACCEPTED_ELIGIBILITY_AND_NO_FROZEN_AUTHORIZED_FACTOR_UNIT",
+      "accepted_scores": null
+    }
+  ],
+  "task_model_policy": {
+    "tasks": {
+      "evaluator_a": {
+        "model": "openai/gpt-5.6-terra",
+        "reasoning_effort": "high"
+      },
+      "evaluator_b": {
+        "model": "google/gemini-4-argon",
+        "reasoning_effort": "high"
+      },
+      "adjudicator": {
+        "model": "openai/gpt-5.6-terra",
+        "reasoning_effort": "high"
+      },
+      "comparator": {
+        "model": "google/gemini-4-argon",
+        "reasoning_effort": "high"
+      }
+    }
+  },
+  "semantic_task_to_ledger_slot": {
+    "evaluator_a": "primary",
+    "evaluator_b": "verifier",
+    "adjudicator": "adjudicator",
+    "comparator": "release_reviewer"
+  },
+  "global_ranking": {
+    "enabled": false,
+    "weights_approved": false,
+    "reason": "Global weights remain a proposal; no global aggregator implemented. Six independent submodel outputs are the adopted scope."
+  },
+  "call_envelope": {
+    "minimum_per_cohort_all_six": 18,
+    "maximum_per_cohort_all_six": 24,
+    "eligibility_separate": true,
+    "spend_authorized_by_this_audit": 0
+  },
+  "production_blockers": [
+    {
+      "id": "eligibility",
+      "kind": "evidence_and_provider_acceptance",
+      "detail": "Each selected market must have a valid provider-backed exact graph/strategy-bound eligibility result with all ten gates pass. Lease attempt failed semantic validation; supplemental research retains five unknowns. Canonical existence alone insufficient.",
+      "enforced_by": "governed_eligibility.validate_for_evaluation"
+    },
+    {
+      "id": "factor_unit_preparation",
+      "kind": "required_operator_inputs",
+      "detail": "Prepare six separately frozen workunits with exact factor bytes, source/claim/gap packs and cutoff, four distinct actors, task prompts/canonical schemas, exact task-model policies, registry paths and plan hashes. No concrete production factor unit verified in this audit.",
+      "enforced_by": "evaluation_execution.freeze_plan/load_plan/_validated_input"
+    },
+    {
+      "id": "routes_prices_context",
+      "kind": "live_preflight_not_verified",
+      "detail": "Current exact model endpoints, provider routing, price ceilings, output/context bounds and schema compatibility need verification. Adopted model strings alone do not prove availability. Initial preflight checks bindings/admission; request measurement requires initialized run_task(execute=False), and adjudicator/comparator requests need real upstream outputs.",
+      "enforced_by": "evaluation_execution._request/run_task"
+    },
+    {
+      "id": "authority_budget",
+      "kind": "explicit_execution_preparation",
+      "detail": "Each submodel needs exact external authority binding its plan/code/roles and four-call maximum, expiry and cost cap. Allocate aggregate budget across six units; unused slots cannot be recycled. No new spending authorization or authority is created here.",
+      "enforced_by": "evaluation_execution._authority"
+    },
+    {
+      "id": "review",
+      "kind": "substantive_validation",
+      "detail": "Synthetic tests validate mechanics, not real factor-rating quality. Factor-specific evidence expectations and confidence/quality overlap require review; schema-valid output does not establish economic truth."
+    }
+  ],
+  "implementation_boundaries": [
+    {
+      "capability": "single-submodel governed execution and projection",
+      "status": "implemented",
+      "detail": "Blind A/B, conditional adjudication, scoped comparator, provider/journal replay, full-grid validation and exact model-policy checking exist."
+    },
+    {
+      "capability": "six-unit scheduler/shared spend pool",
+      "status": "not_implemented_intentional",
+      "detail": "Manual separate workunits work; automatic cohort orchestration and shared aggregate budget enforcement require additional reviewed implementation."
+    },
+    {
+      "capability": "automatic publication/global aggregation",
+      "status": "not_implemented_intentional",
+      "detail": "Projection is read-only, not canonical publication or global rank. No global weights invented."
+    },
+    {
+      "capability": "ambiguous-attempt retry/recovery",
+      "status": "not_implemented_intentional",
+      "detail": "Failure or unresolved attempt blocks further dispatch; no automatic retry, fallback or output repair."
+    },
+    {
+      "capability": "historical evaluation_workflow adapter",
+      "status": "still_blocked_by_design",
+      "detail": "Do not use scripts/run-evaluation-work-unit.py as current production execution; current path is scripts/run-governed-evaluation.py."
+    }
+  ],
+  "new_correctness_defect_found": false,
+  "limitation": "Targeted source review, not exhaustive security review. No claim that production endpoint/model quality has been validated.",
+  "verification": {
+    "policy_files_validated": 6,
+    "anchors_checked": 60,
+    "factor_task_model_mappings_checked": 48,
+    "tests": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests python -m unittest test_evaluation_execution -v",
+      "result": "12 tests passed",
+      "log_sha256": "6de3f226c8b801e01646af2886c0e07aea76b9f226e451427b30833da8d012d0",
+      "transport": "synthetic tests only"
+    }
+  },
+  "private_audit_sha256": "19c677bddef0f4033b838abe54ad885be4336bf651bf0bbadc0d0898fe89c342",
+  "evidence_expectations_scope": "Selected factor-specific excerpts only; full authoritative evidence, anti-bias, confidence and downside requirements remain in the hash-bound policy files. This audit is not a runnable factor pack."
+}

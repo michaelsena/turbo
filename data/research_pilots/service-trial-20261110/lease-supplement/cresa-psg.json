@@ -1,0 +1,17 @@
+{
+  "source_id": "cresa-psg",
+  "url": "https://www.cresa.com/fr-FR/News/Cresa-Aquires-PSG",
+  "published_date": "2019-04-04",
+  "retrieved_at": "2026-11-10T22:24:36.556200Z",
+  "source_type": "primary public issuer/government page",
+  "retrieval_method": "web search/open; selected verbatim excerpt and researcher paraphrase; original HTML not retained",
+  "retrieval_reference": "turn962759919view4",
+  "locator": "lines 4,8-13",
+  "verbatim_excerpt": "With 20,000 leases currently under management by its 40-person team",
+  "researcher_fact_paraphrase": "Cresa announced completion of its acquisition of Chicago-based Portfolio Solutions Group, a lease administration, accounting and abstraction services business, to become Cresa Lease Administration. The announcement reports 20,000 leases managed by 40 people.",
+  "limitations_and_inference": "Direct US occupier-service acquisition precedent; materially stronger than software-only acquisitions. Historical acquired business, not a current independent target. No consideration, EBITDA, enterprise value or multiple disclosed in this source.",
+  "relevant_gates": [
+    "acquisition_population_ev_range",
+    "buyability"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "status": "supplemental_research_candidate_not_accepted_evaluation",
+  "market": "Occupier-side commercial lease administration",
+  "market_version_id": "market-version:dbfc373d38a7a39fcaa670da",
+  "created_at": "2026-11-10T22:24:36.556200Z",
+  "baseline_evidence_sha256": "0639bef611539c7dddd9d8b416d543f799e19de6edf1e870d5e779733329d445",
+  "sources": [
+    {
+      "source_id": "cresa-psg",
+      "path": "cresa-psg.json",
+      "sha256": "f6bd3c6e72cf2c2d7e48ed538c0a68d700e943df317b140007360e113d6720da"
+    },
+    {
+      "source_id": "ntrust-controls",
+      "path": "ntrust-controls.json",
+      "sha256": "c85b3a4ae5141a07585e74d1dff0dbde23ea802ae4bba11ab162dec9df3d5bf9"
+    },
+    {
+      "source_id": "las-services",
+      "path": "las-services.json",
+      "sha256": "4328da9d063ee9c66376dfad9d63d4335fa0b52fd250bc334dcc714d3e5ff260"
+    },
+    {
+      "source_id": "las-founder",
+      "path": "las-founder.json",
+      "sha256": "ee3016dec11d9d2c26e419be48d09c903f1c89277a9d43710e7f82f8576d5bbf"
+    },
+    {
+      "source_id": "cresa-government",
+      "path": "cresa-government.json",
+      "sha256": "9cc05c4def9ea509e3bfd47a4fb204019d68760360ad44bad584f50756b9963c"
+    },
+    {
+      "source_id": "gsa-interim",
+      "path": "gsa-interim.json",
+      "sha256": "c4edd24c01bda4810a3edb062ff653aec56a0bda23c6a07ea097d579455d4717"
+    },
+    {
+      "source_id": "ntrust-eximius",
+      "path": "ntrust-eximius.json",
+      "sha256": "5292521e4105ce26f6e8d28189506f935c2b37dada142e4fa64a371af46e7a27"
+    }
+  ],
+  "gate_assessment": {
+    "acquisition_population_ev_range": {
+      "status": "unknown",
+      "increment": "One historical US services acquisition and an additional named US specialist.",
+      "missing": "Current independent exact-market provider denominator, validated service mix and financials supporting EV10-50M. No assumed employee/revenue valuation."
+    },
+    "buyability": {
+      "status": "unknown",
+      "increment": "US service business transfer is demonstrated historically.",
+      "missing": "Actual price/EBITDA or defensible comparable pricing within hard9x ceiling; current ownership/availability and holdco/build-exit feasibility."
+    },
+    "government": {
+      "status": "unknown",
+      "increment": "US government-facing expertise signal and adjacent government procurement counterevidence.",
+      "missing": "Exact-market public customer/revenue mix and whether government funding is required; reimbursement terms. No inference of absence."
+    },
+    "insurance_or_credit_risk": {
+      "status": "unknown",
+      "increment": "Client-controlled approval thresholds and specialist payment/document work support agency-model hypothesis.",
+      "missing": "Executed contracts, cash ownership/custody, indemnity and guarantee obligations, proof provider does not finance rents or underwrite insurance as principal."
+    },
+    "unionized_workforces": {
+      "status": "unknown",
+      "increment": "No qualifying exact-market primary disclosure found.",
+      "missing": "Workforce geography, bargaining-unit/union coverage for relevant operating providers. No search-result absence inference."
+    }
+  },
+  "rerun_assessment": "Better factual grounding can change explanation/confidence but these sources do not justify changing any of the five unresolved gates to pass. Do not dispatch a paid rerun solely on this supplement. Fresh evidence binding/preparation would be necessary for any future authorized attempt. No frozen input, attempt, authority or result changed.",
+  "rejected_or_unusable_leads": [
+    {
+      "lead": "CRESA collective bargaining results at cresa.wa.gov",
+      "reason": "Wrong entity: Clark Regional Emergency Services Agency, not commercial real estate firm Cresa."
+    },
+    {
+      "lead": "State of Minnesota lease specialist union job",
+      "reason": "In-house government employee and secondary job board; not outsourced private provider workforce."
+    },
+    {
+      "lead": "MRI ProLease/AMTdirect acquisitions and Fortive Accruent price",
+      "reason": "Software/mixed and different size boundary; not exact service market price comparable."
+    }
+  ],
+  "union_search_log": [
+    "\"Cresa\" \"collective bargaining\"",
+    "\"NTrust\" union employees collective bargaining",
+    "\"Lease Administration Solutions\" union employees",
+    "\"lease administration\" \"union\" site.sec.gov"
+  ],
+  "financial_search_log": [
+    "\"Portfolio Solutions Group\" acquisition EBITDA price Cresa"
+  ],
+  "no_paid_calls": true,
+  "no_authority_reset": true
+}

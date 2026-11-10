@@ -1,0 +1,17 @@
+{
+  "source_id": "las-services",
+  "url": "https://www.leaseadminsolutions.com/services/lease-administration-management-and-consultation",
+  "published_date": null,
+  "retrieved_at": "2026-11-10T22:24:36.556200Z",
+  "source_type": "primary public issuer/government page",
+  "retrieval_method": "web search/open; selected verbatim excerpt and researcher paraphrase; original HTML not retained",
+  "retrieval_reference": "turn962759919view0",
+  "locator": "lines 107-123,127",
+  "verbatim_excerpt": "Lost Security Deposits and Letters of Credit",
+  "researcher_fact_paraphrase": "This Massachusetts provider offers lease administration for tenants and landlords, including occupancy-cost review, dates, reconciliation, document handling, security-deposit and letter-of-credit tracking.",
+  "limitations_and_inference": "Adds a specific US specialist existence observation. Mixed landlord/tenant offering, unverified current ownership and no financial scale. Tracking credit instruments is not issuing or guaranteeing them; contract allocation remains unproven.",
+  "relevant_gates": [
+    "acquisition_population_ev_range",
+    "insurance_or_credit_risk"
+  ]
+}
