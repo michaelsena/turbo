@@ -287,20 +287,27 @@ Metered model runs have separate explicit configuration and spending gates.
 | Commands and acceptance | `src/turbo/cli.py`, `tests/`, [runbook](docs/operations/runbook.md) |
 | Consequential design choices | [Architecture decisions](docs/INDEX.md#architecture-decisions) |
 
-### Small-workload qualification and current blocker
+### Small-workload qualification and publication status
 
 The eight-identity, two-family plain qualification passed primary and selective
-verification for **$0.033487** combined provider cost. It proposes two provisional
-markets and seven mappings, retaining research gaps. The independent release call
-returned HTTP 400 with unknown usage and cost, so **no new markets were activated**.
-A replacement also returned HTTP400. Controlled diagnostic probes subsequently
-identified the Google-facing findings-array bound as the request blocker; the
-[narrow compatibility fix](docs/operations/reviewer-request-compatibility.md) retains
-full canonical validation. No corrected production review has completed. Earlier
-unknown exposure remains held and further execution requires explicit aggregate
-authority covering every attempt. This compact
-case does not establish universe-wide quality or the targeted 5× cost reduction.
-See the [qualification receipt](docs/operations/receipts/2026-11-09-small-qualification.json)
+verification. After two HTTP400 rejections, the Google reviewer schema fix in
+[PR 58](https://github.com/michaelsena/turbo/pull/58) enabled the single explicitly
+authorized corrected review. It approved the original exact preview with all five
+checks passing; accepted primary and verifier results were reused unchanged.
+
+Cumulative staging and closure validation passed with **five markets and eight
+mappings**, including two new provisional markets: Industrial Sand Mining and
+Preparation; Copper, Nickel, Lead, and Zinc Ore Mining. All original pilot rows and
+active events remain intact, and closure retains all three new research gaps.
+**The canonical pointer remains unchanged at three markets and one mapping.**
+Durable artifact publication and fresh-checkout replay are tracked in
+[issue 60](https://github.com/michaelsena/turbo/issues/60): the local staging records
+bind temporary paths and must not be copied into the canonical pointer as-is.
+
+Earlier uncertain attempts remain preserved. This compact qualification does not
+establish universe-wide quality or the targeted 5× cost reduction. See the
+[accepted-review and staging receipt](docs/operations/receipts/2026-11-10-small-qualification-staging.json),
+[earlier qualification receipt](docs/operations/receipts/2026-11-09-small-qualification.json),
 and [issue 52](https://github.com/michaelsena/turbo/issues/52).
 
 Explicit recovery is separate from normal retries. The
