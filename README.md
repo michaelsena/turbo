@@ -141,7 +141,32 @@ defines routes, provenance, pagination, version selection, and limitations. The
 [runbook](docs/operations/runbook.md) covers development and verification, including
 Chrome-based desktop/mobile screenshot and accessibility checks.
 
-## Development status and next work
+## Expansion controls and remaining gates
+
+The published small qualification proves the complete reviewed path for two compact
+families. Broad execution remains unqualified: larger evidence envelopes, total cost,
+throughput and model quality across workload types still need measurement.
+
+- The [serial controller](docs/operations/batch-controller.md) advances eligible roles
+  under one existing authority with stable attempt IDs. It stops on uncertainty or
+  failure and waits for an explicit release configuration; it does not invent mapping
+  relationships, reset budgets, or automatically publish a new canonical pointer.
+- The [workload report](docs/operations/universe-workload-envelope.md) overlays verified
+  published activation closures on the immutable schedule. Completed disposition work
+  and unresolved research gaps remain separate. Its scope and unmeasured scenario
+  inputs are explicit; it is not a universal progress claim.
+- [Reviewer readable references](docs/operations/reviewer-readable-view.md) are an
+  opt-in experimental representation for fresh release-review authorizations only.
+  Plain requests remain the default. Offline byte savings are not proven token/cost
+  savings or model-quality qualification, and do not fix oversized primary requests.
+
+The next operational gate is a bounded qualification proposal, not an automatic
+universe-wide rollout. App work, investment ranking and company discovery remain
+outside this platform increment. See issues [64](https://github.com/michaelsena/turbo/issues/64),
+[65](https://github.com/michaelsena/turbo/issues/65) and
+[66](https://github.com/michaelsena/turbo/issues/66).
+
+## Implementation history
 
 [Family-preparation PR #18](https://github.com/michaelsena/turbo/pull/18) is merged
 at `83482e00999200933b9d48e3e018bcbf19246052`. It adds deterministic family configs,

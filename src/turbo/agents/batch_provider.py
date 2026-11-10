@@ -16,6 +16,7 @@ from typing import Any
 
 from turbo.agents import batch_workflow as workflow
 from turbo.agents import model_view as view
+from turbo.agents import readable_request_candidate as readable
 from turbo.agents.batch_output import PROMPT_PATH, SCHEMA_PATH, _strict_json
 from turbo.agents.batch_execution_v2 import BatchExecutionV2
 from turbo.agents.openrouter_attempt import bounded_request_body, invoke_openrouter_once
@@ -30,10 +31,21 @@ EXECUTION_FILES = ('src/turbo/agents/batch_request_repair.py', 'src/turbo/agents
                    'src/turbo/universe/graph_release.py', 'schemas/graph-release-config.schema.json')
 
 
-def execution_contract_hashes(*, model_view: str | None = None) -> dict:
+def _validate_views(model_view, reviewer_view):
     if model_view not in (None, view.VERSION): raise ValueError('unknown model view')
+    if reviewer_view not in (None, readable.FORMAT): raise ValueError('unknown reviewer view')
+    if model_view is not None and reviewer_view is not None:
+        raise ValueError('reviewer view cannot combine with legacy model view')
+
+
+def execution_contract_hashes(*, model_view: str | None = None,
+                              reviewer_view: str | None = None) -> dict:
+    _validate_views(model_view, reviewer_view)
     result = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in EXECUTION_FILES}
     if model_view is not None: result[view.CONTRACT_KEY] = view.POLICY_SHA256
+    if reviewer_view is not None:
+        result[readable.CONTRACT_KEY] = readable.POLICY_SHA256
+        result[readable.SOURCE_PATH] = hashlib.sha256((ROOT / readable.SOURCE_PATH).read_bytes()).hexdigest()
     return result
 
 
@@ -66,20 +78,25 @@ def role_schema(role: str, *, input_root: Path) -> dict:
     return schema
 
 
-def role_prompt(*, input_root: Path, model_view: str | None = None) -> str:
-    if model_view not in (None, view.VERSION): raise ValueError('unknown model view')
+def role_prompt(*, input_root: Path, model_view: str | None = None,
+                reviewer_view: str | None = None) -> str:
+    _validate_views(model_view, reviewer_view)
     return ((ROOT / workflow.PROMPT).read_text() + '\n\n# B3 payload instructions\n\n'
             + (Path(input_root) / PROMPT_PATH).read_text()
             + '\n\nReturn the assigned role document, not the coordinator envelope. '
               'For research roles put the complete B3 object inside payload. '
               'For verifier return input_hashes and assessments only.\n'
-            + (view.INSTRUCTIONS if model_view is not None else ''))
+            + (view.INSTRUCTIONS if model_view is not None else '')
+            + ('\n# Reviewer readable references\n' + readable.INSTRUCTIONS if reviewer_view is not None else ''))
 
 
-def contract_bindings(*, input_root: Path, model_view: str | None = None) -> dict:
-    """Bindings to include in each preregistered V2 role configuration."""
-    prompt = role_prompt(input_root=input_root, model_view=model_view)
-    return {role: {'prompt_sha256': hashlib.sha256(prompt.encode()).hexdigest(),
+def contract_bindings(*, input_root: Path, model_view: str | None = None,
+                      reviewer_view: str | None = None) -> dict:
+    """Bindings to include in each fresh preregistered V2 role configuration."""
+    _validate_views(model_view, reviewer_view)
+    return {role: {'prompt_sha256': hashlib.sha256(role_prompt(
+                    input_root=input_root, model_view=model_view,
+                    reviewer_view=reviewer_view if role == 'release_reviewer' else None).encode()).hexdigest(),
                    'schema_sha256': _hash(role_schema(role, input_root=input_root))}
             for role in workflow.ROLES}
 
@@ -211,9 +228,11 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
     task = workflow.assignment(directory, role, input_root=input_root,
                                preparation_dirs=preparation_dirs)
     enabled_view = view.VERSION if view.CONTRACT_KEY in authorization['execution_contract_hashes'] else None
-    if enabled_view is not None and recovery_checkpoint is not None:
+    reviewer_view = readable.FORMAT if readable.CONTRACT_KEY in authorization['execution_contract_hashes'] else None
+    _validate_views(enabled_view, reviewer_view)
+    if (enabled_view is not None or reviewer_view is not None) and recovery_checkpoint is not None:
         raise ValueError('model view requires a fresh workflow authorization, not recovery')
-    expected_contracts = execution_contract_hashes(model_view=enabled_view)
+    expected_contracts = execution_contract_hashes(model_view=enabled_view, reviewer_view=reviewer_view)
     if recovery_checkpoint is not None:
         from turbo.agents.batch_recovery import checkpoint_binding
         from turbo.agents.batch_execution_v2 import _read
@@ -230,7 +249,7 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         raise ValueError('execution implementation changed')
     if authorization['workflow_plan_sha256'] != task['plan_sha256']:
         raise ValueError('authorization does not bind workflow plan')
-    bindings = contract_bindings(input_root=input_root, model_view=enabled_view)
+    bindings = contract_bindings(input_root=input_root, model_view=enabled_view, reviewer_view=reviewer_view)
     for name, binding in bindings.items():
         if any(authorization['roles'][name].get(k) != v for k, v in binding.items()):
             raise ValueError('role prompt/schema authorization mismatch')
@@ -243,8 +262,10 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
     if role == 'release_reviewer':
         _replay_preview(directory, input_root=input_root, preparation_dirs=preparation_dirs)
     config = authorization['roles'][role]
-    prompt = role_prompt(input_root=input_root, model_view=enabled_view)
-    rendered_task = view.encode(task) if enabled_view is not None else task
+    active_reviewer_view = reviewer_view if role == 'release_reviewer' else None
+    prompt = role_prompt(input_root=input_root, model_view=enabled_view, reviewer_view=active_reviewer_view)
+    rendered_task = (readable.encode(task) if active_reviewer_view is not None else
+                     view.encode(task) if enabled_view is not None else task)
     runtime = prompt + '\n# Frozen assignment\n' + _bytes(rendered_task).decode()
     schema = role_schema(role, input_root=input_root)
     # Conservative admission: UTF-8 request bytes plus an explicit wrapper allowance.
