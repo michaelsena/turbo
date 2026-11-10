@@ -1,0 +1,125 @@
+{
+  "status": "ADOPTED_INITIAL_BOUNDED_SERVICE_CALIBRATION_NO_EXECUTION_AUTHORITY",
+  "proposal_version": "service-cohort-rubric-proposal-20261110-v01",
+  "purpose": "Initial bounded calibration only after published canonical market versions and provider-backed eligibility; not production policy or a global ranking.",
+  "runtime_contract_commit": "44160babedd5eb516eb29fa9d95a6e03e7edd304",
+  "source_documents": [
+    "docs/scoring/model.md",
+    "docs/decisions/prior-model-crosswalk.md",
+    "docs/ambient-ai/thesis.md",
+    "docs/architecture/data-contracts.md"
+  ],
+  "submodel_artifacts": [
+    {
+      "submodel": "Demand and Market Attractiveness",
+      "path": "config/evaluation/calibration/service-cohort-v0.1/demand-market-attractiveness.json",
+      "submodel_version_id": "submodel:demand-market-attractiveness:proposal-20261110-v01",
+      "sha256": "47ad3bdc5ac17ec19bd726cd058a22b0d48833a66ab35e7ce4826db02c10a12b"
+    },
+    {
+      "submodel": "LMM Buyability and Roll-Up Potential",
+      "path": "config/evaluation/calibration/service-cohort-v0.1/lmm-buyability-roll-up.json",
+      "submodel_version_id": "submodel:lmm-buyability-roll-up:proposal-20261110-v01",
+      "sha256": "902eb20b9238b337a4cd7c7903b74877d710dc450a5a44ce154b80aef817d3bc"
+    },
+    {
+      "submodel": "Base-Business Quality and Cash Economics",
+      "path": "config/evaluation/calibration/service-cohort-v0.1/base-business-cash-economics.json",
+      "submodel_version_id": "submodel:base-business-cash-economics:proposal-20261110-v01",
+      "sha256": "420378bd04684c3ad998761f900583e95cf2dafe7805c5da446bfce004ac7d09"
+    },
+    {
+      "submodel": "Operating Scalability and Integration",
+      "path": "config/evaluation/calibration/service-cohort-v0.1/operating-scalability-integration.json",
+      "submodel_version_id": "submodel:operating-scalability-integration:proposal-20261110-v01",
+      "sha256": "d7842884f41b361eb7e3ba5847ac8106136b97c726d3117a7e7058e66be5bf24"
+    },
+    {
+      "submodel": "Ambient-AI Workflow Transformability",
+      "path": "config/evaluation/calibration/service-cohort-v0.1/ambient-ai-workflow.json",
+      "submodel_version_id": "submodel:ambient-ai-workflow:proposal-20261110-v01",
+      "sha256": "f6cd96ea50f3dda7d54315899cdbde9dfbc7166ef59137c93af004e5d7ccb657"
+    },
+    {
+      "submodel": "Ownership Value Capture and Risk",
+      "path": "config/evaluation/calibration/service-cohort-v0.1/ownership-value-capture-risk.json",
+      "submodel_version_id": "submodel:ownership-value-capture-risk:proposal-20261110-v01",
+      "sha256": "3231c5f6eb51a07d4c7fb1d9bf58a30232df8d955c4b554e7dc2869ae2a837d4"
+    }
+  ],
+  "within_submodel_factor_weights": "equal; weight1 for both factors",
+  "global_aggregation_status": "Equal global submodel weights remain a proposal, not a production/global-ranking policy. This adopted calibration executes independent submodels and exposes their components.",
+  "raw_range": [
+    0,
+    100
+  ],
+  "close_answer_tolerance_points": 10,
+  "comparison_max_delta_points": 5,
+  "adjustment_limitations": [
+    "This is a new conservative calibration baseline, not a recovered prior agreement or calibrated economic forecast.",
+    "Confidence and evidence quality may penalize related uncertainty twice.",
+    "Always inspect raw scores, confidence and evidence quality individually alongside adjusted results.",
+    "Do not deduct the same downside in eligibility, raw score and downside penalty."
+  ],
+  "alternative_not_selected": {
+    "formula": "midpoint + confidence * (raw - midpoint) - downside",
+    "evidence_quality": "Reported separately and informs confidence; not multiplied again.",
+    "supported_by_current_runtime": false,
+    "status": "Future review alternative; not proposed for this first bounded baseline execution."
+  },
+  "task_model_policy": {
+    "tasks": {
+      "evaluator_a": {
+        "model": "openai/gpt-5.6-terra",
+        "reasoning_effort": "high"
+      },
+      "evaluator_b": {
+        "model": "google/gemini-4-argon",
+        "reasoning_effort": "high"
+      },
+      "adjudicator": {
+        "model": "openai/gpt-5.6-terra",
+        "reasoning_effort": "high"
+      },
+      "comparator": {
+        "model": "google/gemini-4-argon",
+        "reasoning_effort": "high"
+      }
+    }
+  },
+  "actor_requirements": "Four distinct actor IDs per workunit. Both evaluators receive the same frozen evidence independently; no peer answer in their assignments. Runtime permits model reuse for adjudication/comparison.",
+  "model_selection_status": "Exact task model IDs and high reasoning are adopted for this bounded rubric. Provider routes, current prices, context fit, prompt/schema bindings, authority and actual role quality require separate execution preflight.",
+  "execution_requirements": [
+    "This adopted exact rubric version and unchanged factor artifact hashes, with any future edits requiring a new reviewed version",
+    "Published canonical market versions and provider-backed Target eligibility",
+    "Frozen source/claim/gap artifacts and evidence cutoff",
+    "Exact independent task actors, prompts, schemas and pinned provider authority",
+    "Explicit cohort budget allocations across all submodels; no silent multiplication",
+    "Independent result review; no market conclusion follows from schema validation"
+  ],
+  "call_envelope": {
+    "submodel_count": 6,
+    "evaluation_calls_without_adjudication": 18,
+    "evaluation_calls_maximum": 24,
+    "eligibility_calls_separate": true,
+    "paid_calls_authorized": 0
+  },
+  "adoption": {
+    "adopted_at_utc": "2026-11-10T17:40:33.454231Z",
+    "decision_owner": "Turbo GM",
+    "decision_record": "https://github.com/michaelsena/turbo/issues/86#issuecomment-6774592466",
+    "reviewed_proposal_commit": "724f5371fcf48c715c6c4cbdbb61ce93308a67f3",
+    "factor_bytes_unchanged": true,
+    "scope": "Initial service cohort calibration only; all original eligibility gates remain required.",
+    "user_authorization_context": "User directed continued work getting the main association-management and lease-administration families through the real universe pipeline into evaluation, and allowed cost flexibility for these few runs. GM adopted this explicit new baseline after independent review. This record is not provider execution or spending authority."
+  },
+  "proposed_global_submodel_weights": {
+    "submodel:demand-market-attractiveness:proposal-20261110-v01": 1,
+    "submodel:lmm-buyability-roll-up:proposal-20261110-v01": 1,
+    "submodel:base-business-cash-economics:proposal-20261110-v01": 1,
+    "submodel:operating-scalability-integration:proposal-20261110-v01": 1,
+    "submodel:ambient-ai-workflow:proposal-20261110-v01": 1,
+    "submodel:ownership-value-capture-risk:proposal-20261110-v01": 1
+  },
+  "adopted_adjustment": "raw * confidence * evidence_quality - downside"
+}
