@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "kind": "accepted_review_validated_staging",
+  "status_at_utc": "2026-11-10T00:36:04.118199Z",
+  "issue": "https://github.com/michaelsena/turbo/issues/52",
+  "publication_issue": "https://github.com/michaelsena/turbo/issues/60",
+  "implementation_merge_commit": "26d87003ca2d30d238ad604b3c1279c5211c95f3",
+  "compiler_commit": "b1bc4787a13e101c9088982fed48814a7fa6e4a6",
+  "workflow_plan_sha256": "fbc00f791a26ba3a6a8958bb710cbfd98e50890f29fbba94a56136c3b5e2fc5e",
+  "preview_sha256": "a2af41b94b6ee59b2f04e88a57cfede8faa6d4aa204f6bb391cd0298c675b438",
+  "release_review_sha256": "c1d8f155afe01459dbb0fca56c4b023f5dad42c84fdb2ae5bd30a5b624c99e91",
+  "review_verdict": "approve",
+  "review_checks": {
+    "closure_outcomes": "pass",
+    "coverage": "pass",
+    "cross_family_conflicts": "pass",
+    "evidence": "pass",
+    "operating_identity": "pass"
+  },
+  "upstream_submission_hashes": {
+    "primary": "e2d752f6a6c52784153492267dadeb99fe81ee799026e39ff91ce3781d81bf17",
+    "verifier": "cd6917182b29e185a9aadf3cd8e3cbc1474a972ec35f09eef1ff69f4d03fa9f6"
+  },
+  "activation": {
+    "activation_id": "batch-activation-3689a9605eac57d04444",
+    "events_sha256": "607fc39ab91cac34a025bdc73d8199e0b233c697c72371e15ef40d99d0def79e",
+    "projection_sha256": "6f41e17fdb34883f51011a52ae9993f6b65adbc2b952c4a4dc16aef221b54d4b"
+  },
+  "staged_release": {
+    "release_id": "graph-release-2fa284550a7883aa02a4",
+    "projection_sha256": "e798ce74994d28d350e7d9c3f3ae52ef2ed271d2131930e1240729b7cf396d41",
+    "counts": {
+      "activations": 2,
+      "active_events": 13,
+      "canonical_markets": 5,
+      "mappings": 8,
+      "retired_markets": 0
+    }
+  },
+  "closure_id": "batch-closure-4b3256d919e0953b68d5",
+  "new_research_gaps_retained": 3,
+  "original_pilot_rows_preserved": true,
+  "canonical_pointer_unchanged": true,
+  "canonical_counts": {
+    "markets": 3,
+    "mappings": 1
+  },
+  "activation_validation_passed": true,
+  "cumulative_release_validation_passed": true,
+  "closure_validation_passed": true,
+  "universe_wide_qualification": false,
+  "publication_status": "pending_durable_artifacts_and_fresh_checkout_replay"
+}

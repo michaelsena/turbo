@@ -85,3 +85,18 @@ Use the original reviewed compiler checkout for activation persistence. The prep
 staging path should retain the original pilot rows and keep the canonical pointer
 unchanged until the cumulative release and closure have been verified and published
 through the repository's normal review process.
+
+## Completed corrected review
+
+After PR 58 merged and the operator explicitly approved the aggregate amendment,
+the single corrected review succeeded and approved the original preview. All five
+review checks passed. The original compiler then persisted the approved batch events
+and validated cumulative staging and closure. The resulting staging contains five
+markets and eight mappings, preserving pilot rows and all new research gaps.
+
+The [staging receipt](receipts/2026-11-10-small-qualification-staging.json) records
+exact technical bindings. The canonical pointer remains unchanged.
+[Issue 60](https://github.com/michaelsena/turbo/issues/60) covers durable publication:
+activation receipts bind a local absolute workflow path, and the staging graph
+references ignored output directories. Preserve original hashes and validate a
+fresh-checkout reconstruction before publishing a canonical pointer.

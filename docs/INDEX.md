@@ -24,6 +24,7 @@ the README and the relevant document whenever behavior or architecture changes.
 - [Google review request compatibility](operations/reviewer-request-compatibility.md)
 - [Controlled reviewer-schema compatibility receipt](operations/receipts/2026-11-09-reviewer-schema-compatibility.json)
 - [Small-workload qualification receipt](operations/receipts/2026-11-09-small-qualification.json)
+- [Accepted review and validated staging](operations/receipts/2026-11-10-small-qualification-staging.json)
 - [App/UI GM worker charter](operations/app-gm-worker.md)
 - [Local App/UI issue dispatcher](operations/app-dispatcher.md)
 - [Issue 14: deterministic family partition and scheduler](issues/0014-family-partition-scheduler.md)
