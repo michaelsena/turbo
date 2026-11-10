@@ -333,12 +333,12 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
     reviewer_view = readable.FORMAT if readable.CONTRACT_KEY in authorization['execution_contract_hashes'] else None
     citation_sets = citations.CONTRACT_KEY in authorization['execution_contract_hashes']
     _validate_views(enabled_view, reviewer_view)
-    bound_recovery = False
-    if recovery_checkpoint is not None:
-        from turbo.agents.batch_execution_v2 import _read
-        bound_recovery = _read(Path(recovery_checkpoint)).get('kind') == 'explicit_bound_release_http400_successor'
     if (enabled_view is not None or reviewer_view is not None or citation_sets) and recovery_checkpoint is not None:
-        if not (bound_recovery and enabled_view == view.VERSION and citation_sets and reviewer_view is None):
+        # Preserve legacy rejection ordering before reading an unsupported checkpoint.
+        if not (enabled_view == view.VERSION and citation_sets and reviewer_view is None):
+            raise ValueError('model view requires a fresh workflow authorization, not recovery')
+        from turbo.agents.batch_execution_v2 import _read
+        if _read(Path(recovery_checkpoint)).get('kind') != 'explicit_bound_release_http400_successor':
             raise ValueError('model view requires a fresh workflow authorization, not recovery')
     expected_contracts = execution_contract_hashes(model_view=enabled_view, reviewer_view=reviewer_view, citation_sets=citation_sets)
     if recovery_checkpoint is not None:
