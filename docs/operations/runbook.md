@@ -53,6 +53,10 @@ independent evaluations and adjudicates material disagreement, with separate
 submodel comparators. Do not transfer call patterns between these scopes. See the
 [decision map](../decisions/0012-research-workflow-scope.md).
 
+## Published batch replay
+
+For the five-market cumulative graph, follow the [small-qualification replay guide](small-qualification-publication.md). Full replay restores the recorded workflow locator and exact frozen input from hash-bound durable artifacts. Serving the committed read projection does not require restoration.
+
 ## Local verification
 
 ### Read API and React console

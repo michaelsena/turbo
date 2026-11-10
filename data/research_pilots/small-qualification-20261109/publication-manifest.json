@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "input_commit": "e9e7c4c93bfb601bac4a0368cde20fda40044321",
+  "input_tree": "4f2262909ab60f99e4a4eb5e06bcaf77806e48fa",
+  "input_objects": "data/research_pilots/small-qualification-20261109/frozen-input-objects.json",
+  "workflow_locator": "/private/tmp/turbo-published-small-qualification/workflow",
+  "workflow_dir": "data/research_pilots/small-qualification-20261109/workflow",
+  "preparation_dirs": [
+    "data/research_pilots/small-qualification-20261109/preparations/family-preparation:912826dc158672ffe1422048",
+    "data/research_pilots/small-qualification-20261109/preparations/family-preparation:8e9567722ad643e5177e97b8"
+  ],
+  "graph_config": "config/universe/graph-releases/canonical-universe-small-qualification-v1.json",
+  "release_dir": "data/market_graph/versions/graph-release-a09c97692a785c2a9711",
+  "closure_dir": "data/research_pilots/small-qualification-20261109/closures/batch-closure-6d09e84d59f649553637",
+  "files": {
+    "config/universe/activations/office-administrative-services-v2.json": "e2229c0b84d2889378e23d20f037c2f03f0c47070b7a42d291dea0c475ef12bc",
+    "config/universe/graph-releases/canonical-universe-small-qualification-v1.json": "cfa3b7e92d0d700c498c0502743585f596250ccef9fe5aca171ebee008a1bf50",
+    "data/market_graph/activations/batch-activation-3689a9605eac57d04444/activation-config.json": "35012ace4417214c1fe3b5a38bf238a0eb38f83fd5019afe55293e3fcf5701d5",
+    "data/market_graph/activations/batch-activation-3689a9605eac57d04444/activation-receipt.json": "7a0be7c2840da009d3f3a905b7c8e34c38991fc4050bf3eddac92e9c9f240173",
+    "data/market_graph/activations/batch-activation-3689a9605eac57d04444/events.json": "607fc39ab91cac34a025bdc73d8199e0b233c697c72371e15ef40d99d0def79e",
+    "data/market_graph/activations/batch-activation-3689a9605eac57d04444/projection.json": "6f41e17fdb34883f51011a52ae9993f6b65adbc2b952c4a4dc16aef221b54d4b",
+    "data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62/activation-receipt.json": "6c896666f1ba576d0ea2e6782a23479c7393c96405bcd750183bb2f423f17603",
+    "data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62/events.json": "43b3159b46de2c3f5db74978931d13e5edc258c0c7e906893022339dd776a028",
+    "data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62/projection.json": "c50ba049b95768e87c71f0d3963b4c393efa3c928549e0e2e07e250755315698",
+    "data/market_graph/versions/graph-release-a09c97692a785c2a9711/graph-receipt.json": "2d0dd737a208d4a38186273d33914714159e05f10b05f87eaa1b13828870749c",
+    "data/market_graph/versions/graph-release-a09c97692a785c2a9711/projection.json": "32b0c0418c05754e5d4e5ac3d51ddfff107ab203a4efa46a1c6ed22f968757c3",
+    "data/research_pilots/small-qualification-20261109/closures/batch-closure-6d09e84d59f649553637/closure.json": "6d09e84d59f649553637b5db2b92191c0df7f122617f607a213f0c56f7d7d5c0",
+    "data/research_pilots/small-qualification-20261109/frozen-input-objects.json": "509ec4fb4d4bff038e82949870d74149481dec5db16bbb807a89ce80442d28ae",
+    "data/research_pilots/small-qualification-20261109/preparations/family-preparation:8e9567722ad643e5177e97b8/family-config-v2.json": "df7be0443712544295f6b7e36e62051ae3b3a08c60c065d22e5e70179f079bcd",
+    "data/research_pilots/small-qualification-20261109/preparations/family-preparation:8e9567722ad643e5177e97b8/family-evidence-pack-v2.json": "4e422718d84b75dd10e06cd6b4e40c78a5b6a026aa99b9605063cc41c10bef8c",
+    "data/research_pilots/small-qualification-20261109/preparations/family-preparation:8e9567722ad643e5177e97b8/preparation-receipt.json": "988329b48c1b7546e30decd8b0e0736323ee59d36a580aa16452e87588974653",
+    "data/research_pilots/small-qualification-20261109/preparations/family-preparation:912826dc158672ffe1422048/family-config-v2.json": "0b8f52b8c985a7face4e68cfa07d3ce6d27bb9900a373199a81d5b1b23efce4f",
+    "data/research_pilots/small-qualification-20261109/preparations/family-preparation:912826dc158672ffe1422048/family-evidence-pack-v2.json": "eb93d0f64a3b7ff7fd63ad63508b78fda289d294e89277a8710828e99a38a7f2",
+    "data/research_pilots/small-qualification-20261109/preparations/family-preparation:912826dc158672ffe1422048/preparation-receipt.json": "a4cf388872131b300d554862789d398aeea273dc96593973b9417f5e9d6cee62",
+    "data/research_pilots/small-qualification-20261109/workflow/context.json": "75dc687a76725231d4134e74bd82ebcecbe8cf19d5070a35323cf5ba04ef484c",
+    "data/research_pilots/small-qualification-20261109/workflow/plan.json": "5566f020fdb220863fc35d60a0f5426e3a2347bf0e77de7dc7fc02678424469a",
+    "data/research_pilots/small-qualification-20261109/workflow/primary.json": "9918c4011748019d5ce9ecaa4be9ad5d473a93a2e8e727743a8c01241092c099",
+    "data/research_pilots/small-qualification-20261109/workflow/release-preview.json": "c14a638296a2fbb236b1fcc1ec78daac0edd85b125bb85211dc6a23c294bd18d",
+    "data/research_pilots/small-qualification-20261109/workflow/release_reviewer.json": "7302ca161d980d5eaf639c276f03211346f8e7ad1320f9452b5fbbb0c09f3d3d",
+    "data/research_pilots/small-qualification-20261109/workflow/verifier.json": "da4cb4b114c7b950f5d93f93992d426a519f6fc5a0f2af1699fc5b1bfa943b51",
+    "data/generated/latest-graph.json": "35a3d96c9e9a7c2d0e72bccda7ba82b16cb1cf133b7d48a2349329febd52fa41"
+  }
+}
