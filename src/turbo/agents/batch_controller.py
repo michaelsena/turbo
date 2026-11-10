@@ -126,7 +126,7 @@ def _verify_submissions(m, records):
             or artifact['role']!=role or artifact['input_sha256']!=attempt['input_sha256']
             or artifact['upstream_submission_hashes']!=provider._upstream_hashes(role,previous)
             or artifact['valid'] is not True or artifact['document']!=envelope['document']
-            or provider._strict_json(raw)!=artifact['document'] or hashlib.sha256(raw).hexdigest()!=receipt['body_sha256']
+            or not provider.verify_artifact_document(artifact,m['authorization'],input_root=Path(m['input_root'])) or hashlib.sha256(raw).hexdigest()!=receipt['body_sha256']
             or receipt['status']!='valid' or receipt['requested_model']!=m['authorization']['roles'][role]['model']
             or receipt['served_model']!=m['authorization']['roles'][role]['model']
             or receipt['usage']!=attempt['response']['usage']

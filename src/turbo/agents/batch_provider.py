@@ -17,6 +17,7 @@ from typing import Any
 from turbo.agents import batch_workflow as workflow
 from turbo.agents import model_view as view
 from turbo.agents import readable_request_candidate as readable
+from turbo.agents import citation_sets as citations
 from turbo.agents.batch_output import PROMPT_PATH, SCHEMA_PATH, _strict_json
 from turbo.agents.batch_execution_v2 import BatchExecutionV2
 from turbo.agents.openrouter_attempt import bounded_request_body, invoke_openrouter_once
@@ -36,6 +37,10 @@ NAVIGATION_INSTRUCTIONS = """# Literal local-scope navigation
 The Literal assignment navigation block copies bindings and local obligations from
 context. Use payload_bindings verbatim inside a B3 payload. In particular its
 request_id is NOT the actor_id, and its invocation_id is NOT role_invocation_id.
+Copy role_input_hashes exactly into the role document's input_hashes where required.
+These values are upstream submission_sha256 values, NEVER plan_sha256, context
+hashes or request hashes. Blind roles have role_input_hashes {} and no upstream
+answers. Do not invent input_hashes for a document schema that does not require it.
 Only each family's required_identity_ids and required_candidate_ids receive
 local dispositions or affected-subject gaps. Context-only IDs must not be added.
 An evidence card's assignment_role describes GLOBAL schedule ownership; it does
@@ -82,13 +87,16 @@ def assignment_navigation(task: dict) -> dict:
                         if name in card['value']}})
         families.append(index)
     return {'schema_version': 1, 'kind': 'literal-local-scope-navigation-v1',
-            'payload_bindings': bindings, 'families': families}
+            'payload_bindings': bindings,
+            'role_input_hashes': {role: envelope['submission_sha256']
+                                  for role, envelope in task['inputs'].items()},
+            'families': families}
 
 
 def render_assignment(task: dict, *, input_root: Path, model_view: str | None = None,
-                      reviewer_view: str | None = None) -> str:
+                      reviewer_view: str | None = None, citation_sets: bool = False) -> str:
     """One request rendering path for admission measurement and actual transport."""
-    prompt = role_prompt(input_root=input_root, model_view=model_view, reviewer_view=reviewer_view)
+    prompt = role_prompt(input_root=input_root, model_view=model_view, reviewer_view=reviewer_view, citation_sets=citation_sets)
     rendered_task = (readable.encode(task) if reviewer_view is not None else
                      view.encode(task) if model_view is not None else task)
     if model_view is not None:
@@ -104,9 +112,13 @@ def _validate_views(model_view, reviewer_view):
 
 
 def execution_contract_hashes(*, model_view: str | None = None,
-                              reviewer_view: str | None = None) -> dict:
+                              reviewer_view: str | None = None, citation_sets: bool = False) -> dict:
     _validate_views(model_view, reviewer_view)
     result = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in EXECUTION_FILES}
+    if citation_sets:
+        result[citations.CONTRACT_KEY] = citations.POLICY_SHA256
+        result[citations.SOURCE_PATH] = hashlib.sha256((ROOT / citations.SOURCE_PATH).read_bytes()).hexdigest()
+        result['src/turbo/agents/batch_controller.py'] = hashlib.sha256((ROOT / 'src/turbo/agents/batch_controller.py').read_bytes()).hexdigest()
     if model_view is not None: result[view.CONTRACT_KEY] = view.POLICY_SHA256
     if reviewer_view is not None:
         result[readable.CONTRACT_KEY] = readable.POLICY_SHA256
@@ -123,7 +135,7 @@ def _hash(value: Any) -> str:
     return hashlib.sha256(_bytes(value)).hexdigest()
 
 
-def role_schema(role: str, *, input_root: Path) -> dict:
+def role_schema(role: str, *, input_root: Path, citation_sets: bool = False) -> dict:
     if role not in workflow.ROLES:
         raise ValueError('unknown workflow role')
     definitions = json.loads((ROOT / workflow.SCHEMA).read_text())['$defs']
@@ -140,11 +152,11 @@ def role_schema(role: str, *, input_root: Path) -> dict:
         payload.pop('$id', None)
         payload.pop('$schema', None)
         schema['properties']['payload'] = payload
-    return schema
+    return citations.provider_schema(schema) if citation_sets else schema
 
 
 def role_prompt(*, input_root: Path, model_view: str | None = None,
-                reviewer_view: str | None = None) -> str:
+                reviewer_view: str | None = None, citation_sets: bool = False) -> str:
     _validate_views(model_view, reviewer_view)
     return ((ROOT / workflow.PROMPT).read_text() + '\n\n# B3 payload instructions\n\n'
             + (Path(input_root) / PROMPT_PATH).read_text()
@@ -152,17 +164,18 @@ def role_prompt(*, input_root: Path, model_view: str | None = None,
               'For research roles put the complete B3 object inside payload. '
               'For verifier return input_hashes and assessments only.\n'
             + (view.INSTRUCTIONS + '\n' + NAVIGATION_INSTRUCTIONS if model_view is not None else '')
+            + (citations.INSTRUCTIONS if citation_sets else '')
             + ('\n# Reviewer readable references\n' + readable.INSTRUCTIONS if reviewer_view is not None else ''))
 
 
 def contract_bindings(*, input_root: Path, model_view: str | None = None,
-                      reviewer_view: str | None = None) -> dict:
+                      reviewer_view: str | None = None, citation_sets: bool = False) -> dict:
     """Bindings to include in each fresh preregistered V2 role configuration."""
     _validate_views(model_view, reviewer_view)
     return {role: {'prompt_sha256': hashlib.sha256(role_prompt(
                     input_root=input_root, model_view=model_view,
-                    reviewer_view=reviewer_view if role == 'release_reviewer' else None).encode()).hexdigest(),
-                   'schema_sha256': _hash(role_schema(role, input_root=input_root))}
+                    reviewer_view=reviewer_view if role == 'release_reviewer' else None, citation_sets=citation_sets).encode()).hexdigest(),
+                   'schema_sha256': _hash(role_schema(role, input_root=input_root, citation_sets=citation_sets))}
             for role in workflow.ROLES}
 
 
@@ -230,8 +243,34 @@ def _snapshot(directory: Path, *, input_root: Path, preparation_dirs=None) -> di
         return previous
 
 
+def verify_artifact_document(artifact: dict, authorization: dict, *, input_root: Path) -> bool:
+    raw = base64.b64decode(artifact['output_base64'], validate=True)
+    if hashlib.sha256(raw).hexdigest() != artifact['provider']['body_sha256']:
+        return False
+    document = _strict_json(raw)
+    contracts = authorization['execution_contract_hashes']
+    if citations.CONTRACT_KEY in contracts:
+        if (contracts[citations.CONTRACT_KEY] != citations.POLICY_SHA256
+                or contracts.get(citations.SOURCE_PATH) != hashlib.sha256((ROOT / citations.SOURCE_PATH).read_bytes()).hexdigest()):
+            return False
+        schema = role_schema(artifact['role'], input_root=input_root)
+        wire_schema = citations.provider_schema(schema)
+        config = authorization['roles'][artifact['role']]
+        if (config['schema_sha256'] != _hash(wire_schema)
+                or artifact['provider']['schema_sha256'] != _hash(wire_schema)
+                or artifact['provider']['provider_schema_sha256'] != _hash(openrouter_role_schema(
+                    wire_schema, role_id=artifact['role'], model=config['model']))):
+            return False
+        document, trace = citations.normalize(document, schema)
+        if artifact.get('citation_normalization') != trace:
+            return False
+    elif 'citation_normalization' in artifact:
+        return False
+    return document == artifact['document']
+
+
 def _verify_upstream(execution: BatchExecutionV2, role: str, previous: dict,
-                     authorization: dict) -> dict:
+                     authorization: dict, *, input_root: Path = ROOT) -> dict:
     """Coordinator-only provenance. Never add these conclusions to blind prompts."""
     required = _upstream_hashes(role, previous)
     for name in required:
@@ -256,9 +295,7 @@ def _verify_upstream(execution: BatchExecutionV2, role: str, previous: dict,
                 or provider['usage'] != attempt['response']['usage']
                 or provider['provider_cost_microusd'] != attempt['response']['provider_cost_microusd']):
             raise ValueError('upstream provider artifact does not substantiate submission')
-        raw = base64.b64decode(artifact['output_base64'], validate=True)
-        if (_strict_json(raw) != artifact['document']
-                or hashlib.sha256(raw).hexdigest() != provider['body_sha256']):
+        if not verify_artifact_document(artifact, origin_authorization, input_root=input_root):
             raise ValueError('upstream provider output differs from validated document')
     return required
 
@@ -294,10 +331,11 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
                                preparation_dirs=preparation_dirs)
     enabled_view = view.VERSION if view.CONTRACT_KEY in authorization['execution_contract_hashes'] else None
     reviewer_view = readable.FORMAT if readable.CONTRACT_KEY in authorization['execution_contract_hashes'] else None
+    citation_sets = citations.CONTRACT_KEY in authorization['execution_contract_hashes']
     _validate_views(enabled_view, reviewer_view)
-    if (enabled_view is not None or reviewer_view is not None) and recovery_checkpoint is not None:
+    if (enabled_view is not None or reviewer_view is not None or citation_sets) and recovery_checkpoint is not None:
         raise ValueError('model view requires a fresh workflow authorization, not recovery')
-    expected_contracts = execution_contract_hashes(model_view=enabled_view, reviewer_view=reviewer_view)
+    expected_contracts = execution_contract_hashes(model_view=enabled_view, reviewer_view=reviewer_view, citation_sets=citation_sets)
     if recovery_checkpoint is not None:
         from turbo.agents.batch_recovery import checkpoint_binding
         from turbo.agents.batch_execution_v2 import _read
@@ -314,7 +352,7 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         raise ValueError('execution implementation changed')
     if authorization['workflow_plan_sha256'] != task['plan_sha256']:
         raise ValueError('authorization does not bind workflow plan')
-    bindings = contract_bindings(input_root=input_root, model_view=enabled_view, reviewer_view=reviewer_view)
+    bindings = contract_bindings(input_root=input_root, model_view=enabled_view, reviewer_view=reviewer_view, citation_sets=citation_sets)
     for name, binding in bindings.items():
         if any(authorization['roles'][name].get(k) != v for k, v in binding.items()):
             raise ValueError('role prompt/schema authorization mismatch')
@@ -329,8 +367,8 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
     config = authorization['roles'][role]
     active_reviewer_view = reviewer_view if role == 'release_reviewer' else None
     runtime = render_assignment(task, input_root=input_root, model_view=enabled_view,
-                                reviewer_view=active_reviewer_view)
-    schema = role_schema(role, input_root=input_root)
+                                reviewer_view=active_reviewer_view, citation_sets=citation_sets)
+    schema = role_schema(role, input_root=input_root, citation_sets=citation_sets)
     # Conservative admission: UTF-8 request bytes plus an explicit wrapper allowance.
     # This deliberately overestimates normal tokenization, not a provider dollar cap.
     request_bound = bounded_request_body(routing=config.get('routing'), role_id=role, model=config['model'],
@@ -360,7 +398,7 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
                 or execution.checkpoint['input_root'] != str(input_root)):
             raise ValueError('recovery workflow or input root changed')
     previous = _snapshot(directory, input_root=input_root, preparation_dirs=preparation_dirs)
-    upstream = _verify_upstream(execution, role, previous, authorization)
+    upstream = _verify_upstream(execution, role, previous, authorization, input_root=input_root)
     input_digest = _hash({'assignment': task, 'runtime_prompt': runtime, 'schema': schema,
                           'upstream_submission_hashes': upstream})
     status = workflow.inspect_workflow(directory, input_root=input_root,
@@ -377,7 +415,7 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         if fresh != task:
             raise ValueError('workflow inputs changed before dispatch')
         current = _snapshot(directory, input_root=input_root, preparation_dirs=preparation_dirs)
-        if _verify_upstream(execution, role, current, authorization) != upstream:
+        if _verify_upstream(execution, role, current, authorization, input_root=input_root) != upstream:
             raise ValueError('upstream provenance changed before dispatch')
         if role == 'release_reviewer':
             _replay_preview(directory, input_root=input_root, preparation_dirs=preparation_dirs)
@@ -393,6 +431,7 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         result = invoke_openrouter_once(**options)
         raw = result.pop('body', None)
         document = None
+        trace = None
         valid = False
         if (raw is not None and result['status'] == 'valid'
                 and result['served_model'] == config['model']):
@@ -400,12 +439,14 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
                 if len(raw) > workflow.MAX_DOCUMENT_BYTES:
                     raise ValueError('role output exceeds bound')
                 document = _strict_json(raw)
+                if citation_sets:
+                    document, trace = citations.normalize(document, role_schema(role, input_root=input_root))
                 observed = workflow.assignment(directory, role, input_root=input_root,
                                                preparation_dirs=preparation_dirs)
                 if observed != task:
                     raise ValueError('workflow assignment changed during provider execution')
                 current = _snapshot(directory, input_root=input_root, preparation_dirs=preparation_dirs)
-                if _verify_upstream(execution, role, current, authorization) != upstream:
+                if _verify_upstream(execution, role, current, authorization, input_root=input_root) != upstream:
                     raise ValueError('upstream provenance changed during provider execution')
                 if role == 'release_reviewer':
                     _replay_preview(directory, input_root=input_root, preparation_dirs=preparation_dirs)
@@ -418,6 +459,8 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
                     'attempt_id': attempt_id, 'role': role, 'input_sha256': input_digest,
                     'upstream_submission_hashes': upstream, 'provider': result, 'document': document, 'valid': valid,
                     'output_base64': base64.b64encode(raw).decode() if raw is not None else None}
+        if citation_sets:
+            artifact['citation_normalization'] = trace
         reference = _save_artifact(execution.journal_path, attempt_id, artifact)
         return {'outcome': 'succeeded' if valid else 'failed',
                 'usage': result.get('usage'), 'provider_cost_microusd': result.get('provider_cost_microusd'),
@@ -436,8 +479,7 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
             raise ValueError('provider artifact verdict mismatch')
         if result['status'] == 'failed':
             return result
-        raw = base64.b64decode(artifact['output_base64'], validate=True)
-        if _strict_json(raw) != artifact['document']:
+        if not verify_artifact_document(artifact, authorization, input_root=input_root):
             raise ValueError('provider output differs from validated document')
         if role == 'release_reviewer':
             _replay_preview(directory, input_root=input_root, preparation_dirs=preparation_dirs)
