@@ -129,6 +129,15 @@ No service-market eligibility decision or investment score has been accepted.
 Eligibility requests explicitly explain disjoint support/counterevidence citations;
 mixed-source limitations remain in the rationale and gaps, with strict validation unchanged.
 
+The [six-submodel readiness audit](data/research_pilots/service-trial-20261110/six-submodel-readiness.md)
+records the factor policies and remaining production requirements. A
+[read-only cohort planner](docs/operations/evaluation-cohort-planning.md) checks six
+fresh units against those policies, common accepted inputs, and fixed budget
+allocations. It does not initialize or execute units or aggregate scores. Interrupted
+provider attempts retain their reservations and cannot be automatically resent;
+the [interruption guide](docs/operations/interrupted-provider-attempts.md) separates
+current operating procedures from proposed response-capture and supervision work.
+
 ## Run the local console
 
 Requires Python 3.11+ and Node.js supported by Vite 7 (20.19+ or 22.12+).
