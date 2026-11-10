@@ -5,119 +5,127 @@ AI-enabled lower-middle-market acquisition strategy. It asks where an owner can 
 a good business at a disciplined price, improve its production bottleneck with
 Ambient AI, and retain the resulting earnings.
 
-The repository is the source of truth for evidence, market boundaries, research
-inputs, decisions, executable methods, and results. The local research console
-exposes those same versioned artifacts through a read-only API.
+The repository holds the evidence, market definitions, executable methods,
+decisions, and results. A local research console exposes the same versioned
+artifacts through a read-only API. Turbo is currently building and qualifying its
+market universe; it has **five canonical markets, zero national target markets,
+and zero national investment scores**. A taxonomy category or provisional market
+boundary is not an investment recommendation.
 
-## Current state
+## What the system does
 
-**Turbo is constructing the canonical market universe. Target eligibility and
-investment scoring have not started.** A source category, retrieval match, family
-queue position, or provisional boundary is not an investment recommendation.
+Turbo separates three decisions. They have independent versioned projections;
+a later decision cannot silently rewrite an earlier one.
 
-| Verified projection | Current result |
-| --- | ---: |
-| Governed source snapshots | 13 |
-| Preserved source rows and observations | 30,850 |
-| Normalized NAICS/NAPCS identities | 11,543 |
-| Six-digit NAICS source categories | 1,012 |
-| Identities requiring boundary review | 8,248 |
-| Context-only identities | 3,295 |
-| Administrative families / queued families | 1,026 / 1,018 |
-| Deterministic review batches | 129 |
-| Prior-market candidates / unretrieved challengers | 978 / 58 |
-| Canonical markets / accepted mapping events | 5 / 8 |
-| Distinct open market-boundary gaps | 4 |
-| Target markets / investment scores | 0 / 0 |
+| Layer | Question and method | Current scope |
+| --- | --- | --- |
+| Canonical universe | What operating markets exist? Reconcile official NAICS/NAPCS identities and prior hypotheses; preserve splits, merges, mappings, exclusions, and gaps. | Source ingestion, scheduling, research harness, reviewed publication, and five-market graph implemented; national coverage incomplete. |
+| Target universe | Which markets meet the acquisition mandate? Apply strategy gates and size/buyability evidence without erasing ineligible canonical markets. | National filtering and SUSB/QCEW enrichment planned. |
+| Evaluation | Which eligible markets are attractive? Evaluate factors independently, adjudicate disagreements, calibrate within submodels, and aggregate deterministically. | Planned: a governed evaluation harness with durable evidence and review. No accepted investment scores. |
 
-The first reviewed family produced **Integrated outsourced office administration**
-(accepted with open gaps), **Medical practice administration** (provisional), and
-**Dental practice administration** (provisional). NAICS 561110 has one provisional
-`broader_than_market` mapping to the horizontal administration market. The operating
-model and vertical-boundary gaps remain open; family-local non-mappings have not
-removed any of the 978 prior candidates globally.
+The initial mandate favors U.S. service businesses generally worth **$10M–$50M**,
+preferably at **7–8× or less normalized EBITDA**, with a **9× default ceiling** unless
+an exception is approved. Existing economics must support the acquisition; AI is
+upside. The strategy allows a permanent holdco or a build-and-exit platform.
+Healthcare delivery, government-dependent revenue, heavy-equipment
+ownership, significant inventory, insurance or credit risk, unionized workforces,
+and reimbursement exposure are outside the initial mandate. These are eligibility
+rules, not reasons to delete markets from the canonical universe.
 
-The [first batch research pilot](data/research_pilots/anchored-20261109/README.md)
-adds six independently reviewed **provisional manufacturing hypotheses**, covering
-82 identity dispositions and one candidate with 16 explicit gaps. These artifacts
-are outside the canonical graph and the counts above. They were authored by a
-collaboration agent after the local CLI attempt failed; no CLI success, canonical
-acceptance, or investment eligibility is claimed.
+A market definition must address buyer, job-to-be-done, delivery model, workforce,
+economics, acquisition universe, and Ambient AI workflow. The AI thesis is
+**Capture → Connect → Recognize → Act → Verify**: connect permitted context to a
+customer obligation, take authorized action, and verify completion. Research must
+identify the production bottleneck, measurable output, demand for released
+capacity, and the owner's route to retained earnings. See the
+[universe methodology](docs/universe/methodology.md),
+[AI thesis](docs/ambient-ai/thesis.md), and [scoring design](docs/scoring/model.md).
 
-Current immutable layers:
+## Architecture and research flow
 
-| Layer | Version |
-| --- | --- |
-| Source universe | [`run-2ea0f00db84148de663f`](data/runs/run-2ea0f00db84148de663f/) |
-| Family schedule | [`family-partition:60517981ab96e7f243c7033e`](data/family_schedules/family-partition:60517981ab96e7f243c7033e/) |
-| Cumulative graph release | [`graph-release-a09c97692a785c2a9711`](data/market_graph/versions/graph-release-a09c97692a785c2a9711/) |
-| Graph version | `graph-9838996c8153c20c7f86c37a` |
+| Component | Responsibility | Durable output or boundary |
+| --- | --- | --- |
+| Source registry and ingestion | Preserve public snapshots and normalize source identities and relationships. | Immutable bytes, locators, retrieval times, hashes, and source-run receipts. |
+| Family scheduler and preparation | Assign administrative ownership, queue review work, and freeze complete evidence packs. | Separate identity obligations, relationship context, candidate collisions, and deterministic batches. Queue position is not attractiveness. |
+| Research harness | Bind model roles to explicit inputs, schemas, prompts, routing, and spending authority. | Structured outputs and provenance; invalid output never becomes accepted research merely because a call succeeded. |
+| Validation and graph publication | Check coverage/citations, review exact proposed movements, replay accepted events, and preserve unresolved gaps. | Append-only graph events, cumulative releases, closure receipts, and verified current pointers. |
+| Target and scoring layers | Apply eligibility, specialist evaluation, adjudication, and submodel calibration. | Separate later projections; boundary defects return to universe review. |
+| Read API and console | Compose a verified source/schedule/graph tuple and render it consistently. | Deterministic FastAPI responses and React views; no application database or write API. |
 
-`turbo context` verifies and composes these layers. The source receipt's historical
-`canonical_markets: 0` describes that source run alone, not the current graph.
-The [corrected pilot run](data/agent_runs/boundary-run-1a88e9a3acdf15d63b09/),
-[independent approval](data/agent_reviews/independent-review-b95c0d39bef8bffa9c00/),
-and [activation](data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62/)
-preserve the accepted decision chain. The [universe methodology](docs/universe/methodology.md)
-and [schedule specification](docs/issues/0014-family-partition-scheduler.md)
-explain source coverage, anomalies, prior corrections, and remaining work.
+Three research workflows serve different purposes; they are not interchangeable.
 
-## Strategy and system design
+| Workflow | Role sequence | Acceptance boundary |
+| --- | --- | --- |
+| Original boundary pilot | Two blind specialists → adjudicator → independent review. | Established the initial administration-market definitions. |
+| Scaled universe construction | Batch primary → selective independent verifier → conditional two blind specialists and adjudicator → mandatory release reviewer. | Reviewer approves the exact compiler preview; deterministic activation, cumulative release, and closure follow. Routine work uses three roles; disagreement adds three. |
+| Later investment evaluation | Independent factor evaluators → adjudication → submodel-owned pairwise calibration → deterministic aggregation. | Eligibility and scoring stay separate from market identity; no generalist global pairwise ranking. |
 
-The initial mandate targets U.S. businesses generally worth **$10M–$50M**, preferably
-at **7–8× or less normalized EBITDA**, with a **9× default ceiling** unless an exception
-is approved. Existing business economics must support the acquisition; AI is upside.
-The strategy favors service businesses and allows either a permanent holdco or
-build-and-exit platform. Healthcare delivery, government-dependent revenue,
-heavy-equipment ownership, significant inventory, insurance or credit risk,
-unionized workforces, and reimbursement exposure are outside the initial mandate.
-These are later eligibility rules, not reasons to erase a market from the universe.
-
-Turbo separates three ordered decisions:
-
-1. **Canonical universe — what markets exist.** Preserve official NAICS/NAPCS
-   identities and relationships, reconcile the 978 prior hypotheses, and review
-   operating boundaries across buyer, job, delivery, workforce, economics,
-   acquisition universe, and Ambient AI workflow. A taxonomy code is not itself a
-   canonical operating market. Splits, merges, mappings, and exclusions retain lineage.
-2. **Target universe — what is eligible.** Apply separately versioned strategy gates
-   and size/buyability evidence. SUSB and QCEW enrichment belongs here and remains
-   planned; a rejected target still exists in the canonical graph.
-3. **Evaluation — what is attractive.** Research and score only eligible markets,
-   retaining raw score, confidence, evidence quality, downside penalty, and
-   risk-adjusted score. Independent evaluators and adjudication resolve judgments;
-   pairwise calibration belongs inside each submodel, not the global ranking.
-
-The Ambient AI thesis is **Capture → Connect → Recognize → Act → Verify**: connect
-permitted context across applications, messages, documents, people, and physical
-work to a durable customer obligation, take authorized action, and verify completion.
-A useful thesis must identify the core production bottleneck, measurable output,
-demand for released capacity, and the owner's route to retained earnings.
-See the [Ambient AI thesis](docs/ambient-ai/thesis.md) and [scoring design](docs/scoring/model.md).
+The governed model path uses the project's harness and **OpenRouter**, with explicit
+model and provider-routing configuration. It does not silently choose a cheaper
+model or change scope. The separate [local Codex draft runner](docs/operations/real-batch-research.md)
+is not the governed OpenRouter batch path. The
+[workflow decision map](docs/decisions/0012-research-workflow-scope.md) defines these boundaries.
 
 Sources, observations, claims, scores, decisions, lessons, and questions remain
 separate. Reasoning is labeled `fact`, `inference`, `assumption`, or `unknown`.
-Immutable snapshots carry URL, retrieval UTC, and SHA-256; changed conclusions append
-`supersedes` or `contradicts` edges. Research gaps remain visible. When scoring begins,
-weak evidence requires a documented low-confidence score rather than a blank cell.
+Changed conclusions append supersession or contradiction links; they do not erase
+history. Weak evidence must remain visible as uncertainty and explicit research gaps.
+Structural validation is necessary, but cannot prove semantic correctness.
 
-## Inspect the local product
+## Verified state and qualification limits
 
-The console includes an overview, accepted-market explorer and detail pages, neutral
-family queue and detail pages, batch plan, and audit view. Historical inspection uses
-verified source/schedule/graph tuples. Market detail exposes all seven operating
-identity dimensions, original boundary confidence and evidence classes, explicit
-exclusions, and supporting/counterevidence IDs. Boundary confidence is distinct from
-investment scoring. Responses carry exact provenance; ETags identify
-the complete response envelope. The client does not decide version compatibility or
-reimplement research logic.
+| Current verified projection | Result |
+| --- | ---: |
+| Governed snapshots / preserved source rows and observations | 13 / 30,850 |
+| Normalized NAICS/NAPCS identities / six-digit NAICS categories | 11,543 / 1,012 |
+| Identities requiring boundary review / context-only identities | 8,248 / 3,295 |
+| Administrative families / queued families / deterministic batches | 1,026 / 1,018 / 129 |
+| Prior-market candidates / unretrieved challengers | 978 / 58 |
+| Canonical markets / accepted mapping events | 5 / 8 |
+| Distinct market-linked boundary gaps / gaps in full closure lineage | 4 / 5 |
+| National target markets / national investment scores | 0 / 0 |
 
-FastAPI serves both JSON and the compiled React/TypeScript/Vite client. React Router,
-TanStack Query, and TanStack Table support navigation, remote state, and bounded
-collections. There is no application database, hosted deployment, write API, model
-call, or research-network request in the read product.
+The canonical graph contains Integrated outsourced office administration (accepted
+with open gaps), Medical practice administration and Dental practice administration
+(provisional), and Industrial Sand Mining and Preparation and Copper, Nickel, Lead,
+and Zinc Ore Mining (provisional). The original NAICS 561110 mapping is provisionally
+`broader_than_market`; family-local non-mappings do not remove prior candidates globally.
 
-Requires Python 3.11+ and a Node.js version supported by Vite 7 (20.19+ or 22.12+).
+| Capability or experiment | Status and limitation |
+| --- | --- |
+| Source, schedule, graph, and local read console | Implemented. The console provides overview, market and family detail, batch plan, and audit views with explicit historical version selection. |
+| Small two-family qualification | Published: eight identities, primary/verifier approval, independent exact-preview approval, cumulative release, and validated closure. Original pilot rows remain intact. [Replay bundle](data/research_pilots/small-qualification-20261109/README.md). |
+| Managed execution and serial controller | Implemented within one trusted local registry. Stable attempt IDs and retained reservations prevent automatic resend after uncertainty. Publication pauses for an explicit source commit; local completion does not imply GitHub publication or the next input freeze. |
+| Reviewer readable references and cheaper-model screening | Experimental opt-in. Flash passed four cells over two fixtures; this is not general quality qualification or production-default enablement. [Screening report](docs/operations/flash-reviewer-screening.md). |
+| Medium primary qualification | Failed citation validation and independent semantic review; zero accepted coverage. Correction is tracked in [#73](https://github.com/michaelsena/turbo/issues/73); the [result documentation PR](https://github.com/michaelsena/turbo/pull/74) is separate from this README update. |
+| Next service cohort | Association management and lease administration are priority research candidates under [#78](https://github.com/michaelsena/turbo/issues/78). Neither is an accepted canonical market; neither has accepted eligibility decisions or scores. They must pass the governed boundary, target, and evaluation stages. |
+| Broad universe rollout, national eligibility, and investment ranking | Not complete. Larger-workload quality, output headroom, throughput, and total spend still require qualification. No universe-wide 5× cost reduction is established. |
+
+The separate [anchored research pilot](data/research_pilots/anchored-20261109/README.md)
+contains six provisional manufacturing hypotheses, 82 identity dispositions, one
+candidate, and 16 gaps. It was collaboration-agent authored after a local CLI
+failure; it is not accepted canonical coverage or a successful CLI run.
+
+Current immutable layers are the
+[source run](data/runs/run-2ea0f00db84148de663f/),
+[family schedule](data/family_schedules/family-partition:60517981ab96e7f243c7033e/),
+and [cumulative graph release](data/market_graph/versions/graph-release-a09c97692a785c2a9711/)
+(graph version `graph-9838996c8153c20c7f86c37a`). `turbo context` verifies their
+composition. Historical source-run counts are not current cumulative graph counts.
+The [workload report](docs/operations/universe-workload-envelope.md) distinguishes
+completed dispositions from unresolved gaps and remaining schedule obligations.
+
+The next implementation priority is the governed end-to-end path for that service
+cohort: accepted market identity, explicit target eligibility, then independently
+reviewed investment evaluation. The target and evaluation harnesses are not yet
+built; their implementation must preserve the same governed evidence, provenance,
+independent-review, and explicit spending controls.
+
+## Run the local console
+
+Requires Python 3.11+ and Node.js supported by Vite 7 (20.19+ or 22.12+).
+These commands validate committed artifacts and start the read product; they do
+not dispatch models or perform research-network requests.
 
 ```bash
 python3 -m venv .venv
@@ -134,235 +142,49 @@ PYTHONPATH=src .venv/bin/python -m uvicorn turbo.web.app:app --host 127.0.0.1 --
 ```
 
 Open [the console](http://127.0.0.1:8000) or [API documentation](http://127.0.0.1:8000/docs).
-Alternatively, after building the client, `./scripts/serve-local.sh` starts the same
-loopback-only product on port 8017. It uses `.venv/bin/python` unless `TURBO_PYTHON`
-specifies another prepared interpreter. Stop the local process after use. The [application guide](docs/application/read-api-dashboard.md)
-defines routes, provenance, pagination, version selection, and limitations. The
-[runbook](docs/operations/runbook.md) covers development and verification, including
-Chrome-based desktop/mobile screenshot and accessibility checks.
+Alternatively, after building the client, `./scripts/serve-local.sh` uses port 8017
+and `.venv/bin/python` (or `TURBO_PYTHON`). Stop the local process after use.
+FastAPI serves the compiled React/TypeScript/Vite client. The UI does not recreate
+research logic or version compatibility; provenance and ETags bind complete responses.
+There is no hosted deployment, application database, or model-dispatch surface in
+this read product. See the [application guide](docs/application/read-api-dashboard.md).
 
-## Expansion controls and remaining gates
+## Operate and contribute
 
-The published small qualification proves the complete reviewed path for two compact
-families. Broad execution remains unqualified: larger evidence envelopes, total cost,
-throughput and model quality across workload types still need measurement.
+Start material work with a scoped, scored GitHub issue and acceptance criteria.
+Use a named branch, immutable evidence, synchronized documentation, local verification
+receipts, and independent review. Do not bypass protected checks. GitHub Actions and
+hosted CI are intentionally not configured; verification runs locally.
 
-- The [serial controller](docs/operations/batch-controller.md) advances eligible roles
-  under one existing authority with stable attempt IDs. It stops on uncertainty or
-  failure and waits for an explicit release configuration; it does not invent mapping
-  relationships or reset budgets. Explicit publication continuation stages and validates
-  the approved artifacts, pauses for the required source commit, and promotes under
-  a shared writer lock. Completion proves local publication; final GitHub publication
-  and the next clean input freeze remain GM responsibilities.
-- The [workload report](docs/operations/universe-workload-envelope.md) overlays verified
-  published activation closures on the immutable schedule. Completed disposition work
-  and unresolved research gaps remain separate. Its scope and unmeasured scenario
-  inputs are explicit; it is not a universal progress claim.
-- [Reviewer readable references](docs/operations/reviewer-readable-view.md) are an
-  opt-in experimental representation for fresh release-review authorizations only.
-  Plain requests remain the default. Offline byte savings are not proven token/cost
-  savings or model-quality qualification, and do not fix oversized primary requests.
+```bash
+python3 -m turbo.cli validate
+python3 -m turbo.cli context
+python3 -m unittest discover -s tests -v
+```
 
-The [medium preflight](docs/operations/medium-primary-preflight.md) separates the
-exact admission failure from unproven model-context fit; raising a byte ceiling
-alone does not establish that the request fits. A pinned offline tokenizer gives
-an advisory content-plus-schema count of 549,907 tokens, below the routed endpoint's
-reported prompt limit; provider-added formatting remains unmeasured and admission
-is unchanged. The
-[isolated reviewer qualification runner](docs/operations/reviewer-qualification.md)
-can execute the four prepared comparison cells only with separately supplied,
-registry-bound authority. It preserves accounting and cannot publish research or
-enable the representation in production. The initial
-[Flash screening](docs/operations/flash-reviewer-screening.md) passed all four
-positive/negative and plain/reference cells. This limited result leaves production
-defaults unchanged; larger-workload quality and output headroom remain unqualified.
+Run the narrowest focused tests first, then the required suite and relevant replay.
+The [runbook](docs/operations/runbook.md) covers frontend checks, browser acceptance,
+and governed operator commands. The App/UI and Platform GM roles own separate
+backlogs; a ready GitHub issue alone does not guarantee an agent is running. See the
+[worker charter](docs/operations/app-gm-worker.md) and [dispatcher guide](docs/operations/app-dispatcher.md).
 
-The next operational gate is a bounded qualification decision, not an automatic
-universe-wide rollout. App work, investment ranking and company discovery remain
-outside this platform increment. See issues [64](https://github.com/michaelsena/turbo/issues/64),
-[65](https://github.com/michaelsena/turbo/issues/65) and
-[66](https://github.com/michaelsena/turbo/issues/66), with the concrete continuation
-scopes in [68](https://github.com/michaelsena/turbo/issues/68),
-[69](https://github.com/michaelsena/turbo/issues/69) and
-[70](https://github.com/michaelsena/turbo/issues/70).
+Metered model execution requires explicit scope, configuration, and spending
+approval. Known usage remains charged even when output is invalid; uncertain
+transport or usage retains its reservation. The trusted local registry guarantee
+does not span arbitrary separate registries, new unsigned authorities, or privileged
+state deletion. Recovery never silently resets budgets or repairs accepted history.
+No paid sources, outreach, confidential/personal data, or external representation
+is authorized by this repository's normal workflow.
 
-## Implementation history
+## Documentation map
 
-[Family-preparation PR #18](https://github.com/michaelsena/turbo/pull/18) is merged
-at `83482e00999200933b9d48e3e018bcbf19246052`. It adds deterministic family configs,
-frozen evidence packs, size/count gates, and exact replay. Required NAICS definitions,
-exclusions, index evidence, and non-owned candidate context remain available; source,
-compiler, and schema hashes bind each preparation. See [Issue 15](docs/issues/0015-batch-native-family-research.md)
-and its [audit receipt](docs/operations/receipts/2026-11-09-family-pack-corrections.json).
-
-[Dashboard PR #19](https://github.com/michaelsena/turbo/pull/19) is merged at
-`a9aef2befbc61208431ce4b546d6bed15d6edef1`.
-The corrected code passed 162 Python tests, frontend unit/type/build checks, and
-host-run browser screenshot/accessibility checks. All 14 desktop/mobile images were
-reviewed, including corrected family counts and Audit provenance. See the
-[verification receipt](docs/operations/receipts/2026-11-09-dashboard-corrections.json)
-for that historical result and its Overview status-badge clipping finding.
-The follow-up changes Overview market rows to keep full status text beneath their
-descriptions and uses neutral collection copy for provisional boundaries;
-direct desktop/mobile inspection confirms readable statuses and bounded descriptions.
-The packaged browser suite now passes at the exact tested tree after a reviewed
-16-image desktop/mobile baseline refresh and comparison-only rerun. The run used an
-owned loopback server while preserving both pre-existing servers; see the
-[browser acceptance receipt](docs/operations/receipts/2026-11-09-app-browser-acceptance.json).
-Market identity detail acceptance also passes on the integrated PR #38 tree. Six
-desktop/mobile panel baselines cover all seven operating dimensions, exclusions, and
-expanded supporting/counterevidence IDs; independent artifact review found no
-P0/P1/P2 issues. See the [identity browser receipt](docs/operations/receipts/2026-11-09-market-identity-browser-acceptance.json).
-
-The simulation execution foundation is merged: [B1 / PR #21](https://github.com/michaelsena/turbo/pull/21)
-provides authorization, reservation, and replay within one journal; [B2 / PR #23](https://github.com/michaelsena/turbo/pull/23)
-adds a trusted local registry at `639c3216ac5d3e3baf28fcffbeac8af5bf8e478d`.
-Repeated managed clients share one exact authorization's journal. Ambiguous dispatch
-retains its reservation; missing claimed state fails closed. Different registries,
-new unsigned authorizations, and privileged deletion/rollback remain outside this
-guarantee. Standalone B1 stays per-journal. See the
-[B1 receipt](docs/operations/receipts/2026-11-09-batch-ledger-verification.json) and
-[B2 receipt](docs/operations/receipts/2026-11-09-shared-registry-verification.json)
-for pinned tests, simulation replay, and review results.
-
-[PR #25](https://github.com/michaelsena/turbo/pull/25), merged at `73bf1f8`, adds B3, a
-standalone batch-output contract over verified family preparations. It checks
-structural coverage, evidence references, reasoning labels,
-confidence, gaps, and boundary proposals; synthetic validation is not research
-acceptance. It does not dispatch models or feed B1 settlement automatically.
-All 237 Python tests passed, including 22 focused checks; independent review found
-no blocking issues. A synthetic two-family validation covered all 59 required
-subjects without changing the market graph. These are the pinned B3 results. See
-[ADR 0010](docs/decisions/0010-batch-output-contract.md) and the
-[verification receipt](docs/operations/receipts/2026-11-09-batch-output-verification.json).
-
-[Issue 33](https://github.com/michaelsena/turbo/issues/33) implements B4: a simulation
-bridge that retains confidence-bearing output in immutable artifacts and settles
-compact references through the managed journal. Known bounded usage is charged even
-for invalid output; uncertain usage or dispatch retains its reservation. This does
-not accept research or enable a real provider. [PR 35](https://github.com/michaelsena/turbo/pull/35)
-is merged: its pinned verification recorded 23 focused and 282 full-suite test passes; independent review
-found no P0/P1/P2 issues, and synthetic retry/replay preserved the graph. See
-[ADR 0011](docs/decisions/0011-batch-output-artifacts.md) and the
-[B4 verification receipt](docs/operations/receipts/2026-11-09-batch-research-verification.json).
-
-The chairman-confirmed scaled universe flow is a batch primary with selective
-independent verification, conditional blind escalation and disagreement adjudication,
-then mandatory independent review of planned graph movements and deterministic
-closure/release. The original two-blind pilot and later ranking evaluators are
-different scopes; see the [decision map](docs/decisions/0012-research-workflow-scope.md).
-Merged [PR 40](https://github.com/michaelsena/turbo/pull/40) established the
-primary/verifier increment: its historical receipt records 357 Python tests,
-40 focused checks, and clear independent review. See its
-[verification receipt](docs/operations/receipts/2026-11-09-batch-provider-verification.json).
-Merged [PR 43](https://github.com/michaelsena/turbo/pull/43) supports dispatch for all six workflow roles. Routine work
-uses primary, verifier, and release reviewer; material disagreement adds two blind
-specialists and adjudication. Exact upstream provider provenance and compiler-preview
-replay precede release review. The successor increment passed 22 focused checks in
-95.040 seconds, with clear independent review; its full suite passed 368 tests.
-The scoped [operator commands](docs/operations/runbook.md#governed-batch-operator-commands)
-now wrap explicit registry initialization, one-role run/resume, read-only accounting,
-release preview, activation, and closure/replay. Eight focused controlled-transport
-CLI tests and the 376-test operator suite passed, with repository validation and
-clear independent review; see [issue 42](https://github.com/michaelsena/turbo/issues/42).
-Optional [authorization-bound routing](docs/batch-provider-routing.md) pins provider
-restrictions, price caps, and supported cache policy in the same request used for
-admission and dispatch. Combined verification passed 384 full-suite tests,
-16 focused checks, and repository validation; see the
-[verification receipt](docs/operations/receipts/2026-11-09-batch-routing-activation-verification.json).
-Optional [lossless model views](docs/decisions/0014-lossless-model-view.md) preserve
-the complete assignment while reducing repeated JSON structure. An offline anchored
-request measured 41.1% fewer bytes. Matched plain/encoded Luna calls measured
-28.25% fewer input tokens, but both failed large-batch acceptance; the view remains
-unqualified for rollout.
-The view requires explicit fresh authorization and cannot alter an existing recovery run.
-These controls do not authorize a paid canary. The first authorized selective
-canary returned zero proposed markets and 110 unresolved identities; grouped-gap
-citations failed acceptance, so no verifier, reviewer, or activation followed.
-[Issue 48](https://github.com/michaelsena/turbo/issues/48) clarifies the prompt and
-checks evidence sufficiency before another paid attempt.
-The anchored follow-up also failed acceptance; no new markets were activated.
-The batch prompt now explicitly preserves pilot-style provisional inference and
-distinguishes insufficient evidence from affirmative family non-mapping.
-
-These verification checks made no paid calls or production market activation. This is not production readiness. The six
-exploratory manual hypotheses remain provisional and cannot bypass the gates. Run and evaluate one explicitly authorized neutral metered canary before
-authorizing broad execution. Then
-complete cross-family coverage, publish the canonical universe, add Target filtering,
-and begin production scoring.
-The read product can expand only as those durable projections become available.
-
-The merged [PR 37](https://github.com/michaelsena/turbo/pull/37) supplies a single-pass
-draft runner. An explicitly authorized frozen batch can use the
-[local Codex research runner](docs/operations/real-batch-research.md). It consumes
-account quota, retains exact inputs and final-output receipts, and never
-automatically retries; structural validity still requires substantive review. This
-draft-only route is separate from simulation accounting and is not the governed
-OpenRouter batch canary.
-
-## Working protocol and navigation
-
-The [App/UI GM charter](https://github.com/michaelsena/turbo/issues/26) assigns
-frontend delivery, usability, accessibility, and app backlog ownership separately
-from Platform GM research/execution ownership. Shared API changes require linked
-contract issues. App claims name their owner and branch in GitHub. Automatic issue
-pickup is implemented in the local dispatcher, but its installed runtime reports
-no attempts and has not been verified running. See [dispatcher issue #27](https://github.com/michaelsena/turbo/issues/27).
-A ready issue alone does not start an agent.
-
-Every material change starts with a scoped GitHub issue and acceptance criteria.
-Use a named branch, keep README and detailed docs synchronized, record decisions and
-local verification receipts, obtain independent review, and merge only after
-acceptance. Protected checks are never bypassed. Tests and replay run locally;
-GitHub Actions and hosted CI are intentionally not configured. No paid sources,
-outreach, confidential/personal data, or external representation is authorized.
-Metered model runs have separate explicit configuration and spending gates.
-
-| Read or work on | Entry point |
+| Need | Authoritative guide |
 | --- | --- |
-| Documentation map | [docs/INDEX.md](docs/INDEX.md) |
-| Product purpose | [Vision](docs/product/vision.md) |
-| Architecture and contracts | [System](docs/architecture/system.md), [contracts](docs/architecture/data-contracts.md) |
-| Source coverage and market identity | [Universe methodology](docs/universe/methodology.md), `src/turbo/universe/` |
-| Source snapshots and immutable projections | `data/source_snapshots/`, `data/runs/`, `data/family_schedules/`, `data/market_graph/` |
-| Current verified pointers | `data/generated/latest-run.json`, `latest-family-schedule.json`, `latest-graph.json` |
-| Model execution and review | `src/turbo/agents/`, `data/agent_runs/`, `data/agent_reviews/` |
-| Read API and UI | `src/turbo/web/`, `frontend/`, [application guide](docs/application/read-api-dashboard.md) |
-| App worker and local issue intake | [Worker charter](docs/operations/app-gm-worker.md), [dispatcher guide](docs/operations/app-dispatcher.md) |
-| Commands and acceptance | `src/turbo/cli.py`, `tests/`, [runbook](docs/operations/runbook.md) |
-| Consequential design choices | [Architecture decisions](docs/INDEX.md#architecture-decisions) |
-
-### Small-workload qualification and publication status
-
-The eight-identity, two-family plain qualification passed primary and selective
-verification. After two HTTP400 rejections, the Google reviewer schema fix in
-[PR 58](https://github.com/michaelsena/turbo/pull/58) enabled the single explicitly
-authorized corrected review. It approved the original exact preview with all five
-checks passing; accepted primary and verifier results were reused unchanged.
-
-Cumulative staging and closure validation passed with **five markets and eight
-mappings**, including two new provisional markets: Industrial Sand Mining and
-Preparation; Copper, Nickel, Lead, and Zinc Ore Mining. All original pilot rows and
-active events remain intact, and closure retains all three new research gaps.
-The canonical pointer now selects this five-market cumulative release. The immutable
-[publication bundle](data/research_pilots/small-qualification-20261109/README.md)
-contains the approved workflow, preparation packs, exact frozen-input Git objects,
-activation, release, closure, and a hash manifest. Four distinct gaps are linked to
-markets; a fifth, candidate-only gap remains in the complete closure lineage.
-The [replay guide](docs/operations/small-qualification-publication.md) explains the
-historical compiler's fixed workflow-path requirement and explicit restoration.
-
-
-Earlier uncertain attempts remain preserved. This compact qualification does not
-establish universe-wide quality or the targeted 5× cost reduction. See the
-[accepted-review and staging receipt](docs/operations/receipts/2026-11-10-small-qualification-staging.json),
-[earlier qualification receipt](docs/operations/receipts/2026-11-09-small-qualification.json),
-and [issue 52](https://github.com/michaelsena/turbo/issues/52).
-
-Explicit recovery is separate from normal retries. The
-[payment-rejection procedure](docs/operations/payment-rejection-recovery.md) preserves
-one accepted primary after a verifier HTTP 402. The
-[release-review procedure](docs/operations/release-review-recovery.md) preserves the
-accepted primary, verifier, and exact preview after the narrowly supported reviewer
-HTTP 400. Both retain prior exposure and physical calls and require an explicit
-successor; neither resets the budget or automatically dispatches.
+| Purpose, architecture, and data contracts | [Vision](docs/product/vision.md), [system](docs/architecture/system.md), [contracts](docs/architecture/data-contracts.md) |
+| Market methodology and strategy research | [Universe](docs/universe/methodology.md), [Ambient AI](docs/ambient-ai/thesis.md), [scoring](docs/scoring/model.md) |
+| Prepare, execute, and publish a batch | [Runbook](docs/operations/runbook.md), [serial controller](docs/operations/batch-controller.md), [publication replay](docs/operations/small-qualification-publication.md) |
+| Recover failed execution | [Payment recovery](docs/operations/payment-rejection-recovery.md), [release-review recovery](docs/operations/release-review-recovery.md) |
+| Qualify larger workloads or reviewer changes | [Medium preflight](docs/operations/medium-primary-preflight.md), [reviewer qualification](docs/operations/reviewer-qualification.md), [readable references](docs/operations/reviewer-readable-view.md) |
+| Inspect implementation and artifacts | `src/turbo/universe/`, `src/turbo/agents/`, `src/turbo/web/`, `frontend/`; `data/source_snapshots/`, `data/runs/`, `data/family_schedules/`, `data/market_graph/` |
+| Find current verified pointers | `data/generated/latest-run.json`, `latest-family-schedule.json`, `latest-graph.json` |
+| Detailed design decisions and historical receipts | [Documentation index](docs/INDEX.md), [architecture decisions](docs/INDEX.md#architecture-decisions) |
