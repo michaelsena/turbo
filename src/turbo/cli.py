@@ -41,7 +41,8 @@ from turbo.universe.boundary_activation import (
     run_boundary_activation,
     validate_boundary_activation,
 )
-from turbo.universe.graph_release import run_graph_release, validate_graph_release
+from turbo.universe.graph_release import validate_graph_release
+from turbo.universe.graph_publication import run_graph_release
 from turbo.universe.family_scheduler import run_family_plan, validate_family_plan
 from turbo.universe.family_pack_v2 import (
     dry_run_family_preparation_v2,

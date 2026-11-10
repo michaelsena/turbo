@@ -139,6 +139,10 @@ def _options(m):
 
 
 def _state(m, *, clock):
+    from turbo.agents import batch_publication
+    publication = batch_publication.inspect(m)
+    if publication is not None:
+        return publication
     if _base(Path(m['root']))!=m['base_pointer_sha256']:return {'state':'STOPPED','reason':'canonical_base_changed'}
     journal=_journal(Path(m['registry_dir']),m['authorization'])
     expected=m['attempt_ids']; records=journal['requests']

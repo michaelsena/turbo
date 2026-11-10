@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "status": "offline_no_calls_no_authority",
+  "recommendation": "blocked",
+  "dispatch_authorized": false,
+  "scope": "exact captured primary request; supplied role configuration is not an authorization",
+  "bindings": {
+    "workflow_plan_sha256": "9db18ac60d5d281f2ac7109d269dfdcfd66f285a8afcefab1fabb2a29b7fea53",
+    "context_sha256": "9e4b1c76243095acca38c99ad5007f694f89b01d9d82319d1258d3f98f56002b",
+    "assignment_sha256": "62756a706cf1e09d3b89b873787798110ea73c0bb08a71b8d95570e11fb86d3c",
+    "input_tree": "6d8fd67f11ed1b31de4c155b6c9c108220bf2217",
+    "prompt_sha256": "c13f33356ae4908a64a600eb1eb7d9ae03a4c3db22c9d33e6cf8324c8c6207eb",
+    "role_schema_sha256": "002149b43d55ad3e16a9fc68dafb49f92b9239efc7ea211fa7d500d18bbfa336",
+    "frozen_request_builder_sha256": "8ca2d9d10fa93505c29df30768356dda9c5da552f256650bae214a0ed67946f9",
+    "input_commit": "8ed55cbad03a20e1fb17dd00a2dac7ea398dfa38",
+    "request_sha256": "7ac11b69b11a0122ee3ffb65ff8fc1b074272f96c394e85a02b3441be0f07afc",
+    "role_config_sha256": "d906040f799fbb39b1b21846bf0cd22c2e20e5c30454691fd60294bcc3da97db",
+    "metadata_sha256": "705bb7154fe110b25ad446367bf140e90cfe800af0eb3329f2c0464d06d9ed56"
+  },
+  "subjects": {
+    "family_ids": [
+      "family:naics-2022:333112",
+      "family:naics-2022:327993"
+    ],
+    "required_identities": 38,
+    "required_candidates": 1,
+    "evidence_items": 1304
+  },
+  "metadata": {
+    "model": "openai/gpt-5.6-luna",
+    "provenance": "supplied_snapshot_unverified",
+    "observed_at": null,
+    "retrieved_at": null,
+    "reported_context_limit": 1050000,
+    "reported_output_limit": 128000,
+    "routed_endpoint_limits_verified": false
+  },
+  "admission": {
+    "wire_bytes": 1718379,
+    "wrapper_allowance": 4096,
+    "conservative_input_bound": 1722475,
+    "supplied_input_ceiling": 230000,
+    "fits_supplied_ceiling": false,
+    "required_ceiling_without_changing_admission_rule": 1722475,
+    "cap_changed": false
+  },
+  "output": {
+    "configured_max_tokens": 32000,
+    "fits_reported_maximum": true
+  },
+  "context": {
+    "conservative_input_plus_output": 1754475,
+    "fits_reported_context_by_conservative_bound": false,
+    "actual_context_overflow_established": false
+  },
+  "actual_usage": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "cost": null
+  },
+  "tokenizer_estimate": null,
+  "downstream": {
+    "request_sizes": "unknown_until_validated_outputs_exist",
+    "whole_workflow_cost": "unknown",
+    "publication_ready": false
+  },
+  "blocking_conditions": [
+    "live routed model constraints and snapshot provenance are unverified",
+    "fresh exact workflow execution authority has not been assessed",
+    "exact request exceeds supplied primary admission ceiling",
+    "conservative request-plus-output context fit is unproven; actual overflow is not established"
+  ],
+  "staged_options": {
+    "one_call_diagnostic": {
+      "recommendation": "not_recommended_as_coverage_path",
+      "max_calls": 1,
+      "max_attempts": 1,
+      "max_concurrency": 1,
+      "automatic_retry": false,
+      "downstream_dispatch": false,
+      "publication": false,
+      "continuation": "not_automatically_resumable_under_fresh_authorization"
+    },
+    "same_journal_pause_after_primary": {
+      "recommendation": "blocked_pending_fit_and_authority",
+      "proposed_max_calls": 6,
+      "proposed_max_attempts_per_role": 1,
+      "proposed_max_concurrency": 1,
+      "automatic_retry": false,
+      "stop_after_primary": true,
+      "publication_before_review": false,
+      "continuation": "existing_authorization_and_journal_only_if_remaining_roles_fit_bound_caps",
+      "downstream_fit": "unknown_until_validated_upstream_outputs_exist",
+      "changed_authorization": "not_created_or_applied"
+    }
+  },
+  "generated_at_utc": "2026-11-10T12:48:11.391802+00:00"
+}
