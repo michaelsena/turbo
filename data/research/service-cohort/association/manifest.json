@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "family_id": "family:naics-2022:531311",
+  "source_run_id": "run-2ea0f00db84148de663f",
+  "sources": [
+    {
+      "source_id": "s1",
+      "path": "data/research/service-cohort/association/sources/s1.txt",
+      "url": "https://hoaresources.caionline.org/responsibilities-of-a-community-manager/",
+      "retrieved_at_utc": "2026-11-10T15:04:44.464744+00:00",
+      "sha256": "3bf2e7a80c46baa4e07b95109169c3d59d477022a90cfd4925dec8fab290dfb7",
+      "representation": "excerpt_with_paraphrase",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    },
+    {
+      "source_id": "s3",
+      "path": "data/research/service-cohort/association/sources/s3.txt",
+      "url": "https://foundation.caionline.org/research/mcbenchmarking/",
+      "retrieved_at_utc": "2026-11-10T15:04:44.464744+00:00",
+      "sha256": "0bf20a9e1ac0f693f294d7b23ec8eebd2ebcac73038dc52c8d846953b31cb0e3",
+      "representation": "excerpt_with_paraphrase",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    },
+    {
+      "source_id": "s5",
+      "path": "data/research/service-cohort/association/sources/s5.txt",
+      "url": "https://www.fsresidential.com/corporate/what-we-do/property-management/high-rise-no-manager/",
+      "retrieved_at_utc": "2026-11-10T15:04:44.464744+00:00",
+      "sha256": "ccb99938c704a7e01b2e22bd06eb3472df5316df70c7116b3244053d8b069442",
+      "representation": "excerpt_with_paraphrase",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    },
+    {
+      "source_id": "s6",
+      "path": "data/research/service-cohort/association/sources/s6.txt",
+      "url": "https://www.townsq.io/new-releases-and-updates/townsq-ai-suggested-reply",
+      "retrieved_at_utc": "2026-11-10T15:04:44.464744+00:00",
+      "sha256": "cce755859b84532ae8cfe2dad6e8affb14d9a5e0e73ba9acb34a987ae2cbd5b3",
+      "representation": "excerpt_with_paraphrase",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "association-observation-s1",
+      "kind": "fact",
+      "text": "The CAI role description distinguishes board policy authority from contracted manager operations. Financial records and coordination form a service hypothesis, not evidence that the association entity and management firm are the same market.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s1"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "association-observation-s3",
+      "kind": "fact",
+      "text": "The Foundation benchmarking page reports that 67% of respondents have annual client retention of at least95%, versus76% in2025. These are respondent reports, not a market-wide retention estimate or audited recurring revenue.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s3"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "association-observation-s5",
+      "kind": "fact",
+      "text": "FirstService advertises assigned community managers backed by specialist teams, with accounting, contract administration, board support, vendor oversight and communications. This is one provider configuration, not proof of representative profitability or acquisition supply.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s5"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "association-observation-s6",
+      "kind": "fact",
+      "text": "TownSq advertises suggested replies using community information with manager review/edit before sending. This is supplier-described capability, not measured savings, accuracy or retained economic value.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [
+        "s6"
+      ],
+      "gap_ids": []
+    },
+    {
+      "claim_id": "association-economic-unknown",
+      "kind": "unknown",
+      "text": "The selected source excerpts do not establish market-wide economics, employer labor representation, acquisition availability or eligibility. No exception to strategy gates is granted.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ],
+      "source_ids": [],
+      "gap_ids": [
+        "association-economics"
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "gap_id": "association-boundary",
+      "question": "Does outsourced HOA/condominium association management constitute a distinct operating market within or related to residential property management? Distinguish management firms from associations, property ownership, apartment management and direct maintenance. Attachment does not establish classification ownership.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    },
+    {
+      "gap_id": "association-economics",
+      "question": "What independent evidence establishes acquisition population, EV/transaction feasibility, margins, labor representation, customer mix and strategy eligibility? Do not substitute association assessments for management revenue.",
+      "subject_ids": [
+        "identity:naics:531311"
+      ]
+    }
+  ]
+}

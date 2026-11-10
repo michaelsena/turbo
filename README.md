@@ -183,7 +183,7 @@ is authorized by this repository's normal workflow.
 | --- | --- |
 | Purpose, architecture, and data contracts | [Vision](docs/product/vision.md), [system](docs/architecture/system.md), [contracts](docs/architecture/data-contracts.md) |
 | Market methodology and strategy research | [Universe](docs/universe/methodology.md), [Ambient AI](docs/ambient-ai/thesis.md), [scoring](docs/scoring/model.md) |
-| Prepare, execute, and publish a batch | [Runbook](docs/operations/runbook.md), [serial controller](docs/operations/batch-controller.md), [publication replay](docs/operations/small-qualification-publication.md) |
+| Prepare, execute, and publish a batch | [Runbook](docs/operations/runbook.md), [serial controller](docs/operations/batch-controller.md), [frozen supplemental evidence](docs/operations/family-supplemental-evidence.md), [single-family runs](docs/operations/single-family-batch.md), [publication replay](docs/operations/small-qualification-publication.md) |
 | Admit eligible markets and evaluate one submodel | [Eligibility](docs/operations/governed-eligibility.md), [governed execution](docs/operations/governed-evaluation-runtime.md); production factor policies and global aggregation remain pending |
 | Recover failed execution | [Payment recovery](docs/operations/payment-rejection-recovery.md), [release-review recovery](docs/operations/release-review-recovery.md) |
 | Qualify larger workloads or reviewer changes | [Medium preflight](docs/operations/medium-primary-preflight.md), [reviewer qualification](docs/operations/reviewer-qualification.md), [readable references](docs/operations/reviewer-readable-view.md) |

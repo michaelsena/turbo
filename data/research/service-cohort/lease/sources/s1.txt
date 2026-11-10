@@ -1,0 +1,9 @@
+URL: https://www.colliers.com/en/services/lease-administration
+Retrieved at UTC: 2026-11-10T15:05:33.331463Z
+Capture kind: retrieved_excerpt
+Capture method: Public web retrieval tool, verified visible page lines538 and549; direct local GET returned403. No full response retained.
+This file retains selected verbatim excerpts only, not the full page.
+
+Retained excerpts:
+Each abstraction is supported by a proven set of quality control measures.
+annual expense reconciliations

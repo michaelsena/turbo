@@ -74,8 +74,8 @@ def validate_authorization_document(auth: dict[str, Any], *, root: Path = ROOT) 
 
 def _scope(preparation_dirs: Iterable[Path], root: Path) -> tuple[list[dict[str, str]], str]:
     paths = [Path(path) for path in preparation_dirs]
-    if not 2 <= len(paths) <= 8:
-        raise ValueError("a batch requires two to eight distinct preparations")
+    if not 1 <= len(paths) <= 8:
+        raise ValueError("a batch requires one to eight distinct preparations")
     scope = []
     for path in paths:
         replay = validate_family_preparation_v2(path, root=root)

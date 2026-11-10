@@ -31,6 +31,71 @@ EXECUTION_FILES = ('src/turbo/agents/batch_request_repair.py', 'src/turbo/agents
                    'src/turbo/universe/graph_release.py', 'schemas/graph-release-config.schema.json')
 
 
+
+NAVIGATION_INSTRUCTIONS = """# Literal local-scope navigation
+The Literal assignment navigation block copies bindings and local obligations from
+context. Use payload_bindings verbatim inside a B3 payload. In particular its
+request_id is NOT the actor_id, and its invocation_id is NOT role_invocation_id.
+Only each family's required_identity_ids and required_candidate_ids receive
+local dispositions or affected-subject gaps. Context-only IDs must not be added.
+An evidence card's assignment_role describes GLOBAL schedule ownership; it does
+not override these LOCAL required/context lists. Preserve original owner fields.
+The required-subject labels and card evidence anchors are navigation, not new
+research evidence or a selected evidence subset. Read the COMPLETE frozen
+assignment for definitions, exclusions, conflicts and all supporting/counterevidence.
+Never infer a subject's label from a nearby card. Evidence citations must belong
+to the correct family and, for a disposition, support that exact subject. Do not
+return this navigation block as part of the canonical role document.
+"""
+
+
+def assignment_navigation(task: dict) -> dict:
+    """Derive a literal index solely from the verified context; never repair output."""
+    context = task['context']
+    bindings = {key: copy.deepcopy(context[key]) for key in (
+        'schema_version', 'contract_version', 'role_id', 'request_id', 'invocation_id',
+        'context_sha256', 'output_schema_sha256', 'prompt_sha256')}
+    families = []
+    for family in context['families']:
+        index = {key: copy.deepcopy(family[key]) for key in (
+            'family_id', 'preparation_id', 'input_pack_sha256',
+            'required_identity_ids', 'required_candidate_ids',
+            'context_identity_ids', 'context_candidate_ids')}
+        index['required_subject_cards'] = []
+        for kind, key, prefix, identity_key in (
+                ('identity', 'required_identity_ids', '/identity_cards/', 'identity_id'),
+                ('candidate', 'required_candidate_ids', '/required_candidate_cards/', 'candidate_market_id')):
+            for subject in family[key]:
+                cards = [row for row in family['evidence_catalog']
+                         if row['json_pointer'].startswith(prefix)
+                         and row['value'].get(identity_key) == subject
+                         and subject in row['subject_ids']]
+                if len(cards) != 1:
+                    raise ValueError('required subject lacks one exact owned navigation card')
+                card = cards[0]
+                index['required_subject_cards'].append({
+                    'kind': kind, 'subject_id': subject, 'evidence_id': card['evidence_id'],
+                    'json_pointer': card['json_pointer'],
+                    'original_fields': {name: copy.deepcopy(card['value'][name]) for name in (
+                        'labels', 'analysis_labels', 'name', 'source_code', 'identity_type',
+                        'assignment_role', 'owner_family_id', 'primary_family_id', 'status')
+                        if name in card['value']}})
+        families.append(index)
+    return {'schema_version': 1, 'kind': 'literal-local-scope-navigation-v1',
+            'payload_bindings': bindings, 'families': families}
+
+
+def render_assignment(task: dict, *, input_root: Path, model_view: str | None = None,
+                      reviewer_view: str | None = None) -> str:
+    """One request rendering path for admission measurement and actual transport."""
+    prompt = role_prompt(input_root=input_root, model_view=model_view, reviewer_view=reviewer_view)
+    rendered_task = (readable.encode(task) if reviewer_view is not None else
+                     view.encode(task) if model_view is not None else task)
+    if model_view is not None:
+        prompt += '\n# Literal assignment navigation\n' + _bytes(assignment_navigation(task)).decode()
+    return prompt + '\n# Frozen assignment\n' + _bytes(rendered_task).decode()
+
+
 def _validate_views(model_view, reviewer_view):
     if model_view not in (None, view.VERSION): raise ValueError('unknown model view')
     if reviewer_view not in (None, readable.FORMAT): raise ValueError('unknown reviewer view')
@@ -86,7 +151,7 @@ def role_prompt(*, input_root: Path, model_view: str | None = None,
             + '\n\nReturn the assigned role document, not the coordinator envelope. '
               'For research roles put the complete B3 object inside payload. '
               'For verifier return input_hashes and assessments only.\n'
-            + (view.INSTRUCTIONS if model_view is not None else '')
+            + (view.INSTRUCTIONS + '\n' + NAVIGATION_INSTRUCTIONS if model_view is not None else '')
             + ('\n# Reviewer readable references\n' + readable.INSTRUCTIONS if reviewer_view is not None else ''))
 
 
@@ -263,10 +328,8 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         _replay_preview(directory, input_root=input_root, preparation_dirs=preparation_dirs)
     config = authorization['roles'][role]
     active_reviewer_view = reviewer_view if role == 'release_reviewer' else None
-    prompt = role_prompt(input_root=input_root, model_view=enabled_view, reviewer_view=active_reviewer_view)
-    rendered_task = (readable.encode(task) if active_reviewer_view is not None else
-                     view.encode(task) if enabled_view is not None else task)
-    runtime = prompt + '\n# Frozen assignment\n' + _bytes(rendered_task).decode()
+    runtime = render_assignment(task, input_root=input_root, model_view=enabled_view,
+                                reviewer_view=active_reviewer_view)
     schema = role_schema(role, input_root=input_root)
     # Conservative admission: UTF-8 request bytes plus an explicit wrapper allowance.
     # This deliberately overestimates normal tokenization, not a provider dollar cap.

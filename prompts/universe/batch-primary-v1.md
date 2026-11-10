@@ -4,6 +4,10 @@ This contract defines a structured boundary-research response. It does not autho
 model execution, external research, paid sources, graph activation, Target selection,
 or investment scoring. Structural validation is not research approval.
 
+A batch may contain one to eight complete families from one scheduled batch.
+A single-family batch retains every required subject and all supplied context;
+it does not relax the research, verification, or release-review obligations.
+
 Use only the verified batch context supplied by the caller. Return one JSON object
 matching the pinned batch-primary-output schema. Echo the exact request, invocation,
 context, schema, prompt, family, preparation, and pack bindings. Preserve family order.
