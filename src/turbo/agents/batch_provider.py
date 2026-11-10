@@ -333,8 +333,13 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
     reviewer_view = readable.FORMAT if readable.CONTRACT_KEY in authorization['execution_contract_hashes'] else None
     citation_sets = citations.CONTRACT_KEY in authorization['execution_contract_hashes']
     _validate_views(enabled_view, reviewer_view)
+    bound_recovery = False
+    if recovery_checkpoint is not None:
+        from turbo.agents.batch_execution_v2 import _read
+        bound_recovery = _read(Path(recovery_checkpoint)).get('kind') == 'explicit_bound_release_http400_successor'
     if (enabled_view is not None or reviewer_view is not None or citation_sets) and recovery_checkpoint is not None:
-        raise ValueError('model view requires a fresh workflow authorization, not recovery')
+        if not (bound_recovery and enabled_view == view.VERSION and citation_sets and reviewer_view is None):
+            raise ValueError('model view requires a fresh workflow authorization, not recovery')
     expected_contracts = execution_contract_hashes(model_view=enabled_view, reviewer_view=reviewer_view, citation_sets=citation_sets)
     if recovery_checkpoint is not None:
         from turbo.agents.batch_recovery import checkpoint_binding
@@ -343,7 +348,7 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
         if checkpoint.get('kind') == 'explicit_corrected_release_successor':
             from turbo.agents.batch_request_repair import CONTRACT_KEY, checkpoint_binding
             expected_contracts[CONTRACT_KEY] = checkpoint_binding(checkpoint)
-        elif checkpoint.get('kind') == 'explicit_release_http400_successor':
+        elif checkpoint.get('kind') in ('explicit_release_http400_successor', 'explicit_bound_release_http400_successor'):
             from turbo.agents.batch_release_recovery import CONTRACT_KEY, checkpoint_binding
             expected_contracts[CONTRACT_KEY] = checkpoint_binding(checkpoint)
         else:
@@ -388,7 +393,7 @@ def run_batch_role(directory: Path, registry_dir: Path, authorization: dict, rol
             from turbo.agents.batch_request_repair import RequestRepairExecution
             execution = RequestRepairExecution(registry_dir, authorization, recovery_checkpoint,
                 preparation_dirs=preparation_dirs, **({'clock': clock} if clock else {}))
-        elif checkpoint.get('kind') == 'explicit_release_http400_successor':
+        elif checkpoint.get('kind') in ('explicit_release_http400_successor', 'explicit_bound_release_http400_successor'):
             from turbo.agents.batch_release_recovery import ReleaseRecoveryExecution
             execution = ReleaseRecoveryExecution(registry_dir, authorization, recovery_checkpoint,
                 preparation_dirs=preparation_dirs, **({'clock': clock} if clock else {}))
