@@ -114,6 +114,9 @@ and [cumulative graph release](data/market_graph/versions/graph-release-5e509cb2
 composition. Historical source-run counts are not current cumulative graph counts.
 The [workload report](docs/operations/universe-workload-envelope.md) distinguishes
 completed dispositions from unresolved gaps and remaining schedule obligations.
+Its published completion totals describe the earlier five-market release. A
+compatible lease publication manifest is still required before that report can
+cover the current six-market graph; incomplete activation coverage is rejected.
 
 The reviewed lease boundary is [included in the cumulative release](data/research_pilots/lease-qualification-20261110/README.md).
 This release has six markets and nine mappings and binds exact published source
@@ -128,6 +131,15 @@ versions, verified eligibility evidence, and explicit registered factor policies
 No service-market eligibility decision or investment score has been accepted.
 Eligibility requests explicitly explain disjoint support/counterevidence citations;
 mixed-source limitations remain in the rationale and gaps, with strict validation unchanged.
+
+The [six-submodel readiness audit](data/research_pilots/service-trial-20261110/six-submodel-readiness.md)
+records the factor policies and remaining production requirements. A
+[read-only cohort planner](docs/operations/evaluation-cohort-planning.md) checks six
+fresh units against those policies, common accepted inputs, and fixed budget
+allocations. It does not initialize or execute units or aggregate scores. Interrupted
+provider attempts retain their reservations and cannot be automatically resent;
+the [interruption guide](docs/operations/interrupted-provider-attempts.md) separates
+current operating procedures from proposed response-capture and supervision work.
 
 ## Run the local console
 

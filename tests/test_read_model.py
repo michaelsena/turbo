@@ -24,14 +24,14 @@ class ReadModelTest(unittest.TestCase):
             snapshot.version.partition_id,
             "family-partition:60517981ab96e7f243c7033e",
         )
-        self.assertEqual(snapshot.context["canonical_markets"], 5)
+        self.assertEqual(snapshot.context["canonical_markets"], 6)
         self.assertEqual(snapshot.provenance()["read_model_version"], "1.1.0")
         self.assertEqual(len(snapshot.identities), 11_543)
         self.assertEqual(len(snapshot.families), 1_026)
         self.assertEqual(len(snapshot.batches), 129)
         self.assertEqual(len(snapshot.candidates), 978)
-        self.assertEqual(len(snapshot.markets), 5)
-        self.assertEqual(len(snapshot.graph_mappings), 8)
+        self.assertEqual(len(snapshot.markets), 6)
+        self.assertEqual(len(snapshot.graph_mappings), 9)
 
     def test_current_graph_preserves_pilot_and_adds_reviewed_provisional_markets(self) -> None:
         pilot_path = (self.snapshot.root / "data/market_graph/versions"
@@ -47,11 +47,25 @@ class ReadModelTest(unittest.TestCase):
         self.assertEqual({market["canonical_name"] for market in added}, {
             "Industrial Sand Mining and Preparation",
             "Copper, Nickel, Lead, and Zinc Ore Mining",
+            "Occupier-side commercial lease administration",
         })
         for market in added:
             self.assertEqual(market["activation_status"], "provisional")
             self.assertTrue(market["research_gap_ids"])
-        self.assertEqual(self.snapshot.context["canonical_market_graph"]["open_research_gaps"], 4)
+        self.assertEqual(self.snapshot.context["canonical_market_graph"]["open_research_gaps"], 5)
+
+    def test_reviewed_lease_market_retains_exact_version_and_boundary_gap(self) -> None:
+        market = self.snapshot.markets["market:d0d51b500c822316b848f7a2"]
+        self.assertEqual(market["canonical_name"], "Occupier-side commercial lease administration")
+        self.assertEqual(market["market_version_id"], "market-version:dbfc373d38a7a39fcaa670da")
+        self.assertEqual(market["activation_status"], "provisional")
+        self.assertEqual(market["research_gap_ids"], ["gap:52528f2baf5c9622:lease-administration-boundary"])
+        self.assertEqual(market["evidence_by_dimension"]["acquisition_universe"], "unknown")
+        self.assertEqual(market["evidence_by_dimension"]["workforce"], "unknown")
+        mapping = next(row for row in self.snapshot.graph_mappings
+                       if row["event_id"] == "batch-activation-8074059a637690090858:00002:map")
+        self.assertEqual(mapping["identity_id"], "identity:naics:531390")
+        self.assertEqual(mapping["activation_status"], "provisional")
 
     def test_market_detail_exposes_boundary_gaps_sources_and_audit_chain(self) -> None:
         page = self.snapshot.list_markets(page_size=100)

@@ -17,7 +17,7 @@ import test_batch_provider as fixtures
 import test_batch_workflow as workflow_fixtures
 from test_batch_output import FAMILIES, proposal
 
-NOW = '2026-11-10T12:00:00Z'
+NOW = '2026-11-10T19:00:00Z'
 
 
 class PublicationTest(unittest.TestCase):
@@ -53,8 +53,8 @@ class PublicationTest(unittest.TestCase):
             return copy.deepcopy(self.historical_contexts[key])
         isolated = patch.object(workflow, 'build_batch_context', side_effect=context_for)
         isolated.start(); self.addCleanup(isolated.stop)
-        self.authorization['valid_from_utc'] = '2026-11-10T11:00:00Z'
-        self.authorization['expires_at_utc'] = '2026-11-10T13:00:00Z'
+        self.authorization['valid_from_utc'] = '2026-11-10T18:00:00Z'
+        self.authorization['expires_at_utc'] = '2026-11-10T20:00:00Z'
         historical_boundary = publication.graph.validate_boundary_activation
         historical_cache = {}
         def verified_historical_boundary(*args, **kwargs):
@@ -84,7 +84,7 @@ class PublicationTest(unittest.TestCase):
             authorization=self.authorization, input_root=self.input_root,
             preparation_dirs=self.preparations, root=self.root)
         self.publication_config = {'schema_version': 1, 'output_root': 'data/controller-publication-test',
-            'base_graph_config': 'config/universe/graph-releases/canonical-universe-small-qualification-v1.json',
+            'base_graph_config': 'config/universe/graph-releases/canonical-universe-lease-v1.json',
             'release_name': 'controlled-publication-test'}
         self.config_path = self.base / 'publication-config.json'
         ledger._write(self.config_path, self.publication_config)
@@ -136,7 +136,7 @@ class PublicationTest(unittest.TestCase):
         subprocess.run(['git', '-C', str(self.root), '-c', 'user.name=Controlled Test', '-c',
             'user.email=controlled@example.invalid', 'commit', '-qm', 'Controlled publication source'], check=True)
 
-    def test_no_movement_closure_preserves_five_market_pointer_and_repeats(self):
+    def test_no_movement_closure_preserves_six_market_pointer_and_repeats(self):
         self.approve()
         pointer = (self.root / 'data/generated/latest-graph.json').read_bytes()
         result = self.publish()
@@ -148,7 +148,7 @@ class PublicationTest(unittest.TestCase):
         self.assertEqual((self.root / 'data/generated/latest-graph.json').read_bytes(), pointer)
         current = json.loads(pointer)
         projection = ledger._read(self.root / current['release_path'] / 'projection.json')
-        self.assertEqual(len(projection['markets']), 5)
+        self.assertEqual(len(projection['markets']), 6)
         self.assertEqual(len(self.calls), 3)
         # Completion is always revalidated; neither mutable pointers nor files
         # can be hidden behind a previously written success receipt.
@@ -247,8 +247,8 @@ class PublicationTest(unittest.TestCase):
         old_pointer = json.loads(pointer)
         old_projection = ledger._read(self.root / old_pointer['release_path'] / 'projection.json')
         new_projection = ledger._read(self.root / result['receipt']['pointer']['release_path'] / 'projection.json')
-        self.assertEqual(len(old_projection['markets']), 5)
-        self.assertEqual(len(new_projection['markets']), 6)
+        self.assertEqual(len(old_projection['markets']), 6)
+        self.assertEqual(len(new_projection['markets']), 7)
         new_by_id = {row['market_id']: row for row in new_projection['markets']}
         for old in old_projection['markets']:
             self.assertEqual(new_by_id[old['market_id']], old)

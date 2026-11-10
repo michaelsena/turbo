@@ -1,6 +1,7 @@
 # Universe workload envelope
 
-Run the read-only report from the repository root:
+The following historical example applies to the five-market small-qualification
+snapshot `graph-release-a09c97692a785c2a9711`:
 
 ```bash
 python3 scripts/report-universe-workload.py \
@@ -12,6 +13,23 @@ one `--publication-manifest` for each batch activation in the current canonical
 graph; duplicate identical manifests are harmless. Missing manifests fail rather
 than silently counting published work as remaining.
 
+## Current six-market reporting limitation
+
+The current graph also includes the approved occupier-side lease-administration
+activation. Its publication includes a hash-bound canonical replay archive and
+transport manifest, but no compatible workload publication manifest binding the
+workflow, closure, activation and cumulative release files. The transport inventory
+is not a substitute for that reporting contract.
+
+Therefore the example command against the current six-market checkout correctly
+fails with `publication manifests do not cover current batch activations`. Supplying
+only the older small-qualification manifest must not silently omit the lease work.
+Current six-market remaining-work totals are not established by this report yet.
+A reviewed lease publication-manifest integration is required; no provenance or
+coverage checks are bypassed. Tests preserve the historical totals in a disposable
+copy pinned to the original verified release, and separately assert rejection of
+incomplete coverage on the current graph.
+
 ## What the counts mean
 
 The schedule is the obligation baseline. The report verifies current source,
@@ -20,7 +38,7 @@ checks that batch assignments cover the scheduled families exactly once. It then
 subtracts reviewed family obligations bound to supplied canonical publications.
 These are family/identity/candidate review counts, not counts of new markets.
 
-For the current published fixture, the schedule contains 1,018 families, 8,182
+For that historical five-market published fixture, the schedule contains 1,018 families, 8,182
 identity obligations, and 976 candidate obligations in 129 batches. The two
 published mining family closures account for eight identity obligations and one
 candidate obligation. This leaves 1,016 families, 8,174 identities, and 975
