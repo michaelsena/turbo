@@ -47,7 +47,7 @@ class WebApiTest(unittest.TestCase):
         replay = self.client.get("/api/v1/markets?page_size=100")
         self.assertEqual(first.json(), replay.json())
         data = first.json()["data"]
-        self.assertEqual(data["total"], 3)
+        self.assertEqual(data["total"], 5)
         serialized = first.text.casefold()
         self.assertNotIn('"score"', serialized)
         self.assertNotIn('"rank"', serialized)

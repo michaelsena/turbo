@@ -24,6 +24,7 @@ the README and the relevant document whenever behavior or architecture changes.
 - [Google review request compatibility](operations/reviewer-request-compatibility.md)
 - [Controlled reviewer-schema compatibility receipt](operations/receipts/2026-11-09-reviewer-schema-compatibility.json)
 - [Small-workload qualification receipt](operations/receipts/2026-11-09-small-qualification.json)
+- [Published small-qualification replay](operations/small-qualification-publication.md)
 - [Accepted review and validated staging](operations/receipts/2026-11-10-small-qualification-staging.json)
 - [App/UI GM worker charter](operations/app-gm-worker.md)
 - [Local App/UI issue dispatcher](operations/app-dispatcher.md)
@@ -54,4 +55,5 @@ the README and the relevant document whenever behavior or architecture changes.
 - [ADR 0014: Lossless model view](decisions/0014-lossless-model-view.md)
 - [ADR 0015: Release-review successor](decisions/0015-release-review-successor.md)
 - [ADR 0016: Corrected-review aggregate amendment](decisions/0016-corrected-review-budget-amendment.md)
+- [ADR 0017: Durable batch publication](decisions/0017-durable-batch-publication.md)
 - [Prior-model crosswalk](decisions/prior-model-crosswalk.md)

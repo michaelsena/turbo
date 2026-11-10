@@ -1,0 +1,2102 @@
+{
+  "active_event_ids": [
+    "boundary-activation-9d3772f0364b4632dc62:01:create-market:integrated-outsourced-office-administration",
+    "boundary-activation-9d3772f0364b4632dc62:02:create-market:medical-practice-administration",
+    "boundary-activation-9d3772f0364b4632dc62:03:create-market:dental-practice-administration",
+    "boundary-activation-9d3772f0364b4632dc62:04:map:identity-naics-561110",
+    "batch-activation-3689a9605eac57d04444:00001:create",
+    "batch-activation-3689a9605eac57d04444:00002:map",
+    "batch-activation-3689a9605eac57d04444:00003:map",
+    "batch-activation-3689a9605eac57d04444:00004:map",
+    "batch-activation-3689a9605eac57d04444:00005:map",
+    "batch-activation-3689a9605eac57d04444:00006:create",
+    "batch-activation-3689a9605eac57d04444:00007:map",
+    "batch-activation-3689a9605eac57d04444:00008:map",
+    "batch-activation-3689a9605eac57d04444:00009:map"
+  ],
+  "as_of": "2026-11-10T00:36:04.118199Z",
+  "exclusions": [],
+  "graph_version_id": "graph-9838996c8153c20c7f86c37a",
+  "lineage": [],
+  "mappings": [
+    {
+      "activation_status": "provisional",
+      "alternatives_considered": [
+        "Single horizontal outsourced-office-administration market only",
+        "Separate named vertical administration markets",
+        "Treat reported NAPCS products as equivalent operating markets"
+      ],
+      "counterevidence_record_ids": [],
+      "decision": "accepted",
+      "event_id": "boundary-activation-9d3772f0364b4632dc62:04:map:identity-naics-561110",
+      "event_type": "map",
+      "identity_confidence": 0.79,
+      "identity_disposition": "provisional_map_to_proposal",
+      "identity_evidence_label": "fact",
+      "identity_id": "identity:naics:561110",
+      "identity_rationale": "The definition directly supports contracted multi-function day-to-day office administration; named vertical index labels preserve an unresolved split question.",
+      "input_candidate_market_ids": [],
+      "input_market_ids": [],
+      "input_source_record_ids": [
+        "source-row:census-naics-2022:561110"
+      ],
+      "operating_identity": {
+        "acquisition_universe": {
+          "confidence": 0.7,
+          "result": "Providers whose primary contracted offering is an integrated range of day-to-day office administrative functions for client businesses, without supplying operating staff for complete business operation."
+        },
+        "ambient_ai_workflow": {
+          "confidence": 0.1,
+          "result": "Unknown from the frozen evidence; plausible workflow assistance is not treated as fact."
+        },
+        "buyer": {
+          "confidence": 0.65,
+          "result": "Client organizations seeking outsourced recurring administrative capability; inferred from services provided for others."
+        },
+        "delivery": {
+          "confidence": 0.85,
+          "result": "Ongoing contract- or fee-based outsourced administration."
+        },
+        "economics_risk": {
+          "confidence": 0.3,
+          "result": "Pricing, economics, and allocation of operational risk are not directly evidenced."
+        },
+        "job": {
+          "confidence": 0.88,
+          "result": "Operate a client's recurring office-administration functions without taking over the complete operating business."
+        },
+        "workforce": {
+          "confidence": 0.84,
+          "result": "Administrative-service workforce; expressly excludes operating staff for complete client-business operations."
+        }
+      },
+      "output_market_ids": [
+        "market:930fb681a7db796a46677c8c"
+      ],
+      "proposal_id": "proposal:integrated-outsourced-office-administration",
+      "recorded_at": "2026-11-09T02:36:06Z",
+      "relationship_type": "broader_than_market",
+      "research_gap_ids": [
+        "gap:vertical-administration-boundary"
+      ],
+      "research_gaps": [
+        {
+          "affected_identity_ids": [
+            "identity:naics:561110"
+          ],
+          "confidence": 0.34,
+          "counterevidence_ids": [
+            "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+            "evidence:manual-index-entry:5345528a627722e2c82fe981",
+            "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+            "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad"
+          ],
+          "current_judgment": "Medical, dental, hotel, motel, industrial, and professional-office administration labels appear in the index, but the frozen pack does not resolve whether they are separate markets or vertical sales segments of horizontal office administration.",
+          "evidence_label": "unknown",
+          "gap_id": "gap:vertical-administration-boundary",
+          "question": "Do named administration models have distinct buyers, jobs, delivery/workforce structures, economics/risk, acquisition universes, or Ambient AI workflows relative to integrated horizontal office administration?",
+          "retry_trigger": "Obtain comparable provider and buyer evidence for each named vertical and evidence separating non-complete-operation administration from full operating management.",
+          "supporting_evidence_ids": [
+            "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+            "evidence:manual-index-entry:5345528a627722e2c82fe981",
+            "evidence:manual-index-entry:174f99d76756a1d0bbecd5ae",
+            "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad",
+            "evidence:manual-definition:bb8297ad9acd30b748422249"
+          ]
+        }
+      ],
+      "review": {
+        "independent_reviewer": "independent-review:boundary-review:office-administrative-services-v2:correction-cycle",
+        "proposer": "adjudicator:boundary-run-1a88e9a3acdf15d63b09",
+        "result": "accepted"
+      },
+      "source_adjudication_sha256": "c560ac7d565f163eee92a4ee839a38e6322258352f1170555085b90b87d87e73",
+      "source_boundary_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+      "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+      "source_review_output_sha256": "3f0b3e668e2f5050fc2a3afb0d10c6b2b869b81e604c786668ff3f6d497e3c43",
+      "supersedes": [],
+      "supersedes_market_version_ids": [],
+      "supporting_record_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-index-entry:145b5df284b7906dcd7bb2ad"
+      ]
+    },
+    {
+      "activation_status": "provisional",
+      "alternatives_considered": [
+        "Verified selective workflow; full evidence and findings retained in source workflow"
+      ],
+      "counterevidence_record_ids": [],
+      "decision": "accepted",
+      "event_id": "batch-activation-3689a9605eac57d04444:00002:map",
+      "event_type": "map",
+      "family_id": "family:naics-2022:212322",
+      "identity_id": "identity:naics:212322",
+      "input_candidate_market_ids": [],
+      "input_market_ids": [],
+      "input_source_record_ids": [
+        "source-row:census-naics-2022:212322",
+        "source-row:prior-model-2026-11-05:0ee604acdce70acd136f",
+        "source-row:prior-model-2026-11-05:958bb109dd402f91847f",
+        "source-row:prior-model-2026-11-05:9fed79e8d4ab08c1f6a9",
+        "source-row:prior-model-2026-11-05:ac40ff33d37ce9dd5725",
+        "source-row:prior-model-2026-11-05:c3eaea386c26148a7e4d"
+      ],
+      "operating_identity": {
+        "acquisition_universe": {
+          "confidence": 0.7,
+          "result": "The acquisition universe is inferred to consist of establishments operating industrial-grade sand pits, dredging for industrial-grade sand, or preparing industrial-grade sand, rather than establishments merely consuming or installing sand."
+        },
+        "ambient_ai_workflow": {
+          "confidence": 0.1,
+          "result": "The frozen evidence does not state whether AI is present in extraction, dredging, washing, screening, grinding, logistics, or administrative workflows."
+        },
+        "buyer": {
+          "confidence": 0.18,
+          "result": "The records identify industrial sand products and uses but do not identify the purchasing entities, contracting structure, or procurement criteria."
+        },
+        "delivery": {
+          "confidence": 0.2,
+          "result": "The evidence establishes extraction and preparation activities but does not establish delivery mode, geographic reach, contract terms, or point of transfer."
+        },
+        "economics_risk": {
+          "confidence": 0.12,
+          "result": "No frozen evidence establishes pricing, margins, capital intensity, commodity exposure, permitting risk, or other economics and risk characteristics."
+        },
+        "job": {
+          "confidence": 0.86,
+          "result": "The operating job stated by the frozen NAICS definition is to operate industrial-grade sand pits, dredge for industrial-grade sand, and wash, screen, or otherwise prepare industrial-grade sand."
+        },
+        "workforce": {
+          "confidence": 0.12,
+          "result": "The evidence does not identify workforce composition, specialized roles, labor model, or staffing requirements."
+        }
+      },
+      "output_market_ids": [
+        "market:d011b6cf94dc093d649baa14"
+      ],
+      "proposal_id": "proposal:9a0a16bfbc735598:industrial-sand-mining",
+      "recorded_at": "2026-11-09T21:48:18.448937Z",
+      "relationship_type": "industry_containing_market",
+      "research_gap_ids": [
+        "gap:9a0a16bfbc735598:local-industrial-sand-boundary"
+      ],
+      "research_gaps": [
+        {
+          "affected_candidate_ids": [],
+          "affected_identity_ids": [
+            "identity:naics:212322",
+            "identity:napcs-collection:1000600000",
+            "identity:napcs-collection:1000625000",
+            "identity:napcs-collection:1000650000"
+          ],
+          "confidence": 0.88,
+          "counterevidence_ids": [],
+          "current_judgment": "The industrial-sand boundary is defensible but provisional; buyer, delivery, workforce, economics and risk, acquisition-universe detail, and ambient-AI workflow remain incompletely evidenced.",
+          "evidence_label": "inference",
+          "gap_id": "gap:9a0a16bfbc735598:local-industrial-sand-boundary",
+          "question": "Can frozen evidence establish the buyer, delivery, workforce, economics and risk, acquisition universe, and ambient-AI workflow dimensions for the industrial sand mining and preparation boundary without expanding it into downstream use markets?",
+          "retry_trigger": "Retry when additional verified frozen evidence directly addresses the missing operating-identity dimensions for the NAICS anchor and each of the three industrial-sand product identities.",
+          "supporting_evidence_ids": [
+            "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+            "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+            "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+            "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5"
+          ]
+        }
+      ],
+      "review": {
+        "independent_reviewer": "small-qualification-release_reviewer",
+        "proposer": "small-qualification-primary",
+        "result": "accepted"
+      },
+      "source_b3_disposition": {
+        "confidence": 0.68,
+        "counterevidence_ids": [],
+        "disposition": "provisional_map_to_proposals",
+        "evidence_label": "inference",
+        "gap_id": "gap:9a0a16bfbc735598:local-industrial-sand-boundary",
+        "identity_id": "identity:naics:212322",
+        "proposal_ids": [
+          "proposal:9a0a16bfbc735598:industrial-sand-mining"
+        ],
+        "rationale": "The NAICS definition directly covers operating industrial-grade sand pits, dredging for industrial-grade sand, and washing, screening, or otherwise preparing industrial-grade sand. The operating-market interpretation is provisional because the frozen evidence does not establish all buyer, workforce, delivery, economics, or workflow dimensions.",
+        "supporting_evidence_ids": [
+          "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+          "evidence:1f6ae1968f30cfbdbe8b3a6d14674e7138bcb490c5b0998bb47a130c2da6d4cc"
+        ]
+      },
+      "source_b3_proposal": {
+        "boundary": "Establishments primarily engaged in operating industrial-grade sand pits, dredging for industrial-grade sand, or washing, screening, grinding, or otherwise preparing industrial-grade sand, including glass, molding, and other industrial sand products; excludes construction-grade sand and gravel mining and water-resource construction projects.",
+        "canonical_name": "Industrial Sand Mining and Preparation",
+        "counterevidence_ids": [],
+        "definition": "A provisional operating-market boundary for extraction and primary preparation of industrial-grade sand. It covers the family NAICS anchor and the three family-owned industrial-sand product identities without asserting downstream glass, foundry, filtration, or other customer industries as part of the market.",
+        "dimensions": {
+          "acquisition_universe": {
+            "confidence": 0.7,
+            "counterevidence_ids": [],
+            "evidence_label": "inference",
+            "statement": "The acquisition universe is inferred to consist of establishments operating industrial-grade sand pits, dredging for industrial-grade sand, or preparing industrial-grade sand, rather than establishments merely consuming or installing sand.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+              "evidence:1f6ae1968f30cfbdbe8b3a6d14674e7138bcb490c5b0998bb47a130c2da6d4cc"
+            ]
+          },
+          "ambient_ai_workflow": {
+            "confidence": 0.1,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not state whether AI is present in extraction, dredging, washing, screening, grinding, logistics, or administrative workflows.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "buyer": {
+            "confidence": 0.18,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The records identify industrial sand products and uses but do not identify the purchasing entities, contracting structure, or procurement criteria.",
+            "supporting_evidence_ids": [
+              "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+              "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+              "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5"
+            ]
+          },
+          "delivery": {
+            "confidence": 0.2,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The evidence establishes extraction and preparation activities but does not establish delivery mode, geographic reach, contract terms, or point of transfer.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+              "evidence:3b5b62b8aac7b55cc62667b89540ecd11e6b5b5a539e5d81fa81dacb39f69616"
+            ]
+          },
+          "economics_risk": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "No frozen evidence establishes pricing, margins, capital intensity, commodity exposure, permitting risk, or other economics and risk characteristics.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "job": {
+            "confidence": 0.86,
+            "counterevidence_ids": [],
+            "evidence_label": "fact",
+            "statement": "The operating job stated by the frozen NAICS definition is to operate industrial-grade sand pits, dredge for industrial-grade sand, and wash, screen, or otherwise prepare industrial-grade sand.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "workforce": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The evidence does not identify workforce composition, specialized roles, labor model, or staffing requirements.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          }
+        },
+        "explicit_exclusions": [
+          "Mining commercial or construction-grade gravel, which the frozen cross-reference assigns to Construction Sand and Gravel Mining.",
+          "Construction projects involving water resources, including dredging and land drainage when performed as construction, which the frozen cross-reference assigns to Other Heavy and Civil Engineering Construction.",
+          "Downstream glass, foundry, filtration, furnace, engine, or other customer manufacturing activities not described as extraction or primary preparation."
+        ],
+        "proposal_id": "proposal:9a0a16bfbc735598:industrial-sand-mining",
+        "related_graph_market_ids": [],
+        "supporting_evidence_ids": [
+          "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+          "evidence:1f6ae1968f30cfbdbe8b3a6d14674e7138bcb490c5b0998bb47a130c2da6d4cc",
+          "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+          "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+          "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5",
+          "evidence:9e139061f43a67785b33754285394f84e77fd31020729c4b9f0bec6d4d709df0",
+          "evidence:35ece001be4a92d86ae4796a34838339e2bd0eb88412dde73d749af7dec307c6",
+          "evidence:4073320ca949141be6d9cd4c2fe898e2ffb7f5cbfb61da7d2908fe2f85288032"
+        ]
+      },
+      "source_final_submission_sha256": "e2d752f6a6c52784153492267dadeb99fe81ee799026e39ff91ce3781d81bf17",
+      "supersedes": [],
+      "supersedes_market_version_ids": [],
+      "supporting_record_ids": [
+        "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+        "evidence:1f6ae1968f30cfbdbe8b3a6d14674e7138bcb490c5b0998bb47a130c2da6d4cc"
+      ],
+      "workflow_plan_sha256": "fbc00f791a26ba3a6a8958bb710cbfd98e50890f29fbba94a56136c3b5e2fc5e"
+    },
+    {
+      "activation_status": "provisional",
+      "alternatives_considered": [
+        "Verified selective workflow; full evidence and findings retained in source workflow"
+      ],
+      "counterevidence_record_ids": [],
+      "decision": "accepted",
+      "event_id": "batch-activation-3689a9605eac57d04444:00003:map",
+      "event_type": "map",
+      "family_id": "family:naics-2022:212322",
+      "identity_id": "identity:napcs-collection:1000600000",
+      "input_candidate_market_ids": [],
+      "input_market_ids": [],
+      "input_source_record_ids": [
+        "source-row:census-napcs-2022-economic-census-codes:1000600000",
+        "source-row:prior-model-2026-11-05:0325a8ad8a2e5e37b080",
+        "source-row:prior-model-2026-11-05:0ee604acdce70acd136f",
+        "source-row:prior-model-2026-11-05:9fed79e8d4ab08c1f6a9",
+        "source-row:prior-model-2026-11-05:ac40ff33d37ce9dd5725",
+        "source-row:prior-model-2026-11-05:c7f03154d6edb4711a0c"
+      ],
+      "operating_identity": {
+        "acquisition_universe": {
+          "confidence": 0.7,
+          "result": "The acquisition universe is inferred to consist of establishments operating industrial-grade sand pits, dredging for industrial-grade sand, or preparing industrial-grade sand, rather than establishments merely consuming or installing sand."
+        },
+        "ambient_ai_workflow": {
+          "confidence": 0.1,
+          "result": "The frozen evidence does not state whether AI is present in extraction, dredging, washing, screening, grinding, logistics, or administrative workflows."
+        },
+        "buyer": {
+          "confidence": 0.18,
+          "result": "The records identify industrial sand products and uses but do not identify the purchasing entities, contracting structure, or procurement criteria."
+        },
+        "delivery": {
+          "confidence": 0.2,
+          "result": "The evidence establishes extraction and preparation activities but does not establish delivery mode, geographic reach, contract terms, or point of transfer."
+        },
+        "economics_risk": {
+          "confidence": 0.12,
+          "result": "No frozen evidence establishes pricing, margins, capital intensity, commodity exposure, permitting risk, or other economics and risk characteristics."
+        },
+        "job": {
+          "confidence": 0.86,
+          "result": "The operating job stated by the frozen NAICS definition is to operate industrial-grade sand pits, dredge for industrial-grade sand, and wash, screen, or otherwise prepare industrial-grade sand."
+        },
+        "workforce": {
+          "confidence": 0.12,
+          "result": "The evidence does not identify workforce composition, specialized roles, labor model, or staffing requirements."
+        }
+      },
+      "output_market_ids": [
+        "market:d011b6cf94dc093d649baa14"
+      ],
+      "proposal_id": "proposal:9a0a16bfbc735598:industrial-sand-mining",
+      "recorded_at": "2026-11-09T21:48:18.448937Z",
+      "relationship_type": "product_sold_by_market",
+      "research_gap_ids": [
+        "gap:9a0a16bfbc735598:local-industrial-sand-boundary"
+      ],
+      "research_gaps": [
+        {
+          "affected_candidate_ids": [],
+          "affected_identity_ids": [
+            "identity:naics:212322",
+            "identity:napcs-collection:1000600000",
+            "identity:napcs-collection:1000625000",
+            "identity:napcs-collection:1000650000"
+          ],
+          "confidence": 0.88,
+          "counterevidence_ids": [],
+          "current_judgment": "The industrial-sand boundary is defensible but provisional; buyer, delivery, workforce, economics and risk, acquisition-universe detail, and ambient-AI workflow remain incompletely evidenced.",
+          "evidence_label": "inference",
+          "gap_id": "gap:9a0a16bfbc735598:local-industrial-sand-boundary",
+          "question": "Can frozen evidence establish the buyer, delivery, workforce, economics and risk, acquisition universe, and ambient-AI workflow dimensions for the industrial sand mining and preparation boundary without expanding it into downstream use markets?",
+          "retry_trigger": "Retry when additional verified frozen evidence directly addresses the missing operating-identity dimensions for the NAICS anchor and each of the three industrial-sand product identities.",
+          "supporting_evidence_ids": [
+            "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+            "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+            "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+            "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5"
+          ]
+        }
+      ],
+      "review": {
+        "independent_reviewer": "small-qualification-release_reviewer",
+        "proposer": "small-qualification-primary",
+        "result": "accepted"
+      },
+      "source_b3_disposition": {
+        "confidence": 0.68,
+        "counterevidence_ids": [],
+        "disposition": "provisional_map_to_proposals",
+        "evidence_label": "inference",
+        "gap_id": "gap:9a0a16bfbc735598:local-industrial-sand-boundary",
+        "identity_id": "identity:napcs-collection:1000600000",
+        "proposal_ids": [
+          "proposal:9a0a16bfbc735598:industrial-sand-mining"
+        ],
+        "rationale": "The frozen identity card and source record identify this product as quarrying industrial glass sand for melting only, and the family evidence links it to the industrial-sand NAICS identity. The mapping is provisional because the product record does not establish the complete operating-market identity.",
+        "supporting_evidence_ids": [
+          "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+          "evidence:3b5b62b8aac7b55cc62667b89540ecd11e6b5b5a539e5d81fa81dacb39f69616",
+          "evidence:9e139061f43a67785b33754285394f84e77fd31020729c4b9f0bec6d4d709df0"
+        ]
+      },
+      "source_b3_proposal": {
+        "boundary": "Establishments primarily engaged in operating industrial-grade sand pits, dredging for industrial-grade sand, or washing, screening, grinding, or otherwise preparing industrial-grade sand, including glass, molding, and other industrial sand products; excludes construction-grade sand and gravel mining and water-resource construction projects.",
+        "canonical_name": "Industrial Sand Mining and Preparation",
+        "counterevidence_ids": [],
+        "definition": "A provisional operating-market boundary for extraction and primary preparation of industrial-grade sand. It covers the family NAICS anchor and the three family-owned industrial-sand product identities without asserting downstream glass, foundry, filtration, or other customer industries as part of the market.",
+        "dimensions": {
+          "acquisition_universe": {
+            "confidence": 0.7,
+            "counterevidence_ids": [],
+            "evidence_label": "inference",
+            "statement": "The acquisition universe is inferred to consist of establishments operating industrial-grade sand pits, dredging for industrial-grade sand, or preparing industrial-grade sand, rather than establishments merely consuming or installing sand.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+              "evidence:1f6ae1968f30cfbdbe8b3a6d14674e7138bcb490c5b0998bb47a130c2da6d4cc"
+            ]
+          },
+          "ambient_ai_workflow": {
+            "confidence": 0.1,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not state whether AI is present in extraction, dredging, washing, screening, grinding, logistics, or administrative workflows.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "buyer": {
+            "confidence": 0.18,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The records identify industrial sand products and uses but do not identify the purchasing entities, contracting structure, or procurement criteria.",
+            "supporting_evidence_ids": [
+              "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+              "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+              "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5"
+            ]
+          },
+          "delivery": {
+            "confidence": 0.2,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The evidence establishes extraction and preparation activities but does not establish delivery mode, geographic reach, contract terms, or point of transfer.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+              "evidence:3b5b62b8aac7b55cc62667b89540ecd11e6b5b5a539e5d81fa81dacb39f69616"
+            ]
+          },
+          "economics_risk": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "No frozen evidence establishes pricing, margins, capital intensity, commodity exposure, permitting risk, or other economics and risk characteristics.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "job": {
+            "confidence": 0.86,
+            "counterevidence_ids": [],
+            "evidence_label": "fact",
+            "statement": "The operating job stated by the frozen NAICS definition is to operate industrial-grade sand pits, dredge for industrial-grade sand, and wash, screen, or otherwise prepare industrial-grade sand.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "workforce": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The evidence does not identify workforce composition, specialized roles, labor model, or staffing requirements.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          }
+        },
+        "explicit_exclusions": [
+          "Mining commercial or construction-grade gravel, which the frozen cross-reference assigns to Construction Sand and Gravel Mining.",
+          "Construction projects involving water resources, including dredging and land drainage when performed as construction, which the frozen cross-reference assigns to Other Heavy and Civil Engineering Construction.",
+          "Downstream glass, foundry, filtration, furnace, engine, or other customer manufacturing activities not described as extraction or primary preparation."
+        ],
+        "proposal_id": "proposal:9a0a16bfbc735598:industrial-sand-mining",
+        "related_graph_market_ids": [],
+        "supporting_evidence_ids": [
+          "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+          "evidence:1f6ae1968f30cfbdbe8b3a6d14674e7138bcb490c5b0998bb47a130c2da6d4cc",
+          "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+          "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+          "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5",
+          "evidence:9e139061f43a67785b33754285394f84e77fd31020729c4b9f0bec6d4d709df0",
+          "evidence:35ece001be4a92d86ae4796a34838339e2bd0eb88412dde73d749af7dec307c6",
+          "evidence:4073320ca949141be6d9cd4c2fe898e2ffb7f5cbfb61da7d2908fe2f85288032"
+        ]
+      },
+      "source_final_submission_sha256": "e2d752f6a6c52784153492267dadeb99fe81ee799026e39ff91ce3781d81bf17",
+      "supersedes": [],
+      "supersedes_market_version_ids": [],
+      "supporting_record_ids": [
+        "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+        "evidence:3b5b62b8aac7b55cc62667b89540ecd11e6b5b5a539e5d81fa81dacb39f69616",
+        "evidence:9e139061f43a67785b33754285394f84e77fd31020729c4b9f0bec6d4d709df0"
+      ],
+      "workflow_plan_sha256": "fbc00f791a26ba3a6a8958bb710cbfd98e50890f29fbba94a56136c3b5e2fc5e"
+    },
+    {
+      "activation_status": "provisional",
+      "alternatives_considered": [
+        "Verified selective workflow; full evidence and findings retained in source workflow"
+      ],
+      "counterevidence_record_ids": [],
+      "decision": "accepted",
+      "event_id": "batch-activation-3689a9605eac57d04444:00004:map",
+      "event_type": "map",
+      "family_id": "family:naics-2022:212322",
+      "identity_id": "identity:napcs-collection:1000625000",
+      "input_candidate_market_ids": [],
+      "input_market_ids": [],
+      "input_source_record_ids": [
+        "source-row:census-napcs-2022-economic-census-codes:1000625000",
+        "source-row:prior-model-2026-11-05:0ee604acdce70acd136f",
+        "source-row:prior-model-2026-11-05:9fed79e8d4ab08c1f6a9",
+        "source-row:prior-model-2026-11-05:ac40ff33d37ce9dd5725",
+        "source-row:prior-model-2026-11-05:c3eaea386c26148a7e4d",
+        "source-row:prior-model-2026-11-05:c7f03154d6edb4711a0c"
+      ],
+      "operating_identity": {
+        "acquisition_universe": {
+          "confidence": 0.7,
+          "result": "The acquisition universe is inferred to consist of establishments operating industrial-grade sand pits, dredging for industrial-grade sand, or preparing industrial-grade sand, rather than establishments merely consuming or installing sand."
+        },
+        "ambient_ai_workflow": {
+          "confidence": 0.1,
+          "result": "The frozen evidence does not state whether AI is present in extraction, dredging, washing, screening, grinding, logistics, or administrative workflows."
+        },
+        "buyer": {
+          "confidence": 0.18,
+          "result": "The records identify industrial sand products and uses but do not identify the purchasing entities, contracting structure, or procurement criteria."
+        },
+        "delivery": {
+          "confidence": 0.2,
+          "result": "The evidence establishes extraction and preparation activities but does not establish delivery mode, geographic reach, contract terms, or point of transfer."
+        },
+        "economics_risk": {
+          "confidence": 0.12,
+          "result": "No frozen evidence establishes pricing, margins, capital intensity, commodity exposure, permitting risk, or other economics and risk characteristics."
+        },
+        "job": {
+          "confidence": 0.86,
+          "result": "The operating job stated by the frozen NAICS definition is to operate industrial-grade sand pits, dredge for industrial-grade sand, and wash, screen, or otherwise prepare industrial-grade sand."
+        },
+        "workforce": {
+          "confidence": 0.12,
+          "result": "The evidence does not identify workforce composition, specialized roles, labor model, or staffing requirements."
+        }
+      },
+      "output_market_ids": [
+        "market:d011b6cf94dc093d649baa14"
+      ],
+      "proposal_id": "proposal:9a0a16bfbc735598:industrial-sand-mining",
+      "recorded_at": "2026-11-09T21:48:18.448937Z",
+      "relationship_type": "product_sold_by_market",
+      "research_gap_ids": [
+        "gap:9a0a16bfbc735598:local-industrial-sand-boundary"
+      ],
+      "research_gaps": [
+        {
+          "affected_candidate_ids": [],
+          "affected_identity_ids": [
+            "identity:naics:212322",
+            "identity:napcs-collection:1000600000",
+            "identity:napcs-collection:1000625000",
+            "identity:napcs-collection:1000650000"
+          ],
+          "confidence": 0.88,
+          "counterevidence_ids": [],
+          "current_judgment": "The industrial-sand boundary is defensible but provisional; buyer, delivery, workforce, economics and risk, acquisition-universe detail, and ambient-AI workflow remain incompletely evidenced.",
+          "evidence_label": "inference",
+          "gap_id": "gap:9a0a16bfbc735598:local-industrial-sand-boundary",
+          "question": "Can frozen evidence establish the buyer, delivery, workforce, economics and risk, acquisition universe, and ambient-AI workflow dimensions for the industrial sand mining and preparation boundary without expanding it into downstream use markets?",
+          "retry_trigger": "Retry when additional verified frozen evidence directly addresses the missing operating-identity dimensions for the NAICS anchor and each of the three industrial-sand product identities.",
+          "supporting_evidence_ids": [
+            "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+            "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+            "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+            "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5"
+          ]
+        }
+      ],
+      "review": {
+        "independent_reviewer": "small-qualification-release_reviewer",
+        "proposer": "small-qualification-primary",
+        "result": "accepted"
+      },
+      "source_b3_disposition": {
+        "confidence": 0.68,
+        "counterevidence_ids": [],
+        "disposition": "provisional_map_to_proposals",
+        "evidence_label": "inference",
+        "gap_id": "gap:9a0a16bfbc735598:local-industrial-sand-boundary",
+        "identity_id": "identity:napcs-collection:1000625000",
+        "proposal_ids": [
+          "proposal:9a0a16bfbc735598:industrial-sand-mining"
+        ],
+        "rationale": "The frozen identity card and source record identify quarrying industrial molding sand, and the family evidence links the product to the industrial-sand NAICS identity. The operating-market mapping remains provisional because the product record is descriptive rather than a complete buyer-and-delivery boundary.",
+        "supporting_evidence_ids": [
+          "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+          "evidence:0abea4554f46e03ecca50212d450ff581f8fca466d88cd32a59759d6bfbbb17a",
+          "evidence:35ece001be4a92d86ae4796a34838339e2bd0eb88412dde73d749af7dec307c6"
+        ]
+      },
+      "source_b3_proposal": {
+        "boundary": "Establishments primarily engaged in operating industrial-grade sand pits, dredging for industrial-grade sand, or washing, screening, grinding, or otherwise preparing industrial-grade sand, including glass, molding, and other industrial sand products; excludes construction-grade sand and gravel mining and water-resource construction projects.",
+        "canonical_name": "Industrial Sand Mining and Preparation",
+        "counterevidence_ids": [],
+        "definition": "A provisional operating-market boundary for extraction and primary preparation of industrial-grade sand. It covers the family NAICS anchor and the three family-owned industrial-sand product identities without asserting downstream glass, foundry, filtration, or other customer industries as part of the market.",
+        "dimensions": {
+          "acquisition_universe": {
+            "confidence": 0.7,
+            "counterevidence_ids": [],
+            "evidence_label": "inference",
+            "statement": "The acquisition universe is inferred to consist of establishments operating industrial-grade sand pits, dredging for industrial-grade sand, or preparing industrial-grade sand, rather than establishments merely consuming or installing sand.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+              "evidence:1f6ae1968f30cfbdbe8b3a6d14674e7138bcb490c5b0998bb47a130c2da6d4cc"
+            ]
+          },
+          "ambient_ai_workflow": {
+            "confidence": 0.1,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not state whether AI is present in extraction, dredging, washing, screening, grinding, logistics, or administrative workflows.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "buyer": {
+            "confidence": 0.18,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The records identify industrial sand products and uses but do not identify the purchasing entities, contracting structure, or procurement criteria.",
+            "supporting_evidence_ids": [
+              "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+              "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+              "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5"
+            ]
+          },
+          "delivery": {
+            "confidence": 0.2,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The evidence establishes extraction and preparation activities but does not establish delivery mode, geographic reach, contract terms, or point of transfer.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+              "evidence:3b5b62b8aac7b55cc62667b89540ecd11e6b5b5a539e5d81fa81dacb39f69616"
+            ]
+          },
+          "economics_risk": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "No frozen evidence establishes pricing, margins, capital intensity, commodity exposure, permitting risk, or other economics and risk characteristics.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "job": {
+            "confidence": 0.86,
+            "counterevidence_ids": [],
+            "evidence_label": "fact",
+            "statement": "The operating job stated by the frozen NAICS definition is to operate industrial-grade sand pits, dredge for industrial-grade sand, and wash, screen, or otherwise prepare industrial-grade sand.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "workforce": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The evidence does not identify workforce composition, specialized roles, labor model, or staffing requirements.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          }
+        },
+        "explicit_exclusions": [
+          "Mining commercial or construction-grade gravel, which the frozen cross-reference assigns to Construction Sand and Gravel Mining.",
+          "Construction projects involving water resources, including dredging and land drainage when performed as construction, which the frozen cross-reference assigns to Other Heavy and Civil Engineering Construction.",
+          "Downstream glass, foundry, filtration, furnace, engine, or other customer manufacturing activities not described as extraction or primary preparation."
+        ],
+        "proposal_id": "proposal:9a0a16bfbc735598:industrial-sand-mining",
+        "related_graph_market_ids": [],
+        "supporting_evidence_ids": [
+          "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+          "evidence:1f6ae1968f30cfbdbe8b3a6d14674e7138bcb490c5b0998bb47a130c2da6d4cc",
+          "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+          "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+          "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5",
+          "evidence:9e139061f43a67785b33754285394f84e77fd31020729c4b9f0bec6d4d709df0",
+          "evidence:35ece001be4a92d86ae4796a34838339e2bd0eb88412dde73d749af7dec307c6",
+          "evidence:4073320ca949141be6d9cd4c2fe898e2ffb7f5cbfb61da7d2908fe2f85288032"
+        ]
+      },
+      "source_final_submission_sha256": "e2d752f6a6c52784153492267dadeb99fe81ee799026e39ff91ce3781d81bf17",
+      "supersedes": [],
+      "supersedes_market_version_ids": [],
+      "supporting_record_ids": [
+        "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+        "evidence:0abea4554f46e03ecca50212d450ff581f8fca466d88cd32a59759d6bfbbb17a",
+        "evidence:35ece001be4a92d86ae4796a34838339e2bd0eb88412dde73d749af7dec307c6"
+      ],
+      "workflow_plan_sha256": "fbc00f791a26ba3a6a8958bb710cbfd98e50890f29fbba94a56136c3b5e2fc5e"
+    },
+    {
+      "activation_status": "provisional",
+      "alternatives_considered": [
+        "Verified selective workflow; full evidence and findings retained in source workflow"
+      ],
+      "counterevidence_record_ids": [],
+      "decision": "accepted",
+      "event_id": "batch-activation-3689a9605eac57d04444:00005:map",
+      "event_type": "map",
+      "family_id": "family:naics-2022:212322",
+      "identity_id": "identity:napcs-collection:1000650000",
+      "input_candidate_market_ids": [],
+      "input_market_ids": [],
+      "input_source_record_ids": [
+        "source-row:census-napcs-2022-economic-census-codes:1000650000",
+        "source-row:prior-model-2026-11-05:0a011663add976a14b25",
+        "source-row:prior-model-2026-11-05:0ee604acdce70acd136f",
+        "source-row:prior-model-2026-11-05:9fed79e8d4ab08c1f6a9",
+        "source-row:prior-model-2026-11-05:ac40ff33d37ce9dd5725",
+        "source-row:prior-model-2026-11-05:c7f03154d6edb4711a0c"
+      ],
+      "operating_identity": {
+        "acquisition_universe": {
+          "confidence": 0.7,
+          "result": "The acquisition universe is inferred to consist of establishments operating industrial-grade sand pits, dredging for industrial-grade sand, or preparing industrial-grade sand, rather than establishments merely consuming or installing sand."
+        },
+        "ambient_ai_workflow": {
+          "confidence": 0.1,
+          "result": "The frozen evidence does not state whether AI is present in extraction, dredging, washing, screening, grinding, logistics, or administrative workflows."
+        },
+        "buyer": {
+          "confidence": 0.18,
+          "result": "The records identify industrial sand products and uses but do not identify the purchasing entities, contracting structure, or procurement criteria."
+        },
+        "delivery": {
+          "confidence": 0.2,
+          "result": "The evidence establishes extraction and preparation activities but does not establish delivery mode, geographic reach, contract terms, or point of transfer."
+        },
+        "economics_risk": {
+          "confidence": 0.12,
+          "result": "No frozen evidence establishes pricing, margins, capital intensity, commodity exposure, permitting risk, or other economics and risk characteristics."
+        },
+        "job": {
+          "confidence": 0.86,
+          "result": "The operating job stated by the frozen NAICS definition is to operate industrial-grade sand pits, dredge for industrial-grade sand, and wash, screen, or otherwise prepare industrial-grade sand."
+        },
+        "workforce": {
+          "confidence": 0.12,
+          "result": "The evidence does not identify workforce composition, specialized roles, labor model, or staffing requirements."
+        }
+      },
+      "output_market_ids": [
+        "market:d011b6cf94dc093d649baa14"
+      ],
+      "proposal_id": "proposal:9a0a16bfbc735598:industrial-sand-mining",
+      "recorded_at": "2026-11-09T21:48:18.448937Z",
+      "relationship_type": "product_sold_by_market",
+      "research_gap_ids": [
+        "gap:9a0a16bfbc735598:local-industrial-sand-boundary"
+      ],
+      "research_gaps": [
+        {
+          "affected_candidate_ids": [],
+          "affected_identity_ids": [
+            "identity:naics:212322",
+            "identity:napcs-collection:1000600000",
+            "identity:napcs-collection:1000625000",
+            "identity:napcs-collection:1000650000"
+          ],
+          "confidence": 0.88,
+          "counterevidence_ids": [],
+          "current_judgment": "The industrial-sand boundary is defensible but provisional; buyer, delivery, workforce, economics and risk, acquisition-universe detail, and ambient-AI workflow remain incompletely evidenced.",
+          "evidence_label": "inference",
+          "gap_id": "gap:9a0a16bfbc735598:local-industrial-sand-boundary",
+          "question": "Can frozen evidence establish the buyer, delivery, workforce, economics and risk, acquisition universe, and ambient-AI workflow dimensions for the industrial sand mining and preparation boundary without expanding it into downstream use markets?",
+          "retry_trigger": "Retry when additional verified frozen evidence directly addresses the missing operating-identity dimensions for the NAICS anchor and each of the three industrial-sand product identities.",
+          "supporting_evidence_ids": [
+            "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+            "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+            "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+            "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5"
+          ]
+        }
+      ],
+      "review": {
+        "independent_reviewer": "small-qualification-release_reviewer",
+        "proposer": "small-qualification-primary",
+        "result": "accepted"
+      },
+      "source_b3_disposition": {
+        "confidence": 0.68,
+        "counterevidence_ids": [],
+        "disposition": "provisional_map_to_proposals",
+        "evidence_label": "inference",
+        "gap_id": "gap:9a0a16bfbc735598:local-industrial-sand-boundary",
+        "identity_id": "identity:napcs-collection:1000650000",
+        "proposal_ids": [
+          "proposal:9a0a16bfbc735598:industrial-sand-mining"
+        ],
+        "rationale": "The frozen identity card and source record identify other industrial sand, including grinding, blast, furnace, engine, filtration, and oil uses, and the family evidence links it to NAICS 212322. The mapping is provisional because the source does not establish all operating-market dimensions or the precise treatment of downstream preparation.",
+        "supporting_evidence_ids": [
+          "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5",
+          "evidence:a70c1b33ebf2cadd29346cf494244ae656c9fc955a44d11f0620cff7a903b894",
+          "evidence:4073320ca949141be6d9cd4c2fe898e2ffb7f5cbfb61da7d2908fe2f85288032"
+        ]
+      },
+      "source_b3_proposal": {
+        "boundary": "Establishments primarily engaged in operating industrial-grade sand pits, dredging for industrial-grade sand, or washing, screening, grinding, or otherwise preparing industrial-grade sand, including glass, molding, and other industrial sand products; excludes construction-grade sand and gravel mining and water-resource construction projects.",
+        "canonical_name": "Industrial Sand Mining and Preparation",
+        "counterevidence_ids": [],
+        "definition": "A provisional operating-market boundary for extraction and primary preparation of industrial-grade sand. It covers the family NAICS anchor and the three family-owned industrial-sand product identities without asserting downstream glass, foundry, filtration, or other customer industries as part of the market.",
+        "dimensions": {
+          "acquisition_universe": {
+            "confidence": 0.7,
+            "counterevidence_ids": [],
+            "evidence_label": "inference",
+            "statement": "The acquisition universe is inferred to consist of establishments operating industrial-grade sand pits, dredging for industrial-grade sand, or preparing industrial-grade sand, rather than establishments merely consuming or installing sand.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+              "evidence:1f6ae1968f30cfbdbe8b3a6d14674e7138bcb490c5b0998bb47a130c2da6d4cc"
+            ]
+          },
+          "ambient_ai_workflow": {
+            "confidence": 0.1,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not state whether AI is present in extraction, dredging, washing, screening, grinding, logistics, or administrative workflows.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "buyer": {
+            "confidence": 0.18,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The records identify industrial sand products and uses but do not identify the purchasing entities, contracting structure, or procurement criteria.",
+            "supporting_evidence_ids": [
+              "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+              "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+              "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5"
+            ]
+          },
+          "delivery": {
+            "confidence": 0.2,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The evidence establishes extraction and preparation activities but does not establish delivery mode, geographic reach, contract terms, or point of transfer.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+              "evidence:3b5b62b8aac7b55cc62667b89540ecd11e6b5b5a539e5d81fa81dacb39f69616"
+            ]
+          },
+          "economics_risk": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "No frozen evidence establishes pricing, margins, capital intensity, commodity exposure, permitting risk, or other economics and risk characteristics.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "job": {
+            "confidence": 0.86,
+            "counterevidence_ids": [],
+            "evidence_label": "fact",
+            "statement": "The operating job stated by the frozen NAICS definition is to operate industrial-grade sand pits, dredge for industrial-grade sand, and wash, screen, or otherwise prepare industrial-grade sand.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "workforce": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The evidence does not identify workforce composition, specialized roles, labor model, or staffing requirements.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          }
+        },
+        "explicit_exclusions": [
+          "Mining commercial or construction-grade gravel, which the frozen cross-reference assigns to Construction Sand and Gravel Mining.",
+          "Construction projects involving water resources, including dredging and land drainage when performed as construction, which the frozen cross-reference assigns to Other Heavy and Civil Engineering Construction.",
+          "Downstream glass, foundry, filtration, furnace, engine, or other customer manufacturing activities not described as extraction or primary preparation."
+        ],
+        "proposal_id": "proposal:9a0a16bfbc735598:industrial-sand-mining",
+        "related_graph_market_ids": [],
+        "supporting_evidence_ids": [
+          "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+          "evidence:1f6ae1968f30cfbdbe8b3a6d14674e7138bcb490c5b0998bb47a130c2da6d4cc",
+          "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+          "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+          "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5",
+          "evidence:9e139061f43a67785b33754285394f84e77fd31020729c4b9f0bec6d4d709df0",
+          "evidence:35ece001be4a92d86ae4796a34838339e2bd0eb88412dde73d749af7dec307c6",
+          "evidence:4073320ca949141be6d9cd4c2fe898e2ffb7f5cbfb61da7d2908fe2f85288032"
+        ]
+      },
+      "source_final_submission_sha256": "e2d752f6a6c52784153492267dadeb99fe81ee799026e39ff91ce3781d81bf17",
+      "supersedes": [],
+      "supersedes_market_version_ids": [],
+      "supporting_record_ids": [
+        "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5",
+        "evidence:a70c1b33ebf2cadd29346cf494244ae656c9fc955a44d11f0620cff7a903b894",
+        "evidence:4073320ca949141be6d9cd4c2fe898e2ffb7f5cbfb61da7d2908fe2f85288032"
+      ],
+      "workflow_plan_sha256": "fbc00f791a26ba3a6a8958bb710cbfd98e50890f29fbba94a56136c3b5e2fc5e"
+    },
+    {
+      "activation_status": "provisional",
+      "alternatives_considered": [
+        "Verified selective workflow; full evidence and findings retained in source workflow"
+      ],
+      "counterevidence_record_ids": [],
+      "decision": "accepted",
+      "event_id": "batch-activation-3689a9605eac57d04444:00007:map",
+      "event_type": "map",
+      "family_id": "family:naics-2022:212230",
+      "identity_id": "identity:naics:212230",
+      "input_candidate_market_ids": [],
+      "input_market_ids": [],
+      "input_source_record_ids": [
+        "source-row:census-naics-2022:212230",
+        "source-row:prior-model-2026-11-05:0de3311669a0d469f28f",
+        "source-row:prior-model-2026-11-05:15e181ab737d2f1f7235",
+        "source-row:prior-model-2026-11-05:6224661c019c1947132d",
+        "source-row:prior-model-2026-11-05:72edc739aec48ec54c96",
+        "source-row:prior-model-2026-11-05:958bb109dd402f91847f"
+      ],
+      "operating_identity": {
+        "acquisition_universe": {
+          "confidence": 0.74,
+          "result": "The acquisition universe is inferred to consist of establishments developing mine sites, mining, or beneficiating copper-, nickel-, lead-, and zinc-valued ores, including concentrate recovery or transformation."
+        },
+        "ambient_ai_workflow": {
+          "confidence": 0.1,
+          "result": "The frozen evidence does not address AI use in mine planning, extraction, beneficiation, concentrate recovery, logistics, or administration."
+        },
+        "buyer": {
+          "confidence": 0.16,
+          "result": "The records identify ores and mining activities but do not identify buyers, procurement structures, contracting parties, or purchase criteria."
+        },
+        "delivery": {
+          "confidence": 0.15,
+          "result": "The frozen evidence does not establish shipment, transportation, geographic service area, delivery terms, or point of transfer for ores or concentrates."
+        },
+        "economics_risk": {
+          "confidence": 0.12,
+          "result": "No frozen evidence establishes commodity pricing, capital requirements, permitting, reserve, processing, environmental, or other economics and risk characteristics."
+        },
+        "job": {
+          "confidence": 0.9,
+          "result": "The frozen NAICS definition states that the job is developing the mine site, mining, and/or beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation into concentrates and certain copper-concentrate recovery processes."
+        },
+        "workforce": {
+          "confidence": 0.12,
+          "result": "The frozen evidence does not identify workforce composition, specialized mining or processing roles, labor model, or staffing requirements."
+        }
+      },
+      "output_market_ids": [
+        "market:c4d04e451630c379abbbd1e8"
+      ],
+      "proposal_id": "proposal:498493644d34f3ee:copper-nickel-lead-zinc-mining",
+      "recorded_at": "2026-11-09T21:48:18.448937Z",
+      "relationship_type": "industry_containing_market",
+      "research_gap_ids": [
+        "gap:498493644d34f3ee:local-metal-ore-boundary"
+      ],
+      "research_gaps": [
+        {
+          "affected_candidate_ids": [],
+          "affected_identity_ids": [
+            "identity:naics:212230",
+            "identity:napcs-collection:1001250000",
+            "identity:napcs-collection:1001275000"
+          ],
+          "confidence": 0.9,
+          "counterevidence_ids": [],
+          "current_judgment": "The copper, nickel, lead, and zinc mining boundary is supported by direct classification and product relationships but remains provisional because buyer, delivery, workforce, economics and risk, and ambient-AI workflow dimensions are not established.",
+          "evidence_label": "inference",
+          "gap_id": "gap:498493644d34f3ee:local-metal-ore-boundary",
+          "question": "Can verified frozen evidence establish the missing operating-identity dimensions for NAICS 212230 and the lead/zinc and copper/nickel product identities without expanding the boundary to gold, coal, support services, or downstream processing?",
+          "retry_trigger": "Retry when additional verified frozen evidence directly addresses the missing operating-market dimensions for the family anchor and both mapped product identities.",
+          "supporting_evidence_ids": [
+            "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3",
+            "evidence:b04e914939688bd2d94d4ef37cd70d72cdf62b7cc60c636b7e290708d4041655",
+            "evidence:65e6684958d3b1d9a2baf846ebb17331ad95d0d9f072d6a6f3829ec7ca2a1ebd"
+          ]
+        }
+      ],
+      "review": {
+        "independent_reviewer": "small-qualification-release_reviewer",
+        "proposer": "small-qualification-primary",
+        "result": "accepted"
+      },
+      "source_b3_disposition": {
+        "confidence": 0.72,
+        "counterevidence_ids": [],
+        "disposition": "provisional_map_to_proposals",
+        "evidence_label": "inference",
+        "gap_id": "gap:498493644d34f3ee:local-metal-ore-boundary",
+        "identity_id": "identity:naics:212230",
+        "proposal_ids": [
+          "proposal:498493644d34f3ee:copper-nickel-lead-zinc-mining"
+        ],
+        "rationale": "The frozen NAICS definition directly covers developing mine sites, mining, and beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation into concentrates. The operating-market boundary is provisionally mapped because several operating-identity dimensions are not present in the frozen evidence.",
+        "supporting_evidence_ids": [
+          "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+          "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3"
+        ]
+      },
+      "source_b3_proposal": {
+        "boundary": "Establishments developing mine sites, mining, and beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation of those ores into concentrates; excludes gold, coal, nonmetallic minerals, mining-support services, equipment rental, and engineering services.",
+        "canonical_name": "Copper, Nickel, Lead, and Zinc Ore Mining",
+        "counterevidence_ids": [
+          "evidence:baef086966560104479e50b729db1f1c3d96b92425d0eed90c43c402ba77c238",
+          "evidence:b18ebe234ceaeedc5d4f6a5f598636683a108fae7697036b31efa1beb2536df7"
+        ],
+        "definition": "A provisional operating-market boundary for extraction and beneficiation of copper, nickel, lead, and zinc ores, including concentrate transformation, aligned to the family NAICS definition and the lead/zinc and copper/nickel product identities.",
+        "dimensions": {
+          "acquisition_universe": {
+            "confidence": 0.74,
+            "counterevidence_ids": [],
+            "evidence_label": "inference",
+            "statement": "The acquisition universe is inferred to consist of establishments developing mine sites, mining, or beneficiating copper-, nickel-, lead-, and zinc-valued ores, including concentrate recovery or transformation.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+              "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3"
+            ]
+          },
+          "ambient_ai_workflow": {
+            "confidence": 0.1,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not address AI use in mine planning, extraction, beneficiation, concentrate recovery, logistics, or administration.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          },
+          "buyer": {
+            "confidence": 0.16,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The records identify ores and mining activities but do not identify buyers, procurement structures, contracting parties, or purchase criteria.",
+            "supporting_evidence_ids": [
+              "evidence:9da1e9d00e7f96149464a25c353e439b863f930cac2313ac97d6244c90eee142",
+              "evidence:9eccf3fc225dc9241b048989317e736309436dfab85822b55a7dae4ff34dba19"
+            ]
+          },
+          "delivery": {
+            "confidence": 0.15,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not establish shipment, transportation, geographic service area, delivery terms, or point of transfer for ores or concentrates.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+              "evidence:2139b118d4fa8374683e8b46af261a793c4d19c31f61e6520e43d288e6ab1f3b"
+            ]
+          },
+          "economics_risk": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "No frozen evidence establishes commodity pricing, capital requirements, permitting, reserve, processing, environmental, or other economics and risk characteristics.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          },
+          "job": {
+            "confidence": 0.9,
+            "counterevidence_ids": [],
+            "evidence_label": "fact",
+            "statement": "The frozen NAICS definition states that the job is developing the mine site, mining, and/or beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation into concentrates and certain copper-concentrate recovery processes.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          },
+          "workforce": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not identify workforce composition, specialized mining or processing roles, labor model, or staffing requirements.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          }
+        },
+        "explicit_exclusions": [
+          "Gold ore mining, which the frozen product evidence associates with NAICS 212220 rather than this NAICS 212230 family.",
+          "Coal mining and nonmetallic mineral mining.",
+          "Mining support services, equipment rental, and mining or geological engineering services.",
+          "Downstream smelting, refining, manufacturing, or other customer activities not included in the frozen NAICS definition."
+        ],
+        "proposal_id": "proposal:498493644d34f3ee:copper-nickel-lead-zinc-mining",
+        "related_graph_market_ids": [],
+        "supporting_evidence_ids": [
+          "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+          "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3",
+          "evidence:b04e914939688bd2d94d4ef37cd70d72cdf62b7cc60c636b7e290708d4041655",
+          "evidence:65e6684958d3b1d9a2baf846ebb17331ad95d0d9f072d6a6f3829ec7ca2a1ebd",
+          "evidence:2139b118d4fa8374683e8b46af261a793c4d19c31f61e6520e43d288e6ab1f3b",
+          "evidence:9da1e9d00e7f96149464a25c353e439b863f930cac2313ac97d6244c90eee142",
+          "evidence:9eccf3fc225dc9241b048989317e736309436dfab85822b55a7dae4ff34dba19",
+          "evidence:d0c5542cfef88bbf49ee276b3e0e47f166caab122596703148d0b7b3bbafef78"
+        ]
+      },
+      "source_final_submission_sha256": "e2d752f6a6c52784153492267dadeb99fe81ee799026e39ff91ce3781d81bf17",
+      "supersedes": [],
+      "supersedes_market_version_ids": [],
+      "supporting_record_ids": [
+        "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+        "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3"
+      ],
+      "workflow_plan_sha256": "fbc00f791a26ba3a6a8958bb710cbfd98e50890f29fbba94a56136c3b5e2fc5e"
+    },
+    {
+      "activation_status": "provisional",
+      "alternatives_considered": [
+        "Verified selective workflow; full evidence and findings retained in source workflow"
+      ],
+      "counterevidence_record_ids": [],
+      "decision": "accepted",
+      "event_id": "batch-activation-3689a9605eac57d04444:00008:map",
+      "event_type": "map",
+      "family_id": "family:naics-2022:212230",
+      "identity_id": "identity:napcs-collection:1001250000",
+      "input_candidate_market_ids": [],
+      "input_market_ids": [],
+      "input_source_record_ids": [
+        "source-row:census-napcs-2022-economic-census-codes:1001250000",
+        "source-row:prior-model-2026-11-05:0de3311669a0d469f28f",
+        "source-row:prior-model-2026-11-05:15e181ab737d2f1f7235",
+        "source-row:prior-model-2026-11-05:6224661c019c1947132d",
+        "source-row:prior-model-2026-11-05:72edc739aec48ec54c96",
+        "source-row:prior-model-2026-11-05:958bb109dd402f91847f"
+      ],
+      "operating_identity": {
+        "acquisition_universe": {
+          "confidence": 0.74,
+          "result": "The acquisition universe is inferred to consist of establishments developing mine sites, mining, or beneficiating copper-, nickel-, lead-, and zinc-valued ores, including concentrate recovery or transformation."
+        },
+        "ambient_ai_workflow": {
+          "confidence": 0.1,
+          "result": "The frozen evidence does not address AI use in mine planning, extraction, beneficiation, concentrate recovery, logistics, or administration."
+        },
+        "buyer": {
+          "confidence": 0.16,
+          "result": "The records identify ores and mining activities but do not identify buyers, procurement structures, contracting parties, or purchase criteria."
+        },
+        "delivery": {
+          "confidence": 0.15,
+          "result": "The frozen evidence does not establish shipment, transportation, geographic service area, delivery terms, or point of transfer for ores or concentrates."
+        },
+        "economics_risk": {
+          "confidence": 0.12,
+          "result": "No frozen evidence establishes commodity pricing, capital requirements, permitting, reserve, processing, environmental, or other economics and risk characteristics."
+        },
+        "job": {
+          "confidence": 0.9,
+          "result": "The frozen NAICS definition states that the job is developing the mine site, mining, and/or beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation into concentrates and certain copper-concentrate recovery processes."
+        },
+        "workforce": {
+          "confidence": 0.12,
+          "result": "The frozen evidence does not identify workforce composition, specialized mining or processing roles, labor model, or staffing requirements."
+        }
+      },
+      "output_market_ids": [
+        "market:c4d04e451630c379abbbd1e8"
+      ],
+      "proposal_id": "proposal:498493644d34f3ee:copper-nickel-lead-zinc-mining",
+      "recorded_at": "2026-11-09T21:48:18.448937Z",
+      "relationship_type": "product_sold_by_market",
+      "research_gap_ids": [
+        "gap:498493644d34f3ee:local-metal-ore-boundary"
+      ],
+      "research_gaps": [
+        {
+          "affected_candidate_ids": [],
+          "affected_identity_ids": [
+            "identity:naics:212230",
+            "identity:napcs-collection:1001250000",
+            "identity:napcs-collection:1001275000"
+          ],
+          "confidence": 0.9,
+          "counterevidence_ids": [],
+          "current_judgment": "The copper, nickel, lead, and zinc mining boundary is supported by direct classification and product relationships but remains provisional because buyer, delivery, workforce, economics and risk, and ambient-AI workflow dimensions are not established.",
+          "evidence_label": "inference",
+          "gap_id": "gap:498493644d34f3ee:local-metal-ore-boundary",
+          "question": "Can verified frozen evidence establish the missing operating-identity dimensions for NAICS 212230 and the lead/zinc and copper/nickel product identities without expanding the boundary to gold, coal, support services, or downstream processing?",
+          "retry_trigger": "Retry when additional verified frozen evidence directly addresses the missing operating-market dimensions for the family anchor and both mapped product identities.",
+          "supporting_evidence_ids": [
+            "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3",
+            "evidence:b04e914939688bd2d94d4ef37cd70d72cdf62b7cc60c636b7e290708d4041655",
+            "evidence:65e6684958d3b1d9a2baf846ebb17331ad95d0d9f072d6a6f3829ec7ca2a1ebd"
+          ]
+        }
+      ],
+      "review": {
+        "independent_reviewer": "small-qualification-release_reviewer",
+        "proposer": "small-qualification-primary",
+        "result": "accepted"
+      },
+      "source_b3_disposition": {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "disposition": "provisional_map_to_proposals",
+        "evidence_label": "inference",
+        "gap_id": "gap:498493644d34f3ee:local-metal-ore-boundary",
+        "identity_id": "identity:napcs-collection:1001250000",
+        "proposal_ids": [
+          "proposal:498493644d34f3ee:copper-nickel-lead-zinc-mining"
+        ],
+        "rationale": "The frozen identity is Mining of lead ore and zinc ore, and frozen industry-product evidence links it directly to NAICS 212230. The mapping is provisional because the product identity alone does not establish the full buyer, delivery, workforce, economics, or workflow boundary.",
+        "supporting_evidence_ids": [
+          "evidence:b04e914939688bd2d94d4ef37cd70d72cdf62b7cc60c636b7e290708d4041655",
+          "evidence:9da1e9d00e7f96149464a25c353e439b863f930cac2313ac97d6244c90eee142",
+          "evidence:3d37b7f821af26b28f5c8a8b2ce07184b141f0534a1dcbad50cb66bac75eb193"
+        ]
+      },
+      "source_b3_proposal": {
+        "boundary": "Establishments developing mine sites, mining, and beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation of those ores into concentrates; excludes gold, coal, nonmetallic minerals, mining-support services, equipment rental, and engineering services.",
+        "canonical_name": "Copper, Nickel, Lead, and Zinc Ore Mining",
+        "counterevidence_ids": [
+          "evidence:baef086966560104479e50b729db1f1c3d96b92425d0eed90c43c402ba77c238",
+          "evidence:b18ebe234ceaeedc5d4f6a5f598636683a108fae7697036b31efa1beb2536df7"
+        ],
+        "definition": "A provisional operating-market boundary for extraction and beneficiation of copper, nickel, lead, and zinc ores, including concentrate transformation, aligned to the family NAICS definition and the lead/zinc and copper/nickel product identities.",
+        "dimensions": {
+          "acquisition_universe": {
+            "confidence": 0.74,
+            "counterevidence_ids": [],
+            "evidence_label": "inference",
+            "statement": "The acquisition universe is inferred to consist of establishments developing mine sites, mining, or beneficiating copper-, nickel-, lead-, and zinc-valued ores, including concentrate recovery or transformation.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+              "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3"
+            ]
+          },
+          "ambient_ai_workflow": {
+            "confidence": 0.1,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not address AI use in mine planning, extraction, beneficiation, concentrate recovery, logistics, or administration.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          },
+          "buyer": {
+            "confidence": 0.16,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The records identify ores and mining activities but do not identify buyers, procurement structures, contracting parties, or purchase criteria.",
+            "supporting_evidence_ids": [
+              "evidence:9da1e9d00e7f96149464a25c353e439b863f930cac2313ac97d6244c90eee142",
+              "evidence:9eccf3fc225dc9241b048989317e736309436dfab85822b55a7dae4ff34dba19"
+            ]
+          },
+          "delivery": {
+            "confidence": 0.15,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not establish shipment, transportation, geographic service area, delivery terms, or point of transfer for ores or concentrates.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+              "evidence:2139b118d4fa8374683e8b46af261a793c4d19c31f61e6520e43d288e6ab1f3b"
+            ]
+          },
+          "economics_risk": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "No frozen evidence establishes commodity pricing, capital requirements, permitting, reserve, processing, environmental, or other economics and risk characteristics.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          },
+          "job": {
+            "confidence": 0.9,
+            "counterevidence_ids": [],
+            "evidence_label": "fact",
+            "statement": "The frozen NAICS definition states that the job is developing the mine site, mining, and/or beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation into concentrates and certain copper-concentrate recovery processes.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          },
+          "workforce": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not identify workforce composition, specialized mining or processing roles, labor model, or staffing requirements.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          }
+        },
+        "explicit_exclusions": [
+          "Gold ore mining, which the frozen product evidence associates with NAICS 212220 rather than this NAICS 212230 family.",
+          "Coal mining and nonmetallic mineral mining.",
+          "Mining support services, equipment rental, and mining or geological engineering services.",
+          "Downstream smelting, refining, manufacturing, or other customer activities not included in the frozen NAICS definition."
+        ],
+        "proposal_id": "proposal:498493644d34f3ee:copper-nickel-lead-zinc-mining",
+        "related_graph_market_ids": [],
+        "supporting_evidence_ids": [
+          "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+          "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3",
+          "evidence:b04e914939688bd2d94d4ef37cd70d72cdf62b7cc60c636b7e290708d4041655",
+          "evidence:65e6684958d3b1d9a2baf846ebb17331ad95d0d9f072d6a6f3829ec7ca2a1ebd",
+          "evidence:2139b118d4fa8374683e8b46af261a793c4d19c31f61e6520e43d288e6ab1f3b",
+          "evidence:9da1e9d00e7f96149464a25c353e439b863f930cac2313ac97d6244c90eee142",
+          "evidence:9eccf3fc225dc9241b048989317e736309436dfab85822b55a7dae4ff34dba19",
+          "evidence:d0c5542cfef88bbf49ee276b3e0e47f166caab122596703148d0b7b3bbafef78"
+        ]
+      },
+      "source_final_submission_sha256": "e2d752f6a6c52784153492267dadeb99fe81ee799026e39ff91ce3781d81bf17",
+      "supersedes": [],
+      "supersedes_market_version_ids": [],
+      "supporting_record_ids": [
+        "evidence:b04e914939688bd2d94d4ef37cd70d72cdf62b7cc60c636b7e290708d4041655",
+        "evidence:9da1e9d00e7f96149464a25c353e439b863f930cac2313ac97d6244c90eee142",
+        "evidence:3d37b7f821af26b28f5c8a8b2ce07184b141f0534a1dcbad50cb66bac75eb193"
+      ],
+      "workflow_plan_sha256": "fbc00f791a26ba3a6a8958bb710cbfd98e50890f29fbba94a56136c3b5e2fc5e"
+    },
+    {
+      "activation_status": "provisional",
+      "alternatives_considered": [
+        "Verified selective workflow; full evidence and findings retained in source workflow"
+      ],
+      "counterevidence_record_ids": [],
+      "decision": "accepted",
+      "event_id": "batch-activation-3689a9605eac57d04444:00009:map",
+      "event_type": "map",
+      "family_id": "family:naics-2022:212230",
+      "identity_id": "identity:napcs-collection:1001275000",
+      "input_candidate_market_ids": [],
+      "input_market_ids": [],
+      "input_source_record_ids": [
+        "source-row:census-napcs-2022-economic-census-codes:1001275000",
+        "source-row:prior-model-2026-11-05:0de3311669a0d469f28f",
+        "source-row:prior-model-2026-11-05:15e181ab737d2f1f7235",
+        "source-row:prior-model-2026-11-05:6224661c019c1947132d",
+        "source-row:prior-model-2026-11-05:72edc739aec48ec54c96",
+        "source-row:prior-model-2026-11-05:958bb109dd402f91847f"
+      ],
+      "operating_identity": {
+        "acquisition_universe": {
+          "confidence": 0.74,
+          "result": "The acquisition universe is inferred to consist of establishments developing mine sites, mining, or beneficiating copper-, nickel-, lead-, and zinc-valued ores, including concentrate recovery or transformation."
+        },
+        "ambient_ai_workflow": {
+          "confidence": 0.1,
+          "result": "The frozen evidence does not address AI use in mine planning, extraction, beneficiation, concentrate recovery, logistics, or administration."
+        },
+        "buyer": {
+          "confidence": 0.16,
+          "result": "The records identify ores and mining activities but do not identify buyers, procurement structures, contracting parties, or purchase criteria."
+        },
+        "delivery": {
+          "confidence": 0.15,
+          "result": "The frozen evidence does not establish shipment, transportation, geographic service area, delivery terms, or point of transfer for ores or concentrates."
+        },
+        "economics_risk": {
+          "confidence": 0.12,
+          "result": "No frozen evidence establishes commodity pricing, capital requirements, permitting, reserve, processing, environmental, or other economics and risk characteristics."
+        },
+        "job": {
+          "confidence": 0.9,
+          "result": "The frozen NAICS definition states that the job is developing the mine site, mining, and/or beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation into concentrates and certain copper-concentrate recovery processes."
+        },
+        "workforce": {
+          "confidence": 0.12,
+          "result": "The frozen evidence does not identify workforce composition, specialized mining or processing roles, labor model, or staffing requirements."
+        }
+      },
+      "output_market_ids": [
+        "market:c4d04e451630c379abbbd1e8"
+      ],
+      "proposal_id": "proposal:498493644d34f3ee:copper-nickel-lead-zinc-mining",
+      "recorded_at": "2026-11-09T21:48:18.448937Z",
+      "relationship_type": "product_sold_by_market",
+      "research_gap_ids": [
+        "gap:498493644d34f3ee:local-metal-ore-boundary"
+      ],
+      "research_gaps": [
+        {
+          "affected_candidate_ids": [],
+          "affected_identity_ids": [
+            "identity:naics:212230",
+            "identity:napcs-collection:1001250000",
+            "identity:napcs-collection:1001275000"
+          ],
+          "confidence": 0.9,
+          "counterevidence_ids": [],
+          "current_judgment": "The copper, nickel, lead, and zinc mining boundary is supported by direct classification and product relationships but remains provisional because buyer, delivery, workforce, economics and risk, and ambient-AI workflow dimensions are not established.",
+          "evidence_label": "inference",
+          "gap_id": "gap:498493644d34f3ee:local-metal-ore-boundary",
+          "question": "Can verified frozen evidence establish the missing operating-identity dimensions for NAICS 212230 and the lead/zinc and copper/nickel product identities without expanding the boundary to gold, coal, support services, or downstream processing?",
+          "retry_trigger": "Retry when additional verified frozen evidence directly addresses the missing operating-market dimensions for the family anchor and both mapped product identities.",
+          "supporting_evidence_ids": [
+            "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3",
+            "evidence:b04e914939688bd2d94d4ef37cd70d72cdf62b7cc60c636b7e290708d4041655",
+            "evidence:65e6684958d3b1d9a2baf846ebb17331ad95d0d9f072d6a6f3829ec7ca2a1ebd"
+          ]
+        }
+      ],
+      "review": {
+        "independent_reviewer": "small-qualification-release_reviewer",
+        "proposer": "small-qualification-primary",
+        "result": "accepted"
+      },
+      "source_b3_disposition": {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "disposition": "provisional_map_to_proposals",
+        "evidence_label": "inference",
+        "gap_id": "gap:498493644d34f3ee:local-metal-ore-boundary",
+        "identity_id": "identity:napcs-collection:1001275000",
+        "proposal_ids": [
+          "proposal:498493644d34f3ee:copper-nickel-lead-zinc-mining"
+        ],
+        "rationale": "The frozen identity is Mining of copper ore and nickel ore, and frozen industry-product evidence links it directly to NAICS 212230. The mapping is provisional because the product identity does not establish all operating-market dimensions.",
+        "supporting_evidence_ids": [
+          "evidence:65e6684958d3b1d9a2baf846ebb17331ad95d0d9f072d6a6f3829ec7ca2a1ebd",
+          "evidence:9eccf3fc225dc9241b048989317e736309436dfab85822b55a7dae4ff34dba19",
+          "evidence:d0c5542cfef88bbf49ee276b3e0e47f166caab122596703148d0b7b3bbafef78"
+        ]
+      },
+      "source_b3_proposal": {
+        "boundary": "Establishments developing mine sites, mining, and beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation of those ores into concentrates; excludes gold, coal, nonmetallic minerals, mining-support services, equipment rental, and engineering services.",
+        "canonical_name": "Copper, Nickel, Lead, and Zinc Ore Mining",
+        "counterevidence_ids": [
+          "evidence:baef086966560104479e50b729db1f1c3d96b92425d0eed90c43c402ba77c238",
+          "evidence:b18ebe234ceaeedc5d4f6a5f598636683a108fae7697036b31efa1beb2536df7"
+        ],
+        "definition": "A provisional operating-market boundary for extraction and beneficiation of copper, nickel, lead, and zinc ores, including concentrate transformation, aligned to the family NAICS definition and the lead/zinc and copper/nickel product identities.",
+        "dimensions": {
+          "acquisition_universe": {
+            "confidence": 0.74,
+            "counterevidence_ids": [],
+            "evidence_label": "inference",
+            "statement": "The acquisition universe is inferred to consist of establishments developing mine sites, mining, or beneficiating copper-, nickel-, lead-, and zinc-valued ores, including concentrate recovery or transformation.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+              "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3"
+            ]
+          },
+          "ambient_ai_workflow": {
+            "confidence": 0.1,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not address AI use in mine planning, extraction, beneficiation, concentrate recovery, logistics, or administration.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          },
+          "buyer": {
+            "confidence": 0.16,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The records identify ores and mining activities but do not identify buyers, procurement structures, contracting parties, or purchase criteria.",
+            "supporting_evidence_ids": [
+              "evidence:9da1e9d00e7f96149464a25c353e439b863f930cac2313ac97d6244c90eee142",
+              "evidence:9eccf3fc225dc9241b048989317e736309436dfab85822b55a7dae4ff34dba19"
+            ]
+          },
+          "delivery": {
+            "confidence": 0.15,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not establish shipment, transportation, geographic service area, delivery terms, or point of transfer for ores or concentrates.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+              "evidence:2139b118d4fa8374683e8b46af261a793c4d19c31f61e6520e43d288e6ab1f3b"
+            ]
+          },
+          "economics_risk": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "No frozen evidence establishes commodity pricing, capital requirements, permitting, reserve, processing, environmental, or other economics and risk characteristics.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          },
+          "job": {
+            "confidence": 0.9,
+            "counterevidence_ids": [],
+            "evidence_label": "fact",
+            "statement": "The frozen NAICS definition states that the job is developing the mine site, mining, and/or beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation into concentrates and certain copper-concentrate recovery processes.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          },
+          "workforce": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not identify workforce composition, specialized mining or processing roles, labor model, or staffing requirements.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          }
+        },
+        "explicit_exclusions": [
+          "Gold ore mining, which the frozen product evidence associates with NAICS 212220 rather than this NAICS 212230 family.",
+          "Coal mining and nonmetallic mineral mining.",
+          "Mining support services, equipment rental, and mining or geological engineering services.",
+          "Downstream smelting, refining, manufacturing, or other customer activities not included in the frozen NAICS definition."
+        ],
+        "proposal_id": "proposal:498493644d34f3ee:copper-nickel-lead-zinc-mining",
+        "related_graph_market_ids": [],
+        "supporting_evidence_ids": [
+          "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+          "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3",
+          "evidence:b04e914939688bd2d94d4ef37cd70d72cdf62b7cc60c636b7e290708d4041655",
+          "evidence:65e6684958d3b1d9a2baf846ebb17331ad95d0d9f072d6a6f3829ec7ca2a1ebd",
+          "evidence:2139b118d4fa8374683e8b46af261a793c4d19c31f61e6520e43d288e6ab1f3b",
+          "evidence:9da1e9d00e7f96149464a25c353e439b863f930cac2313ac97d6244c90eee142",
+          "evidence:9eccf3fc225dc9241b048989317e736309436dfab85822b55a7dae4ff34dba19",
+          "evidence:d0c5542cfef88bbf49ee276b3e0e47f166caab122596703148d0b7b3bbafef78"
+        ]
+      },
+      "source_final_submission_sha256": "e2d752f6a6c52784153492267dadeb99fe81ee799026e39ff91ce3781d81bf17",
+      "supersedes": [],
+      "supersedes_market_version_ids": [],
+      "supporting_record_ids": [
+        "evidence:65e6684958d3b1d9a2baf846ebb17331ad95d0d9f072d6a6f3829ec7ca2a1ebd",
+        "evidence:9eccf3fc225dc9241b048989317e736309436dfab85822b55a7dae4ff34dba19",
+        "evidence:d0c5542cfef88bbf49ee276b3e0e47f166caab122596703148d0b7b3bbafef78"
+      ],
+      "workflow_plan_sha256": "fbc00f791a26ba3a6a8958bb710cbfd98e50890f29fbba94a56136c3b5e2fc5e"
+    }
+  ],
+  "markets": [
+    {
+      "acquisition_universe": "Potential providers of ongoing administration for dental practices; separate acquisition evidence is absent.",
+      "activation_status": "provisional",
+      "aliases": [
+        "Managing offices of dentists",
+        "Dental practice administration"
+      ],
+      "ambient_ai_workflow": "Unknown from the frozen evidence.",
+      "boundary": "Provisional vertical input limited to dental-practice administration that does not supply complete clinical operating staff; excludes clinical dental practice operations and dental insurance billing alone.",
+      "buyer": "Likely dental practices; inference only.",
+      "candidate_market_ids": [
+        "candidate-market:ecd0f6e0ed43d167e2c16afb"
+      ],
+      "canonical_name": "Dental practice administration",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.32,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.38,
+        "delivery": 0.48,
+        "economics_risk": 0.15,
+        "job": 0.58,
+        "workforce": 0.45
+      },
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "definition": "Provisional candidate for contracted dental-practice administration, limited to non-complete-operation services.",
+      "delivery_model": "Not directly evidenced; constrained by the prohibition on complete client-business operation.",
+      "economics_risk": "Unknown.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "unknown",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "inference",
+        "delivery": "inference",
+        "economics_risk": "unknown",
+        "job": "inference",
+        "workforce": "inference"
+      },
+      "explicit_exclusions": [
+        "Clinical dental care",
+        "Dental insurance billing alone",
+        "Complete operation of a client dental practice"
+      ],
+      "job_to_be_done": "Potentially administer recurring nonclinical dental-practice operations without taking over complete practice operations.",
+      "mapping_event_ids": [],
+      "market_id": "market:8230a0616ef5332c9c156ed2",
+      "market_version_id": "market-version:a57061eca5145cf35d522c34",
+      "parent_market_id": null,
+      "proposal_id": "proposal:dental-practice-administration",
+      "research_gap_ids": [
+        "gap:vertical-administration-boundary"
+      ],
+      "source_boundary_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+      "source_record_ids": [
+        "source-row:census-naics-2022:561110",
+        "source-row:prior-model-2026-11-05:42a2b0e53eb3dd43c913"
+      ],
+      "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+      "supporting_evidence_ids": [
+        "evidence:manual-index-entry:5345528a627722e2c82fe981",
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "workforce_model": "Unknown; cannot include operating staff for complete practice operations."
+    },
+    {
+      "acquisition_universe": "Providers whose primary contracted offering is an integrated range of day-to-day office administrative functions for client businesses, without supplying operating staff for complete business operation.",
+      "activation_status": "accepted_with_open_gaps",
+      "aliases": [
+        "Office administrative services",
+        "Integrated outsourced office administration",
+        "Administrative management services",
+        "Office management services"
+      ],
+      "ambient_ai_workflow": "Unknown from the frozen evidence; plausible workflow assistance is not treated as fact.",
+      "boundary": "Includes horizontal multi-function, day-to-day office administration for others on contract or fee. Excludes complete client-business operation, single-service specialists, holding-company offices, corporate managing offices, computer facilities management, construction management, farm management, real-property management, food-service management, and advice without day-to-day management.",
+      "buyer": "Client organizations seeking outsourced recurring administrative capability; inferred from services provided for others.",
+      "candidate_market_ids": [
+        "candidate-market:83c901691f2d7e1f17cf8604",
+        "candidate-market:cc5c2b663ea4dd50e2186369"
+      ],
+      "canonical_name": "Integrated outsourced office administration",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.7,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.65,
+        "delivery": 0.85,
+        "economics_risk": 0.3,
+        "job": 0.88,
+        "workforce": 0.84
+      },
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "definition": "Contracted provision of a range of day-to-day office administrative services, including financial planning, billing and recordkeeping, personnel, and physical distribution/logistics, without operating staff for the complete operation of the client business.",
+      "delivery_model": "Ongoing contract- or fee-based outsourced administration.",
+      "economics_risk": "Pricing, economics, and allocation of operational risk are not directly evidenced.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "inference",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "inference",
+        "delivery": "fact",
+        "economics_risk": "unknown",
+        "job": "fact",
+        "workforce": "fact"
+      },
+      "explicit_exclusions": [
+        "Complete operation of a client's business",
+        "Holding-company offices",
+        "Corporate, subsidiary, and regional managing offices",
+        "Computer facilities management",
+        "Construction management",
+        "Farm management",
+        "Real property management",
+        "Food-service contracting",
+        "Management advice without day-to-day management",
+        "Single support services supplied alone"
+      ],
+      "job_to_be_done": "Operate a client's recurring office-administration functions without taking over the complete operating business.",
+      "mapping_event_ids": [],
+      "market_id": "market:930fb681a7db796a46677c8c",
+      "market_version_id": "market-version:066869f4f57eff5f6e145628",
+      "parent_market_id": null,
+      "proposal_id": "proposal:integrated-outsourced-office-administration",
+      "research_gap_ids": [
+        "gap:horizontal-office-admin-operating-tests",
+        "gap:vertical-administration-boundary"
+      ],
+      "source_boundary_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+      "source_record_ids": [
+        "source-row:census-naics-2022:561110",
+        "source-row:prior-model-2026-11-05:12a677c307e26c425df4",
+        "source-row:prior-model-2026-11-05:d1477d31b0b95ea3bd2b"
+      ],
+      "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+      "supporting_evidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:manual-index-entry:14adf7145d9c89c953d90b2f",
+        "evidence:manual-index-entry:4135fb564eddde5555720e17",
+        "evidence:manual-index-entry:4f36a492ecfb9071554fa8fc",
+        "evidence:required-prior-candidate-anchor:6e0993298caa6d8e9892e220"
+      ],
+      "workforce_model": "Administrative-service workforce; expressly excludes operating staff for complete client-business operations."
+    },
+    {
+      "acquisition_universe": "Potential providers of ongoing administration for medical practices; separate acquisition evidence is absent.",
+      "activation_status": "provisional",
+      "aliases": [
+        "Medical office management services",
+        "Managing offices of physicians and surgeons"
+      ],
+      "ambient_ai_workflow": "Unknown from the frozen evidence.",
+      "boundary": "Provisional vertical input limited to medical-practice administration that does not supply complete clinical operating staff; excludes clinical care, medical care management alone, and complete practice or hospital operation.",
+      "buyer": "Likely medical practices or professional medical offices; inference only.",
+      "candidate_market_ids": [
+        "candidate-market:a1b56327512348614f589ebc"
+      ],
+      "canonical_name": "Medical practice administration",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.32,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.38,
+        "delivery": 0.48,
+        "economics_risk": 0.15,
+        "job": 0.58,
+        "workforce": 0.45
+      },
+      "counterevidence_ids": [
+        "evidence:manual-definition:bb8297ad9acd30b748422249",
+        "evidence:source-identity:2a67da0aa554c22c09967bde"
+      ],
+      "definition": "Provisional candidate for contracted medical-office administration, limited to non-complete-operation services.",
+      "delivery_model": "Not directly evidenced; constrained by the prohibition on complete client-business operation.",
+      "economics_risk": "Unknown.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "unknown",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "inference",
+        "delivery": "inference",
+        "economics_risk": "unknown",
+        "job": "inference",
+        "workforce": "inference"
+      },
+      "explicit_exclusions": [
+        "Clinical care delivery",
+        "Medical care management as a product category",
+        "Complete operation of a client medical practice or hospital"
+      ],
+      "job_to_be_done": "Potentially administer recurring nonclinical medical-office operations without taking over complete practice operations.",
+      "mapping_event_ids": [],
+      "market_id": "market:a4e5f08d253256b2a0c8ca05",
+      "market_version_id": "market-version:2901f3513d7c05313005b764",
+      "parent_market_id": null,
+      "proposal_id": "proposal:medical-practice-administration",
+      "research_gap_ids": [
+        "gap:vertical-administration-boundary"
+      ],
+      "source_boundary_run_id": "boundary-run-1a88e9a3acdf15d63b09",
+      "source_record_ids": [
+        "source-row:census-naics-2022:561110",
+        "source-row:census-napcs-2022-economic-census-codes:7004955000",
+        "source-row:prior-model-2026-11-05:ac143ac1d6f02431d046"
+      ],
+      "source_review_id": "boundary-review:office-administrative-services-v2:correction-cycle",
+      "supporting_evidence_ids": [
+        "evidence:manual-index-entry:ac91b98a5ba243d70ddb468b",
+        "evidence:manual-index-entry:ba9f06dc45c764a58e117b43",
+        "evidence:manual-index-entry:11757fe5a604f1d67c63d8a9",
+        "evidence:manual-definition:bb8297ad9acd30b748422249"
+      ],
+      "workforce_model": "Unknown; cannot include operating staff for complete practice operations."
+    },
+    {
+      "acquisition_universe": "The acquisition universe is inferred to consist of establishments developing mine sites, mining, or beneficiating copper-, nickel-, lead-, and zinc-valued ores, including concentrate recovery or transformation.",
+      "activation_status": "provisional",
+      "aliases": [],
+      "ambient_ai_workflow": "The frozen evidence does not address AI use in mine planning, extraction, beneficiation, concentrate recovery, logistics, or administration.",
+      "boundary": "Establishments developing mine sites, mining, and beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation of those ores into concentrates; excludes gold, coal, nonmetallic minerals, mining-support services, equipment rental, and engineering services.",
+      "buyer": "The records identify ores and mining activities but do not identify buyers, procurement structures, contracting parties, or purchase criteria.",
+      "candidate_market_ids": [],
+      "canonical_name": "Copper, Nickel, Lead, and Zinc Ore Mining",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.74,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.16,
+        "delivery": 0.15,
+        "economics_risk": 0.12,
+        "job": 0.9,
+        "workforce": 0.12
+      },
+      "definition": "A provisional operating-market boundary for extraction and beneficiation of copper, nickel, lead, and zinc ores, including concentrate transformation, aligned to the family NAICS definition and the lead/zinc and copper/nickel product identities.",
+      "delivery_model": "The frozen evidence does not establish shipment, transportation, geographic service area, delivery terms, or point of transfer for ores or concentrates.",
+      "economics_risk": "No frozen evidence establishes commodity pricing, capital requirements, permitting, reserve, processing, environmental, or other economics and risk characteristics.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "inference",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "unknown",
+        "delivery": "unknown",
+        "economics_risk": "unknown",
+        "job": "fact",
+        "workforce": "unknown"
+      },
+      "explicit_exclusions": [
+        "Gold ore mining, which the frozen product evidence associates with NAICS 212220 rather than this NAICS 212230 family.",
+        "Coal mining and nonmetallic mineral mining.",
+        "Mining support services, equipment rental, and mining or geological engineering services.",
+        "Downstream smelting, refining, manufacturing, or other customer activities not included in the frozen NAICS definition."
+      ],
+      "job_to_be_done": "The frozen NAICS definition states that the job is developing the mine site, mining, and/or beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation into concentrates and certain copper-concentrate recovery processes.",
+      "mapping_event_ids": [],
+      "market_id": "market:c4d04e451630c379abbbd1e8",
+      "market_version_id": "market-version:90aa955013d32d4fbb2d6f17",
+      "parent_market_id": null,
+      "research_gap_ids": [
+        "gap:498493644d34f3ee:local-metal-ore-boundary"
+      ],
+      "source_b3_proposal": {
+        "boundary": "Establishments developing mine sites, mining, and beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation of those ores into concentrates; excludes gold, coal, nonmetallic minerals, mining-support services, equipment rental, and engineering services.",
+        "canonical_name": "Copper, Nickel, Lead, and Zinc Ore Mining",
+        "counterevidence_ids": [
+          "evidence:baef086966560104479e50b729db1f1c3d96b92425d0eed90c43c402ba77c238",
+          "evidence:b18ebe234ceaeedc5d4f6a5f598636683a108fae7697036b31efa1beb2536df7"
+        ],
+        "definition": "A provisional operating-market boundary for extraction and beneficiation of copper, nickel, lead, and zinc ores, including concentrate transformation, aligned to the family NAICS definition and the lead/zinc and copper/nickel product identities.",
+        "dimensions": {
+          "acquisition_universe": {
+            "confidence": 0.74,
+            "counterevidence_ids": [],
+            "evidence_label": "inference",
+            "statement": "The acquisition universe is inferred to consist of establishments developing mine sites, mining, or beneficiating copper-, nickel-, lead-, and zinc-valued ores, including concentrate recovery or transformation.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+              "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3"
+            ]
+          },
+          "ambient_ai_workflow": {
+            "confidence": 0.1,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not address AI use in mine planning, extraction, beneficiation, concentrate recovery, logistics, or administration.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          },
+          "buyer": {
+            "confidence": 0.16,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The records identify ores and mining activities but do not identify buyers, procurement structures, contracting parties, or purchase criteria.",
+            "supporting_evidence_ids": [
+              "evidence:9da1e9d00e7f96149464a25c353e439b863f930cac2313ac97d6244c90eee142",
+              "evidence:9eccf3fc225dc9241b048989317e736309436dfab85822b55a7dae4ff34dba19"
+            ]
+          },
+          "delivery": {
+            "confidence": 0.15,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not establish shipment, transportation, geographic service area, delivery terms, or point of transfer for ores or concentrates.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+              "evidence:2139b118d4fa8374683e8b46af261a793c4d19c31f61e6520e43d288e6ab1f3b"
+            ]
+          },
+          "economics_risk": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "No frozen evidence establishes commodity pricing, capital requirements, permitting, reserve, processing, environmental, or other economics and risk characteristics.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          },
+          "job": {
+            "confidence": 0.9,
+            "counterevidence_ids": [],
+            "evidence_label": "fact",
+            "statement": "The frozen NAICS definition states that the job is developing the mine site, mining, and/or beneficiating ores valued chiefly for copper, nickel, lead, or zinc content, including transformation into concentrates and certain copper-concentrate recovery processes.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          },
+          "workforce": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not identify workforce composition, specialized mining or processing roles, labor model, or staffing requirements.",
+            "supporting_evidence_ids": [
+              "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff"
+            ]
+          }
+        },
+        "explicit_exclusions": [
+          "Gold ore mining, which the frozen product evidence associates with NAICS 212220 rather than this NAICS 212230 family.",
+          "Coal mining and nonmetallic mineral mining.",
+          "Mining support services, equipment rental, and mining or geological engineering services.",
+          "Downstream smelting, refining, manufacturing, or other customer activities not included in the frozen NAICS definition."
+        ],
+        "proposal_id": "proposal:498493644d34f3ee:copper-nickel-lead-zinc-mining",
+        "related_graph_market_ids": [],
+        "supporting_evidence_ids": [
+          "evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff",
+          "evidence:163b75631e9cd8d36b78827038eeefb89cc8edc4dd26f61649d05990a7a135c3",
+          "evidence:b04e914939688bd2d94d4ef37cd70d72cdf62b7cc60c636b7e290708d4041655",
+          "evidence:65e6684958d3b1d9a2baf846ebb17331ad95d0d9f072d6a6f3829ec7ca2a1ebd",
+          "evidence:2139b118d4fa8374683e8b46af261a793c4d19c31f61e6520e43d288e6ab1f3b",
+          "evidence:9da1e9d00e7f96149464a25c353e439b863f930cac2313ac97d6244c90eee142",
+          "evidence:9eccf3fc225dc9241b048989317e736309436dfab85822b55a7dae4ff34dba19",
+          "evidence:d0c5542cfef88bbf49ee276b3e0e47f166caab122596703148d0b7b3bbafef78"
+        ]
+      },
+      "source_record_ids": [
+        "source-row:census-naics-2022:212230",
+        "source-row:census-napcs-2022-economic-census-codes:1001200000",
+        "source-row:census-napcs-2022-economic-census-codes:1001250000",
+        "source-row:census-napcs-2022-economic-census-codes:1001275000",
+        "source-row:prior-model-2026-11-05:0de3311669a0d469f28f",
+        "source-row:prior-model-2026-11-05:15e181ab737d2f1f7235",
+        "source-row:prior-model-2026-11-05:6224661c019c1947132d",
+        "source-row:prior-model-2026-11-05:72edc739aec48ec54c96",
+        "source-row:prior-model-2026-11-05:958bb109dd402f91847f"
+      ],
+      "workforce_model": "The frozen evidence does not identify workforce composition, specialized mining or processing roles, labor model, or staffing requirements."
+    },
+    {
+      "acquisition_universe": "The acquisition universe is inferred to consist of establishments operating industrial-grade sand pits, dredging for industrial-grade sand, or preparing industrial-grade sand, rather than establishments merely consuming or installing sand.",
+      "activation_status": "provisional",
+      "aliases": [],
+      "ambient_ai_workflow": "The frozen evidence does not state whether AI is present in extraction, dredging, washing, screening, grinding, logistics, or administrative workflows.",
+      "boundary": "Establishments primarily engaged in operating industrial-grade sand pits, dredging for industrial-grade sand, or washing, screening, grinding, or otherwise preparing industrial-grade sand, including glass, molding, and other industrial sand products; excludes construction-grade sand and gravel mining and water-resource construction projects.",
+      "buyer": "The records identify industrial sand products and uses but do not identify the purchasing entities, contracting structure, or procurement criteria.",
+      "candidate_market_ids": [],
+      "canonical_name": "Industrial Sand Mining and Preparation",
+      "confidence_by_dimension": {
+        "acquisition_universe": 0.7,
+        "ambient_ai_workflow": 0.1,
+        "buyer": 0.18,
+        "delivery": 0.2,
+        "economics_risk": 0.12,
+        "job": 0.86,
+        "workforce": 0.12
+      },
+      "definition": "A provisional operating-market boundary for extraction and primary preparation of industrial-grade sand. It covers the family NAICS anchor and the three family-owned industrial-sand product identities without asserting downstream glass, foundry, filtration, or other customer industries as part of the market.",
+      "delivery_model": "The evidence establishes extraction and preparation activities but does not establish delivery mode, geographic reach, contract terms, or point of transfer.",
+      "economics_risk": "No frozen evidence establishes pricing, margins, capital intensity, commodity exposure, permitting risk, or other economics and risk characteristics.",
+      "evidence_by_dimension": {
+        "acquisition_universe": "inference",
+        "ambient_ai_workflow": "unknown",
+        "buyer": "unknown",
+        "delivery": "unknown",
+        "economics_risk": "unknown",
+        "job": "fact",
+        "workforce": "unknown"
+      },
+      "explicit_exclusions": [
+        "Mining commercial or construction-grade gravel, which the frozen cross-reference assigns to Construction Sand and Gravel Mining.",
+        "Construction projects involving water resources, including dredging and land drainage when performed as construction, which the frozen cross-reference assigns to Other Heavy and Civil Engineering Construction.",
+        "Downstream glass, foundry, filtration, furnace, engine, or other customer manufacturing activities not described as extraction or primary preparation."
+      ],
+      "job_to_be_done": "The operating job stated by the frozen NAICS definition is to operate industrial-grade sand pits, dredge for industrial-grade sand, and wash, screen, or otherwise prepare industrial-grade sand.",
+      "mapping_event_ids": [],
+      "market_id": "market:d011b6cf94dc093d649baa14",
+      "market_version_id": "market-version:7806986346df9e758d469cc0",
+      "parent_market_id": null,
+      "research_gap_ids": [
+        "gap:9a0a16bfbc735598:local-industrial-sand-boundary"
+      ],
+      "source_b3_proposal": {
+        "boundary": "Establishments primarily engaged in operating industrial-grade sand pits, dredging for industrial-grade sand, or washing, screening, grinding, or otherwise preparing industrial-grade sand, including glass, molding, and other industrial sand products; excludes construction-grade sand and gravel mining and water-resource construction projects.",
+        "canonical_name": "Industrial Sand Mining and Preparation",
+        "counterevidence_ids": [],
+        "definition": "A provisional operating-market boundary for extraction and primary preparation of industrial-grade sand. It covers the family NAICS anchor and the three family-owned industrial-sand product identities without asserting downstream glass, foundry, filtration, or other customer industries as part of the market.",
+        "dimensions": {
+          "acquisition_universe": {
+            "confidence": 0.7,
+            "counterevidence_ids": [],
+            "evidence_label": "inference",
+            "statement": "The acquisition universe is inferred to consist of establishments operating industrial-grade sand pits, dredging for industrial-grade sand, or preparing industrial-grade sand, rather than establishments merely consuming or installing sand.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+              "evidence:1f6ae1968f30cfbdbe8b3a6d14674e7138bcb490c5b0998bb47a130c2da6d4cc"
+            ]
+          },
+          "ambient_ai_workflow": {
+            "confidence": 0.1,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The frozen evidence does not state whether AI is present in extraction, dredging, washing, screening, grinding, logistics, or administrative workflows.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "buyer": {
+            "confidence": 0.18,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The records identify industrial sand products and uses but do not identify the purchasing entities, contracting structure, or procurement criteria.",
+            "supporting_evidence_ids": [
+              "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+              "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+              "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5"
+            ]
+          },
+          "delivery": {
+            "confidence": 0.2,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The evidence establishes extraction and preparation activities but does not establish delivery mode, geographic reach, contract terms, or point of transfer.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+              "evidence:3b5b62b8aac7b55cc62667b89540ecd11e6b5b5a539e5d81fa81dacb39f69616"
+            ]
+          },
+          "economics_risk": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "No frozen evidence establishes pricing, margins, capital intensity, commodity exposure, permitting risk, or other economics and risk characteristics.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "job": {
+            "confidence": 0.86,
+            "counterevidence_ids": [],
+            "evidence_label": "fact",
+            "statement": "The operating job stated by the frozen NAICS definition is to operate industrial-grade sand pits, dredge for industrial-grade sand, and wash, screen, or otherwise prepare industrial-grade sand.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          },
+          "workforce": {
+            "confidence": 0.12,
+            "counterevidence_ids": [],
+            "evidence_label": "unknown",
+            "statement": "The evidence does not identify workforce composition, specialized roles, labor model, or staffing requirements.",
+            "supporting_evidence_ids": [
+              "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065"
+            ]
+          }
+        },
+        "explicit_exclusions": [
+          "Mining commercial or construction-grade gravel, which the frozen cross-reference assigns to Construction Sand and Gravel Mining.",
+          "Construction projects involving water resources, including dredging and land drainage when performed as construction, which the frozen cross-reference assigns to Other Heavy and Civil Engineering Construction.",
+          "Downstream glass, foundry, filtration, furnace, engine, or other customer manufacturing activities not described as extraction or primary preparation."
+        ],
+        "proposal_id": "proposal:9a0a16bfbc735598:industrial-sand-mining",
+        "related_graph_market_ids": [],
+        "supporting_evidence_ids": [
+          "evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065",
+          "evidence:1f6ae1968f30cfbdbe8b3a6d14674e7138bcb490c5b0998bb47a130c2da6d4cc",
+          "evidence:22a788bf2ed5cde24f10fa57e300d44bdc2901fc89c3d5ff64bf19c8d954981c",
+          "evidence:4066152bfeb2b636ae3313236ee1df14276449aa305df7174ea18ec0a483310a",
+          "evidence:8f4ce6feb97d490c743aa2cbcfb06798bfd7077b224b8b5e2c96d475527546b5",
+          "evidence:9e139061f43a67785b33754285394f84e77fd31020729c4b9f0bec6d4d709df0",
+          "evidence:35ece001be4a92d86ae4796a34838339e2bd0eb88412dde73d749af7dec307c6",
+          "evidence:4073320ca949141be6d9cd4c2fe898e2ffb7f5cbfb61da7d2908fe2f85288032"
+        ]
+      },
+      "source_record_ids": [
+        "source-row:census-naics-2022:212322",
+        "source-row:census-napcs-2022-economic-census-codes:1000600000",
+        "source-row:census-napcs-2022-economic-census-codes:1000625000",
+        "source-row:census-napcs-2022-economic-census-codes:1000650000",
+        "source-row:prior-model-2026-11-05:0325a8ad8a2e5e37b080",
+        "source-row:prior-model-2026-11-05:0a011663add976a14b25",
+        "source-row:prior-model-2026-11-05:0ee604acdce70acd136f",
+        "source-row:prior-model-2026-11-05:958bb109dd402f91847f",
+        "source-row:prior-model-2026-11-05:9fed79e8d4ab08c1f6a9",
+        "source-row:prior-model-2026-11-05:ac40ff33d37ce9dd5725",
+        "source-row:prior-model-2026-11-05:c3eaea386c26148a7e4d",
+        "source-row:prior-model-2026-11-05:c7f03154d6edb4711a0c"
+      ],
+      "workforce_model": "The evidence does not identify workforce composition, specialized roles, labor model, or staffing requirements."
+    }
+  ],
+  "retired_mappings": [],
+  "retired_market_ids": [],
+  "schema_version": 1,
+  "superseded_event_ids": []
+}

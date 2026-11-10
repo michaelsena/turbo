@@ -95,7 +95,9 @@ and validated cumulative staging and closure. The resulting staging contains fiv
 markets and eight mappings, preserving pilot rows and all new research gaps.
 
 The [staging receipt](receipts/2026-11-10-small-qualification-staging.json) records
-exact technical bindings. The canonical pointer remains unchanged.
+exact technical bindings for that historical staging run. The subsequent
+[publication](small-qualification-publication.md) supplies durable artifacts and a
+new canonical release, preserving the original approved content.
 [Issue 60](https://github.com/michaelsena/turbo/issues/60) covers durable publication:
 activation receipts bind a local absolute workflow path, and the staging graph
 references ignored output directories. Preserve original hashes and validate a

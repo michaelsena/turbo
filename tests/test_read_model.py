@@ -24,14 +24,34 @@ class ReadModelTest(unittest.TestCase):
             snapshot.version.partition_id,
             "family-partition:60517981ab96e7f243c7033e",
         )
-        self.assertEqual(snapshot.context["canonical_markets"], 3)
+        self.assertEqual(snapshot.context["canonical_markets"], 5)
         self.assertEqual(snapshot.provenance()["read_model_version"], "1.1.0")
         self.assertEqual(len(snapshot.identities), 11_543)
         self.assertEqual(len(snapshot.families), 1_026)
         self.assertEqual(len(snapshot.batches), 129)
         self.assertEqual(len(snapshot.candidates), 978)
-        self.assertEqual(len(snapshot.markets), 3)
-        self.assertEqual(len(snapshot.graph_mappings), 1)
+        self.assertEqual(len(snapshot.markets), 5)
+        self.assertEqual(len(snapshot.graph_mappings), 8)
+
+    def test_current_graph_preserves_pilot_and_adds_reviewed_provisional_markets(self) -> None:
+        pilot_path = (self.snapshot.root / "data/market_graph/versions"
+                      / "graph-release-aa5b6f83e7a06e073d3a" / "projection.json")
+        pilot = json.loads(pilot_path.read_text())
+        for market in pilot["markets"]:
+            self.assertEqual(self.snapshot.markets[market["market_id"]], market)
+        for mapping in pilot["mappings"]:
+            self.assertIn(mapping, self.snapshot.graph_mappings)
+        pilot_ids = {market["market_id"] for market in pilot["markets"]}
+        added = [market for market_id, market in self.snapshot.markets.items()
+                 if market_id not in pilot_ids]
+        self.assertEqual({market["canonical_name"] for market in added}, {
+            "Industrial Sand Mining and Preparation",
+            "Copper, Nickel, Lead, and Zinc Ore Mining",
+        })
+        for market in added:
+            self.assertEqual(market["activation_status"], "provisional")
+            self.assertTrue(market["research_gap_ids"])
+        self.assertEqual(self.snapshot.context["canonical_market_graph"]["open_research_gaps"], 4)
 
     def test_market_detail_exposes_boundary_gaps_sources_and_audit_chain(self) -> None:
         page = self.snapshot.list_markets(page_size=100)
@@ -77,7 +97,7 @@ class ReadModelTest(unittest.TestCase):
 
     def test_receipts_are_whitelisted_and_path_safe(self) -> None:
         receipt = self.snapshot.receipt(
-            "graph-release", "graph-release-aa5b6f83e7a06e073d3a"
+            "graph-release", self.snapshot.version.release_id
         )
         self.assertEqual(receipt["kind"], "graph-release")
         with self.assertRaisesRegex(SnapshotError, "invalid receipt ID"):

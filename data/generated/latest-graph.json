@@ -1,9 +1,9 @@
 {
-  "graph_version_id": "graph-e674a77fbfd5939c25c9e9a1",
-  "projection_sha256": "a22336b3711ba1095607aa03850607cb50a801c49abcd3e3cd0b3d914b87b8ca",
-  "receipt_sha256": "60000766e22dd07dd63aa865618d92774d7f4d0d5eb89d95c2353a659fff48d3",
-  "release_id": "graph-release-aa5b6f83e7a06e073d3a",
-  "release_path": "data/market_graph/versions/graph-release-aa5b6f83e7a06e073d3a",
+  "graph_version_id": "graph-9838996c8153c20c7f86c37a",
+  "projection_sha256": "6b4ac0854a2ad572d85947e39d0e40cb82baed15d03d045f7a82fef0f8e33011",
+  "receipt_sha256": "75d45ae673087425a032bebff1a4eb85f45fccda67a5a934dcabeb050420f5ed",
+  "release_id": "graph-release-a09c97692a785c2a9711",
+  "release_path": "data/market_graph/versions/graph-release-a09c97692a785c2a9711",
   "schema_version": 1,
   "source_universe_run_id": "run-2ea0f00db84148de663f"
 }

@@ -26,8 +26,8 @@ queue position, or provisional boundary is not an investment recommendation.
 | Administrative families / queued families | 1,026 / 1,018 |
 | Deterministic review batches | 129 |
 | Prior-market candidates / unretrieved challengers | 978 / 58 |
-| Canonical markets / accepted mapping events | 3 / 1 |
-| Distinct open market-boundary gaps | 2 |
+| Canonical markets / accepted mapping events | 5 / 8 |
+| Distinct open market-boundary gaps | 4 |
 | Target markets / investment scores | 0 / 0 |
 
 The first reviewed family produced **Integrated outsourced office administration**
@@ -50,8 +50,8 @@ Current immutable layers:
 | --- | --- |
 | Source universe | [`run-2ea0f00db84148de663f`](data/runs/run-2ea0f00db84148de663f/) |
 | Family schedule | [`family-partition:60517981ab96e7f243c7033e`](data/family_schedules/family-partition:60517981ab96e7f243c7033e/) |
-| Cumulative graph release | [`graph-release-aa5b6f83e7a06e073d3a`](data/market_graph/versions/graph-release-aa5b6f83e7a06e073d3a/) |
-| Graph version | `graph-e674a77fbfd5939c25c9e9a1` |
+| Cumulative graph release | [`graph-release-a09c97692a785c2a9711`](data/market_graph/versions/graph-release-a09c97692a785c2a9711/) |
+| Graph version | `graph-9838996c8153c20c7f86c37a` |
 
 `turbo context` verifies and composes these layers. The source receipt's historical
 `canonical_markets: 0` describes that source run alone, not the current graph.
@@ -299,10 +299,14 @@ Cumulative staging and closure validation passed with **five markets and eight
 mappings**, including two new provisional markets: Industrial Sand Mining and
 Preparation; Copper, Nickel, Lead, and Zinc Ore Mining. All original pilot rows and
 active events remain intact, and closure retains all three new research gaps.
-**The canonical pointer remains unchanged at three markets and one mapping.**
-Durable artifact publication and fresh-checkout replay are tracked in
-[issue 60](https://github.com/michaelsena/turbo/issues/60): the local staging records
-bind temporary paths and must not be copied into the canonical pointer as-is.
+The canonical pointer now selects this five-market cumulative release. The immutable
+[publication bundle](data/research_pilots/small-qualification-20261109/README.md)
+contains the approved workflow, preparation packs, exact frozen-input Git objects,
+activation, release, closure, and a hash manifest. Four distinct gaps are linked to
+markets; a fifth, candidate-only gap remains in the complete closure lineage.
+The [replay guide](docs/operations/small-qualification-publication.md) explains the
+historical compiler's fixed workflow-path requirement and explicit restoration.
+
 
 Earlier uncertain attempts remain preserved. This compact qualification does not
 establish universe-wide quality or the targeted 5× cost reduction. See the
