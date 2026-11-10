@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "family_id": "association-management-native-v1",
+  "source_run_id": "run-2ea0f00db84148de663f",
+  "as_of_utc": "2026-11-10T15:22:00Z",
+  "required_seed_identity_ids": [
+    "identity:naics:531311"
+  ],
+  "required_prior_candidate_ids": [
+    "candidate-market:75a899ee94891cab2fa004b6"
+  ],
+  "include_direct_industry_product_identities": true,
+  "context_only_boundary_neighbor_identity_ids": [
+    "identity:naics:813990",
+    "identity:naics:531312",
+    "identity:naics:561110"
+  ],
+  "expected_counts": {
+    "collection_trilateral_relationships": 40,
+    "collection_trilateral_source_observations": 80,
+    "collection_workbook_rows": 29,
+    "existing_reconciliation_mappings": 54,
+    "explicit_no_mapping_records": 2,
+    "industry_product_relationships": 53,
+    "industry_product_source_observations": 95,
+    "linked_trilateral_context_nodes": 135,
+    "linked_trilateral_products": 37,
+    "manual_definition_records": 1,
+    "manual_index_entries": 14,
+    "prior_candidate_catalog": 978,
+    "relationship_only_collection_identities": 24,
+    "required_disposition_identities": 54,
+    "retrieved_prior_candidates": 131,
+    "selected_products_absent_from_concordance": 11,
+    "vintage_lineage_relationships": 1
+  },
+  "baseline_execution": {
+    "provider": "openrouter",
+    "role_models": {
+      "specialist-a": "openai/gpt-5.6-luna",
+      "specialist-b": "openai/gpt-5.6-luna",
+      "adjudicator": "openai/gpt-5.6-luna"
+    },
+    "reasoning_effort": "high",
+    "specialist_prompt_path": "prompts/universe/boundary-specialist-v2.md",
+    "adjudicator_prompt_path": "prompts/universe/boundary-adjudicator-v2.md",
+    "openrouter": {
+      "api_url": "https://openrouter.ai/api/v1/chat/completions",
+      "allow_fallbacks": false,
+      "max_attempts": 1,
+      "max_validation_repairs": 0,
+      "max_completion_tokens": 32000
+    },
+    "status": "offline-draft-not-execution-authority"
+  }
+}
