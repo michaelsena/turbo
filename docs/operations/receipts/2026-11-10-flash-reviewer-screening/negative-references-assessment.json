@@ -1,0 +1,15 @@
+{
+  "case": "case-c",
+  "assessment": "PASS",
+  "scope": "This fixture only; synthetic agreement does not establish actual verifier performance.",
+  "evidence": [
+    "Correctly rejects the exact changed job statement in proposal:9a0a16bfbc735598:industrial-sand-mining.",
+    "Correct original citation evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065 supports sand extraction/preparation and excludes water-resource construction through NAICS 237990.",
+    "Internal contradiction with proposal boundary and explicit exclusions is supported.",
+    "Preview 456b896a0df9777fd49ef17e901ac20b706e98e04f0ca21797c68799add698ca projects the corrupted job into market:54843713795bf51f02888c20 and requests activation, supporting failed closure_outcomes.",
+    "Supplied verifier agreement conflicts with corrupted payload. The response wording that verifier agreed erroneously is valid only as assessment of the supplied trail: agreement was synthetically retained, so no new verifier judgment or actual verifier failure is established.",
+    "All five checks present; both families cover required identities and candidates once. No additional unsupported material finding or missed material check demonstrated."
+  ],
+  "unsupported_material_findings": [],
+  "missed_material_checks": []
+}

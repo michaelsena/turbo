@@ -1,0 +1,15 @@
+{
+  "case": "case-d",
+  "assessment": "PASS",
+  "scope": "This fixture only; no generalized quality or production enablement conclusion.",
+  "evidence": [
+    "Approve matches frozen evidence: industrial-sand job agrees with evidence:9e328ff093fbde11aa54dbae495959a3f54aa666a68dab4a7e974fcd263c9065 and metal-ore job with evidence:4255f10838cb795afb5d1cd89bb3fc605e343327e8f5c2e1fda649a6b56906ff.",
+    "Both families cover all required identities and candidates exactly once. Citations are in their family catalogs; disposition citations anchor their subjects.",
+    "Both proposals state seven dimensions with unknown/inference labels where appropriate, plus explicit questions and retry triggers for research gaps.",
+    "Supplied verifier has ten agree assessments and no material disagreement, consistent with no escalation/adjudication trigger.",
+    "Exact positive preview a2af41b94b6ee59b2f04e88a57cfede8faa6d4aa204f6bb391cd0298c675b438 retains provisional markets, attached gaps, containing-industry NAICS mappings and products-sold NAPCS mappings.",
+    "Resolved findings are supported; all five required checks present. No unsupported material rationale or missed material constraint demonstrated."
+  ],
+  "unsupported_material_findings": [],
+  "missed_material_checks": []
+}

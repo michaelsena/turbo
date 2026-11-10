@@ -30,6 +30,7 @@ the README and the relevant document whenever behavior or architecture changes.
 - [Experimental reviewer readable references](operations/reviewer-readable-view.md)
 - [Medium primary admission preflight](operations/medium-primary-preflight.md)
 - [Isolated reviewer qualification](operations/reviewer-qualification.md)
+- [Limited Flash reviewer screening](operations/flash-reviewer-screening.md)
 - [Accepted review and validated staging](operations/receipts/2026-11-10-small-qualification-staging.json)
 - [App/UI GM worker charter](operations/app-gm-worker.md)
 - [Local App/UI issue dispatcher](operations/app-dispatcher.md)

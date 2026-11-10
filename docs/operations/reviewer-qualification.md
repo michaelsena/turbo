@@ -2,7 +2,9 @@
 
 Issue #69 provides a separate four-cell qualification path for reviewer references.
 It is not a production workflow run. Nothing is enabled automatically, and neither
-the fixture builder nor the runner creates spending authority.
+the fixture builder nor the runner creates spending authority. The first
+[limited Flash screening](flash-reviewer-screening.md) completed four approved calls;
+its pass does not authorize additional calls or production adoption.
 
 ## Build and inspect offline
 
