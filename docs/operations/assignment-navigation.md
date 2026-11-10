@@ -30,3 +30,11 @@ anchor refusal, plain compatibility and continued rejection of actor-as-request
 or extra-context dispositions. Existing provider/model-view tests cover bounded
 admission, controlled transport and replay. Semantic review remains mandatory:
 better navigation does not establish correct market boundaries or evidence use.
+
+Issue [95](https://github.com/michaelsena/turbo/issues/95) also makes upstream
+submission hashes literal in `role_input_hashes`. This map copies exactly
+`task.inputs[role].submission_sha256`; roles with blind inputs receive `{}`.
+Dependent roles copy it into their schema-required `input_hashes`, never using
+plan or context hashes. This is request navigation only: wrong response hashes
+remain rejected by the existing workflow validator. Fresh runtime and authority
+requirements above apply.

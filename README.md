@@ -153,6 +153,8 @@ this read product. See the [application guide](docs/application/read-api-dashboa
 ## Operate and contribute
 
 Start material work with a scoped, scored GitHub issue and acceptance criteria.
+Fresh managed runs may opt into [traced citation-set normalization](docs/operations/citation-set-output.md);
+canonical semantic checks and independent review remain mandatory.
 Use a named branch, immutable evidence, synchronized documentation, local verification
 receipts, and independent review. Do not bypass protected checks. GitHub Actions and
 hosted CI are intentionally not configured; verification runs locally.

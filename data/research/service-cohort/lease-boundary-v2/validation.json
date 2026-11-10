@@ -1,0 +1,22 @@
+{
+  "status": "prospective_input_only_not_accepted_market_or_eligibility",
+  "parent_manifest_sha256": "39e7ab3169765c8f496ca829e18f46859e2002d48e8d30cd3cb3297f1f048c35",
+  "manifest": {
+    "manifest_path": "data/research/service-cohort/lease-boundary-v2/manifest.json",
+    "manifest_sha256": "dfd261e493fcccbe63e42b28d2ba2f2dca1df2ea0937988d108c7cb45ada6461"
+  },
+  "frozen_runtime_unchanged": "/private/tmp/turbo-service-boundary-release",
+  "sources": 8,
+  "claims": 11,
+  "gaps": 4,
+  "original_sources_byte_identical": true,
+  "original_claims_and_gaps_unchanged": true,
+  "new_claims": [
+    "lease-collections-buyer-side-unknown"
+  ],
+  "new_gaps": [
+    "lease-collections-buyer-side"
+  ],
+  "load_supplement": "PASS",
+  "schema_copy": "validation support only; payload is data/research/service-cohort/lease-boundary-v2"
+}
