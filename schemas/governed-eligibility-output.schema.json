@@ -76,7 +76,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs supporting this gate judgment. Must be disjoint from counterevidence_ids for this gate, including unknown judgments. Cite a mixed source only once and explain its contrary aspects and limits in rationale."
                   },
                   "counterevidence_ids": {
                     "type": "array",
@@ -86,7 +87,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs countering this gate judgment. Must be disjoint from supporting_evidence_ids for this gate, including unknown judgments. Preserve contrary content in rationale when a mixed source is already cited once as supporting evidence."
                   },
                   "research_gaps": {
                     "type": "array",
@@ -146,7 +148,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs supporting this gate judgment. Must be disjoint from counterevidence_ids for this gate, including unknown judgments. Cite a mixed source only once and explain its contrary aspects and limits in rationale."
                   },
                   "counterevidence_ids": {
                     "type": "array",
@@ -156,7 +159,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs countering this gate judgment. Must be disjoint from supporting_evidence_ids for this gate, including unknown judgments. Preserve contrary content in rationale when a mixed source is already cited once as supporting evidence."
                   },
                   "research_gaps": {
                     "type": "array",
@@ -216,7 +220,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs supporting this gate judgment. Must be disjoint from counterevidence_ids for this gate, including unknown judgments. Cite a mixed source only once and explain its contrary aspects and limits in rationale."
                   },
                   "counterevidence_ids": {
                     "type": "array",
@@ -226,7 +231,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs countering this gate judgment. Must be disjoint from supporting_evidence_ids for this gate, including unknown judgments. Preserve contrary content in rationale when a mixed source is already cited once as supporting evidence."
                   },
                   "research_gaps": {
                     "type": "array",
@@ -286,7 +292,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs supporting this gate judgment. Must be disjoint from counterevidence_ids for this gate, including unknown judgments. Cite a mixed source only once and explain its contrary aspects and limits in rationale."
                   },
                   "counterevidence_ids": {
                     "type": "array",
@@ -296,7 +303,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs countering this gate judgment. Must be disjoint from supporting_evidence_ids for this gate, including unknown judgments. Preserve contrary content in rationale when a mixed source is already cited once as supporting evidence."
                   },
                   "research_gaps": {
                     "type": "array",
@@ -356,7 +364,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs supporting this gate judgment. Must be disjoint from counterevidence_ids for this gate, including unknown judgments. Cite a mixed source only once and explain its contrary aspects and limits in rationale."
                   },
                   "counterevidence_ids": {
                     "type": "array",
@@ -366,7 +375,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs countering this gate judgment. Must be disjoint from supporting_evidence_ids for this gate, including unknown judgments. Preserve contrary content in rationale when a mixed source is already cited once as supporting evidence."
                   },
                   "research_gaps": {
                     "type": "array",
@@ -426,7 +436,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs supporting this gate judgment. Must be disjoint from counterevidence_ids for this gate, including unknown judgments. Cite a mixed source only once and explain its contrary aspects and limits in rationale."
                   },
                   "counterevidence_ids": {
                     "type": "array",
@@ -436,7 +447,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs countering this gate judgment. Must be disjoint from supporting_evidence_ids for this gate, including unknown judgments. Preserve contrary content in rationale when a mixed source is already cited once as supporting evidence."
                   },
                   "research_gaps": {
                     "type": "array",
@@ -496,7 +508,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs supporting this gate judgment. Must be disjoint from counterevidence_ids for this gate, including unknown judgments. Cite a mixed source only once and explain its contrary aspects and limits in rationale."
                   },
                   "counterevidence_ids": {
                     "type": "array",
@@ -506,7 +519,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs countering this gate judgment. Must be disjoint from supporting_evidence_ids for this gate, including unknown judgments. Preserve contrary content in rationale when a mixed source is already cited once as supporting evidence."
                   },
                   "research_gaps": {
                     "type": "array",
@@ -566,7 +580,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs supporting this gate judgment. Must be disjoint from counterevidence_ids for this gate, including unknown judgments. Cite a mixed source only once and explain its contrary aspects and limits in rationale."
                   },
                   "counterevidence_ids": {
                     "type": "array",
@@ -576,7 +591,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs countering this gate judgment. Must be disjoint from supporting_evidence_ids for this gate, including unknown judgments. Preserve contrary content in rationale when a mixed source is already cited once as supporting evidence."
                   },
                   "research_gaps": {
                     "type": "array",
@@ -636,7 +652,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs supporting this gate judgment. Must be disjoint from counterevidence_ids for this gate, including unknown judgments. Cite a mixed source only once and explain its contrary aspects and limits in rationale."
                   },
                   "counterevidence_ids": {
                     "type": "array",
@@ -646,7 +663,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs countering this gate judgment. Must be disjoint from supporting_evidence_ids for this gate, including unknown judgments. Preserve contrary content in rationale when a mixed source is already cited once as supporting evidence."
                   },
                   "research_gaps": {
                     "type": "array",
@@ -706,7 +724,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs supporting this gate judgment. Must be disjoint from counterevidence_ids for this gate, including unknown judgments. Cite a mixed source only once and explain its contrary aspects and limits in rationale."
                   },
                   "counterevidence_ids": {
                     "type": "array",
@@ -716,7 +735,8 @@
                       "type": "string",
                       "pattern": "^evidence:",
                       "maxLength": 256
-                    }
+                    },
+                    "description": "Market-owned source IDs countering this gate judgment. Must be disjoint from supporting_evidence_ids for this gate, including unknown judgments. Preserve contrary content in rationale when a mixed source is already cited once as supporting evidence."
                   },
                   "research_gaps": {
                     "type": "array",

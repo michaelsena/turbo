@@ -37,6 +37,13 @@ INSTRUCTIONS = (
     'Distinguish frozen source excerpts from labeled research claims. Cite market-owned '
     'source evidence, confront counterevidence, retain specific gaps and reduced confidence '
     'for inference or assumption, and do not convert unknown evidence into a pass. '
+    'For each gate, supporting_evidence_ids and counterevidence_ids must be disjoint: '
+    'never put the same evidence ID in both arrays for that gate. A source may be reused '
+    'across different gates. If a source contains mixed evidence or limits a conclusion, '
+    'cite it once in the array matching its role in the stated judgment and explain both '
+    'the supporting and contrary aspects in rationale, retaining uncertainty and research '
+    'gaps. Do not hide contrary content, invent replacement IDs, or split a source ID. '
+    'This citation rule also applies to unknown judgments; unknowns remain holds. '
     'Return every exact market version and every required gate; do not add markets or scores.'
 )
 

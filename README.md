@@ -126,6 +126,8 @@ reviewed investment evaluation. Governed eligibility and single-submodel executi
 adapters are implemented, but production runs still require accepted canonical
 versions, verified eligibility evidence, and explicit registered factor policies.
 No service-market eligibility decision or investment score has been accepted.
+Eligibility requests explicitly explain disjoint support/counterevidence citations;
+mixed-source limitations remain in the rationale and gaps, with strict validation unchanged.
 
 ## Run the local console
 

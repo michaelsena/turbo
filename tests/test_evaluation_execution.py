@@ -1,4 +1,5 @@
 """Real ledger/transport/replay, synthetic evidence only; no live credentials."""
+import base64
 import copy
 import json
 from pathlib import Path
@@ -101,6 +102,46 @@ class ExecutionTest(unittest.TestCase):
         descriptor={'work_unit_dir':str(self.eligible),'plan_sha256':runtime._sha(p),
                     'authorization_sha256':ledger._hash(auth),'task':'eligibility','output_sha256':out['eligibility']['output_sha256']}
         return self.make_unit('evaluation',runtime.EVALUATION_KIND,descriptor)
+
+    def test_eligibility_citation_guidance_reaches_wire_and_overlap_fails_without_repair(self):
+        original = self.document
+        def overlapping(task, assignment):
+            doc = original(task, assignment)
+            gate = doc['markets'][0]['gates']['unionized_workforces']
+            gate.update(status='unknown', evidence_label='unknown',
+                        counterevidence_ids=list(gate['supporting_evidence_ids']))
+            return doc
+        self.document = overlapping
+        result = self.run_one(self.eligible, 'eligibility')
+        self.assertEqual(result['status'], 'failed')
+        _, request, assignment = self.calls[0]
+        self.assertIn('must be disjoint', assignment['frozen_input']['gate_instructions'])
+        self.assertIn('unknowns remain holds', assignment['frozen_input']['gate_instructions'])
+        gate_schemas = request['response_format']['json_schema']['schema']['properties']['markets']['items']['properties']['gates']['properties']
+        self.assertEqual(set(gate_schemas), set(eligibility.GATES))
+        for gate in gate_schemas.values():
+            for field, opposite in [('supporting_evidence_ids', 'counterevidence_ids'),
+                                    ('counterevidence_ids', 'supporting_evidence_ids')]:
+                description = gate['properties'][field]['description']
+                self.assertIn('disjoint from ' + opposite, description)
+                self.assertIn('unknown judgments', description)
+        registry = Path(runtime.load_plan(self.eligible)['registry_path'])
+        artifact = runtime._read(next(registry.glob('journals/*/governed-*.json')))
+        self.assertFalse(artifact['valid'])
+        self.assertIsNone(artifact['document'])
+        raw = json.loads(base64.b64decode(artifact['output_base64']))
+        gate = raw['markets'][0]['gates']['unionized_workforces']
+        self.assertEqual(gate['counterevidence_ids'], gate['supporting_evidence_ids'])
+        self.assertEqual(gate['status'], 'unknown')
+        with self.assertRaisesRegex(ValueError, 'incomplete'):
+            runtime.projection(self.eligible)
+        self.assertFalse(self.run_one(self.eligible, 'eligibility')['dispatch'])
+        self.assertEqual(len(self.calls), 1)
+        plan = runtime.load_plan(self.eligible)
+        state, _ = runtime._state(self.eligible, plan, runtime._read(self.eligible/'execution-authority.json'))
+        self.assertEqual(state['calls_reserved'], 1)
+        self.assertGreater(state['committed_microusd'], 0)
+        self.assertEqual(state['outstanding_microusd'], 0)
 
     def test_freeze_is_explicit_preserves_source_bytes_and_creates_no_registry(self):
         original=runtime.load_plan(self.eligible);directory=self.base/'freeze';directory.mkdir()
