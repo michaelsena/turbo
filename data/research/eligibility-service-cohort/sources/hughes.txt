@@ -1,0 +1,6 @@
+URL: https://hughesmarino.com/services/lease-administration-services/
+Verified UTC: 2026-11-10T17:33:29.828834+00:00
+Representation: researcher paraphrase / numeric transcription, not verbatim source
+Retrieval: official public page opened with web tool; Census workbook downloaded directly and parsed using ZIP/XML. Original HTML/PDF not retained.
+
+Researcher paraphrase of public provider workflow: this US commercial occupier service page lists US locations and advertises centralized lease data, critical-date tracking, expense review, abstraction, coordination among legal/finance/facilities/procurement, and ongoing monthly administration. This supports existence of a US outsourced administrative service offering. It does not quantify buyer mix, provider population, financials, ownership, workforce, asset intensity or acquisition availability. It describes an integrated provider with other real estate services; standalone businesses cannot be assumed.

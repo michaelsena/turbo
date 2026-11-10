@@ -1,0 +1,6 @@
+URL: https://www.mrisoftware.com/ie/services/lease-administration/
+Verified UTC: 2026-11-10T17:33:29.828834+00:00
+Representation: researcher paraphrase / numeric transcription, not verbatim source
+Retrieval: official public page opened with web tool; Census workbook downloaded directly and parsed using ZIP/XML. Original HTML/PDF not retained.
+
+Researcher paraphrase of public provider workflow, Ireland/UK analogue only: MRI advertises rent payment processing with monthly landlord-invoice reconciliation, dedicated lease administrators, software, abstraction, lease accounting and audit. Payment processing is a reason to investigate custody, client-money controls and contractual risk allocation. It does not establish that the provider extends credit, underwrites insurance or owns clients real estate. It also does not prove absence of those risks or US market prevalence.

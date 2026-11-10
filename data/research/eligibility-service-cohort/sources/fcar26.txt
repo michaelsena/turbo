@@ -1,0 +1,6 @@
+URL: https://foundation.caionline.org/wp-content/uploads/2026/09/Digital-2026-Management-Company-Benchmarking-Trends-Report.pdf
+Verified UTC: 2026-11-10T17:33:29.828834+00:00
+Representation: researcher paraphrase / numeric transcription, not verbatim source
+Retrieval: official public page opened with web tool; Census workbook downloaded directly and parsed using ZIP/XML. Original HTML/PDF not retained.
+
+Researcher paraphrase: August 2026 FCAR survey had 115 executive respondents from 28 US states and DC; separate annual respondent samples. Page 3 states 34% report annual revenue of at least $5M. Page 1 states 65% report manager turnover below 10% and 65% cite hiring/retention pressure. Page 4 reports 59% derive at least 11% of revenue from ancillary services, including 16% deriving at least 31%. These are sample self-reports, not a representative acquisition census. Revenue is not EV; workforce turnover is not union coverage; ancillary services require scope review.
