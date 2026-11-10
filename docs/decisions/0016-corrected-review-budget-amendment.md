@@ -1,7 +1,8 @@
 # ADR 0016: Explicit corrected-review aggregate amendment
 
-Status: implemented for review under issue #57; no corrected production review
-has been dispatched.
+Status: merged in PR #58 and used for the explicitly approved corrected review.
+That review approved the original preview; PR #62 published its durable cumulative
+graph. The historical decision and earlier reservations remain preserved.
 
 The original release reviewer and its single approved replacement returned HTTP400.
 Two separately logged compatibility probes then isolated a Google-facing array-bound
