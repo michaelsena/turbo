@@ -143,3 +143,12 @@ sections define their contract, not a claim that they already exist. Their tests
 execution. Seven current tests cover blocked production admission, fabricated
 pass/pilot identifiers, binding mutation, blind requests, disabled slots, bounded
 request admission, semantic dependency views and blocked CLI exit behavior.
+
+
+## Canonical lease release
+
+The reviewed occupier-side lease boundary is included in cumulative release
+`graph-release-5e509cb21490ef9930ea`, generated from exact GitHub source
+`bb4d96cf88a6ba9bcf1ff75e6d15dc4cdf6157f1`. The graph contains six markets and nine
+mappings, preserving all prior entries. The lease boundary remains provisional.
+Canonical acceptance does not establish strategy eligibility or investment scores.

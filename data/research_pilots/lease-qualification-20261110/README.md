@@ -10,8 +10,9 @@ The accepted preview is
 the exact independent release-review submission is
 `0e2333ac360a4b50887894c94329cb5dae31b757c89ca5e9a20035213beade20`.
 Activation `batch-activation-8074059a637690090858` and the cumulative release config
-preserve those bindings. The cumulative graph will be published from the exact
-GitHub source commit containing this activation and config.
+preserve those bindings. The cumulative graph was generated from exact GitHub source commit
+`bb4d96cf88a6ba9bcf1ff75e6d15dc4cdf6157f1` and contains six markets and nine mappings.
+Its release is `graph-release-5e509cb21490ef9930ea`.
 
 ## Replay boundary
 
@@ -25,8 +26,9 @@ separate: the archive supports the former, not the latter.
 The workflow locator is `/private/tmp/turbo-service-qualified-v2-ember/workflow`.
 Follow the restoration guide to preserve each workflow's original input and
 preparation paths. Do not supply one global input/preparation override to the
-cumulative validator. Transport hashes have been checked; complete graph and closure
-replay follows after the exact source commit is published and outputs are generated.
+cumulative validator. Transport hashes have been checked. The cumulative graph and its closure replay
+against the preserved original inputs. Complete clean-environment archive restoration
+remains a separate qualification; the archive inventory check alone does not establish it.
 
 ## Validation provenance
 

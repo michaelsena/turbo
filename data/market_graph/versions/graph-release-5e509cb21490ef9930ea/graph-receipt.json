@@ -1,0 +1,47 @@
+{
+  "activation_bindings": [
+    {
+      "activation_config": "config/universe/activations/office-administrative-services-v2.json",
+      "activation_config_sha256": "e2229c0b84d2889378e23d20f037c2f03f0c47070b7a42d291dea0c475ef12bc",
+      "activation_dir": "data/market_graph/activations/boundary-activation-9d3772f0364b4632dc62",
+      "activation_id": "boundary-activation-9d3772f0364b4632dc62",
+      "events_sha256": "3e9c3f4f09c8f5ada2301fcfd9a8e04d18e8ba509afcfb2db5cb22ccacc22d51",
+      "projection_sha256": "5341b24b07e24dc40130affeefe7d5c8937abc9c69bab0f6589e5c4bfcae3646"
+    },
+    {
+      "activation_config": "data/market_graph/activations/batch-activation-3689a9605eac57d04444/activation-config.json",
+      "activation_config_sha256": "35012ace4417214c1fe3b5a38bf238a0eb38f83fd5019afe55293e3fcf5701d5",
+      "activation_dir": "data/market_graph/activations/batch-activation-3689a9605eac57d04444",
+      "activation_id": "batch-activation-3689a9605eac57d04444",
+      "events_sha256": "607fc39ab91cac34a025bdc73d8199e0b233c697c72371e15ef40d99d0def79e",
+      "kind": "batch",
+      "projection_sha256": "6f41e17fdb34883f51011a52ae9993f6b65adbc2b952c4a4dc16aef221b54d4b"
+    },
+    {
+      "activation_config": "data/market_graph/activations/batch-activation-8074059a637690090858/activation-config.json",
+      "activation_config_sha256": "78b28da71471cad4f74a894ef1ed4533b188ee9c3aecc6aa128baf7292037ffd",
+      "activation_dir": "data/market_graph/activations/batch-activation-8074059a637690090858",
+      "activation_id": "batch-activation-8074059a637690090858",
+      "events_sha256": "d7779791a9c6001742a20c7e4ff07070078b53843c67c0541336812b6d50023d",
+      "kind": "batch",
+      "projection_sha256": "02835f749b495d99e58cc73f2ab2008133e3c05444575ccb5c70415db49c9c38"
+    }
+  ],
+  "as_of_utc": "2026-11-10T18:05:30.195683Z",
+  "config_sha256": "e8a8232c92bbb7615d3919767fe91a0f812de17de9239bb9772ee4558de9be64",
+  "counts": {
+    "activations": 3,
+    "active_events": 15,
+    "canonical_markets": 6,
+    "mappings": 9,
+    "retired_markets": 0
+  },
+  "execution_commit": "bb4d96cf88a6ba9bcf1ff75e6d15dc4cdf6157f1",
+  "graph_version_id": "graph-e1a5f65e3dab83a9be7d6004",
+  "model_invoked": false,
+  "projection_sha256": "70d0f612ec5116f5be7d9920f653b1e9903742d3115456056d29e1a06b5a5960",
+  "release_id": "graph-release-5e509cb21490ef9930ea",
+  "schema_version": 1,
+  "source_universe_run_id": "run-2ea0f00db84148de663f",
+  "status": "published_cumulative_canonical_graph"
+}
