@@ -7,8 +7,12 @@ from __future__ import annotations
 from collections import Counter
 from decimal import Decimal, InvalidOperation
 import hashlib
+import io
+import stat
+import zipfile
+import zlib
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 from jsonschema import Draft202012Validator, ValidationError
 from turbo.agents.batch_workflow import _hash as workflow_hash
@@ -46,24 +50,132 @@ def _subject_set(rows, key):
     return set(_unique(rows, key))
 
 
-def _published_closure(root, manifest_path, schedule, families, current_receipt, current_projection):
-    manifest = _read(_path(root, manifest_path))
-    if manifest.get('schema_version') != 1:
+ARCHIVE_MAX_BYTES = 16 * 1024 * 1024
+ARCHIVE_MEMBER_MAX_BYTES = 8 * 1024 * 1024
+ARCHIVE_EXPANDED_MAX_BYTES = 64 * 1024 * 1024
+ARCHIVE_MAX_ENTRIES = 256
+ARCHIVE_MAX_RATIO = 200
+
+
+def _archive_name(name, *, directory=False):
+    if not isinstance(name, str) or not name or "\\" in name or "\0" in name:
+        raise ValueError('unsafe archive artifact name')
+    plain = name[:-1] if directory and name.endswith('/') else name
+    value = PurePosixPath(plain)
+    if value.is_absolute() or '..' in value.parts or str(value) != plain or plain in ('', '.'):
+        raise ValueError('unsafe archive artifact name')
+    return plain
+
+
+def _digest(value):
+    if not isinstance(value, str) or len(value) != 64 or any(c not in '0123456789abcdef' for c in value):
+        raise ValueError('invalid artifact SHA256')
+
+
+def _publication_reader(root, manifest):
+    version = manifest.get('schema_version')
+    if type(version) is not int or version not in (1, 2):
         raise ValueError('unsupported publication manifest')
     hashes = manifest['files']
-    # A historical manifest may bind the then-current mutable locator. Verify the
-    # current locator independently, and verify this manifest's immutable release.
+    archived = manifest.get('archived_files', {})
+    if version == 1 and archived:
+        raise ValueError('archive references require publication manifest v2')
+    if not isinstance(hashes, dict) or not isinstance(archived, dict):
+        raise ValueError('artifact maps required')
+    archive_paths = set()
+    bindings = set()
+    for name, ref in archived.items():
+        _archive_name(name)
+        if name in hashes or _path(root, name).exists():
+            raise ValueError('ambiguous archived artifact')
+        if not isinstance(ref, dict) or set(ref) != {'archive_path', 'member', 'sha256'}:
+            raise ValueError('exact archive reference required')
+        _archive_name(ref['archive_path']); _archive_name(ref['member']); _digest(ref['sha256'])
+        if ref['archive_path'] not in hashes or ref['archive_path'] == 'data/generated/latest-graph.json':
+            raise ValueError('archive bytes must be bound in files')
+        binding = (ref['archive_path'], ref['member'])
+        if binding in bindings:
+            raise ValueError('duplicate archive member binding')
+        bindings.add(binding); archive_paths.add(ref['archive_path'])
+    if len(archive_paths) > 8 or len(archived) > ARCHIVE_MAX_ENTRIES:
+        raise ValueError('archive reference limit exceeded')
+    archives = {}
+    archive_bytes = 0
+    # Historical manifests may bind the then-current mutable locator. Current
+    # locator and immutable release are independently checked by the report.
     for name, expected in hashes.items():
         if name == 'data/generated/latest-graph.json':
             continue
+        if version == 2:
+            _archive_name(name); _digest(expected)
         path = _path(root, name)
-        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+        if name in archive_paths:
+            if not path.is_file() or path.stat().st_size > ARCHIVE_MAX_BYTES:
+                raise ValueError('archive byte limit exceeded or missing archive')
+            with path.open('rb') as stream:
+                raw = stream.read(ARCHIVE_MAX_BYTES + 1)
+            if len(raw) > ARCHIVE_MAX_BYTES:
+                raise ValueError('archive byte limit exceeded')
+        else:
+            raw = path.read_bytes() if path.is_file() else b''
+        if not path.is_file() or hashlib.sha256(raw).hexdigest() != expected:
             raise ValueError('manifest artifact hash mismatch: ' + name)
+        if name in archive_paths:
+            archive_bytes += len(raw)
+            if archive_bytes > ARCHIVE_EXPANDED_MAX_BYTES:
+                raise ValueError('aggregate archive byte limit exceeded')
+            archives[name] = raw
+    members = {}
+    total = 0
+    entry_count = 0
+    try:
+        for archive_path, raw in archives.items():
+            with zipfile.ZipFile(io.BytesIO(raw)) as archive:
+                entries = archive.infolist()
+                entry_count += len(entries)
+                if entry_count > ARCHIVE_MAX_ENTRIES:
+                    raise ValueError('archive entry limit exceeded')
+                seen = set()
+                for entry in entries:
+                    _archive_name(entry.orig_filename, directory=entry.is_dir())
+                    name = _archive_name(entry.filename, directory=entry.is_dir())
+                    if name in seen:
+                        raise ValueError('duplicate archive entry')
+                    seen.add(name)
+                    mode = entry.external_attr >> 16
+                    if stat.S_IFMT(mode) not in (0, stat.S_IFREG, stat.S_IFDIR) or stat.S_ISDIR(mode) != entry.is_dir() and stat.S_IFMT(mode) != 0:
+                        raise ValueError('archive symlink or special entry')
+                    total += entry.file_size
+                    if (entry.flag_bits & 1 or entry.compress_type not in (zipfile.ZIP_STORED, zipfile.ZIP_DEFLATED)
+                            or entry.file_size > ARCHIVE_MEMBER_MAX_BYTES or total > ARCHIVE_EXPANDED_MAX_BYTES
+                            or entry.file_size > max(1, entry.compress_size) * ARCHIVE_MAX_RATIO):
+                        raise ValueError('archive expansion or encoding limit exceeded')
+                for virtual, ref in archived.items():
+                    if ref['archive_path'] != archive_path:
+                        continue
+                    entry = archive.getinfo(ref['member'])
+                    if entry.is_dir():
+                        raise ValueError('archive JSON member must be a file')
+                    with archive.open(entry) as stream:
+                        content = stream.read(ARCHIVE_MEMBER_MAX_BYTES + 1)
+                    if len(content) != entry.file_size or hashlib.sha256(content).hexdigest() != ref['sha256']:
+                        raise ValueError('archive member hash or size mismatch')
+                    members[virtual] = content
+    except (zipfile.BadZipFile, KeyError, RuntimeError, NotImplementedError, EOFError, zlib.error) as error:
+        raise ValueError('invalid bound archive member') from error
 
     def bound(name):
+        if name in members:
+            return _strict_json(members[name])
         if name not in hashes:
             raise ValueError('required artifact is absent from manifest: ' + name)
         return _read(_path(root, name))
+    return bound
+
+
+def _published_closure(root, manifest_path, schedule, families, current_receipt, current_projection):
+    manifest = _read(_path(root, manifest_path))
+    bound = _publication_reader(root, manifest)
 
     workflow = manifest['workflow_dir']
     plan = bound(workflow + '/plan.json')
