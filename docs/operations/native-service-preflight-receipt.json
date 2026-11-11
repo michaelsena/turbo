@@ -1,0 +1,125 @@
+{
+  "scope": "Offline original boundary harness drafts; no execution approval, calls, accepted market, activation, or schedule closure",
+  "source_commit": "6238df2be30cd6ff803d81965263fda7fdc64433",
+  "source_tree": "acde6e181807b499e102ebc1f20348f9d3c1c830",
+  "source_run_id": "run-2ea0f00db84148de663f",
+  "families": [
+    {
+      "family_id": "association-management-native-v1",
+      "config_path": "config/universe/families/association-management-native-v1.json",
+      "config_file_sha256": "f405924acc0ee3b6d7b1f7bcaee2f7b87e19950192a9bbc310581a835b5643a6",
+      "pack_sha256": "de118531e18a5b0adbe9a72a00707d11ecc8075d036bf382ed81644777f50bcf",
+      "pack_file_sha256": "216de87adf3dc0b2d51260e61e5d6b905924954dba23c944b726b4e473bd48a2",
+      "pack_bytes": 682378,
+      "counts": {
+        "required_disposition_identities": 54,
+        "industry_product_relationships": 53,
+        "industry_product_source_observations": 95,
+        "collection_workbook_rows": 29,
+        "relationship_only_collection_identities": 24,
+        "collection_trilateral_relationships": 40,
+        "collection_trilateral_source_observations": 80,
+        "linked_trilateral_products": 37,
+        "linked_trilateral_context_nodes": 135,
+        "explicit_no_mapping_records": 2,
+        "selected_products_absent_from_concordance": 11,
+        "manual_definition_records": 1,
+        "manual_index_entries": 14,
+        "vintage_lineage_relationships": 1,
+        "existing_reconciliation_mappings": 54,
+        "retrieved_prior_candidates": 131,
+        "prior_candidate_catalog": 978
+      },
+      "evidence_items": 452,
+      "required_candidate_dispositions": 131,
+      "validation_errors": [],
+      "identical_native_rebuild": true,
+      "requests": [
+        {
+          "role": "specialist-a",
+          "wire_bytes": 748462,
+          "request_sha256": "90a8527ba61511bcfac18ac12e834e2091d554cba2e7ea1b3f8978630bbd6ac8",
+          "measurement": "exact structural render; placeholder random invocation ID of identical length",
+          "output_limit_tokens": 32000
+        },
+        {
+          "role": "specialist-b",
+          "wire_bytes": 748462,
+          "request_sha256": "3e99bfca36c0c05a247ebe5211c75bbbd8a6c9169e58c752f14ebe91a9cf7bab",
+          "measurement": "exact structural render; placeholder random invocation ID of identical length",
+          "output_limit_tokens": 32000
+        },
+        {
+          "role": "adjudicator",
+          "wire_bytes": 747937,
+          "request_sha256": "a1b46f33efc328f0a3ad77f75e206c5c1bc113ea57eaeb2fbbe9c4c964abab8c",
+          "measurement": "base-only lower bound; actual two validated specialist outputs unavailable",
+          "output_limit_tokens": 32000
+        }
+      ]
+    },
+    {
+      "family_id": "lease-administration-native-v1",
+      "config_path": "config/universe/families/lease-administration-native-v1.json",
+      "config_file_sha256": "86ca59bc437dd8bf78a576f6467368a5b9b9cd7d77ba04848d29f79c0fc7985d",
+      "pack_sha256": "efe9953eaea690d1a027a35f3880f9db266d309aaecf178c0fc82d8f00ae461d",
+      "pack_file_sha256": "bbdd4e5ae9bccb9e8a10a0957edfb626bf83a6a2415a435bc5828af67cbe74b0",
+      "pack_bytes": 607656,
+      "counts": {
+        "required_disposition_identities": 47,
+        "industry_product_relationships": 46,
+        "industry_product_source_observations": 81,
+        "collection_workbook_rows": 28,
+        "relationship_only_collection_identities": 18,
+        "collection_trilateral_relationships": 32,
+        "collection_trilateral_source_observations": 64,
+        "linked_trilateral_products": 31,
+        "linked_trilateral_context_nodes": 110,
+        "explicit_no_mapping_records": 3,
+        "selected_products_absent_from_concordance": 11,
+        "manual_definition_records": 1,
+        "manual_index_entries": 13,
+        "vintage_lineage_relationships": 1,
+        "existing_reconciliation_mappings": 47,
+        "retrieved_prior_candidates": 111,
+        "prior_candidate_catalog": 978
+      },
+      "evidence_items": 394,
+      "required_candidate_dispositions": 111,
+      "validation_errors": [],
+      "identical_native_rebuild": true,
+      "requests": [
+        {
+          "role": "specialist-a",
+          "wire_bytes": 667760,
+          "request_sha256": "b3e28033f4eae7cccc759ad2007f6ed0e9414c3b02083f9b25fb2a7be16cfa7f",
+          "measurement": "exact structural render; placeholder random invocation ID of identical length",
+          "output_limit_tokens": 32000
+        },
+        {
+          "role": "specialist-b",
+          "wire_bytes": 667760,
+          "request_sha256": "c4efb79a761f8a3b0eff5d20e9787d84c454e4775524c395fe3fd25172a38c4b",
+          "measurement": "exact structural render; placeholder random invocation ID of identical length",
+          "output_limit_tokens": 32000
+        },
+        {
+          "role": "adjudicator",
+          "wire_bytes": 667235,
+          "request_sha256": "a8913086467f09f5b0f5d84f9b89da76badce4d6d6dddb1977517cfc63afc9ce",
+          "measurement": "base-only lower bound; actual two validated specialist outputs unavailable",
+          "output_limit_tokens": 32000
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Native runner has no shared dollar cap or durable predispatch reservation journal",
+    "Run directory and specialist output persistence happen after adjudicator success; failures risk losing usable intermediate outputs",
+    "Three calls per family at proposed max_attempts=1,max_validation_repairs=0; independent review is additional and not configured here",
+    "32k output bound is proposed and unqualified for this new workload",
+    "No fresh metadata/tokenization or dollar reservation computed; bytes are not actual tokens",
+    "External service research is not injected into governing source pack",
+    "Adjudicator requests are lower bounds, not executable requests: empty placeholder specialist array intentionally not valid runtime output"
+  ]
+}
