@@ -39,3 +39,21 @@ reviewed guard-fixed source passed all 538 discovered tests in 63 modules with
 exact executed-ID coverage and unchanged shared readonly inputs; its byte-identical
 [summary](guard-fixed-suite-summary.json) is hash-bound by the receipt.
 Publication and deterministic replay make no additional model calls.
+
+## Workload accounting manifest
+
+[The publication manifest](publication-manifest.json) uses schema version 2 to bind
+six accepted workflow records directly to their existing replay-archive members.
+The `workflow_dir` names a virtual repository-relative namespace; it does not claim
+that extracted workflow files exist there. Each `archived_files` entry binds the
+archive path, exact member name, and member-byte SHA-256. The `files` inventory
+binds the original archive bytes and transport inventory, the published closure,
+and cumulative canonical release and activation artifacts. Original workflow
+bytes, historical source bindings, and accepted review outputs are unchanged.
+
+This manifest lets the offline workload report verify the accepted preview,
+review, closure, and still-active graph lineage without restoring historical
+absolute paths or duplicating the workflow payload. It supplies binding-only
+workload accounting, not full research replay, provider-accounting replay, new
+research, acquisition eligibility, or evaluation scores. Completion does not
+resolve the lease boundary's retained gaps or its unresolved dispositions.

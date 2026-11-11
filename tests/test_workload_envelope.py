@@ -1,12 +1,15 @@
 """Offline workload accounting and publication binding regressions."""
 import copy
 import json
+import hashlib
+import zipfile
 from pathlib import Path
 import shutil
 import subprocess
 import tempfile
 import unittest
 
+from turbo.agents.batch_workflow import _hash as workflow_hash
 from turbo.agents.boundary_harness import canonical_sha256
 from turbo.pipeline_paths import ROOT
 from turbo.universe.family_pack_v2 import _verified_graph, _verified_schedule
@@ -15,6 +18,7 @@ from turbo.universe.workload_envelope import (
 )
 
 MANIFEST = 'data/research_pilots/small-qualification-20261109/publication-manifest.json'
+LEASE_MANIFEST = 'data/research_pilots/lease-qualification-20261110/publication-manifest.json'
 
 
 class WorkloadEnvelopeTest(unittest.TestCase):
@@ -62,6 +66,46 @@ class WorkloadEnvelopeTest(unittest.TestCase):
     def test_historical_duplicate_manifest_is_idempotent(self):
         self.assertEqual(build_report(root=self.historical_root, publication_manifests=[MANIFEST]),
                          build_report(root=self.historical_root, publication_manifests=[MANIFEST, MANIFEST]))
+
+    def test_current_six_market_report_with_archived_lease_workflow(self):
+        manifests = [MANIFEST, LEASE_MANIFEST]
+        report = build_report(root=ROOT, publication_manifests=manifests)
+        self.assertEqual(report['completed_batch_closure_work'],
+                         {'families': 3, 'required_identities': 12, 'required_candidates': 2})
+        self.assertEqual(report['remaining'], {'families': 1015, 'required_identities': 8170,
+                         'required_candidates': 974, 'batches_with_remaining_work': 129})
+        self.assertEqual(len(report['retained_gaps']['all_distinct_ids']), 10)
+        self.assertIn('gap:52528f2baf5c9622:lease-administration-boundary',
+                      report['retained_gaps']['all_distinct_ids'])
+        self.assertFalse(report['retained_gaps']['resolved_by_completion'])
+        self.assertEqual(report, build_report(root=ROOT,
+                         publication_manifests=manifests + [LEASE_MANIFEST, MANIFEST]))
+
+    def test_rehashed_archive_cannot_replace_exact_approved_preview(self):
+        manifest = json.loads((ROOT / LEASE_MANIFEST).read_text())
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw).resolve()
+            for name in manifest['files']:
+                target = root / name; target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / name, target)
+            shutil.copytree(ROOT / 'schemas', root / 'schemas')
+            virtual = manifest['workflow_dir'] + '/release_reviewer.json'
+            ref = manifest['archived_files'][virtual]; archive_path = root / ref['archive_path']
+            with zipfile.ZipFile(archive_path) as archive:
+                entries = [(entry, archive.read(entry)) for entry in archive.infolist()]
+            reviewer = json.loads(next(content for entry, content in entries if entry.filename == ref['member']))
+            reviewer['document']['approved_plan_sha256'] = '0' * 64
+            reviewer['submission_sha256'] = workflow_hash({k: v for k, v in reviewer.items() if k != 'submission_sha256'})
+            replacement = json.dumps(reviewer).encode()
+            with zipfile.ZipFile(archive_path, 'w') as archive:
+                for entry, content in entries:
+                    archive.writestr(entry, replacement if entry.filename == ref['member'] else content)
+            ref['sha256'] = hashlib.sha256(replacement).hexdigest()
+            manifest['files'][ref['archive_path']] = hashlib.sha256(archive_path.read_bytes()).hexdigest()
+            path = root / LEASE_MANIFEST; path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps(manifest))
+            with self.assertRaisesRegex(ValueError, 'exact approved preview binding mismatch'):
+                _published_closure(root, LEASE_MANIFEST, self.schedule, self.families, self.receipt, self.projection)
 
     def test_current_six_market_graph_rejects_small_manifest_only(self):
         self.assertEqual(len(self.projection['markets']), 6)
